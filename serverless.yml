@@ -1,0 +1,43 @@
+# Welcome to serverless. Read the docs
+# https://serverless.com/framework/docs/
+
+# Serverless.yml is the configuration the CLI
+# uses to deploy your code to your provider of choice
+
+# The `service` block is the name of the service
+service: serverless-json-server
+
+package:
+  individually: false
+  excludeDevDependencies: true
+  include:
+    - dist/**
+    - node_modules/**
+  exclude: 
+    - src/**
+
+
+# The `provider` block defines where your service will be deployed
+provider:
+  stage: ${opt:stage, 'dev'}
+  name: aws
+  runtime: nodejs8.10
+  region: "eu-central-1"
+  apiKeys:
+    - ${self:service}.${self:provider.stage}
+# The `functions` block defines what code to deploy
+functions:
+  app:
+    handler: /dist/server.handler
+    # The `events` block defines how to trigger the handler.helloWorld code
+    events:
+      - http: 
+          path: /
+          method: ANY
+          cors: true
+          private: true
+      - http: 
+          path: "{proxy+}"
+          method: ANY
+          cors: true
+          private: true
