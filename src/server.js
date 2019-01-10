@@ -1,26 +1,34 @@
 'use strict';
-var s3storage = require('./s3');
+const low = require('lowdb');
+const s3Storage = require('lowdb-s3');
 var serverless = require('serverless-http');
 var jsonServer = require('json-server');
-const low = require('lowdb')
-var server = jsonServer.create()
-const storage = low(new s3storage())
-var router = jsonServer.router(storage)
-var middlewares = jsonServer.defaults()
+const storage = new s3Storage(process.env.S3BUCKET, process.env.S3FILE);
 
-server.use(middlewares)
-server.use(router)
-
-server.start = function () {
-  // start the web server
-  return server.listen(3000, () => {
-    console.log('JSON Server is running')
+var server = jsonServer.create();
+low(storage)
+  .then(db => {
+    var router = jsonServer.router(db)
+    var middlewares = jsonServer.defaults({readOnly: process.env.READONLY});
+    server.use(middlewares)
+    server.use(router)
+    server.start = function () {
+      // start the web server
+      return server.listen(3000, () => {
+        console.log('JSON Server is running')
+      });
+    };
+    
+    if (require.main === module) {
+      server.start();
+    }
+    
+    
+    
   });
-};
 
-if (require.main === module) {
-  server.start();
-}
-const serverlessApp = serverless(server);
+  const serverlessApp = serverless(server);
+  export {server as default,  serverlessApp as handler};
 
-export {server as default,  serverlessApp as handler};
+
+

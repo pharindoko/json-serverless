@@ -16,6 +16,9 @@ package:
   exclude: 
     - src/**
 
+custom: 
+  s3bucket: ${self:service}-${self:provider.stage}-bucket
+  s3jsonfile: ${self:service}-${self:provider.stage}-file.json
 
 # The `provider` block defines where your service will be deployed
 provider:
@@ -23,8 +26,32 @@ provider:
   name: aws
   runtime: nodejs8.10
   region: "eu-central-1"
+  environment:
+    S3BUCKET: ${self:custom.s3bucket}
+    S3FILE: ${self:custom.s3jsonfile}
+    READONLY: false
+
   apiKeys:
     - ${self:service}.${self:provider.stage}
+  iamRoleStatements:
+    -  Effect: "Allow"
+       Action:
+         - "s3:ListBucket"
+       Resource:
+         Fn::Join:
+           - ""
+           - - "arn:aws:s3:::"
+             - Ref: ServerlessDeploymentBucket
+    -  Effect: "Allow"
+       Action:
+         - "s3:PutObject"
+         - "s3:GetObject"
+       Resource:
+         Fn::Join:
+           - ""
+           - - "arn:aws:s3:::"
+             - Ref: ServerlessDeploymentBucket
+             - "/*"
 # The `functions` block defines what code to deploy
 functions:
   app:
@@ -41,3 +68,9 @@ functions:
           method: ANY
           cors: true
           private: true
+resources:
+  Resources:
+    ServerlessDeploymentBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.s3bucket}
