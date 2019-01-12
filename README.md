@@ -137,9 +137,9 @@ Serverless: Removing old service artifacts from S3...
  * Enter as Url the endpoints url 
 
 ```
-    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{endpoint}
+    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
 ```
-
+What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
 
 
@@ -176,5 +176,8 @@ To test you can use e.g. [Postman](https://www.getpostman.com/)
 * Enter as Url the endpoints url 
 
 ```
-    https://localhost:3000/{endpoint}
+    https://localhost:3000/{route}
 ```
+
+
+What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
