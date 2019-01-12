@@ -13,7 +13,7 @@ console.log('S3FILE: ' + process.env.S3FILE);
 console.log('S3BUCKET: ' + process.env.S3BUCKET);
 console.log('READONLY: ' + process.env.READONLY);
 var server = jsonServer.create();
-const storage = new AwsAdapter(process.env.S3FILE, { defaultValue: {"basic": {"hello":"world"}}, aws: { bucketName: process.env.S3BUCKET } });
+const storage = new AwsAdapter(process.env.S3FILE, { defaultValue: { "basic": { "hello": "world" } }, aws: { bucketName: process.env.S3BUCKET } });
 
 const request = async () => {
   const adapter = await low(storage);
@@ -27,10 +27,10 @@ const request = async () => {
     // start the web server
     const port = 3000;
     return server.listen(port, () => {
-      console.log('JSON Server is running under port 3000. Use http://localhost:'+ port + ' to access it')
+      console.log('JSON Server is running under port 3000. Use http://localhost:' + port + ' to access it')
     });
   };
-  
+
   if (require.main === module) {
     server.start();
   }
@@ -42,5 +42,6 @@ module.exports.handler = async (event, context) => {
   await request();
   return await handler(event, context);
 };
-
-request();
+if (require.main === module) {
+  request();
+}
