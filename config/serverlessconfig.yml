@@ -1,0 +1,3 @@
+S3FILE: "serverless-json-server-dev-file.json"
+S3BUCKET: "serverless-json-server-test"
+READONLY: false
