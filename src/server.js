@@ -13,8 +13,6 @@ if (process.env.NODE_ENV === 'local') {
   require('dotenv').load();
 }
 
-console.log(process.env.LOGLEVEL);
-
 logger.info('S3FILE: ' + process.env.S3FILE);
 logger.info('S3BUCKET: ' + process.env.S3BUCKET);
 logger.info('READONLY: ' + process.env.READONLY);
