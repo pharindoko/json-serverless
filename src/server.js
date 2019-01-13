@@ -24,7 +24,7 @@ const request = async () => {
     const adapter = await low(storage);
     logger.info('storage initialized');
     const router = jsonServer.router(adapter)
-    const middlewares = jsonServer.defaults();
+    const middlewares = jsonServer.defaults({readOnly: process.env.READONLY == 'true' ? true: false });
     server.use(middlewares);
     server.use(router);
   } catch (e) {
