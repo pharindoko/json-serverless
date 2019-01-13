@@ -60,7 +60,7 @@ functions:
           private: true
 resources:
   Resources:
-    S3BucketPhotos:
+    S3BucketStorage:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:custom.file.S3BUCKET}
