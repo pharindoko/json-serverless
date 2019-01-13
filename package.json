@@ -44,6 +44,6 @@
     "@babel/node": "7.2.2",
     "@babel/polyfill": "7.2.5",
     "@babel/preset-env": "7.2.3",
-    "pino-pretty": "^2.5.0"
+    "pino-pretty": "2.5.0"
   }
 }
