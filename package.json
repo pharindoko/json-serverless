@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_ENV=local babel-node  src/server.js --inspect",
-    "build": "babel src -d dist -D"
+    "build": "babel src -d dist -D",
+    "deploy": "npm run build && serverless deploy --stage=dev"
   },
   "babel": {
     "presets": [

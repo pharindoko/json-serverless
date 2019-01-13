@@ -5,24 +5,22 @@
 
 # json-server-less-λ
 * Easily deploy json-server in the AWS cloud
-
 - [json-server-less-λ](#json-server-less-%CE%BB)
   - [Purpose](#purpose)
   - [Packages used](#packages-used)
-  - [Compontents](#compontents)
+  - [Components](#components)
   - [Get started / Installation](#get-started--installation)
       - [1. Clone solution](#1-clone-solution)
       - [2. Install serverless framework](#2-install-serverless-framework)
       - [3. Verify / Set AWS Credentials](#3-verify--set-aws-credentials)
   - [Deployment on AWS](#deployment-on-aws)
-      - [1. Build solution with babel](#1-build-solution-with-babel)
-      - [2. Adapt settings in config/servleressconfig.yml file](#2-adapt-settings-in-configservleressconfigyml-file)
-      - [3. Deploy solution with serverless framework](#3-deploy-solution-with-serverless-framework)
-      - [4. Test your API](#4-test-your-api)
+      - [1. Adapt settings in config/servleressconfig.yml file](#1-adapt-settings-in-configservleressconfigyml-file)
+      - [2. Deploy solution with serverless framework](#2-deploy-solution-with-serverless-framework)
+      - [3. Test your API](#3-test-your-api)
   - [Develop or test locally](#develop-or-test-locally)
       - [1. Add .env file to root folder](#1-add-env-file-to-root-folder)
       - [2. Start solution](#2-start-solution)
-      - [3. Test your API](#3-test-your-api)
+      - [3. Test your API](#3-test-your-api-1)
 
 
 ## Purpose
@@ -41,7 +39,7 @@
 * [serverless http](https://github.com/dougmoscrop/serverless-http)
 * [lowdb-adapter-aws-s3](https://github.com/nicekiwi/lowdb-adapter-aws-s3)
 
-## Compontents
+## Components
 * [NodeJS 8.10](https://nodejs.org/en/about/) 
 * [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 * [AWS Lambda](https://aws.amazon.com/lambda/features/)
@@ -86,25 +84,20 @@ Required for deployment in AWS (for serverless framework)
 ## Deployment on AWS
 Deployment will be done via serverless framework
 
-#### 1. Build solution with babel
+#### 1. Adapt settings in config/servleressconfig.yml file
+
+| Attribute  | Description  | Type | Default |
+|---|---|---|---|
+| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
+| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
+
+#### 2.  Deploy solution with serverless framework
 ```bash
-npm run build
+npm run deploy # build first, then deploy as dev - stage via serverless framework
 ```
 
-#### 2. Adapt settings in config/servleressconfig.yml file
-
-| Attribute  | Description  |
-|---|---|
-| S3FILE  | JSON file used as db to read and write (will be created with a default json value - can be customized in server.js)  |
-| S3BUCKET  | S3-Bucket that will be created automatically  |
-| READONLY  | all API - write operations are forbidden (http 403))  |
-
-#### 3.  Deploy solution with serverless framework
-```bash
-serverless deploy --stage=dev # define the stage with the stage parameter
-```
-
-#### 4. Test your API
+#### 3. Test your API
 You can use e.g. [Postman](https://www.getpostman.com/)
 
 
@@ -161,11 +154,11 @@ cp .env.sample .env
 
 * Required: Adapt settings in .env file
 
-| Attribute  | Description  |
-|---|---|
-| S3FILE  | JSON File used as db to read and write (will be created with a default json value - can be customized in server.js)   |
-| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  |
-| READONLY  | all API - write operations are forbidden (http 403))  |
+| Attribute  | Description  | Type | Default |
+|---|---|---|---|
+| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
+| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
 
 #### 2. Start solution
 
