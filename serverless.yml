@@ -20,10 +20,10 @@ custom:
   file: ${file(./config/serverlessconfig.yml)} 
 # The `provider` block defines where your service will be deployed
 provider:
-  stage: ${opt:stage}
+  stage: ${opt:stage, 'dev'}
   name: aws
   runtime: nodejs8.10
-  region: "eu-central-1"
+  region: ${opt:region, 'eu-central-1'}
   environment:
     S3BUCKET: ${self:custom.file.S3BUCKET}
     S3FILE: ${self:custom.file.S3FILE}
