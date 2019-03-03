@@ -36,6 +36,17 @@ const request = async () => {
     const router = jsonServer.router(adapter);
     const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
     server.use(middlewares);
+    server.use(async (req, res, next) => {
+      if (req.method === 'POST' && req.path === '/reset') {
+        logger.info('reset database');
+        let state = router.db.read();
+        if (!state) {
+          state = defaultDB;
+        }
+        router.db.setState(state);
+      }
+      next();
+    });
     server.use(router);
   } catch (e) {
     if (e.code === 'ExpiredToken') {
