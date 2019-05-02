@@ -38,7 +38,7 @@
     "lowdb": "^1.0.0",
     "lowdb-adapter-aws-s3": "^1.1.2",
     "pino": "^5.10.6",
-    "serverless-http": "^1.8.0"
+    "serverless-http": "^2.0.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.4",
