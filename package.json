@@ -5,7 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=local babel-node  src/server.js --inspect",
+    "start": "NODE_ENV=local  nodemon --exec babel-node src/server.js --inspect",
     "build": "babel src -d dist -D",
     "deploy": "npm run build && serverless deploy --stage=dev"
   },
@@ -49,6 +49,7 @@
     "eslint": "5.16.0",
     "eslint-config-airbnb-base": "13.1.0",
     "eslint-plugin-import": "2.17.2",
+    "nodemon": "^1.19.0",
     "pino-pretty": "3.0.0"
   }
 }
