@@ -28,18 +28,15 @@ npm run build
 ```
 
 5. Update db.json in root directory
-Childproperties are the routes you can select
-Samplefile: Routes marked <b>bold</b>
+
+- Childproperties are the routes you can select
+- Samplefile: Routes marked <b>bold</b>
 
 <pre><code>
 {
-  "<b>posts</b>": [
-    { "id": 1, "title": "json-server", "author": "typicode" }
-  ],
-  "<b>comments</b>": [
-    { "id": 1, "body": "some comment", "postId": 1 }
-  ],
-  "<b>profile</b>": { "name": "typicode" }
+    "<b>basic</b>": {
+        "hello": "world"
+    }
 }
 </code></pre>
 
@@ -48,30 +45,6 @@ Samplefile: Routes marked <b>bold</b>
 # set --stage parameter for different stages
 serverless deploy --stage dev
 ```
-
-## Customization
-
-#### Update content of db.json
-1. update db.json file
-2. re-deploy the stack via
-   ```bash
-    sls deploy
-   ```
-3. delete db.json file in S3 Bucket
-
-=> With the next request a new db.json file will be created in the S3 Bucket.
-
-#### Change Stackname
-[edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
-
-
-#### Adapt settings in config/servleressconfig.yml file
-
-| Attribute  | Description  | Type | Default |
-|---|---|---|---|
-| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
-| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
-| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
 
 
 ## Test your API
@@ -115,6 +88,33 @@ Serverless: Removing old service artifacts from S3...
 ```
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
+
+
+## Customization
+
+#### Update content of db.json
+1. update db.json file
+2. re-deploy the stack via
+   ```bash
+    sls deploy
+   ```
+3. delete db.json file in S3 Bucket
+
+=> With the next request a new db.json file will be created in the S3 Bucket.
+
+#### Change Stackname
+[edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
+
+
+#### Adapt settings in config/servleressconfig.yml file
+
+| Attribute  | Description  | Type | Default |
+|---|---|---|---|
+| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
+| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
+
+
 ## Purpose
 
 * I needed to create a demo backend for my frontend solution
@@ -131,12 +131,12 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 * [serverless http](https://github.com/dougmoscrop/serverless-http)
 * [lowdb-adapter-aws-s3](https://github.com/nicekiwi/lowdb-adapter-aws-s3)
 
+
 ## Components
 * [NodeJS 8.10](https://nodejs.org/en/about/) 
 * [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 * [AWS Lambda](https://aws.amazon.com/lambda/features/)
 * [AWS S3](https://aws.amazon.com/s3/)
-
 
 
 ## Develop or test locally
@@ -154,7 +154,7 @@ cp .env.sample .env
 
 | Attribute  | Description  | Type | Default |
 |---|---|---|---|
-| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
+| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
 | S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
 | READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
 
@@ -168,7 +168,7 @@ npm run start
 To test you can use e.g. [Postman](https://www.getpostman.com/)
 
 
-2. Open Postman
+* Open Postman
 * Enter as Url the endpoints url 
 
 ```

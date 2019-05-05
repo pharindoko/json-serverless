@@ -48,7 +48,8 @@ const request = async () => {
 const handler = serverless(server);
 module.exports.handler = async (event, context) => {
   await request();
-  await handler(event, context);
+  const result = await handler(event, context);
+  return result;
 };
 
 function start() {
