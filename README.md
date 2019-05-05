@@ -93,14 +93,14 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 ## Customization
 
 #### Update content of db.json
-1. update db.json file
-2. re-deploy the stack via
+1. update local db.json file in root directory with new values
+2. re-deploy the stack via serverless framework
    ```bash
     sls deploy
    ```
 3. delete db.json file in S3 Bucket
 
-=> With the next request a new db.json file will be created in the S3 Bucket.
+=> With the next request a new db.json file will be created in the S3 Bucket
 
 #### Change Stackname
 [edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
