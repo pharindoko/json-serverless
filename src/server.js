@@ -14,7 +14,7 @@ const logger = require('pino')({
 if (process.env.NODE_ENV === 'local') {
   logger.info('load variables from .env file');
   // eslint-disable-next-line global-require
-  require('dotenv').load();
+  dotenv.config();
 }
 
 logger.info(`S3FILE: ${process.env.S3FILE}`);
