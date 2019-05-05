@@ -3,86 +3,39 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
-# json-server-less-λ
-* Easily deploy json-server in the AWS cloud
-- [json-server-less-λ](#json-server-less-%CE%BB)
-  - [Purpose](#purpose)
-  - [Packages used](#packages-used)
-  - [Components](#components)
-  - [Get started / Installation](#get-started--installation)
-      - [1. Clone solution](#1-clone-solution)
-      - [2. Install serverless framework](#2-install-serverless-framework)
-      - [3. Verify / Set AWS Credentials](#3-verify--set-aws-credentials)
-  - [Deployment on AWS](#deployment-on-aws)
-      - [1. Adapt settings in config/servleressconfig.yml file](#1-adapt-settings-in-configservleressconfigyml-file)
-      - [2. Deploy solution with serverless framework](#2-deploy-solution-with-serverless-framework)
-      - [3. Test your API](#3-test-your-api)
-  - [Develop or test locally](#develop-or-test-locally)
-      - [1. Add .env file to root folder](#1-add-env-file-to-root-folder)
-      - [2. Start solution](#2-start-solution)
-      - [3. Test your API](#3-test-your-api-1)
-
-
-## Purpose
-
-* I needed to create a demo backend for my frontend solution
-* This is a simple API secured via API Key and https, which can be used for demo purposes or additional enhanced scenarios adding user authentication, etc.
-* It can be created within minutes
-* AWS Lambda is a good solution to host such an api as the first million invocations per month are free.
-* Less maintenance as the deployed solution runs **serverless**
-* This is just a starter project and can be enhanced in any directions
-  
-
-## Packages used
-* [json-server](https://github.com/typicode/json-server)
-* [serverless framework](https://serverless.com/)
-* [serverless http](https://github.com/dougmoscrop/serverless-http)
-* [lowdb-adapter-aws-s3](https://github.com/nicekiwi/lowdb-adapter-aws-s3)
-
-## Components
-* [NodeJS 8.10](https://nodejs.org/en/about/) 
-* [AWS API Gateway](https://aws.amazon.com/api-gateway/)
-* [AWS Lambda](https://aws.amazon.com/lambda/features/)
-* [AWS S3](https://aws.amazon.com/s3/)
-
-## Get started / Installation
-
-#### 1. Clone solution
-
+## Quickstart
+1. Clone Solution
 ```bash
-    git clone https://github.com/pharindoko/json-server-less-lambda.git 
-    cd json-server-less-lambda
-```
-#### 2. Install serverless framework
-
-```bash
-    npm install -g serverless
-    npm install
+git clone https://github.com/pharindoko/json-server-less-lambda.git 
+cd json-server-less-lambda
 ```
 
-#### 3. Verify / Set AWS Credentials
-Required for deployment in AWS (for serverless framework)
-
-* Set credentials manually in terminal 
+2. Install dependencies
 ```bash
-    #export as environment variables
-    export AWS_ACCESS_KEY_ID=XXXXXXXXXXXX
-    export AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXX
-    export AWS_DEFAULT_REGION= e.g. us-east-1
+npm install -g serverless
+npm i
 ```
 
-**OR**
-
-* Set via aws-cli
+3. Verify AWS Access
 ```bash
-    aws configure list      #list current config
-    aws configure           #set config
+aws sts get-caller-identity
 ```
 
+4. Build
+```bash
+npm run build
+```
+
+5. Deploy via Serverless Framework
+```bash
+serverless deploy --stage dev
+```
+##
 
 
-## Deployment on AWS
-Deployment will be done via serverless framework
+
+
+## Customization
 
 #### 1. Adapt settings in config/servleressconfig.yml file
 
@@ -92,17 +45,13 @@ Deployment will be done via serverless framework
 | S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
 | READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
 
-#### 2.  Deploy solution with serverless framework
-```bash
-npm run deploy # build first, then deploy as dev - stage via serverless framework
-```
 
-#### 3. Test your API
+## Test your API
 You can use e.g. [Postman](https://www.getpostman.com/)
 
 
 1. When the deployment with serverless framework was successful you can see following output:
-```bash
+```
 Service Information
 service: serverless-json-server
 stage: dev
@@ -138,6 +87,28 @@ Serverless: Removing old service artifacts from S3...
     https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
 ```
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+
+## Purpose
+
+* I needed to create a demo backend for my frontend solution
+* This is a simple API secured via API Key and https, which can be used for demo purposes or additional enhanced scenarios adding user authentication, etc.
+* It can be created within minutes
+* AWS Lambda is a good solution to host such an api as the first million invocations per month are free.
+* Less maintenance as the deployed solution runs **serverless**
+* This is just a starter project and can be enhanced in any directions
+  
+
+## Packages used
+* [json-server](https://github.com/typicode/json-server)
+* [serverless framework](https://serverless.com/)
+* [serverless http](https://github.com/dougmoscrop/serverless-http)
+* [lowdb-adapter-aws-s3](https://github.com/nicekiwi/lowdb-adapter-aws-s3)
+
+## Components
+* [NodeJS 8.10](https://nodejs.org/en/about/) 
+* [AWS API Gateway](https://aws.amazon.com/api-gateway/)
+* [AWS Lambda](https://aws.amazon.com/lambda/features/)
+* [AWS S3](https://aws.amazon.com/s3/)
 
 
 
