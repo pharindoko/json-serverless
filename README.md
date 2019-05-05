@@ -16,7 +16,8 @@ npm install -g serverless
 npm i
 ```
 
-3. Verify AWS Access
+3. Verify AWS Access / Credentials
+=> You need to have access to AWS to upload the solution.
 ```bash
 aws sts get-caller-identity
 ```
@@ -26,18 +27,45 @@ aws sts get-caller-identity
 npm run build
 ```
 
-5. Deploy via Serverless Framework
+5. Update db.json in root directory
+Childproperties are the routes you can select
+Samplefile: Routes marked <b>bold</b>
+
+<pre><code>
+{
+  "<b>posts</b>": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "<b>comments</b>": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "<b>profile</b>": { "name": "typicode" }
+}
+</code></pre>
+
+6. Deploy via Serverless Framework
 ```bash
+# set --stage parameter for different stages
 serverless deploy --stage dev
 ```
-##
-
-
-
 
 ## Customization
 
-#### 1. Adapt settings in config/servleressconfig.yml file
+#### Update content of db.json
+1. update db.json file
+2. re-deploy the stack via
+   ```bash
+    sls deploy
+   ```
+3. delete db.json file in S3 Bucket
+
+=> With the next request a new db.json file will be created in the S3 Bucket.
+
+#### Change Stackname
+[edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
+
+
+#### Adapt settings in config/servleressconfig.yml file
 
 | Attribute  | Description  | Type | Default |
 |---|---|---|---|
@@ -51,26 +79,25 @@ You can use e.g. [Postman](https://www.getpostman.com/)
 
 
 1. When the deployment with serverless framework was successful you can see following output:
-```
+<pre>
+<code>
 Service Information
 service: serverless-json-server
 stage: dev
 region: eu-central-1
 stack: serverless-json-server-dev
 api keys:
-  serverless-json-server.dev: {API - KEY}
+  serverless-json-server.dev: <b>{API - KEY}</b>
 endpoints:
-  ANY - https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/
-  ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
+  ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/</b>
+  ANY - <b>https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}</b>
 functions:
   app: serverless-json-server-dev-app
 layers:
   None
 Serverless: Removing old service artifacts from S3...
-
-
-```
-
+</pre>
+</code>
 
 2. Open Postman
 * Create a GET Request 
@@ -78,7 +105,7 @@ Serverless: Removing old service artifacts from S3...
 
    |Key|           Value|
    |---|---|
-   |x-api-key | XXXXXXXXXXXXXXX|
+   |x-api-key | {API - KEY}|
    |Content-Type | application/json|
 
  * Enter as Url the endpoints url 
