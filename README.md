@@ -3,25 +3,117 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
-# json-server-less-λ
-* Easily deploy json-server in the AWS cloud
-- [json-server-less-λ](#json-server-less-%CE%BB)
-  - [Purpose](#purpose)
-  - [Packages used](#packages-used)
-  - [Components](#components)
-  - [Get started / Installation](#get-started--installation)
-      - [1. Clone solution](#1-clone-solution)
-      - [2. Install serverless framework](#2-install-serverless-framework)
-      - [3. Verify / Set AWS Credentials](#3-verify--set-aws-credentials)
-  - [Deployment on AWS](#deployment-on-aws)
-      - [1. Adapt settings in config/servleressconfig.yml file](#1-adapt-settings-in-configservleressconfigyml-file)
-      - [2. Deploy solution with serverless framework](#2-deploy-solution-with-serverless-framework)
-      - [3. Test your API](#3-test-your-api)
-  - [Develop or test locally](#develop-or-test-locally)
-      - [1. Add .env file to root folder](#1-add-env-file-to-root-folder)
-      - [2. Start solution](#2-start-solution)
-      - [3. Test your API](#3-test-your-api-1)
+## Quickstart
+1. Clone Solution
+```bash
+git clone https://github.com/pharindoko/json-server-less-lambda.git 
+cd json-server-less-lambda
+```
 
+2. Install dependencies
+```bash
+npm install -g serverless
+npm i
+```
+
+3. Verify AWS Access / Credentials
+=> You need to have access to AWS to upload the solution.
+```bash
+aws sts get-caller-identity
+```
+
+4. Build
+```bash
+npm run build
+```
+
+5. Update db.json in root directory
+Childproperties are the routes you can select
+Samplefile: Routes marked <b>bold</b>
+
+<pre><code>
+{
+  "<b>posts</b>": [
+    { "id": 1, "title": "json-server", "author": "typicode" }
+  ],
+  "<b>comments</b>": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+  "<b>profile</b>": { "name": "typicode" }
+}
+</code></pre>
+
+6. Deploy via Serverless Framework
+```bash
+# set --stage parameter for different stages
+serverless deploy --stage dev
+```
+
+## Customization
+
+#### Update content of db.json
+1. update db.json file
+2. re-deploy the stack via
+   ```bash
+    sls deploy
+   ```
+3. delete db.json file in S3 Bucket
+
+=> With the next request a new db.json file will be created in the S3 Bucket.
+
+#### Change Stackname
+[edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
+
+
+#### Adapt settings in config/servleressconfig.yml file
+
+| Attribute  | Description  | Type | Default |
+|---|---|---|---|
+| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
+| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
+
+
+## Test your API
+You can use e.g. [Postman](https://www.getpostman.com/)
+
+
+1. When the deployment with serverless framework was successful you can see following output:
+<pre>
+<code>
+Service Information
+service: serverless-json-server
+stage: dev
+region: eu-central-1
+stack: serverless-json-server-dev
+api keys:
+  serverless-json-server.dev: <b>{API - KEY}</b>
+endpoints:
+  ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/</b>
+  ANY - <b>https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}</b>
+functions:
+  app: serverless-json-server-dev-app
+layers:
+  None
+Serverless: Removing old service artifacts from S3...
+</pre>
+</code>
+
+2. Open Postman
+* Create a GET Request 
+   Add as header the Api Key
+
+   |Key|           Value|
+   |---|---|
+   |x-api-key | {API - KEY}|
+   |Content-Type | application/json|
+
+ * Enter as Url the endpoints url 
+
+```
+    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
+```
+What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
 ## Purpose
 
@@ -44,100 +136,6 @@
 * [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 * [AWS Lambda](https://aws.amazon.com/lambda/features/)
 * [AWS S3](https://aws.amazon.com/s3/)
-
-## Get started / Installation
-
-#### 1. Clone solution
-
-```bash
-    git clone https://github.com/pharindoko/json-server-less-lambda.git 
-    cd json-server-less-lambda
-```
-#### 2. Install serverless framework
-
-```bash
-    npm install -g serverless
-    npm install
-```
-
-#### 3. Verify / Set AWS Credentials
-Required for deployment in AWS (for serverless framework)
-
-* Set credentials manually in terminal 
-```bash
-    #export as environment variables
-    export AWS_ACCESS_KEY_ID=XXXXXXXXXXXX
-    export AWS_SECRET_ACCESS_KEY=XXXXXXXXXXXXXX
-    export AWS_DEFAULT_REGION= e.g. us-east-1
-```
-
-**OR**
-
-* Set via aws-cli
-```bash
-    aws configure list      #list current config
-    aws configure           #set config
-```
-
-
-
-## Deployment on AWS
-Deployment will be done via serverless framework
-
-#### 1. Adapt settings in config/servleressconfig.yml file
-
-| Attribute  | Description  | Type | Default |
-|---|---|---|---|
-| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |json-server-less-lambda-dev.json |
-| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
-| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
-
-#### 2.  Deploy solution with serverless framework
-```bash
-npm run deploy # build first, then deploy as dev - stage via serverless framework
-```
-
-#### 3. Test your API
-You can use e.g. [Postman](https://www.getpostman.com/)
-
-
-1. When the deployment with serverless framework was successful you can see following output:
-```bash
-Service Information
-service: serverless-json-server
-stage: dev
-region: eu-central-1
-stack: serverless-json-server-dev
-api keys:
-  serverless-json-server.dev: {API - KEY}
-endpoints:
-  ANY - https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/
-  ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
-functions:
-  app: serverless-json-server-dev-app
-layers:
-  None
-Serverless: Removing old service artifacts from S3...
-
-
-```
-
-
-2. Open Postman
-* Create a GET Request 
-   Add as header the Api Key
-
-   |Key|           Value|
-   |---|---|
-   |x-api-key | XXXXXXXXXXXXXXX|
-   |Content-Type | application/json|
-
- * Enter as Url the endpoints url 
-
-```
-    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
-```
-What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
 
 
