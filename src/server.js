@@ -5,6 +5,7 @@ const low = require('lowdb');
 const AwsAdapter = require('lowdb-adapter-aws-s3');
 const serverless = require('serverless-http');
 const jsonServer = require('json-server');
+const dotenv = require('dotenv');
 
 const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
 const logger = require('pino')({
