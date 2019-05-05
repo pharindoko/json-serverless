@@ -6,6 +6,7 @@ const AwsAdapter = require('lowdb-adapter-aws-s3');
 const serverless = require('serverless-http');
 const jsonServer = require('json-server');
 const dotenv = require('dotenv');
+const dynamicMiddleware = require('express-dynamic-middleware');
 
 const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
 const logger = require('pino')({
@@ -34,21 +35,40 @@ const request = async () => {
   try {
     const adapter = await low(storage);
     logger.info('storage initialized');
-    const router = jsonServer.router(adapter);
+    let router = jsonServer.router(adapter);
+    let dynamicRouter = dynamicMiddleware.create(router);
     const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
+
     server.use(middlewares);
+
+    server.use(jsonServer.bodyParser);
+    // eslint-disable-next-line consistent-return
     server.use(async (req, res, next) => {
-      if (req.method === 'POST' && req.path === '/reset') {
-        logger.info('reset database');
-        let state = router.db.read();
-        if (!state) {
-          state = defaultDB;
+      logger.info('reload/');
+      if (req.method === 'POST' && req.path === '/reload') {
+        if (req.body && Object.keys(req.body).length) {
+          logger.info(`reload: req.body: ${JSON.stringify(req.body)}`);
+          router.db.setState(req.body);
+          await router.db.write();
+          logger.info('reload: written to database');
+        } else {
+          logger.info('reload: reload database');
+          let state = await router.db.read();
+          if (!state && Object.keys(state).length) {
+            state = defaultDB;
+          }
+          logger.info(`reload: state: ${JSON.stringify(state)}`);
+          router.db = state;
         }
-        router.db.setState(state);
+        dynamicRouter.unuse(router);
+        router = jsonServer.router(router.db);
+        dynamicRouter = dynamicMiddleware.create(router);
+        server.use(dynamicRouter.handle());
+        return res.sendStatus(200);
       }
       next();
     });
-    server.use(router);
+    server.use(dynamicRouter.handle());
   } catch (e) {
     if (e.code === 'ExpiredToken') {
       logger.error(`Please add valid credentials for AWS. Error: ${e.message}`);
