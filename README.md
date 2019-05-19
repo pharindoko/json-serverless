@@ -1,21 +1,27 @@
-# JSON Serverless
-[![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
-[![Build Status](https://travis-ci.org/pharindoko/json-server-less-lambda.svg?branch=master)](https://travis-ci.org/pharindoko/json-server-less-lambda)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-<a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
+# JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-server-less-lambda.svg?branch=master)](https://travis-ci.org/pharindoko/json-server-less-lambda) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
+
+  * [Features](#features)
+  * [Quickstart](#quickstart)
+  * [Test your API](#test-your-api)
+  * [Customization](#customization)
+  * [Packages used](#packages-used)
+  * [Components](#components)
+  * [Develop and test locally](#develop-and-test-locally)
 
 
 ## Features
-- Development: Easily setup routes and resources for the REST Api via json file. [(via json-server)](https://github.com/typicode/json-server)
-- Development: This solution written in **NodeJS** can be easily extended for additional enhanced scenarios
-    * adding user authentication
-    * own custom domain
-    * additional routes etc.
-- Development: Develop and test solution locally in Visual Studio Code
+- Development: 
+   - Easily setup routes and resources for the REST Api via json file. [(via json-server)](https://github.com/typicode/json-server)
+   - This solution written in **NodeJS** can be easily extended for additional enhanced scenarios
+      * adding user authentication
+      * own custom domain
+      * additional routes etc.
+   - Develop and test solution locally in Visual Studio Code
 - Security: This Api is secured via API Key and https by default.
-- Deployment: Almost **zero costs** (First million requests for Lambda are free)
-- Deployment: Deployed in AWS cloud based on AWS Lambda, Api Gateway and S3 Storage
-- Deployment: Less maintenance as the deployed solution runs **serverless**
+- Deployment: 
+   - Deployed in AWS cloud within Minutes by a single command
+   - Almost **zero costs** (First million requests for Lambda are free)
+   - Less maintenance as the deployed solution runs **serverless**
 
 ## Quickstart
 1. Clone Solution
@@ -144,7 +150,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 * [AWS S3](https://aws.amazon.com/s3/)
 
 
-## Develop or test locally
+## Develop and test locally
 
 #### 1. Add .env file to root folder
 
