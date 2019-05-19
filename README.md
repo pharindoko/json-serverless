@@ -1,13 +1,27 @@
+# JSON Serverless
 [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/)
 [![Build Status](https://travis-ci.org/pharindoko/json-server-less-lambda.svg?branch=master)](https://travis-ci.org/pharindoko/json-server-less-lambda)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
+
+## Features
+- Development: Easily setup routes and resources for the REST Api via json file. [(via json-server)](https://github.com/typicode/json-server)
+- Development: This solution written in **NodeJS** can be easily extended for additional enhanced scenarios
+    * adding user authentication
+    * own custom domain
+    * additional routes etc.
+- Development: Develop and test solution locally in Visual Studio Code
+- Security: This Api is secured via API Key and https by default.
+- Deployment: Almost **zero costs** (First million requests for Lambda are free)
+- Deployment: Deployed in AWS cloud based on AWS Lambda, Api Gateway and S3 Storage
+- Deployment: Less maintenance as the deployed solution runs **serverless**
+
 ## Quickstart
 1. Clone Solution
 ```bash
-git clone https://github.com/pharindoko/json-server-less-lambda.git 
-cd json-server-less-lambda
+git clone https://github.com/pharindoko/json-serverless.git 
+cd json-serverless
 ```
 
 2. Install dependencies
@@ -115,15 +129,6 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 | READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
 
 
-## Purpose
-
-* I needed to create a demo backend for my frontend solution
-* This is a simple API secured via API Key and https, which can be used for demo purposes or additional enhanced scenarios adding user authentication, etc.
-* It can be created within minutes
-* AWS Lambda is a good solution to host such an api as the first million invocations per month are free.
-* Less maintenance as the deployed solution runs **serverless**
-* This is just a starter project and can be enhanced in any directions
-  
 
 ## Packages used
 * [json-server](https://github.com/typicode/json-server)
