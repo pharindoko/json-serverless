@@ -12,3 +12,21 @@ patch:
         patched: '2019-07-04T01:45:17.073Z'
     - json-server > lowdb > lodash:
         patched: '2019-07-04T01:45:17.073Z'
+    - snyk > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > snyk-nuget-plugin > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > snyk-nodejs-lockfile-parser > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > inquirer > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > snyk-config > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > @snyk/dep-graph > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > snyk-nodejs-lockfile-parser > graphlib > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > snyk-go-plugin > graphlib > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
+    - snyk > @snyk/dep-graph > graphlib > lodash:
+        patched: '2019-07-12T12:41:48.582Z'
