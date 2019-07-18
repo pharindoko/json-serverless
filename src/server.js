@@ -9,15 +9,15 @@ const logger = require('pino')({
   prettyPrint: true,
 }, process.stderr);
 
-function startLocal() {
+function startLocal(port) {
+  logger.info('start local environment');
   const server = jsonServer.create();
   const router = jsonServer.router('db.json');
   const middlewares = jsonServer.defaults();
-
   server.use(middlewares);
   server.use(router);
-  server.listen(3000, () => {
-    logger.info('JSON Server is running');
+  server.listen(port, () => {
+    logger.info(`JSON Server is running under port ${port}. Use http://localhost:${port} to access it`);
   });
 }
 
@@ -33,7 +33,7 @@ function startInCloud() {
   const start = (port) => {
     // start the web server
     server.listen(port, () => {
-      logger.info(`JSON Server is running under port 3000. Use http://localhost:${port} to access it`);
+      logger.info(`JSON Server is running under port ${port}. Use http://localhost:${port} to access it`);
     });
   };
   const request = async () => {
@@ -64,8 +64,9 @@ function startInCloud() {
   }
 }
 if (process.env.NODE_ENV === 'local') {
-  startLocal();
+  startLocal(3000);
 } else if (process.env.NODE_ENV === 'diagnostic') {
+  logger.info('start diagnostic mode');
   logger.info('load variables from .env file');
   // eslint-disable-next-line global-require
   require('dotenv').config();
