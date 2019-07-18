@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "debug": "NODE_ENV=local  nodemon --exec babel-node src/server.js --inspect",
     "start": "NODE_ENV=local  nodemon --exec babel-node src/server.js",
-    "diagnose":  "NODE_ENV=diagnostic  nodemon --exec babel-node src/server.js --inspect",
+    "diagnostic": "NODE_ENV=diagnostic  nodemon --exec babel-node src/server.js --inspect",
     "build": "babel src -d dist -D",
     "deploy": "npm run build && serverless deploy --stage=dev",
     "snyk-protect": "snyk protect",
