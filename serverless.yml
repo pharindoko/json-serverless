@@ -5,7 +5,7 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service: json-server-less-lambda
+service: test-ff
 
 package:
   individually: false
