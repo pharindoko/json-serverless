@@ -24,30 +24,30 @@
    - Less maintenance as the deployed solution runs **serverless**
 
 ## Quickstart
-1. Clone Solution
+##### 1. Clone Solution
 ```bash
 git clone https://github.com/pharindoko/json-serverless.git 
 cd json-serverless
 ```
 
-2. Install dependencies
+##### 2. Install dependencies
 ```bash
 npm install -g serverless
 npm i
 ```
 
-3. Verify AWS Access / Credentials
+##### 3. Verify AWS Access / Credentials
 => You need to have access to AWS to upload the solution.
 ```bash
 aws sts get-caller-identity
 ```
 
-4. Build
+##### 4. Build
 ```bash
 npm run build
 ```
 
-5. Update db.json in root directory
+##### 5. Update db.json in root directory
 
 - Childproperties are the routes you can select
 - Samplefile: Routes marked <b>bold</b>
@@ -60,18 +60,12 @@ npm run build
 }
 </code></pre>
 
-6. Deploy via Serverless Framework
+##### 6. Deploy via Serverless Framework
 ```bash
 # set --stage parameter for different stages
 serverless deploy --stage dev
 ```
-
-
-## Test your API
-You can use e.g. [Postman](https://www.getpostman.com/)
-
-
-1. When the deployment with serverless framework was successful you can see following output:
+##### 7. When the deployment with serverless framework was successful you can see following output:
 <pre>
 <code>
 Service Information
@@ -83,7 +77,7 @@ api keys:
   serverless-json-server.dev: <b>{API - KEY}</b>
 endpoints:
   ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/</b>
-  ANY - <b>https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}</b>
+  ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
 functions:
   app: serverless-json-server-dev-app
 layers:
@@ -92,9 +86,25 @@ Serverless: Removing old service artifacts from S3...
 </pre>
 </code>
 
-2. Open Postman
-* Create a GET Request 
-   Add as header the Api Key
+##### 8. Test your Api
+##### With Curl:
+
+1. replace the url with the url provided by serverless (see above)
+2. replace the {API - KEY} with the key you get from serverless (see above)
+3. replace {route} at the end of the url e.g. with basic (default value)
+
+
+```
+Basic Schema:
+curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
+
+
+Default route is basic: (see db.json)
+curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/basic 
+```
+##### With Postman:
+
+* Create a new GET Request and add these values to the header section
 
    |Key|           Value|
    |---|---|
@@ -103,8 +113,9 @@ Serverless: Removing old service artifacts from S3...
 
  * Enter as Url the endpoints url 
 
-```
-    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
+```bash 
+    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route} 
+    # e.g. default value: https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/basic
 ```
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
@@ -149,10 +160,36 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 * [AWS Lambda](https://aws.amazon.com/lambda/features/)
 * [AWS S3](https://aws.amazon.com/s3/)
 
+## Develop locally
+db.json file will be loaded directly from your local filesystem. No AWS access is needed.
 
-## Develop and test locally
+#### 1. Start solution
+```
+npm run start
+```
+
+#### 2. Test your API
+
+To test you can use e.g. [Postman](https://www.getpostman.com/)
+
+
+* Open Postman
+* Enter as Url the endpoints url 
+
+```bash
+    https://localhost:3000/{route} #e.g. default value: https://localhost:3000/basic 
+```
+
+
+What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+
+
+
+## Diagnose locally
+In case of issues you can use this mode to load data with the same componentes (S3, LowDB) as json-server and execute it the same way as the lambda does.
 
 #### 1. Add .env file to root folder
+
 
 **Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework
 
@@ -172,8 +209,9 @@ cp .env.sample .env
 #### 2. Start solution
 
 ```bash
-npm run start
+npm run diagnostic
 ```
+
 #### 3. Test your API
 
 To test you can use e.g. [Postman](https://www.getpostman.com/)
@@ -182,8 +220,8 @@ To test you can use e.g. [Postman](https://www.getpostman.com/)
 * Open Postman
 * Enter as Url the endpoints url 
 
-```
-    https://localhost:3000/{route}
+```bash
+    https://localhost:3000/{route} #e.g. default value: https://localhost:3000/basic 
 ```
 
 
