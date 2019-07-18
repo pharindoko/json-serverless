@@ -5,7 +5,7 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service: test-ff
+service: json-serverless
 
 package:
   individually: false
