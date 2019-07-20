@@ -15,3 +15,7 @@ jobs:
     - stage: build
       script:
         - npm run build
+    - stage: test
+      script:
+        - npm run test
+      
