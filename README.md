@@ -83,8 +83,7 @@ functions:
 layers:
   None
 Serverless: Removing old service artifacts from S3...
-</pre>
-</code>
+</pre></code>
 
 ##### 8. Test your Api
 ##### With Curl:
