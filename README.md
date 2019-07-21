@@ -185,8 +185,8 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 
 
-## Diagnose locally
-In case of issues you can use this mode to load data with the same componentes (S3, LowDB) as json-server and execute it the same way as the lambda does.
+## Develop locally with cloud resources
+Use same componentes (S3, LowDB) as the lambda does but have code executed locally.
 
 #### 1. Add .env file to root folder
 
@@ -209,7 +209,7 @@ cp .env.sample .env
 #### 2. Start solution
 
 ```bash
-npm run diagnostic
+npm run dev
 ```
 
 #### 3. Test your API
@@ -226,3 +226,32 @@ To test you can use e.g. [Postman](https://www.getpostman.com/)
 
 
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+
+
+## Diagnose issues 
+serverless-offline will help you to troubleshoot issues with the lambda execution in a fast manner.
+
+#### 1. build sources and execute serverless offline
+
+- sources will be build with babel in advance to test the functionality.
+- after that sls offline will be started
+
+<pre><code>npm run diagnostic
+
+<u>Result:</u>
+Serverless: Starting Offline: dev/eu-central-1.
+Serverless: Key with token: <b>{API-KEY}</b>
+Serverless: Remember to use <b>x-api-key</b> on the request headers
+
+```
+</pre></code>
+
+#### 2. make api calls
+
+- Use a new terminal window and start to make api calls.
+- Replace {API-KEY} with the api key in the sls offline output (see above). 
+- Replace {route} with the route you want to test e.g. /basic
+
+<pre><code>
+curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" http://localhost:3000/{route}
+</pre></code>
