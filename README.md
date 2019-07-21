@@ -1,13 +1,13 @@
 # JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-server-less-lambda) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
-  * [Features](#features)
-  * [Quickstart](#quickstart)
-  * [Test your API](#test-your-api)
-  * [Customization](#customization)
-  * [Packages used](#packages-used)
-  * [Components](#components)
-  * [Develop and test locally](#develop-and-test-locally)
-
+  - [Features](#features)
+  - [Quickstart](#quickstart)
+  - [Customization](#customization)
+  - [Used Packages](#used-packages)
+  - [Components](#components)
+  - [Develop locally](#develop-locally)
+  - [Develop locally with cloud resources](#develop-locally-with-cloud-resources)
+  - [Diagnose issues](#diagnose-issues)
 
 ## Features
 - Development: 
@@ -147,7 +147,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 
 
-## Packages used
+## Used Packages
 * [json-server](https://github.com/typicode/json-server)
 * [serverless framework](https://serverless.com/)
 * [serverless http](https://github.com/dougmoscrop/serverless-http)
@@ -185,13 +185,14 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 
 
-## Diagnose locally
-In case of issues you can use this mode to load data with the same componentes (S3, LowDB) as json-server and execute it the same way as the lambda does.
+## Develop locally with cloud resources
+Use same componentes (S3, LowDB) as the lambda does but have code executed locally.
 
 #### 1. Add .env file to root folder
 
 
-**Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework
+**Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework<br>
+**Mind:** This function requires that you have access to AWS (e.g. via credentials)
 
 * Copy the .env file from .env.sample in the root folder
 ```
@@ -209,7 +210,7 @@ cp .env.sample .env
 #### 2. Start solution
 
 ```bash
-npm run diagnostic
+npm run dev
 ```
 
 #### 3. Test your API
@@ -226,3 +227,37 @@ To test you can use e.g. [Postman](https://www.getpostman.com/)
 
 
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+
+
+## Diagnose issues 
+serverless-offline will help you to troubleshoot issues with the lambda execution in a fast manner.
+
+**Mind:** The assumption is that the solution has been already deployed<br>
+**Mind:** This function requires that you have access to AWS (e.g. via credentials)
+
+
+
+#### 1. build sources and execute serverless offline
+
+- sources will be build with babel in advance to test the functionality.
+- after that sls offline will be started
+
+<pre><code>npm run diagnostic
+
+<u>Result:</u>
+Serverless: Starting Offline: dev/eu-central-1.
+Serverless: Key with token: <b>{API-KEY}</b>
+Serverless: Remember to use <b>x-api-key</b> on the request headers
+
+```
+</pre></code>
+
+#### 2. make api calls
+
+- Use a new terminal window and start to make api calls.
+- Replace {API-KEY} with the api key in the sls offline output (see above). 
+- Replace {route} with the route you want to test e.g. /basic
+
+<pre><code>
+curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" http://localhost:3000/{route}
+</pre></code>

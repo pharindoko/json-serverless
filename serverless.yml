@@ -6,7 +6,8 @@
 
 # The `service` block is the name of the service
 service: json-serverless
-
+plugins:
+  - serverless-offline
 package:
   individually: false
   excludeDevDependencies: true
@@ -18,6 +19,9 @@ package:
 
 custom: 
   file: ${file(./config/serverlessconfig.yml)} 
+  custom:
+  serverless-offline:
+    resourceRoutes: true
 # The `provider` block defines where your service will be deployed
 provider:
   stage: ${opt:stage, 'dev'}
