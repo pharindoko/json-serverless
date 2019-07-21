@@ -56,7 +56,7 @@
     "eslint-plugin-import": "2.18.2",
     "nodemon": "1.19.1",
     "pino-pretty": "3.2.0",
-    "jest": "^24.8.0"
+    "jest": "24.8.0"
   },
   "snyk": true
 }
