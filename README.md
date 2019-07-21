@@ -1,13 +1,13 @@
 # JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-server-less-lambda) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <a href="https://codeclimate.com/github/pharindoko/json-server-less-lambda/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
-  * [Features](#features)
-  * [Quickstart](#quickstart)
-  * [Test your API](#test-your-api)
-  * [Customization](#customization)
-  * [Packages used](#packages-used)
-  * [Components](#components)
-  * [Develop and test locally](#develop-and-test-locally)
-
+  - [Features](#features)
+  - [Quickstart](#quickstart)
+  - [Customization](#customization)
+  - [Used Packages](#used-packages)
+  - [Components](#components)
+  - [Develop locally](#develop-locally)
+  - [Develop locally with cloud resources](#develop-locally-with-cloud-resources)
+  - [Diagnose issues](#diagnose-issues)
 
 ## Features
 - Development: 
@@ -147,7 +147,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 
 
-## Packages used
+## Used Packages
 * [json-server](https://github.com/typicode/json-server)
 * [serverless framework](https://serverless.com/)
 * [serverless http](https://github.com/dougmoscrop/serverless-http)
