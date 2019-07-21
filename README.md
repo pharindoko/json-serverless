@@ -191,7 +191,8 @@ Use same componentes (S3, LowDB) as the lambda does but have code executed local
 #### 1. Add .env file to root folder
 
 
-**Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework
+**Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework<br>
+**Mind:** This function requires that you have access to AWS (e.g. via credentials)
 
 * Copy the .env file from .env.sample in the root folder
 ```
@@ -230,6 +231,11 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 ## Diagnose issues 
 serverless-offline will help you to troubleshoot issues with the lambda execution in a fast manner.
+
+**Mind:** The assumption is that the solution has been already deployed<br>
+**Mind:** This function requires that you have access to AWS (e.g. via credentials)
+
+
 
 #### 1. build sources and execute serverless offline
 
