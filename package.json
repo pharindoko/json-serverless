@@ -43,7 +43,7 @@
     "lowdb-adapter-aws-s3": "^1.1.2",
     "pino": "^5.10.6",
     "serverless-http": "^2.0.0",
-    "snyk": "^2.0.0",
+    "snyk": "^1.198.0",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
