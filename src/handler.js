@@ -20,6 +20,7 @@ module.exports.handler = async (event, context) => {
 if (require.main === module) {
   if (process.env.NODE_ENV !== 'local') {
     app.request();
+  } else {
+    start(app.server, 3000);
   }
-  start(app.server, 3000);
 }
