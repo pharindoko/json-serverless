@@ -1,3 +1,4 @@
+require('@babel/polyfill');
 const serverless = require('serverless-http');
 const logger = require('pino')({
   prettyPrint: true,
