@@ -19,7 +19,12 @@ module.exports.handler = async (event, context) => {
   return result;
 };
 if (require.main === module) {
-  if (process.env.NODE_ENV !== 'local') {
+  if (process.env.NODE_ENV === 'diagnostic') {
+    (async () => {
+      await app.request();
+      start(app.server, 3000);
+    })();
+  } else if (process.env.NODE_ENV !== 'local') {
     app.request();
   } else {
     start(app.server, 3000);
