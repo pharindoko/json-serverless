@@ -33,7 +33,6 @@ function startInCloud() {
 const request = async () => {
   try {
     const adapter = await low(storage);
-    logger.info('storage initialized');
     const router = jsonServer.router(adapter);
     const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
     server.use(middlewares);
