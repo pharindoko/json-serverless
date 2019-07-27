@@ -4,7 +4,7 @@ const nodeExternals = require('webpack-node-externals');
 const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
+  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
   plugins: [
     new CopyPlugin([
       { from: './db.json', to: './db.json' },
