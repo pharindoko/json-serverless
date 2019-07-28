@@ -4,9 +4,7 @@
   "description": "a lambda solution for json-server",
   "main": "src/server.js",
   "scripts": {
-    "start:dev": "webpack-dev-server",
-    "test": "npm run build && NODE_ENV=local jest",
-    "debug": "NODE_ENV=local webpack --watch",
+    "test": "npm run build & NODE_ENV=local jest",
     "start": "NODE_ENV=local webpack --watch",
     "dev": "NODE_ENV=development webpack --watch",
     "diagnostic": "NODE_ENV=offline sls offline",
@@ -20,7 +18,7 @@
     "url": "git+https://github.com/pharindoko/json-serverless.git"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/pharindoko/json-serverless/issues"
   },
