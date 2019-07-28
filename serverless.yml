@@ -18,7 +18,7 @@ custom:
   serverless-offline:
     resourceRoutes: true
   webpack:
-    webpackConfig: 'webpack.config.js'   # Name of webpack configuration file
+    webpackConfig: 'webpack.config.prod.js'   # Name of webpack configuration file
     includeModules:
       packagePath: './package.json' 
       forceInclude:
