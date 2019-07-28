@@ -47,10 +47,11 @@ const request = async () => {
 };
 
 function init() {
+  logger.info(`NODE_ENV: ${process.env.NODE_ENV}`);
   if (process.env.NODE_ENV === 'local') {
     startLocal(3000);
-  } else if (process.env.NODE_ENV === 'diagnostic') {
-    logger.info('start diagnostic mode');
+  } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'offline') {
+    logger.info('start development mode');
     logger.info('load variables from .env file');
     // eslint-disable-next-line global-require
     require('dotenv').config();
