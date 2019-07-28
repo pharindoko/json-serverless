@@ -12,12 +12,6 @@ plugins:
 package:
   individually: false
   excludeDevDependencies: true
-  include:
-    - dist/**
-    - node_modules/**
-  exclude: 
-    - src/**
-
 custom: 
   file: ${file(./config/serverlessconfig.yml)} 
   custom:
