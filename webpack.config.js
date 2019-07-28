@@ -1,16 +1,28 @@
 
-const slsw = require('serverless-webpack');
 const nodeExternals = require('webpack-node-externals');
 const CopyPlugin = require('copy-webpack-plugin');
+const NodeEnvPlugin = require('node-env-webpack-plugin');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 module.exports = {
-  mode: slsw.lib.webpack.isLocal ? 'development' : 'production',
+  mode: 'development',
   plugins: [
     new CopyPlugin([
       { from: './db.json', to: './db.json' },
     ]),
+    new NodeEnvPlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    }),
+    new NodemonPlugin({
+      args: ['--inspect-brk=9229'],
+
+    }),
   ],
-  entry: slsw.lib.entries,
+  entry: { 'src/handler': './src/handler.js' },
+  devtool: 'source-map',
+  devServer: {
+    contentBase: './dist',
+  },
   target: 'node',
   externals: [nodeExternals()],
   module: {
