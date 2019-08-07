@@ -58,7 +58,7 @@
     "jest": "24.8.0",
     "nodemon": "1.19.1",
     "pino-pretty": "3.2.0",
-    "serverless-offline": "5.8.0"
+    "serverless-offline": "5.9.0"
   },
   "snyk": true
 }
