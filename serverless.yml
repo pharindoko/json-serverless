@@ -7,21 +7,24 @@
 # The `service` block is the name of the service
 service: json-serverless
 plugins:
+  - serverless-webpack
   - serverless-offline
 package:
   individually: false
   excludeDevDependencies: true
-  include:
-    - dist/**
-    - node_modules/**
-  exclude: 
-    - src/**
-
 custom: 
   file: ${file(./config/serverlessconfig.yml)} 
   custom:
   serverless-offline:
     resourceRoutes: true
+  webpack:
+    webpackConfig: 'webpack.config.prod.js'   # Name of webpack configuration file
+    includeModules:
+      packagePath: './package.json' 
+      forceInclude:
+        - pino-pretty
+    packager: 'npm'   # Packager that will be used to package your external modules
+    excludeFiles: src/**/*.test.js # Provide a glob for files to ignore
 # The `provider` block defines where your service will be deployed
 provider:
   stage: ${opt:stage, 'dev'}
@@ -49,7 +52,7 @@ provider:
 # The `functions` block defines what code to deploy
 functions:
   app:
-    handler: /dist/server.handler
+    handler: src/handler.handler
     # The `events` block defines how to trigger the handler.helloWorld code
     events:
       - http: 
