@@ -2,14 +2,15 @@
   "packages": [
     "."
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "command": {
     "publish": {
       "ignoreChanges": [
         "*.md"
       ],
       "allowBranch": [
-        "master", "feature/add-change-management"
+        "master",
+        "feature/add-change-management"
       ]
     },
     "bootstrap": {
