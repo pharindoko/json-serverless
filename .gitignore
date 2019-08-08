@@ -6,4 +6,3 @@ jspm_packages
 .serverless
 /dist
 .env
-lerna-debug.log
