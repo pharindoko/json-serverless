@@ -1,6 +1,6 @@
 {
   "name": "json-server-less-lambda",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a lambda solution for json-server",
   "main": "src/server.js",
   "scripts": {
