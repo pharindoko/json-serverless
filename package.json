@@ -1,5 +1,4 @@
 {
-
 	"name": "json-serverless",
 	"version": "1.0.1",
 	"description": "a lambda solution for json-server",
