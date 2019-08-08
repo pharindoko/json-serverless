@@ -41,15 +41,9 @@ npm i
 ```bash
 aws sts get-caller-identity
 ```
+##### 4. Update db.json file in root directory
 
-##### 4. Build
-```bash
-npm run build
-```
-
-##### 5. Update db.json in root directory
-
-- Childproperties are the routes you can select
+- Childproperties are the REST endpoints you create
 - Samplefile: Routes marked <b>bold</b>
 
 <pre><code>
@@ -60,12 +54,18 @@ npm run build
 }
 </code></pre>
 
-##### 6. Deploy via Serverless Framework
+##### 5. Deploy via Serverless Framework
+
+
 ```bash
 # set --stage parameter for different stages
 serverless deploy --stage dev
 ```
-##### 7. When the deployment with serverless framework was successful you can see following output:
+
+- serverless-webpack is used
+- the build will be triggered automatically
+- 
+##### 6. When the deployment with serverless framework was successful you can see following output:
 <pre>
 <code>
 Service Information
