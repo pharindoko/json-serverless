@@ -64,7 +64,7 @@ serverless deploy --stage dev
 
 - serverless-webpack is used
 - the build will be triggered automatically
-- 
+
 ##### 6. When the deployment with serverless framework was successful you can see following output:
 <pre>
 <code>
@@ -85,7 +85,7 @@ layers:
 Serverless: Removing old service artifacts from S3...
 </pre></code>
 
-##### 8. Test your Api
+##### 7. Test your Api
 ##### With Curl:
 
 1. replace the url with the url provided by serverless (see above)
