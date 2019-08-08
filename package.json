@@ -1,6 +1,6 @@
 {
   "name": "json-server-less-lambda",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a lambda solution for json-server",
   "main": "src/server.js",
   "scripts": {
@@ -12,7 +12,10 @@
     "build": "babel src -d dist -D",
     "deploy": "npm run build && serverless deploy --stage=dev",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "commit": "git-cz",
+    "bootstrap": "lerna bootstrap",
+    "release": "lerna version patch --conventional-commits --create-release github --yes"
   },
   "babel": {
     "presets": [
@@ -52,13 +55,20 @@
     "@babel/node": "7.5.5",
     "@babel/polyfill": "7.4.4",
     "@babel/preset-env": "7.5.5",
+    "cz-conventional-changelog": "3.0.2",
     "eslint": "6.1.0",
     "eslint-config-airbnb-base": "13.2.0",
     "eslint-plugin-import": "2.18.2",
     "jest": "24.8.0",
+    "lerna": "3.16.4",
     "nodemon": "1.19.1",
     "pino-pretty": "3.2.0",
     "serverless-offline": "5.10.1"
   },
-  "snyk": true
+  "snyk": true,
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
