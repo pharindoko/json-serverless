@@ -1,6 +1,21 @@
 {
   "packages": [
-    "packages/*"
+    "."
   ],
-  "version": "1.0.0"
+  "version": "0.9.50",
+  "command": {
+    "publish": {
+      "ignoreChanges": [
+        "*.md"
+      ],
+      "allowBranch": [
+        "master","feature/add-change-management"
+      ]
+    },
+    "bootstrap": {
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
+    }
+  }
 }

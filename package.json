@@ -1,5 +1,5 @@
 {
-  "name": "json-server-less-lambda",
+  "name": "json-serverless",
   "version": "1.0.0",
   "description": "a lambda solution for json-server",
   "main": "src/server.js",
