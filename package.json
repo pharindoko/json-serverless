@@ -59,7 +59,7 @@
 		"serverless-offline": "5.10.1",
 		"serverless-webpack": "5.3.1",
 		"terser-webpack-plugin": "1.4.1",
-		"webpack": "4.39.1",
+		"webpack": "4.39.2",
 		"webpack-cli": "3.3.6",
 		"webpack-node-externals": "1.7.2"
 	},
