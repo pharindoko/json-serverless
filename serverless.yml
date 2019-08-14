@@ -29,7 +29,7 @@ custom:
 provider:
   stage: ${opt:stage, 'dev'}
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   region: ${opt:region, 'eu-central-1'}
   environment:
     S3BUCKET: ${self:custom.file.S3BUCKET}
