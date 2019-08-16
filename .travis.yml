@@ -9,7 +9,7 @@ notifications:
   email: true
 node_js:
   - '10'
-install: npm install
+install: npm ci
 jobs:
   include:
     - stage: build
