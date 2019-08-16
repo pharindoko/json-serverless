@@ -44,7 +44,7 @@
 		"@babel/core": "7.5.5",
 		"@babel/node": "7.5.5",
 		"@babel/preset-env": "7.5.5",
-		"@semantic-release/changelog": "^3.0.4",	
+		"@semantic-release/changelog": "3.0.4",	
 		"copy-webpack-plugin": "5.0.4",
 		"cz-conventional-changelog": "3.0.2",
 		"eslint": "6.1.0",
