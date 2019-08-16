@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/pharindoko/json-serverless/compare/v1.1.0...v1.2.0) (2019-08-16)
+
+
+### Features
+
+* **debugging:** enabled local debugging in vscode using webpack and sourcemaps ([1a004e1](https://github.com/pharindoko/json-serverless/commit/1a004e1))
+
 # Change Log
 
 All notable changes to this project will be documented in this file.
