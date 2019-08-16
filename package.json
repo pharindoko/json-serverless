@@ -1,6 +1,6 @@
 {
 	"name": "json-serverless",
-	"version": "1.0.1",
+	"version": "0.0.0-development",
 	"description": "a lambda solution for json-server",
 	"main": "src/server.js",
 	"scripts": {
@@ -43,7 +43,8 @@
 		"@babel/core": "7.5.5",
 		"@babel/node": "7.5.5",
 		"@babel/preset-env": "7.5.5",
-		"@semantic-release/changelog": "3.0.4",	
+		"@semantic-release/changelog": "^3.0.4",
+		"@semantic-release/git": "^7.0.16",
 		"copy-webpack-plugin": "5.0.4",
 		"cz-conventional-changelog": "3.0.2",
 		"eslint": "6.1.0",
