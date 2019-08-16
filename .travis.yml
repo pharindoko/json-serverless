@@ -18,4 +18,8 @@ jobs:
     - stage: test
       script:
         - npm run test
-      
+    - stage: release
+      if: branch = master
+      script:
+        - npx semantic-release
+          
