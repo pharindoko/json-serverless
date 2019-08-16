@@ -48,7 +48,7 @@ const request = async () => {
 
 function init() {
   logger.info(`NODE_ENV: ${process.env.NODE_ENV}`);
-  if (process.env.NODE_ENV === 'local') {
+  if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'debug') {
     startLocal(3000);
   } else if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'offline') {
     logger.info('start development mode');

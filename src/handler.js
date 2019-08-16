@@ -19,7 +19,7 @@ module.exports.handler = async (event, context) => {
 };
 
 if (require.main === module) {
-  if (process.env.NODE_ENV === 'local') {
+  if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'debug') {
     start(app.server, 3000);
   } else if (process.env.NODE_ENV === 'development') {
     (async () => {

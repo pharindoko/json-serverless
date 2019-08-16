@@ -5,6 +5,7 @@
 	"main": "src/server.js",
 	"scripts": {
 		"test": "npm run build & NODE_ENV=local jest",
+		"debug": "NODE_ENV=debug webpack --watch",
 		"start": "NODE_ENV=local webpack --watch",
 		"dev": "NODE_ENV=development webpack --watch",
 		"diagnostic": "NODE_ENV=offline sls offline",

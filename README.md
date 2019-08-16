@@ -175,14 +175,21 @@ curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxx
 - [AWS Lambda](https://aws.amazon.com/lambda/features/)
 - [AWS S3](https://aws.amazon.com/s3/)
 
-## Develop locally
+## Develop and debug locally
 
 db.json file will be loaded directly from your local filesystem. No AWS access is needed.
 
-#### 1. Start solution
+#### Start solution
 
 ```bash
 npm run start
+```
+
+#### Debug solution
+If you want to debug locally in VS Code everything is already setup (using webpack with sourcemap support)
+
+```bash
+npm run debug
 ```
 
 #### 2. Test your API
