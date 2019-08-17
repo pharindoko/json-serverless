@@ -105,6 +105,12 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
   const spec = Object.assign(Spec, SchemaDefinitons);
   Object.keys(spec.paths).forEach((path) => {
     Object.keys(spec.definitions).forEach((definition) => {
+      let schemaDef = null;
+      if (spec.definitions[definition].type === 'array') {
+        schemaDef = { $ref: `#/definitions/${definition}/items` };
+      } else if (spec.definitions[definition].type === 'object') {
+        schemaDef = { $ref: `#/definitions/${definition}` };
+      }
       if (path.endsWith(definition)) {
         if (spec.paths[path].get) {
           spec.paths[path].get.responses[200] = { schema: { $ref: `#/definitions/${definition}` } };
@@ -112,13 +118,6 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
 
 
         if (spec.paths[path].post) {
-          let schemaDef = null;
-          if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
-          } else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
-          }
-
           spec.paths[path].post.parameters.push({
             schema: schemaDef,
             in: 'body',
@@ -143,13 +142,6 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
           });
         }
         if (spec.paths[path].put) {
-          let schemaDef = null;
-          if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
-          } else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
-          }
-
           spec.paths[path].put.parameters.push({
             schema: schemaDef,
             in: 'body',
@@ -174,13 +166,6 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
           });
         }
         if (spec.paths[path].patch) {
-          let schemaDef = null;
-          if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
-          } else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
-          }
-
           spec.paths[path].patch.parameters.push({
             schema: schemaDef,
             in: 'body',
@@ -214,14 +199,7 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
         }
 
 
-        let schemaDef = null;
         if (spec.paths[path].put) {
-          if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
-          } else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
-          }
-
           spec.paths[path].put.parameters.push({
             schema: schemaDef,
             in: 'body',
@@ -246,12 +224,6 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
           });
         }
         if (spec.paths[path].patch) {
-          if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
-          } else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
-          }
-
           spec.paths[path].patch.parameters.push({
             schema: schemaDef,
             in: 'body',
