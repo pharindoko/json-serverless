@@ -1,23 +1,27 @@
+const express = require('express');
 const fs = require('fs');
 const low = require('lowdb');
 const AwsAdapter = require('lowdb-adapter-aws-s3');
 const jsonServer = require('json-server');
-
-const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
 const logger = require('pino')({
   prettyPrint: true,
 }, process.stderr);
+const swagger = require('./swagger/swagger');
 
-const server = jsonServer.create();
+
+const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
+
+
+const server = express();
+
 let storage = null;
-
 function startLocal() {
-  logger.info('start local environment');
-
+  logger.info('start locals environment');
   const router = jsonServer.router('db.json');
   const middlewares = jsonServer.defaults();
   server.use(middlewares);
-  server.use(router);
+  server.use('/api', router);
+  swagger.generateSwagger(server, defaultDB);
 }
 
 function startInCloud() {
@@ -36,7 +40,8 @@ const request = async () => {
     const router = jsonServer.router(adapter);
     const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
     server.use(middlewares);
-    server.use(router);
+    server.use('/api', router);
+    swagger.generateSwagger(server, defaultDB);
   } catch (e) {
     if (e.code === 'ExpiredToken') {
       logger.error(`Please add valid credentials for AWS. Error: ${e.message}`);

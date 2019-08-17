@@ -30,14 +30,18 @@
 		"@babel/runtime": "^7.5.5",
 		"babel-loader": "^8.0.6",
 		"dotenv": "^8.0.0",
+		"express": "^4.17.1",
+		"express-list-endpoints": "^4.0.1",
 		"json-server": "^0.15.0",
+		"lodash": "^4.17.15",
 		"lowdb": "^1.0.0",
 		"lowdb-adapter-aws-s3": "^1.1.2",
 		"pino": "^5.10.6",
 		"pino-pretty": "^3.2.0",
 		"serverless-http": "^2.0.0",
 		"snyk": "^1.198.0",
-		"supertest": "^4.0.2"
+		"supertest": "^4.0.2",
+		"swagger-ui-express": "^4.0.7"
 	},
 	"devDependencies": {
 		"@babel/cli": "7.5.5",
@@ -51,6 +55,7 @@
 		"eslint": "6.1.0",
 		"eslint-config-airbnb-base": "14.0.0",
 		"eslint-plugin-import": "2.18.2",
+		"express-swagger-generator": "^1.1.15",
 		"jest": "24.9.0",
 		"node-env-webpack-plugin": "1.1.0",
 		"nodemon": "1.19.1",
