@@ -112,8 +112,8 @@ module.exports.getSpec = (App, PredefinedSpec) => {
 
 
 module.exports.getPackageInfo = () => {
-  console.log(process.env.BASEPATH);
-  return process.env.BASEPATH ? process.env.BASEPATH : '';
+  console.log(process.env.basePath);
+  return process.env.basePath ? process.env.basePath : '';
 };
 function setSchemaReference(spec, definition) {
   let schemaDef = null;

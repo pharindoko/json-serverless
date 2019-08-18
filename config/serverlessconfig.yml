@@ -1,4 +1,0 @@
-S3FILE: "db.json"
-S3BUCKET: "${self:service}-${self:provider.stage}"
-READONLY: false
-BASEPATH: "/${self:provider.stage}"

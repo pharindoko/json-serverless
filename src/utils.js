@@ -10,7 +10,7 @@ const swagger = require('./swagger/swagger');
 
 
 const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
-
+const appConfig = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8'));
 
 const server = express();
 
@@ -21,17 +21,19 @@ function startLocal() {
   const middlewares = jsonServer.defaults();
   server.use(middlewares);
   server.use('/api', router);
-  swagger.generateSwagger(server, defaultDB);
+  if (appConfig.enableSwagger) {
+    swagger.generateSwagger(server, defaultDB);
+  }
 }
 
 function startInCloud() {
-  logger.info(`S3FILE: ${process.env.S3FILE}`);
-  logger.info(`S3BUCKET: ${process.env.S3BUCKET}`);
-  logger.info(`READONLY: ${process.env.READONLY}`);
-  logger.info(`BASEPATH: ${process.env.BASEPATH}`);
-  storage = new AwsAdapter(process.env.S3FILE, {
+  logger.info(`S3File: ${process.env.S3File}`);
+  logger.info(`S3Bucket: ${process.env.S3Bucket}`);
+  logger.info(`readOnly: ${process.env.readOnly}`);
+  logger.info(`basePath: ${process.env.basePath}`);
+  storage = new AwsAdapter(process.env.S3File, {
     defaultValue: defaultDB,
-    aws: { bucketName: process.env.S3BUCKET },
+    aws: { bucketName: process.env.S3Bucket },
   });
 }
 
@@ -39,10 +41,12 @@ const request = async () => {
   try {
     const adapter = await low(storage);
     const router = jsonServer.router(adapter);
-    const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
+    const middlewares = jsonServer.defaults({ readOnly: process.env.readOnly === 'true' });
     server.use(middlewares);
     server.use('/api', router);
-    swagger.generateSwagger(server, defaultDB);
+    if (appConfig.enableSwagger) {
+      swagger.generateSwagger(server, defaultDB);
+    }
   } catch (e) {
     if (e.code === 'ExpiredToken') {
       logger.error(`Please add valid credentials for AWS. Error: ${e.message}`);

@@ -13,7 +13,7 @@ package:
   individually: false
   excludeDevDependencies: true
 custom: 
-  file: ${file(./config/serverlessconfig.yml)} 
+  file: ${file(./config/appconfig.json)} 
   custom:
   serverless-offline:
     resourceRoutes: true
@@ -32,11 +32,13 @@ provider:
   runtime: nodejs10.x
   region: ${opt:region, 'eu-central-1'}
   environment:
-    S3BUCKET: ${self:custom.file.S3BUCKET}
-    S3FILE: ${self:custom.file.S3FILE}
-    READONLY: ${self:custom.file.READONLY}
-    BASEPATH: ${self:custom.file.BASEPATH}
-
+    S3Bucket: ${self:custom.file.S3Bucket}
+    S3File: ${self:custom.file.S3File}
+    readOnly: ${self:custom.file.readOnly}
+    basePath: ${self:custom.file.basePath}
+  apiGateway: # Optional API Gateway global config
+    binaryMediaTypes: # Optional binary media types the API might return
+    - '*/*'
   apiKeys:
     - ${self:service}.${self:provider.stage}
   iamRoleStatements:
@@ -48,7 +50,7 @@ provider:
        Action:
          - "s3:*"
        Resource: 
-         - "arn:aws:s3:::${self:custom.file.S3BUCKET}/*"
+         - "arn:aws:s3:::${self:custom.file.S3Bucket}/*"
 
 # The `functions` block defines what code to deploy
 functions:
@@ -60,15 +62,15 @@ functions:
           path: /
           method: ANY
           cors: true
-          private: true
+          private: ${self:custom.file.enableApiKeyAuth}
       - http: 
           path: "{proxy+}"
           method: ANY
           cors: true
-          private: true
+          private: ${self:custom.file.enableApiKeyAuth}
 resources:
   Resources:
     S3BucketStorage:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: ${self:custom.file.S3BUCKET}
+        BucketName: ${self:custom.file.S3Bucket}

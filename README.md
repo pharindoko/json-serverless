@@ -157,9 +157,9 @@ curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxx
 
 | Attribute  | Description  | Type | Default |
 |---|---|---|---|
-| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
-| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
-| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
+| S3File  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
+| S3Bucket  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| readOnly  | all API - write operations are forbidden (http 403))  | boolean | false |
 
 ## Used Packages
 
@@ -224,9 +224,9 @@ cp .env.sample .env
 
 | Attribute  | Description  | Type | Default |
 |---|---|---|---|
-| S3FILE  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
-| S3BUCKET  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
-| READONLY  | all API - write operations are forbidden (http 403))  | boolean | false |
+| S3File  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
+| S3Bucket  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
+| readOnly  | all API - write operations are forbidden (http 403))  | boolean | false |
 
 #### 2. Start solution
 

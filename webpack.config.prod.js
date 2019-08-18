@@ -9,6 +9,7 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       { from: './db.json', to: './db.json' },
+      { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
     new NodeEnvPlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),

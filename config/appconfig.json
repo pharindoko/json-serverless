@@ -1,0 +1,9 @@
+{
+    "S3File": "db.json",
+    "S3Bucket": "${self:service}-${self:provider.stage}",
+    "readOnly": false,
+    "basePath": "/${self:provider.stage}",
+    "enableSwagger": true,
+    "enableApiKeyAuth": true
+  }
+  
