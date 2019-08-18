@@ -35,6 +35,7 @@ provider:
     S3BUCKET: ${self:custom.file.S3BUCKET}
     S3FILE: ${self:custom.file.S3FILE}
     READONLY: ${self:custom.file.READONLY}
+    BASEPATH: ${self:custom.file.BASEPATH}
 
   apiKeys:
     - ${self:service}.${self:provider.stage}

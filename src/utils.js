@@ -28,6 +28,7 @@ function startInCloud() {
   logger.info(`S3FILE: ${process.env.S3FILE}`);
   logger.info(`S3BUCKET: ${process.env.S3BUCKET}`);
   logger.info(`READONLY: ${process.env.READONLY}`);
+  logger.info(`BASEPATH: ${process.env.BASEPATH}`);
   storage = new AwsAdapter(process.env.S3FILE, {
     defaultValue: defaultDB,
     aws: { bucketName: process.env.S3BUCKET },
