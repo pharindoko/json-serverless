@@ -6,12 +6,9 @@ const swaggerDefGen = require('./swagdefgen');
 module.exports.generateSwagger = (server, json) => {
   const swaggerSchemaDefinitions = swaggerDefGen.generateDefinitions(json);
   const spec = swaggerSpec.getSpec(server, {});
-  swaggerSpec.addSchemaDefitions(spec, swaggerSchemaDefinitions);
-
-
   const auth = {
     securityDefinitions: {
-      accountId: {
+      apiKeyHeader: {
         type: 'apiKey',
         in: 'header',
         name: 'x-api-key',
@@ -19,14 +16,15 @@ module.exports.generateSwagger = (server, json) => {
       },
     },
   };
-
   swaggerSpec.addAuthentication(spec, auth);
-  server.use(`${swaggerSpec.getPackageInfo().baseUrlPath}/api-spec`, (req, res, next) => {
+  swaggerSpec.addSchemaDefitions(spec, swaggerSchemaDefinitions);
+
+  server.use('/api-spec', (req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(spec, null, 2);
     return next();
   });
-  server.use(`${swaggerSpec.getPackageInfo().baseUrlPath}/api-docs`, swaggerUi.serve, (req, res) => {
+  server.use('/api-docs', swaggerUi.serve, (req, res) => {
     swaggerUi.setup(spec)(req, res);
   });
 };
