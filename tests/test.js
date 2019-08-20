@@ -12,7 +12,6 @@ describe('Test the root path', () => {
   test('It should return a default object', async () => {
     const response = await request(app.server).get('/api/posts');
     expect(response.statusCode).toBe(200);
-    console.log(JSON.stringify(response.body));
     expect(response.body[0].title).toBe('json-server');
   });
 });

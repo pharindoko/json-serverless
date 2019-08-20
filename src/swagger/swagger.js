@@ -2,10 +2,12 @@
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swaggerspec');
 const swaggerDefGen = require('./swagdefgen');
+const { logger } = require('../logger');
 
-module.exports.generateSwagger = (server, json) => {
+module.exports.generateSwagger = (server, json, config) => {
+  logger.info('init Swagger');
   const swaggerSchemaDefinitions = swaggerDefGen.generateDefinitions(json);
-  const spec = swaggerSpec.getSpec(server, {});
+  const spec = swaggerSpec.getSpec(server, {}, config.readOnly);
   const auth = {
     securityDefinitions: {
       apiKeyHeader: {
@@ -16,7 +18,9 @@ module.exports.generateSwagger = (server, json) => {
       },
     },
   };
-  swaggerSpec.addAuthentication(spec, auth);
+  if (config.enableApiKeyAuth) {
+    swaggerSpec.addAuthentication(spec, auth);
+  }
   swaggerSpec.addSchemaDefitions(spec, swaggerSchemaDefinitions);
 
   server.use('/api-spec', (req, res, next) => {

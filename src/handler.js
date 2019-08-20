@@ -1,8 +1,6 @@
 require('@babel/polyfill');
 const serverless = require('serverless-http');
-const logger = require('pino')({
-  prettyPrint: true,
-}, process.stderr);
+const { logger } = require('./logger');
 const app = require('./utils');
 
 function start(server, port) {

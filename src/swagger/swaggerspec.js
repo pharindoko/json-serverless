@@ -57,14 +57,19 @@ function sortObject(o) {
 }
 
 
-function init() {
+function init(readOnly) {
   let spec = { swagger: '2.0', paths: {} };
-  console.log('init oas');
-
-  const excludedRoutes = ['/api/:resource/:id/:nested', '/api/db', 'ff'];
-
+  const excludedRoutes = ['/api/:resource/:id/:nested', '/api/db'];
   const endpoints = listEndpoints(app);
   endpoints.forEach((endpoint) => {
+    if (readOnly) {
+      for (let i = 0; i < endpoint.methods.length; i += 1) {
+        if (endpoint.methods[i] !== 'GET') {
+          endpoint.methods.splice(i, 1);
+          i -= 1;
+        }
+      }
+    }
     if (!excludedRoutes.includes(endpoint.path)) {
       const params = [];
       let { path } = endpoint;
@@ -103,18 +108,15 @@ function init() {
 }
 
 
-module.exports.getSpec = (App, PredefinedSpec) => {
+module.exports.getSpec = (App, PredefinedSpec, ReadOnly) => {
   app = App;
   predefinedSpec = PredefinedSpec;
-  const spec = init();
+  const spec = init(ReadOnly);
   return spec;
 };
 
 
-module.exports.getPackageInfo = () => {
-  console.log(process.env.basePath);
-  return process.env.basePath ? process.env.basePath : '';
-};
+module.exports.getPackageInfo = () => (process.env.basePath ? process.env.basePath : '');
 function setSchemaReference(spec, definition) {
   let schemaDef = null;
   if (spec.definitions[definition].type === 'array') {

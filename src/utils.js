@@ -3,9 +3,7 @@ const fs = require('fs');
 const low = require('lowdb');
 const AwsAdapter = require('lowdb-adapter-aws-s3');
 const jsonServer = require('json-server');
-const logger = require('pino')({
-  prettyPrint: true,
-}, process.stderr);
+const { logger } = require('./logger');
 const swagger = require('./swagger/swagger');
 
 
@@ -15,21 +13,27 @@ const appConfig = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8')
 const server = express();
 
 let storage = null;
-function startLocal() {
-  logger.info('start locals environment');
-  const router = jsonServer.router('db.json');
-  const middlewares = jsonServer.defaults();
+
+
+function setupServer(middlewares, router) {
   server.use(middlewares);
   server.use('/api', router);
   if (appConfig.enableSwagger) {
-    swagger.generateSwagger(server, defaultDB);
+    swagger.generateSwagger(server, defaultDB, appConfig);
   }
+}
+
+function startLocal() {
+  logger.info('start locals environment');
+  const router = jsonServer.router('db.json');
+  const middlewares = jsonServer.defaults({ readOnly: appConfig.readOnly });
+  setupServer(middlewares, router);
 }
 
 function startInCloud() {
   logger.info(`S3File: ${process.env.S3File}`);
   logger.info(`S3Bucket: ${process.env.S3Bucket}`);
-  logger.info(`readOnly: ${process.env.readOnly}`);
+  logger.info(`readOnly: ${appConfig.readOnly}`);
   logger.info(`basePath: ${process.env.basePath}`);
   storage = new AwsAdapter(process.env.S3File, {
     defaultValue: defaultDB,
@@ -41,12 +45,8 @@ const request = async () => {
   try {
     const adapter = await low(storage);
     const router = jsonServer.router(adapter);
-    const middlewares = jsonServer.defaults({ readOnly: process.env.readOnly === 'true' });
-    server.use(middlewares);
-    server.use('/api', router);
-    if (appConfig.enableSwagger) {
-      swagger.generateSwagger(server, defaultDB);
-    }
+    const middlewares = jsonServer.defaults({ readOnly: appConfig.readOnly });
+    setupServer(middlewares, router);
   } catch (e) {
     if (e.code === 'ExpiredToken') {
       logger.error(`Please add valid credentials for AWS. Error: ${e.message}`);
