@@ -26,21 +26,21 @@
 
 ## Quickstart
 
-##### 1. Clone Solution
+### 1. Clone Solution
 
 ```bash
-git clone https://github.com/pharindoko/json-serverless.git 
+git clone https://github.com/pharindoko/json-serverless.git
 cd json-serverless
 ```
 
-##### 2. Install dependencies
+### 2. Install dependencies
 
 ```bash
 npm install -g serverless
 npm i
 ```
 
-##### 3. Verify AWS Access / Credentials
+### 3. Verify AWS Access / Credentials
 
 => You need to have access to AWS to upload the solution.
 
@@ -48,7 +48,7 @@ npm i
 aws sts get-caller-identity
 ```
 
-##### 4. Update db.json file in root directory
+### 4. Update db.json file in root directory
 
 - Childproperties are the REST endpoints you create
 - Samplefile: Routes marked **bold**
@@ -61,8 +61,7 @@ aws sts get-caller-identity
 }
 </code></pre>
 
-##### 5. Deploy via Serverless Framework
-
+### 5. Deploy via Serverless Framework
 
 ```bash
 # set --stage parameter for different stages
@@ -72,7 +71,7 @@ serverless deploy --stage dev
 - serverless-webpack is used
 - the build will be triggered automatically
 
-##### 6. When the deployment with serverless framework was successful you can see following output
+### 6. When the deployment with serverless framework was successful you can see following output
 
 <pre>
 <code>
@@ -93,9 +92,9 @@ layers:
 Serverless: Removing old service artifacts from S3...
 </pre></code>
 
-##### 7. Test your Api
+### 7. Test your Api
 
-##### With Curl
+#### With Curl
 
 1. replace the url with the url provided by serverless (see above)
 2. replace the {API - KEY} with the key you get from serverless (see above)
@@ -105,13 +104,13 @@ Default Schema:
 
 ```bash
 Default route is posts: (see db.json)
-curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/posts 
+curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/posts
 
 #or another route given in db.json file
 curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
 ```
 
-##### With Postman
+#### With Postman
 
 - Create a new GET Request and add these values to the header section
 
@@ -123,7 +122,7 @@ curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxx
 - Enter as Url the endpoints url
 
 ```bash
-    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route} 
+    https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/{route}
     # e.g. default value: https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/posts
 ```
 
@@ -131,7 +130,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 ## Customization
 
-#### Update content of db.json
+### Update content of db.json
 
 1. update local db.json file in root directory with new values
 2. re-deploy the stack via serverless framework
@@ -170,7 +169,7 @@ curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxx
 
 ## Components
 
-- [NodeJS 8.10](https://nodejs.org/en/about/) 
+- [NodeJS 8.10](https://nodejs.org/en/about/)
 - [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 - [AWS Lambda](https://aws.amazon.com/lambda/features/)
 - [AWS S3](https://aws.amazon.com/s3/)
@@ -179,13 +178,14 @@ curl -H "x-api-key: {API - KEY}" -H "Content-Type: application/json" https://xxx
 
 db.json file will be loaded directly from your local filesystem. No AWS access is needed.
 
-#### Start solution
+### Start solution
 
 ```bash
 npm run start
 ```
 
-#### Debug solution
+### Debug solution
+
 If you want to debug locally in VS Code everything is already setup (using webpack with sourcemap support)
 
 ```bash
@@ -197,10 +197,10 @@ npm run debug
 To test you can use e.g. [Postman](https://www.getpostman.com/)
 
 - Open Postman
-- Enter as Url the endpoints url 
+- Enter as Url the endpoints url
 
 ```bash
-    https://localhost:3000/{route} #e.g. default value: https://localhost:3000/posts/ 
+    https://localhost:3000/{route} #e.g. default value: https://localhost:3000/posts/
 ```
 
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
@@ -209,7 +209,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 Use same componentes (S3, LowDB) as the lambda does but have code executed locally.
 
-#### 1. Add .env file to root folder
+### 1. Add .env file to root folder
 
 **Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework<br>
 **Mind:** This function requires that you have access to AWS (e.g. via credentials)
@@ -254,7 +254,7 @@ serverless-offline will help you to troubleshoot issues with the lambda executio
 **Mind:** The assumption is that the solution has been already deployed<br>
 **Mind:** This function requires that you have access to AWS (e.g. via credentials)
 
-#### 1. build sources and execute serverless offline
+### 1. build sources and execute serverless offline
 
 - sources will be build with babel in advance to test the functionality.
 - after that sls offline will be started
