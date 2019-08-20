@@ -137,6 +137,68 @@ function getDefaultParameterSchema(schemaDef, definition) {
   };
 }
 
+function getQueryParameterSchema() {
+  return [{
+    name: '_page',
+    in: 'query',
+    required: false,
+    type: 'integer',
+    description: 'parameter to return paginated data',
+  },
+  {
+    name: '_limit',
+    in: 'query',
+    required: false,
+    type: 'integer',
+    description: 'parameter to limit paginated data',
+  },
+  {
+    name: '_sort',
+    in: 'query',
+    required: false,
+    type: 'string',
+    description: 'sort by attributes',
+  },
+  {
+    name: '_order',
+    in: 'query',
+    required: false,
+    type: 'string',
+    description: 'order ascending or descending',
+    enum: ['asc', 'desc'],
+  },
+  {
+    name: '_start',
+    in: 'query',
+    required: false,
+    type: 'integer',
+    description: 'parameter to set start sliced data',
+  },
+  {
+    name: 'q',
+    in: 'query',
+    required: false,
+    type: 'string',
+    description: 'parameter to set end of sliced data',
+  },
+  {
+    name: '_embed',
+    in: 'query',
+    required: false,
+    type: 'string',
+    description: 'include children resources',
+  },
+  {
+    name: '_expand',
+    in: 'query',
+    required: false,
+    type: 'string',
+    description: 'include parent resource',
+  },
+  ];
+}
+
+
 function getDefaultPostResponses(definition) {
   return {
     responses: {
@@ -201,6 +263,7 @@ module.exports.addSchemaDefitions = (Spec, SchemaDefinitons) => {
         if (spec.paths[path].get) {
           Object.assign(spec.paths[path].get, (getDefaultSchemaProperties(definition)));
           spec.paths[path].get.responses[200] = { schema: { $ref: `#/definitions/${definition}` }, description: 'successful operation' };
+          spec.paths[path].get.parameters = getQueryParameterSchema();
         }
         if (spec.paths[path].post) {
           Object.assign(spec.paths[path].post, (getDefaultSchemaProperties(definition)));
