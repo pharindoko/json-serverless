@@ -225,7 +225,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 
 ## Develop locally with cloud resources
 
-Use same componentes (S3, LowDB) as the lambda does but have code executed locally.
+Use same components (S3, LowDB) as the lambda does but have code executed locally.
 
 ### 1. Add .env file to root folder
 
