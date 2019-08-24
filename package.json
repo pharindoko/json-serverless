@@ -1,7 +1,7 @@
 {
 	"name": "json-serverless",
 	"version": "0.0.0-development",
-	"description": "a lambda solution for json-server",
+	"description": "Transform a json file into an api",
 	"main": "src/server.js",
 	"scripts": {
 		"test": "npm run build & NODE_ENV=local jest",
