@@ -1,32 +1,46 @@
+const express = require('express');
 const fs = require('fs');
 const low = require('lowdb');
 const AwsAdapter = require('lowdb-adapter-aws-s3');
 const jsonServer = require('json-server');
+const { logger } = require('./logger');
+const swagger = require('./swagger/swagger');
+
 
 const defaultDB = JSON.parse(fs.readFileSync('./db.json', 'UTF-8'));
-const logger = require('pino')({
-  prettyPrint: true,
-}, process.stderr);
+const appConfig = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8'));
 
-const server = jsonServer.create();
+const server = express();
+
 let storage = null;
 
-function startLocal() {
-  logger.info('start local environment');
 
-  const router = jsonServer.router('db.json');
-  const middlewares = jsonServer.defaults();
+function setupServer(middlewares, router) {
+  if (appConfig.enableSwagger) {
+    middlewares.splice(middlewares.findIndex((x) => x.name === 'serveStatic'), 1);
+  }
   server.use(middlewares);
-  server.use(router);
+  server.use('/api', router);
+  if (appConfig.enableSwagger) {
+    swagger.generateSwagger(server, defaultDB, appConfig);
+  }
+}
+
+function startLocal() {
+  logger.info('start locals environment');
+  const router = jsonServer.router('db.json');
+  const middlewares = jsonServer.defaults({ readOnly: appConfig.readOnly });
+  setupServer(middlewares, router);
 }
 
 function startInCloud() {
-  logger.info(`S3FILE: ${process.env.S3FILE}`);
-  logger.info(`S3BUCKET: ${process.env.S3BUCKET}`);
-  logger.info(`READONLY: ${process.env.READONLY}`);
-  storage = new AwsAdapter(process.env.S3FILE, {
+  logger.info(`S3File: ${process.env.S3File}`);
+  logger.info(`S3Bucket: ${process.env.S3Bucket}`);
+  logger.info(`readOnly: ${appConfig.readOnly}`);
+  logger.info(`basePath: ${process.env.basePath}`);
+  storage = new AwsAdapter(process.env.S3File, {
     defaultValue: defaultDB,
-    aws: { bucketName: process.env.S3BUCKET },
+    aws: { bucketName: process.env.S3Bucket },
   });
 }
 
@@ -34,9 +48,8 @@ const request = async () => {
   try {
     const adapter = await low(storage);
     const router = jsonServer.router(adapter);
-    const middlewares = jsonServer.defaults({ readOnly: process.env.READONLY === 'true' });
-    server.use(middlewares);
-    server.use(router);
+    const middlewares = jsonServer.defaults({ readOnly: appConfig.readOnly });
+    setupServer(middlewares, router);
   } catch (e) {
     if (e.code === 'ExpiredToken') {
       logger.error(`Please add valid credentials for AWS. Error: ${e.message}`);
