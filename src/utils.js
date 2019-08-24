@@ -16,6 +16,9 @@ let storage = null;
 
 
 function setupServer(middlewares, router) {
+  if (appConfig.enableSwagger) {
+    middlewares.splice(middlewares.findIndex((x) => x.name === 'serveStatic'), 1);
+  }
   server.use(middlewares);
   server.use('/api', router);
   if (appConfig.enableSwagger) {
