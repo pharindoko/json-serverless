@@ -1,6 +1,6 @@
 {
     "readOnly": false,
     "enableSwagger": true,
-    "enableApiKeyAuth": true
+    "enableApiKeyAuth": false
   }
   
