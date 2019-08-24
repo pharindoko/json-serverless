@@ -1,11 +1,12 @@
 # JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-serverless) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <a href="https://codeclimate.com/github/pharindoko/json-serverless/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
+- [Architecture](#architecture)
 - [Features](#features)
 - [Quickstart](#quickstart)
 - [Customization](#customization)
 - [Used Packages](#used-packages)
 - [Components](#components)
-- [Develop locally](#develop-locally)
+- [Develop and debug locally](#develop-and-debug-locally)
 - [Develop locally with cloud resources](#develop-locally-with-cloud-resources)
 - [Diagnose issues](#diagnose-issues)
 
@@ -199,7 +200,7 @@ If you want to debug locally in VS Code everything is already setup (using webpa
 npm run debug
 ```
 
-#### 2. Test your API
+### Test your API
 
 #### With Swagger
 
@@ -345,3 +346,4 @@ sls remove
 ### I deployed the solution but I get back a http 500 error
 
 Check Cloudwatch Logs in AWS - the issue should be describe there. Log has the same name as the stack that has been created.
+
