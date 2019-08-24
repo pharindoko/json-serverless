@@ -55,7 +55,7 @@
 		"eslint": "6.2.2",
 		"eslint-config-airbnb-base": "14.0.0",
 		"eslint-plugin-import": "2.18.2",
-		"express-swagger-generator": "^1.1.15",
+		"express-swagger-generator": "1.1.15",
 		"jest": "24.9.0",
 		"node-env-webpack-plugin": "1.1.0",
 		"nodemon": "1.19.1",
