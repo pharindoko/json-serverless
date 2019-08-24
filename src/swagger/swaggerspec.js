@@ -175,11 +175,18 @@ function getQueryParameterSchema() {
     description: 'parameter to set start sliced data',
   },
   {
+    name: '_end',
+    in: 'query',
+    required: false,
+    type: 'integer',
+    description: 'parameter to set start sliced data',
+  },
+  {
     name: 'q',
     in: 'query',
     required: false,
     type: 'string',
-    description: 'parameter to set end of sliced data',
+    description: 'full text search',
   },
   {
     name: '_embed',
