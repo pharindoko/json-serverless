@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/pharindoko/json-serverless/compare/v1.2.0...v1.3.0) (2019-08-24)
+
+
+### Features
+
+* **swagger:** add swagger ui and spec support ([cbd8c82](https://github.com/pharindoko/json-serverless/commit/cbd8c82))
+
 # [1.2.0](https://github.com/pharindoko/json-serverless/compare/v1.1.0...v1.2.0) (2019-08-16)
 
 
