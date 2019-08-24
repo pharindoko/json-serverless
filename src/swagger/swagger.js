@@ -23,12 +23,11 @@ module.exports.generateSwagger = (server, json, config) => {
   }
   swaggerSpec.addSchemaDefitions(spec, swaggerSchemaDefinitions);
 
-  server.use('/api-spec', (req, res, next) => {
+  server.use('/api-spec', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(spec, null, 2);
-    return next();
   });
-  server.use('/api-docs', swaggerUi.serve, (req, res) => {
+  server.use('/', swaggerUi.serve, (req, res) => {
     swaggerUi.setup(spec)(req, res);
   });
 };
