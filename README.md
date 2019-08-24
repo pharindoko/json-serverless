@@ -16,7 +16,7 @@
 
 ## Features
 
-- Easily setup routes and resources for the REST Api via json file. [(via json-server)](https://github.com/typicode/json-server)
+- Easily generate routes and resources for the Api via json file.
 - **New:** Added Swagger UI support
 - Deployment:
    - Deployed in AWS cloud within Minutes by a single command
@@ -58,14 +58,17 @@ aws sts get-caller-identity
 
 ### 4. Update db.json file in root directory
 
-- Childproperties are the REST endpoints you create
-- Samplefile: Routes marked **bold**
+- Root properties marked in **bold** are the generated endpoints of the API  ([route generation is done via json-server](https://github.com/typicode/json-server))
 
 <pre><code>
 {
-    "<b>posts</b>": [
+    <b>"posts"</b>: [
       { "id": 1, "title": "json-server", "author": "typicode" }
-    ]
+    ],
+    <b>"comments"</b>: [
+      { "id": 1, "body": "some comment", "postId": 1 }
+    ],
+    <b>"profile"</b>: { "name": "typicode" }
 }
 </code></pre>
 
