@@ -27,7 +27,5 @@ module.exports.generateSwagger = (server, json, config) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(spec, null, 2);
   });
-  server.use('/', swaggerUi.serve, (req, res) => {
-    swaggerUi.setup(spec)(req, res);
-  });
+  server.use('/', swaggerUi.serve, swaggerUi.setup(spec));
 };
