@@ -18,7 +18,7 @@ module.exports = {
       { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
   ],
-  entry: { 'src/handler': './src/handler.js' },
+  entry: { 'src/server/handler': './src/server/handler.js' },
   optimization: {
     minimizer: [new TerserPlugin()],
   },

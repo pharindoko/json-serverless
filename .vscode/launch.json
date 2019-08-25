@@ -6,9 +6,9 @@
         "type": "node",
         "request": "launch",
         "cwd": "${workspaceRoot}",
-        "program": "${workspaceRoot}/src/handler.js",
+        "program": "${workspaceRoot}/src/server/handler.js",
         "outFiles": [
-          "${workspaceRoot}/dist/handler.js"
+          "${workspaceRoot}/dist/server/handler.js"
         ],
         "sourceMaps": true
       }
