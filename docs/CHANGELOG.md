@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/pharindoko/json-serverless/compare/v1.3.0...v1.4.0) (2019-08-25)
+
+
+### Features
+
+* **settings:** added possiblity to set path of json file which will be imported ([ce10b0b](https://github.com/pharindoko/json-serverless/commit/ce10b0b))
+
 # [1.3.0](https://github.com/pharindoko/json-serverless/compare/v1.2.0...v1.3.0) (2019-08-24)
 
 
