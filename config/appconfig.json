@@ -1,6 +1,7 @@
 {
     "readOnly": false,
     "enableSwagger": true,
-    "enableApiKeyAuth": false
+    "enableApiKeyAuth": false,
+    "jsonFile": "db.json"
   }
   

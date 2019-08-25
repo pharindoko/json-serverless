@@ -5,18 +5,21 @@ const NodeEnvPlugin = require('node-env-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { join } = require('path');
+const fs = require('fs');
+
+const appConfig = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8'));
 
 module.exports = {
   mode: 'development',
   plugins: [
     new CopyPlugin([
-      { from: './db.json', to: './db.json' },
+      { from: appConfig.jsonFile, to: './db.json' },
       { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
     new NodeEnvPlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
     }),
-    process.env.NODE_ENV === 'debug' ? new NodemonPlugin({ nodeArgs: ['--inspect-brk'] }) : new NodemonPlugin(),
+    process.env.NODE_ENV === 'debug' || process.env.NODE_ENV === 'development' ? new NodemonPlugin({ nodeArgs: ['--inspect-brk'] }) : new NodemonPlugin(),
   ],
   entry: { 'src/handler': './src/handler.js' },
   optimization: {
