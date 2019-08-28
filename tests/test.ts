@@ -9,9 +9,13 @@ const appConfig: AppConfig = JSON.parse(
 );
 const server = express();
 const localServer = new TestServer(server, new LocalApp(appConfig, server));
-(async () => {
+
+beforeAll(async (done) => {
   await localServer.init();
-})();
+  done();
+});
+
+
 
 describe('Test the root path', () => {
   test('It should response the GET method', async (done) => {
