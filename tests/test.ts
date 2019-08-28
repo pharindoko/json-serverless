@@ -20,7 +20,6 @@ beforeAll(async (done) => {
 describe('Test the root path', () => {
   test('It should response the GET method', async (done) => {
     const response = await request(localServer.server).get('/');
-    console.log(JSON.stringify(response));
     expect(response.status).toBe(200);
     done();
   });
