@@ -1,4 +1,4 @@
-function output(data) {
+function output(data: {}) {
   console.log('Received Stack Output', data);
 }
 

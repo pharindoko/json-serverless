@@ -21,12 +21,16 @@ module.exports = {
     }),
     process.env.NODE_ENV === 'debug' || process.env.NODE_ENV === 'development' ? new NodemonPlugin({ nodeArgs: ['--inspect-brk'] }) : new NodemonPlugin(),
   ],
-  entry: { 'src/server/handler': './src/server/handler.js' },
+  entry: { 'src/server/handler': './src/server/handler.ts' },
   optimization: {
     minimizer: [new TerserPlugin()],
   },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+  },
   devtool: 'source-map',
   output: {
+    libraryTarget: 'commonjs',
     path: join(__dirname, 'dist'),
     filename: 'handler.js',
 
@@ -39,16 +43,8 @@ module.exports = {
   externals: [nodeExternals()],
   module: {
     rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      { test: /\.tsx?$/, loader: 'ts-loader' },
     ],
   },
 };

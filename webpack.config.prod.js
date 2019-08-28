@@ -18,24 +18,19 @@ module.exports = {
       { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
   ],
-  entry: { 'src/server/handler': './src/server/handler.js' },
+  entry: { 'src/server/handler': './src/server/handler.ts' },
   optimization: {
     minimizer: [new TerserPlugin()],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
   },
   target: 'node',
   externals: [nodeExternals()],
   module: {
     rules: [
-      {
-        test: /\.m?js$/,
-        exclude: /(node_modules|bower_components)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env'],
-          },
-        },
-      },
+      // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      { test: /\.tsx?$/, loader: 'ts-loader' },
     ],
   },
 };

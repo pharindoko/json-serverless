@@ -294,7 +294,7 @@ serverless-offline will help you to troubleshoot issues with the lambda executio
 
 ### 1. build sources and execute serverless offline
 
-- sources will be build with babel in advance to test the functionality.
+- sources will be build with typescript (tsc) in advance to test the functionality.
 - after that sls offline will be started
 
 <pre><code>npm run diagnostic
