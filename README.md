@@ -26,7 +26,7 @@
   -  Secured with https by default.
   -  Optional: Use a generated API Key
 - Customization:
-   - This solution written in **NodeJS** can be easily extended for additional enhanced scenarios
+   - This solution written in **Typescript** can be easily extended for additional enhanced scenarios
       - adding user authentication
       - own custom domain
       - additional routes etc.
@@ -181,7 +181,7 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 
 ## Components
 
-- [NodeJS 8.10](https://nodejs.org/en/about/)
+- [NodeJS 10](https://nodejs.org/en/about/)
 - [AWS API Gateway](https://aws.amazon.com/api-gateway/)
 - [AWS Lambda](https://aws.amazon.com/lambda/features/)
 - [AWS S3](https://aws.amazon.com/s3/)
@@ -294,7 +294,7 @@ serverless-offline will help you to troubleshoot issues with the lambda executio
 
 ### 1. build sources and execute serverless offline
 
-- sources will be build with babel in advance to test the functionality.
+- sources will be build with typescript (tsc) in advance to test the functionality.
 - after that sls offline will be started
 
 <pre><code>npm run diagnostic
