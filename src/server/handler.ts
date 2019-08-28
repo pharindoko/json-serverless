@@ -1,14 +1,16 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
-import { Core } from './core';
-import { Logger } from './logger';
-import { DevServer, CloudServer, LocalServer } from './server';
-import { Server } from './server/server';
-const logger = new Logger().logger;
+import { ServerFactory } from './factory';
+import { AppConfig } from './config';
+import fs from 'fs';
+import { CloudApp } from './app';
 const server = express();
-const core = new Core(server);
 const sls = serverlessHttp(server);
+const appConfig: AppConfig = JSON.parse(
+  fs.readFileSync('./config/appconfig.json', 'UTF-8')
+);
+const core = new CloudApp(appConfig, server);
 
 export const handler: APIGatewayProxyHandler = async (event, _context) => {
   await core.request();
@@ -17,12 +19,10 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
 };
 (async () => {
   if (require.main === module) {
-    if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'debug') {
-      await new LocalServer(server).init();
-    } else if (process.env.NODE_ENV === 'development') {
-      await new DevServer(server).init();
-    } else {
-      await new CloudServer(server).init();
-    }
+    ServerFactory.createServer(
+      process.env.NODE_ENV as string,
+      server,
+      appConfig
+    );
   }
 })();

@@ -1,17 +1,16 @@
 import express from 'express';
 import { Logger } from '../logger';
 const logger = new Logger().logger;
-
-import { Core, CoreEngine } from '../core';
-export abstract class Server {
-  protected core: CoreEngine;
+import { CoreApp } from '../app/app';
+export abstract class CoreServer {
+  core: CoreApp;
   server: express.Express;
-  constructor(server: express.Express) {
+  constructor(server: express.Express, core: CoreApp) {
     this.server = server;
-    this.core = new Core(this.server);
+    this.core = core;
   }
   abstract async init(): Promise<void>;
-  start(server: express.Express, port: number) {
+  protected start(server: express.Express, port: number) {
     // start the web server
     server.listen(port);
     logger.info(
