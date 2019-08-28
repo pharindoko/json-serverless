@@ -6,8 +6,14 @@ import jsonServer = require('json-server');
 import { Logger } from './logger';
 import { Swagger } from './swagger/swagger';
 import { AppConfig } from './config';
+import { request } from 'https';
 
-export class Core {
+export interface CoreEngine {
+  init(): Promise<void>;
+  request(): Promise<void>;
+}
+
+export class Core implements CoreEngine {
   private logger = new Logger().logger;
   private swagger = new Swagger();
   private storage = {} as lowdb.AdapterAsync;
@@ -71,7 +77,7 @@ export class Core {
           `Please add valid credentials for AWS. Error: ${e.message}`
         );
       } else {
-        this.logger.error(e.code);
+        this.logger.error(e);
       }
     }
   };
@@ -80,7 +86,6 @@ export class Core {
     this.logger.info(`NODE_ENV: ${process.env.NODE_ENV}`);
 
     if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'debug') {
-      this.logger.info(`NODE_ENV_ROOT: ${process.env.NODE_ENV}`);
       this.defaultDB = JSON.parse(
         fs.readFileSync(this.appConfig.jsonFile, 'UTF-8')
       );
@@ -89,7 +94,6 @@ export class Core {
       process.env.NODE_ENV === 'development' ||
       process.env.NODE_ENV === 'offline'
     ) {
-      this.logger.info(`NODE_ENV_ROOT: ${process.env.NODE_ENV}`);
       this.logger.info('start development mode');
       this.logger.info('load variables from .env file');
       // eslint-disable-next-line global-require
@@ -101,7 +105,6 @@ export class Core {
       const { middlewares, router } = await this.initializeLayers();
       this.setupServer(middlewares, router);
     } else {
-      this.logger.info(`NODE_ENV_ROOT: ${process.env.NODE_ENV}`);
       this.defaultDB = JSON.parse(
         fs.readFileSync(process.env.S3File as string, 'UTF-8')
       );

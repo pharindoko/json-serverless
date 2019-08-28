@@ -1,16 +1,12 @@
 import _ from 'lodash';
 const listEndpoints = require('express-list-endpoints');
-import fs from 'fs';
 import express from 'express';
 import packageInfo from '../../../package.json';
-import { Swagger } from './swagger.js';
 import {
-  BaseSchema,
   Info,
   Spec,
   Schema,
   ApiKeySecurity,
-  Security,
   Operation,
   QueryParameter,
   BodyParameter,
