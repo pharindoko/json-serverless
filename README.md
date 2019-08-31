@@ -16,7 +16,7 @@
 
 ## Features
 
-- Easily generate routes and resources for the Api via json file.
+- Easily generate routes and resources for the Api via ([json-server](https://github.com/typicode/json-server))
 - **New:** Added Swagger UI support
 - Deployment:
    - Deployed in AWS cloud within Minutes by a single command
@@ -58,7 +58,7 @@ aws sts get-caller-identity
 
 ### 4. Update db.json file in root directory
 
-- Root properties marked in **bold** are the generated endpoints of the API  ([route generation is done via json-server](https://github.com/typicode/json-server))
+- Root properties marked in **bold** are the generated endpoints of the API  ([route generation and json validation is done via json-server](https://github.com/typicode/json-server))
 
 <pre><code>
 {
