@@ -3,11 +3,11 @@ import express from 'express';
 import { TestServer } from '../src/server/coreserver';
 import { AppConfig } from '../src/server/app/app.config';
 import fs from 'fs';
-import { LocalApp } from '../src/server/app';
 import { Swagger } from '../src/server/specifications/swagger/swagger';
 import { SwaggerConfig } from '../src/server/specifications/swagger/swagger.config';
 import { FileStorageAdapter } from '../src/server/storage/file.storage';
 import { Environment } from '../src/server/environment/environment';
+import { CoreApp } from '../src/server/app';
 
 const appConfig: AppConfig = JSON.parse(
   fs.readFileSync('./config/appconfig.json', 'UTF-8')
@@ -16,7 +16,7 @@ const server = express();
 
 const environment = new Environment();
 const swagger = new Swagger(server,new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth), environment.basePath);
-const localServer = new TestServer(server, new LocalApp(appConfig, server,new FileStorageAdapter(appConfig.jsonFile),swagger));
+const localServer = new TestServer(server, new CoreApp(appConfig, server,new FileStorageAdapter(appConfig.jsonFile),swagger));
 
 beforeAll(async (done) => {
   await localServer.init();

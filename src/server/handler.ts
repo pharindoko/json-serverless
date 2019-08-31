@@ -27,6 +27,9 @@ const core = new CloudApp(
   new S3StorageAdapter(environment.s3Bucket, environment.s3File),
   swagger
 );
+(async () => {
+  await core.setup();
+})();
 
 export const handler: APIGatewayProxyHandler = async (event, _context) => {
   await core.request();

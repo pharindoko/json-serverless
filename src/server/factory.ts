@@ -1,12 +1,6 @@
 import express from 'express';
-import {
-  LocalServer,
-  DevServer,
-  CloudServer,
-  TestServer,
-  OfflineServer,
-} from './coreserver';
-import { LocalApp, CloudApp, CoreApp, AppConfig } from './app';
+import { LocalServer, DevServer, CloudServer, TestServer } from './coreserver';
+import { CloudApp, CoreApp, AppConfig } from './app';
 import {
   StorageAdapter,
   FileStorageAdapter,
@@ -28,7 +22,7 @@ export class ServerFactory {
       case 'local': {
         coreserver = ServerFactory.create(
           LocalServer,
-          LocalApp,
+          CoreApp,
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
@@ -39,7 +33,7 @@ export class ServerFactory {
       case 'debug': {
         coreserver = ServerFactory.create(
           LocalServer,
-          LocalApp,
+          CoreApp,
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
@@ -62,9 +56,9 @@ export class ServerFactory {
       case 'offline': {
         const environment = new CloudEnvironment();
         coreserver = ServerFactory.create(
-          OfflineServer,
+          CloudServer,
           CloudApp,
-          CloudEnvironment,
+          DevEnvironment,
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server
@@ -74,7 +68,7 @@ export class ServerFactory {
       case 'test': {
         coreserver = ServerFactory.create(
           TestServer,
-          LocalApp,
+          CoreApp,
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,

@@ -1,4 +1,4 @@
-import { CoreApp, CloudApp } from '../app';
+import { CloudApp } from '../app';
 import { CoreServer } from './server';
 import express from 'express';
 

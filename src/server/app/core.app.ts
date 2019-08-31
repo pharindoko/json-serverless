@@ -2,11 +2,10 @@ import { Logger } from '../utils/logger';
 import { AppConfig } from './app.config';
 import * as lowdb from 'lowdb';
 import express from 'express';
-import { Swagger } from '../specifications/swagger/swagger';
 import jsonServer = require('json-server');
 import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
-export abstract class CoreApp {
+export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
   logger = new Logger().logger;
