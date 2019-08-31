@@ -6,39 +6,129 @@ import {
   TestServer,
   OfflineServer,
 } from './coreserver';
-import { LocalApp, DevApp, CloudApp } from './app';
-import { AppConfig } from './config';
+import { LocalApp, CloudApp, CoreApp, AppConfig } from './app';
+import {
+  StorageAdapter,
+  FileStorageAdapter,
+  S3StorageAdapter,
+} from './storage/';
+import { ApiSpecification, Swagger, SwaggerConfig } from './specifications/';
+import { CoreServer } from './coreserver/server';
+import { Environment, DevEnvironment, CloudEnvironment } from './environment/';
+
 export class ServerFactory {
   static createServer = async (
     type: string,
     server: express.Express,
     appConfig: AppConfig
-  ): Promise<void> => {
+  ): Promise<CoreServer> => {
+    let coreserver = {} as CoreServer;
+
     switch (type) {
       case 'local': {
-        await new LocalServer(server, new LocalApp(appConfig, server)).init();
+        coreserver = ServerFactory.create(
+          LocalServer,
+          LocalApp,
+          Environment,
+          new FileStorageAdapter(appConfig.jsonFile),
+          appConfig,
+          server
+        );
         break;
       }
       case 'debug': {
-        await new LocalServer(server, new LocalApp(appConfig, server)).init();
+        coreserver = ServerFactory.create(
+          LocalServer,
+          LocalApp,
+          Environment,
+          new FileStorageAdapter(appConfig.jsonFile),
+          appConfig,
+          server
+        );
         break;
       }
       case 'development': {
-        await new DevServer(server, new DevApp(appConfig, server)).init();
+        const environment = new DevEnvironment();
+        coreserver = ServerFactory.create(
+          DevServer,
+          CloudApp,
+          DevEnvironment,
+          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+          appConfig,
+          server
+        );
         break;
       }
       case 'offline': {
-        await new OfflineServer(server, new DevApp(appConfig, server)).init();
+        const environment = new CloudEnvironment();
+        coreserver = ServerFactory.create(
+          OfflineServer,
+          CloudApp,
+          CloudEnvironment,
+          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+          appConfig,
+          server
+        );
         break;
       }
       case 'test': {
-        await new TestServer(server, new LocalApp(appConfig, server)).init();
+        coreserver = ServerFactory.create(
+          TestServer,
+          LocalApp,
+          Environment,
+          new FileStorageAdapter(appConfig.jsonFile),
+          appConfig,
+          server
+        );
         break;
       }
       default: {
-        await new CloudServer(server, new CloudApp(appConfig, server)).init();
+        const environment = new CloudEnvironment();
+        coreserver = ServerFactory.create(
+          CloudServer,
+          CloudApp,
+          CloudEnvironment,
+          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+          appConfig,
+          server
+        );
         break;
       }
     }
+    coreserver.init();
+    return coreserver;
   };
+
+  static create<
+    C extends CoreServer,
+    A extends CoreApp,
+    E extends Environment,
+    S extends StorageAdapter
+  >(
+    coreserver: { new (server: express.Express, app: A): C },
+    app: {
+      new (
+        appConfig: AppConfig,
+        server: express.Express,
+        storage: S,
+        specification: ApiSpecification
+      ): A;
+    },
+    environment: { new (): E },
+    storage: S,
+    appConfig: AppConfig,
+    server: express.Express
+  ): C {
+    const env = new environment();
+    const swagger = new Swagger(
+      server,
+      new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
+      env.basePath
+    );
+    const core = new coreserver(
+      server,
+      new app(appConfig, server, storage, swagger)
+    );
+    return core;
+  }
 }

@@ -1,7 +1,7 @@
 import express from 'express';
-import { Logger } from '../logger';
+import { Logger } from '../utils/logger';
 const logger = new Logger().logger;
-import { CoreApp } from '../app/app';
+import { CoreApp } from '../app/core.app';
 export abstract class CoreServer {
   core: CoreApp;
   server: express.Express;

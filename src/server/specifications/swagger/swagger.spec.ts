@@ -1,7 +1,7 @@
 import _ from 'lodash';
 const listEndpoints = require('express-list-endpoints');
 import express from 'express';
-import packageInfo from '../../../package.json';
+import packageInfo from '../../../../package.json';
 import {
   Info,
   Spec,
@@ -26,7 +26,7 @@ export class SwaggerSpec {
   private spec = {} as Spec;
 
   constructor() {}
-  private updateSpecFromPackage(): Info {
+  private updateSpecFromPackage(basePath: string): Info {
     const newInfo: Info = {
       version: '',
       title: '',
@@ -41,11 +41,8 @@ export class SwaggerSpec {
     if (this.packageInfo.license) {
       newInfo.license = { name: this.packageInfo.license };
     }
-    if (this.getPackageInfo()) {
-      newInfo.description = `[Specification JSON](${this.getPackageInfo()}/api-spec)`;
-    } else {
-      newInfo.description = '[Specification JSON](/api-spec)';
-    }
+    newInfo.description = `[Specification JSON](${basePath}/api-spec)`;
+
     if (this.packageInfo.description) {
       newInfo.description += `\n\n${this.packageInfo.description}`;
     }
@@ -62,8 +59,8 @@ export class SwaggerSpec {
     return sorted;
   }
 
-  initSpec(readOnly: boolean) {
-    const info = this.updateSpecFromPackage();
+  initSpec(readOnly: boolean, basePath: string) {
+    const info = this.updateSpecFromPackage(basePath);
     let specification: Spec = {
       swagger: '2.0',
       paths: {},
@@ -114,7 +111,7 @@ export class SwaggerSpec {
       }
     });
 
-    this.setBasePath(specification);
+    specification.basePath = basePath;
     specification = this.sortObject(
       _.merge(specification, this.predefinedSpec || {})
     ) as Spec;
@@ -124,22 +121,14 @@ export class SwaggerSpec {
   getSpec = (
     app: express.Express,
     predefinedSpec: object,
-    readOnly: boolean
+    readOnly: boolean,
+    basePath: string
   ) => {
     this.app = app;
     this.predefinedSpec = predefinedSpec;
-    this.spec = this.initSpec(readOnly);
+    this.spec = this.initSpec(readOnly, basePath);
     return this.spec;
   };
-
-  getPackageInfo = () => (process.env.basePath ? process.env.basePath : '');
-  private setBasePath(specification: Spec) {
-    if (this.getPackageInfo()) {
-      specification.basePath = this.getPackageInfo();
-    } else {
-      specification.basePath = '/';
-    }
-  }
 
   setSchemaReference(spec: Spec, definition: string): Reference {
     let schemaDef = {} as Reference;

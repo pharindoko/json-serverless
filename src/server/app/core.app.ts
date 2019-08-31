@@ -1,36 +1,52 @@
-import { Logger } from '../logger';
-import { AppConfig } from '../config';
+import { Logger } from '../utils/logger';
+import { AppConfig } from './app.config';
 import * as lowdb from 'lowdb';
 import express from 'express';
-import { Swagger } from '../swagger/swagger';
+import { Swagger } from '../specifications/swagger/swagger';
 import jsonServer = require('json-server');
+import { StorageAdapter } from '../storage/storage';
+import { ApiSpecification } from '../specifications/apispecification';
 export abstract class CoreApp {
+  storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
   logger = new Logger().logger;
   appConfig: AppConfig;
   protected server: express.Express;
-  private swagger = new Swagger();
+  private apispec: ApiSpecification;
 
-  constructor(appConfig: AppConfig, server: express.Express) {
+  constructor(
+    appConfig: AppConfig,
+    server: express.Express,
+    storageAdapter: StorageAdapter,
+    apispec: ApiSpecification
+  ) {
     this.appConfig = appConfig;
     this.server = server;
+    this.storageAdapter = storageAdapter;
+    this.apispec = apispec;
   }
 
   async setup(): Promise<void> {
-    this.logger.debug('setup');
-    this.initEnvironmentVariables();
     await this.setupStorage();
     const json = await this.setupApp();
     await this.setupSwagger(json);
     await this.setupRoutes();
   }
 
-  protected initEnvironmentVariables(): void {}
-  abstract setupStorage(): Promise<void>;
-  abstract setupApp(): Promise<object>;
+  protected async setupStorage() {
+    CoreApp.storage = await this.storageAdapter.init();
+  }
+
+  protected async setupApp(): Promise<object> {
+    const { middlewares, router, adapter } = await this.initializeLayers();
+    this.setupServer(middlewares, router);
+    const json = await adapter.getState();
+    return json;
+  }
+
   protected setupSwagger(db: {}): void {
     if (this.appConfig.enableSwagger) {
-      this.swagger.generateSwagger(this.server, db, this.appConfig, true);
+      this.apispec.generateSpecification(db, true);
     }
   }
 
@@ -41,7 +57,7 @@ export abstract class CoreApp {
   }
 
   protected async initializeLayers() {
-    this.logger.info('initLayer: ' + JSON.stringify(CoreApp.storage));
+    this.logger.trace('initLayer: ' + JSON.stringify(CoreApp.storage));
     const adapter = await lowdb.default(CoreApp.storage);
     const router = jsonServer.router(adapter);
     const middlewares = jsonServer.defaults({

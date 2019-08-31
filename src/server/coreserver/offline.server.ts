@@ -1,10 +1,10 @@
-import { CoreApp, CloudApp, DevApp } from '../app';
+import { CoreApp, CloudApp } from '../app';
 import { CoreServer } from './server';
 import express from 'express';
 
 export class OfflineServer extends CoreServer {
-  core: DevApp;
-  constructor(server: express.Express, core: DevApp) {
+  core: CloudApp;
+  constructor(server: express.Express, core: CloudApp) {
     super(server, core);
     this.server = server;
     this.core = core;

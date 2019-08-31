@@ -1,28 +1,42 @@
 import * as swaggerUi from 'swagger-ui-express';
-import { SwaggerSpec } from './swaggerspec';
-import { SwaggerDefGen } from './swagdefgen';
-import { Logger } from '../logger';
+import { SwaggerSpec } from './swagger.spec';
+import { SwaggerDefGen } from './swagger.defgen';
+import { Logger } from '../../utils/logger';
 import express from 'express';
 import { Spec, ApiKeySecurity } from 'swagger-schema-official';
-import { AppConfig } from '../config';
+import { SwaggerConfig } from './swagger.config';
+import { ApiSpecification } from '../apispecification';
 
-export class Swagger {
+export class Swagger implements ApiSpecification {
   private swaggerSpec = new SwaggerSpec();
   private swaggerDefGen = new SwaggerDefGen();
   private logger = new Logger().logger;
   private spec = {} as Spec;
-  generateSwagger = (
+  private server: express.Express;
+  private config: SwaggerConfig;
+  private basePath: string;
+  constructor(
     server: express.Express,
-    json: object,
-    config: AppConfig,
-    force: boolean
-  ) => {
-    if (!this.spec || force) {
+    config: SwaggerConfig,
+    basePath: string
+  ) {
+    this.server = server;
+    this.config = config;
+    this.basePath = basePath;
+  }
+
+  generateSpecification = (json: object, regenerate: boolean) => {
+    if (!this.spec || regenerate) {
       this.logger.info('init Swagger ');
       const swaggerSchemaDefinitions = this.swaggerDefGen.generateDefinitions(
         json
       );
-      this.spec = this.swaggerSpec.getSpec(server, {}, config.readOnly);
+      this.spec = this.swaggerSpec.getSpec(
+        this.server,
+        {},
+        this.config.readOnly,
+        this.basePath
+      );
       const auth: ApiKeySecurity = {
         type: 'apiKey',
         in: 'header',
@@ -31,15 +45,15 @@ export class Swagger {
           'All requests must include the `x-api-key` header containing your account ID.',
       };
 
-      if (config.enableApiKeyAuth) {
+      if (this.config.enableApiKeyAuth) {
         this.swaggerSpec.addAuthentication(this.spec, auth);
       }
       this.swaggerSpec.addSchemaDefitions(this.spec, swaggerSchemaDefinitions);
     }
-    server.use('/api-spec', (req, res) => {
+    this.server.use('/api-spec', (req, res) => {
       res.setHeader('Content-Type', 'application/json');
       res.send(this.spec);
     });
-    server.use('/', swaggerUi.serve, swaggerUi.setup(this.spec));
+    this.server.use('/', swaggerUi.serve, swaggerUi.setup(this.spec));
   };
 }
