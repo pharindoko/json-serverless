@@ -34,12 +34,12 @@ export class CoreApp {
     const json = await this.getJSON();
     const isValid = this.validateJSON(json);
     if (isValid) {
-    await this.setupApp();
-    this.setupSwagger(json);
-    await this.setupRoutes();
+      await this.setupApp();
+      this.setupSwagger(json);
+      await this.setupRoutes();
     } else {
-      Output.setError("provided json is not valid - see validation checks")
-      throw Error("provided json is not valid - see validation checks");
+      Output.setError('provided json is not valid - see validation checks');
+      throw Error('provided json is not valid - see validation checks');
     }
   }
 
@@ -79,14 +79,18 @@ export class CoreApp {
   }
 
   protected async initializeLayers() {
-    if (CoreApp.adapter && Object.entries(CoreApp.adapter).length === 0 && CoreApp.adapter.constructor === Object) {
+    if (
+      CoreApp.adapter &&
+      Object.entries(CoreApp.adapter).length === 0 &&
+      CoreApp.adapter.constructor === Object
+    ) {
       CoreApp.adapter = await lowdb.default(CoreApp.storage);
     }
     const router = jsonServer.router(CoreApp.adapter);
     const middlewares = jsonServer.defaults({
       readOnly: this.appConfig.readOnly,
     });
-    return { middlewares, router};
+    return { middlewares, router };
   }
 
   protected setupServer(
