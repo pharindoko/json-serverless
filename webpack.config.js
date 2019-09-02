@@ -21,7 +21,7 @@ module.exports = {
     }),
     process.env.NODE_ENV === 'debug' || process.env.NODE_ENV === 'development' ? new NodemonPlugin({ nodeArgs: ['--inspect-brk'] }) : new NodemonPlugin(),
   ],
-  entry: { 'src/server/handler': './src/server/handler.ts' },
+  entry: { 'src/server/server': './src/server/server.ts' },
   optimization: {
     minimizer: [new TerserPlugin()],
   },

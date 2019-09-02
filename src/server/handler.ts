@@ -29,6 +29,7 @@ const core = new CloudApp(
 );
 (async () => {
   await core.setup();
+  await core.request();
 })();
 
 export const handler: APIGatewayProxyHandler = async (event, _context) => {
@@ -36,12 +37,3 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
   const result = await sls(event, _context);
   return result;
 };
-(async () => {
-  if (require.main === module) {
-    ServerFactory.createServer(
-      process.env.NODE_ENV as string,
-      server,
-      appConfig
-    );
-  }
-})();
