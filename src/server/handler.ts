@@ -37,4 +37,3 @@ export const handler: APIGatewayProxyHandler = async (event, _context) => {
   const result = await sls(event, _context);
   return result;
 };
-
