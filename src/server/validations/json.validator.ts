@@ -4,9 +4,8 @@ import {
   IsObjectRule,
   ValidationRule,
 } from './validationrule';
-import { RuleEventList, RuleResultSeverity } from './ruleevent';
+import { RuleResultSeverity } from './ruleevent';
 import { Output } from '../utils/output';
-import { stringLiteral } from '@babel/types';
 export class JSONValidator {
   static validate(json: {}): boolean {
     let isValid = true;
