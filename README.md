@@ -171,6 +171,7 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 | enableSwagger  | Enable swagger and swagger UI support  | string | true |
 | enableApiKeyAuth  | Make your routes private by using an additional ApiKey | boolean | false |
 | jsonFile  | path of json file that will be used  | string | db.json |
+| enableJSONValidation  | validate JSON file at start | boolean | true |
 
 ## Used Packages
 

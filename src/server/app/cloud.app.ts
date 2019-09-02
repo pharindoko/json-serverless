@@ -1,5 +1,5 @@
 import { CoreApp } from './core.app';
-
+import { Output } from '../utils/output';
 export class CloudApp extends CoreApp {
   request = async () => {
     try {
@@ -7,11 +7,11 @@ export class CloudApp extends CoreApp {
       this.setupServer(middlewares, router);
     } catch (e) {
       if (e.code === 'ExpiredToken') {
-        this.logger.error(
+        Output.setError(
           `Please add valid credentials for AWS. Error: ${e.message}`
         );
       } else {
-        this.logger.error(e);
+        Output.setError(e.message);
       }
     }
   };

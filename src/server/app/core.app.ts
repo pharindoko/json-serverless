@@ -5,9 +5,13 @@ import express from 'express';
 import jsonServer = require('json-server');
 import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
+import { JSONValidator } from '../validations/json.validator';
+import { Output } from '../utils/output';
+
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
+  static adapter = {} as lowdb.LowdbAsync<{}>;
   logger = new Logger().logger;
   appConfig: AppConfig;
   protected server: express.Express;
@@ -27,19 +31,38 @@ export class CoreApp {
 
   async setup(): Promise<void> {
     await this.setupStorage();
-    const json = await this.setupApp();
-    await this.setupSwagger(json);
-    await this.setupRoutes();
+    const json = await this.getJSON();
+    const isValid = this.validateJSON(json);
+    if (isValid) {
+      await this.setupApp();
+      this.setupSwagger(json);
+      await this.setupRoutes();
+    } else {
+      Output.setError('provided json is not valid - see validation checks');
+      throw Error('provided json is not valid - see validation checks');
+    }
   }
 
   protected async setupStorage() {
     CoreApp.storage = await this.storageAdapter.init();
+    CoreApp.adapter = await lowdb.default(CoreApp.storage);
   }
 
-  protected async setupApp(): Promise<object> {
-    const { middlewares, router, adapter } = await this.initializeLayers();
+  protected async setupApp(): Promise<void> {
+    const { middlewares, router } = await this.initializeLayers();
     this.setupServer(middlewares, router);
-    const json = await adapter.getState();
+  }
+
+  protected validateJSON(db: {}): boolean {
+    let isValid = true;
+    if (this.appConfig.enableJSONValidation) {
+      isValid = JSONValidator.validate(db);
+    }
+    return isValid;
+  }
+
+  protected async getJSON(): Promise<object> {
+    const json = await CoreApp.adapter.getState();
     return json;
   }
 
@@ -56,13 +79,18 @@ export class CoreApp {
   }
 
   protected async initializeLayers() {
-    this.logger.trace('initLayer: ' + JSON.stringify(CoreApp.storage));
-    const adapter = await lowdb.default(CoreApp.storage);
-    const router = jsonServer.router(adapter);
+    if (
+      CoreApp.adapter &&
+      Object.entries(CoreApp.adapter).length === 0 &&
+      CoreApp.adapter.constructor === Object
+    ) {
+      CoreApp.adapter = await lowdb.default(CoreApp.storage);
+    }
+    const router = jsonServer.router(CoreApp.adapter);
     const middlewares = jsonServer.defaults({
       readOnly: this.appConfig.readOnly,
     });
-    return { middlewares, router, adapter };
+    return { middlewares, router };
   }
 
   protected setupServer(
