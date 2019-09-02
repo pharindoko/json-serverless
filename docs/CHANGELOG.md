@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/pharindoko/json-serverless/compare/v1.4.0...v1.4.1) (2019-09-02)
+
+
+### Bug Fixes
+
+* **server:** fixed issues when starting local instances after refactoring code ([d590898](https://github.com/pharindoko/json-serverless/commit/d590898))
+
 # [1.4.0](https://github.com/pharindoko/json-serverless/compare/v1.3.0...v1.4.0) (2019-08-25)
 
 
