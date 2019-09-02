@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/pharindoko/json-serverless/compare/v1.4.1...v1.5.0) (2019-09-02)
+
+
+### Features
+
+* **server:** added additional json validation ([ecc1581](https://github.com/pharindoko/json-serverless/commit/ecc1581))
+
 ## [1.4.1](https://github.com/pharindoko/json-serverless/compare/v1.4.0...v1.4.1) (2019-09-02)
 
 
