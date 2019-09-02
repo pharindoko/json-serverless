@@ -1,7 +1,7 @@
 export class Logger {
   logger = require('pino')(
     {
-      prettyPrint: { colorize: true }
+      prettyPrint: { colorize: true },
     },
     process.stderr
   );

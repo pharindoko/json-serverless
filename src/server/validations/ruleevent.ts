@@ -5,11 +5,11 @@ export class RuleEventList {
 
 export class RuleEvent {
   result: RuleResultSeverity;
-  message = "" as string;
+  message = '' as string;
 
   constructor(result: RuleResultSeverity, message?: string) {
     this.result = result;
-    this.message = message !== undefined ? message: "";
+    this.message = message !== undefined ? message : '';
   }
 }
 

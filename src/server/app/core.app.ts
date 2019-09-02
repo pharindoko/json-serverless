@@ -49,7 +49,6 @@ export class CoreApp {
   protected validateJSON(db: {}): void {
     if (this.appConfig.enableSwagger) {
       const validator = JSONValidator.validate(db);
-
     }
   }
 
