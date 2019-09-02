@@ -5,6 +5,8 @@ import express from 'express';
 import jsonServer = require('json-server');
 import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
+import { JSONValidator } from '../validations/json.validator';
+
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
@@ -28,7 +30,8 @@ export class CoreApp {
   async setup(): Promise<void> {
     await this.setupStorage();
     const json = await this.setupApp();
-    await this.setupSwagger(json);
+    this.validateJSON(json);
+    this.setupSwagger(json);
     await this.setupRoutes();
   }
 
@@ -41,6 +44,13 @@ export class CoreApp {
     this.setupServer(middlewares, router);
     const json = await adapter.getState();
     return json;
+  }
+
+  protected validateJSON(db: {}): void {
+    if (this.appConfig.enableSwagger) {
+      const validator = JSONValidator.validate(db);
+
+    }
   }
 
   protected setupSwagger(db: {}): void {
@@ -56,7 +66,6 @@ export class CoreApp {
   }
 
   protected async initializeLayers() {
-    this.logger.trace('initLayer: ' + JSON.stringify(CoreApp.storage));
     const adapter = await lowdb.default(CoreApp.storage);
     const router = jsonServer.router(adapter);
     const middlewares = jsonServer.defaults({

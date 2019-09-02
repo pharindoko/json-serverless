@@ -6,6 +6,7 @@ import express from 'express';
 import { Spec, ApiKeySecurity } from 'swagger-schema-official';
 import { SwaggerConfig } from './swagger.config';
 import { ApiSpecification } from '../apispecification';
+import { Output } from '../../utils/output';
 
 export class Swagger implements ApiSpecification {
   private swaggerSpec = new SwaggerSpec();
@@ -27,7 +28,7 @@ export class Swagger implements ApiSpecification {
 
   generateSpecification = (json: object, regenerate: boolean) => {
     if (!this.spec || regenerate) {
-      this.logger.info('init Swagger ');
+      Output.setInfo('Init Swagger');
       const swaggerSchemaDefinitions = this.swaggerDefGen.generateDefinitions(
         json
       );
