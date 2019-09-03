@@ -71,7 +71,7 @@
     "gts": "1.1.0",
     "jest": "24.9.0",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "1.19.1",
+    "nodemon": "1.19.2",
     "nodemon-webpack-plugin": "4.0.8",
     "pino-pretty": "3.2.1",
     "serverless-offline": "5.10.1",
