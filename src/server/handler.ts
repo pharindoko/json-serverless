@@ -1,7 +1,6 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
-import { ServerFactory } from './factory';
 import { AppConfig } from './app/app.config';
 import fs from 'fs';
 import { CloudApp } from './app';
