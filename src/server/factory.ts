@@ -89,7 +89,7 @@ export class ServerFactory {
         break;
       }
     }
-    coreserver.init();
+    await coreserver.init();
     return coreserver;
   };
 
