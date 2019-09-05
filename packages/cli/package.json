@@ -1,0 +1,55 @@
+{
+  "name": "json-serverless",
+  "description": "cli for json-serverless project",
+  "version": "0.0.0",
+  "author": "flo @pharindoko",
+  "bin": {
+    "jsonsls": "./bin/run"
+  },
+  "bugs": "https://github.com/pharindoko/json-serverless/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.18",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.1",
+    "express": "^4.17.1",
+    "serverless": "^1.51.0",
+    "tslib": "^1.10.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@types/node": "^10.14.17",
+    "globby": "^10.0.1",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.6.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/lib",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json"
+  ],
+  "homepage": "https://github.com/pharindoko/json-serverless",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "jsonsls",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "pharindoko/json-serverless",
+  "scripts": {
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts"
+}

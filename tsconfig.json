@@ -6,10 +6,7 @@
     "outDir": "dist",
     "resolveJsonModule": true,
     "suppressImplicitAnyIndexErrors": true,
-    "sourceMap": true
-  },
-  "include": [
-    "src/**/*.ts",
-    "src/test/**/*.ts"
-  ]
+    "sourceMap": true,
+    "module": "commonjs"
+  }
 }
