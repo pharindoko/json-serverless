@@ -2,7 +2,7 @@
   "name": "json-serverless",
   "version": "0.0.0-development",
   "description": "Transform a json file into an api",
-  "main": "src/server.js",
+  "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=local jest",
     "debug": "NODE_ENV=debug webpack --watch",
@@ -64,7 +64,6 @@
     "@types/swagger-ui-express": "3.0.1",
     "copy-webpack-plugin": "5.0.4",
     "cz-conventional-changelog": "3.0.2",
-    "declaration-bundler-webpack-plugin": "^1.0.3",
     "eslint": "6.3.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",

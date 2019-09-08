@@ -4,7 +4,7 @@ const NodeEnvPlugin = require('node-env-webpack-plugin');
 const NodemonPlugin = require('nodemon-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const { join } = require('path');
-const path = require('path');
+
 
 module.exports = {
   mode: 'development',
@@ -25,7 +25,7 @@ module.exports = {
   output: {
     libraryTarget: 'commonjs',
     path: join(__dirname, 'lib'),
-    filename: 'handler.js',
+    filename: 'index.js',
 
     // Bundle absolute resource paths in the source-map,
     // so VSCode can match the source file.
