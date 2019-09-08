@@ -86,17 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "../../package.json":
-/*!***************************************************************************!*\
-  !*** /Users/uid10804/Documents/development2/json-serverless/package.json ***!
-  \***************************************************************************/
-/*! exports provided: name, version, description, main, scripts, repository, author, license, bugs, homepage, devDependencies, snyk, config, default */
-/***/ (function(module) {
-
-module.exports = JSON.parse("{\"name\":\"json-serverless\",\"version\":\"0.0.0-development\",\"description\":\"Transform a json file into an api\",\"main\":\"src/server.js\",\"scripts\":{\"snyk-protect\":\"snyk protect\",\"commit\":\"git-cz\",\"bootstrap\":\"lerna bootstrap\"},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/pharindoko/json-serverless.git\"},\"author\":\"\",\"license\":\"MIT\",\"bugs\":{\"url\":\"https://github.com/pharindoko/json-serverless/issues\"},\"homepage\":\"https://github.com/pharindoko/json-serverless.git#readme\",\"devDependencies\":{\"@semantic-release/changelog\":\"3.0.4\",\"@semantic-release/git\":\"7.0.16\",\"@types/aws-lambda\":\"8.10.31\",\"@types/dotenv\":\"6.1.1\",\"@types/express\":\"4.17.1\",\"@types/jest\":\"24.0.18\",\"@types/json-server\":\"0.14.1\",\"@types/lodash\":\"4.14.138\",\"@types/lowdb\":\"1.0.9\",\"@types/node\":\"10.14.16\",\"@types/supertest\":\"2.0.8\",\"@types/swagger-schema-official\":\"2.0.18\",\"@types/swagger-ui-express\":\"3.0.1\",\"copy-webpack-plugin\":\"5.0.4\",\"cz-conventional-changelog\":\"3.0.2\",\"eslint\":\"6.3.0\",\"eslint-config-airbnb-base\":\"14.0.0\",\"eslint-plugin-import\":\"2.18.2\",\"express-swagger-generator\":\"1.1.15\",\"gts\":\"1.1.0\",\"jest\":\"24.9.0\",\"node-env-webpack-plugin\":\"1.1.0\",\"nodemon\":\"1.19.2\",\"nodemon-webpack-plugin\":\"4.0.8\",\"pino-pretty\":\"3.2.1\",\"serverless-offline\":\"5.10.1\",\"serverless-webpack\":\"5.3.1\",\"terser-webpack-plugin\":\"1.4.1\",\"ts-jest\":\"24.0.2\",\"ts-loader\":\"6.0.4\",\"typescript\":\"3.6.2\",\"webpack\":\"4.39.3\",\"webpack-cli\":\"3.3.7\",\"webpack-node-externals\":\"1.7.2\"},\"snyk\":true,\"config\":{\"commitizen\":{\"path\":\"./node_modules/cz-conventional-changelog\"}}}");
-
-/***/ }),
-
 /***/ "./node_modules/webpack/buildin/module.js":
 /*!***********************************!*\
   !*** (webpack)/buildin/module.js ***!
@@ -140,17 +129,18 @@ module.exports = function(module) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class AppConfig {
-    constructor() {
+var AppConfig = /** @class */ (function () {
+    function AppConfig() {
         this.readOnly = false;
         this.enableSwagger = true;
         this.enableApiKeyAuth = false;
         this.jsonFile = 'db.json';
         this.enableJSONValidation = true;
     }
-}
+    AppConfig.merge = function (t, u) { return Object.assign({}, t, u); };
+    return AppConfig;
+}());
 exports.AppConfig = AppConfig;
-AppConfig.merge = (t, u) => Object.assign({}, t, u);
 
 
 /***/ }),
@@ -164,28 +154,90 @@ AppConfig.merge = (t, u) => Object.assign({}, t, u);
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const core_app_1 = __webpack_require__(/*! ./core.app */ "./src/app/core.app.ts");
-const output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
-class CloudApp extends core_app_1.CoreApp {
-    constructor() {
-        super(...arguments);
-        this.request = async () => {
-            try {
-                const { middlewares, router } = await this.initializeLayers();
-                this.setupServer(middlewares, router);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
             }
-            catch (e) {
-                if (e.code === 'ExpiredToken') {
-                    output_1.Output.setError(`Please add valid credentials for AWS. Error: ${e.message}`);
-                }
-                else {
-                    output_1.Output.setError(e.message);
-                }
-            }
-        };
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
-}
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_app_1 = __webpack_require__(/*! ./core.app */ "./src/app/core.app.ts");
+var output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
+var CloudApp = /** @class */ (function (_super) {
+    __extends(CloudApp, _super);
+    function CloudApp() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.request = function () { return __awaiter(_this, void 0, void 0, function () {
+            var _a, middlewares, router, e_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        return [4 /*yield*/, this.initializeLayers()];
+                    case 1:
+                        _a = _b.sent(), middlewares = _a.middlewares, router = _a.router;
+                        this.setupServer(middlewares, router);
+                        return [3 /*break*/, 3];
+                    case 2:
+                        e_1 = _b.sent();
+                        if (e_1.code === 'ExpiredToken') {
+                            output_1.Output.setError("Please add valid credentials for AWS. Error: " + e_1.message);
+                        }
+                        else {
+                            output_1.Output.setError(e_1.message);
+                        }
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
+                }
+            });
+        }); };
+        return _this;
+    }
+    return CloudApp;
+}(core_app_1.CoreApp));
 exports.CloudApp = CloudApp;
 
 
@@ -200,6 +252,42 @@ exports.CloudApp = CloudApp;
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -208,85 +296,151 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_1 = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
-const lowdb = __importStar(__webpack_require__(/*! lowdb */ "lowdb"));
-const jsonServer = __webpack_require__(/*! json-server */ "json-server");
-const json_validator_1 = __webpack_require__(/*! ../validations/json.validator */ "./src/validations/json.validator.ts");
-const output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
-class CoreApp {
-    constructor(appConfig, server, storageAdapter, apispec) {
+var logger_1 = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
+var lowdb = __importStar(__webpack_require__(/*! lowdb */ "lowdb"));
+var jsonServer = __webpack_require__(/*! json-server */ "json-server");
+var json_validator_1 = __webpack_require__(/*! ../validations/json.validator */ "./src/validations/json.validator.ts");
+var output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
+var CoreApp = /** @class */ (function () {
+    function CoreApp(appConfig, server, storageAdapter, apispec) {
         this.logger = new logger_1.Logger().logger;
         this.appConfig = appConfig;
         this.server = server;
         this.storageAdapter = storageAdapter;
         this.apispec = apispec;
     }
-    async setup() {
-        await this.setupStorage();
-        const json = await this.getJSON();
-        const isValid = this.validateJSON(json);
-        if (isValid) {
-            await this.setupApp();
-            this.setupSwagger(json);
-            await this.setupRoutes();
-        }
-        else {
-            output_1.Output.setError('provided json is not valid - see validation checks');
-            throw Error('provided json is not valid - see validation checks');
-        }
-    }
-    async setupStorage() {
-        CoreApp.storage = await this.storageAdapter.init();
-        CoreApp.adapter = await lowdb.default(CoreApp.storage);
-    }
-    async setupApp() {
-        const { middlewares, router } = await this.initializeLayers();
-        this.setupServer(middlewares, router);
-    }
-    validateJSON(db) {
-        let isValid = true;
+    CoreApp.prototype.setup = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var json, isValid;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.setupStorage()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.getJSON()];
+                    case 2:
+                        json = _a.sent();
+                        isValid = this.validateJSON(json);
+                        if (!isValid) return [3 /*break*/, 5];
+                        return [4 /*yield*/, this.setupApp()];
+                    case 3:
+                        _a.sent();
+                        this.setupSwagger(json);
+                        return [4 /*yield*/, this.setupRoutes()];
+                    case 4:
+                        _a.sent();
+                        return [3 /*break*/, 6];
+                    case 5:
+                        output_1.Output.setError('provided json is not valid - see validation checks');
+                        throw Error('provided json is not valid - see validation checks');
+                    case 6: return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CoreApp.prototype.setupStorage = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, _b;
+            return __generator(this, function (_c) {
+                switch (_c.label) {
+                    case 0:
+                        _a = CoreApp;
+                        return [4 /*yield*/, this.storageAdapter.init()];
+                    case 1:
+                        _a.storage = _c.sent();
+                        _b = CoreApp;
+                        return [4 /*yield*/, lowdb.default(CoreApp.storage)];
+                    case 2:
+                        _b.adapter = _c.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CoreApp.prototype.setupApp = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, middlewares, router;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, this.initializeLayers()];
+                    case 1:
+                        _a = _b.sent(), middlewares = _a.middlewares, router = _a.router;
+                        this.setupServer(middlewares, router);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    CoreApp.prototype.validateJSON = function (db) {
+        var isValid = true;
         if (this.appConfig.enableJSONValidation) {
             isValid = json_validator_1.JSONValidator.validate(db);
         }
         return isValid;
-    }
-    async getJSON() {
-        const json = await CoreApp.adapter.getState();
-        return json;
-    }
-    setupSwagger(db) {
+    };
+    CoreApp.prototype.getJSON = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var json;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, CoreApp.adapter.getState()];
+                    case 1:
+                        json = _a.sent();
+                        return [2 /*return*/, json];
+                }
+            });
+        });
+    };
+    CoreApp.prototype.setupSwagger = function (db) {
         if (this.appConfig.enableSwagger) {
             this.apispec.generateSpecification(db, true);
         }
-    }
-    setupRoutes() {
-        this.server.use('/reload', async () => {
-            Error('not implemented');
+    };
+    CoreApp.prototype.setupRoutes = function () {
+        var _this = this;
+        this.server.use('/reload', function () { return __awaiter(_this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                Error('not implemented');
+                return [2 /*return*/];
+            });
+        }); });
+    };
+    CoreApp.prototype.initializeLayers = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var _a, router, middlewares;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!(CoreApp.adapter &&
+                            Object.entries(CoreApp.adapter).length === 0 &&
+                            CoreApp.adapter.constructor === Object)) return [3 /*break*/, 2];
+                        _a = CoreApp;
+                        return [4 /*yield*/, lowdb.default(CoreApp.storage)];
+                    case 1:
+                        _a.adapter = _b.sent();
+                        _b.label = 2;
+                    case 2:
+                        router = jsonServer.router(CoreApp.adapter);
+                        middlewares = jsonServer.defaults({
+                            readOnly: this.appConfig.readOnly,
+                        });
+                        return [2 /*return*/, { middlewares: middlewares, router: router }];
+                }
+            });
         });
-    }
-    async initializeLayers() {
-        if (CoreApp.adapter &&
-            Object.entries(CoreApp.adapter).length === 0 &&
-            CoreApp.adapter.constructor === Object) {
-            CoreApp.adapter = await lowdb.default(CoreApp.storage);
-        }
-        const router = jsonServer.router(CoreApp.adapter);
-        const middlewares = jsonServer.defaults({
-            readOnly: this.appConfig.readOnly,
-        });
-        return { middlewares, router };
-    }
-    setupServer(middlewares, router) {
+    };
+    CoreApp.prototype.setupServer = function (middlewares, router) {
         if (this.appConfig.enableSwagger) {
-            middlewares.splice(middlewares.findIndex(x => x.name === 'serveStatic'), 1);
+            middlewares.splice(middlewares.findIndex(function (x) { return x.name === 'serveStatic'; }), 1);
         }
         this.server.use(middlewares);
         this.server.use('/api', router);
-    }
-}
+    };
+    CoreApp.storage = {};
+    CoreApp.adapter = {};
+    return CoreApp;
+}());
 exports.CoreApp = CoreApp;
-CoreApp.storage = {};
-CoreApp.adapter = {};
 
 
 /***/ }),
@@ -320,19 +474,82 @@ __export(__webpack_require__(/*! ./app.config */ "./src/app/app.config.ts"));
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
-class CloudServer extends server_1.CoreServer {
-    constructor(server, core) {
-        super(server, core);
-        this.server = server;
-        this.core = core;
+var server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
+var CloudServer = /** @class */ (function (_super) {
+    __extends(CloudServer, _super);
+    function CloudServer(server, core) {
+        var _this = _super.call(this, server, core) || this;
+        _this.server = server;
+        _this.core = core;
+        return _this;
     }
-    async init() {
-        await this.core.setup();
-        await this.core.request();
-    }
-}
+    CloudServer.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.core.setup()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.core.request()];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return CloudServer;
+}(server_1.CoreServer));
 exports.CloudServer = CloudServer;
 
 
@@ -347,20 +564,83 @@ exports.CloudServer = CloudServer;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
-class DevServer extends server_1.CoreServer {
-    constructor(server, core) {
-        super(server, core);
-        this.server = server;
-        this.core = core;
+var server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
+var DevServer = /** @class */ (function (_super) {
+    __extends(DevServer, _super);
+    function DevServer(server, core) {
+        var _this = _super.call(this, server, core) || this;
+        _this.server = server;
+        _this.core = core;
+        return _this;
     }
-    async init() {
-        await this.core.setup();
-        await this.core.request();
-        this.start(this.server, 3000);
-    }
-}
+    DevServer.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.core.setup()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.core.request()];
+                    case 2:
+                        _a.sent();
+                        this.start(this.server, 3000);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return DevServer;
+}(server_1.CoreServer));
 exports.DevServer = DevServer;
 
 
@@ -396,14 +676,77 @@ __export(__webpack_require__(/*! ./test.server */ "./src/coreserver/test.server.
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
-class LocalServer extends server_1.CoreServer {
-    async init() {
-        await this.core.setup();
-        this.start(this.server, 3000);
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
-}
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
+var LocalServer = /** @class */ (function (_super) {
+    __extends(LocalServer, _super);
+    function LocalServer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    LocalServer.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.core.setup()];
+                    case 1:
+                        _a.sent();
+                        this.start(this.server, 3000);
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return LocalServer;
+}(server_1.CoreServer));
 exports.LocalServer = LocalServer;
 
 
@@ -419,19 +762,20 @@ exports.LocalServer = LocalServer;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_1 = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
-const logger = new logger_1.Logger().logger;
-class CoreServer {
-    constructor(server, core) {
+var logger_1 = __webpack_require__(/*! ../utils/logger */ "./src/utils/logger.ts");
+var logger = new logger_1.Logger().logger;
+var CoreServer = /** @class */ (function () {
+    function CoreServer(server, core) {
         this.server = server;
         this.core = core;
     }
-    start(server, port) {
+    CoreServer.prototype.start = function (server, port) {
         // start the web server
         server.listen(port);
-        logger.info(`JSON Server is running under port ${port}. Use http://localhost:${port} to access it`);
-    }
-}
+        logger.info("JSON Server is running under port " + port + ". Use http://localhost:" + port + " to access it");
+    };
+    return CoreServer;
+}());
 exports.CoreServer = CoreServer;
 
 
@@ -446,13 +790,76 @@ exports.CoreServer = CoreServer;
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
-class TestServer extends server_1.CoreServer {
-    async init() {
-        await this.core.setup();
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
-}
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var server_1 = __webpack_require__(/*! ./server */ "./src/coreserver/server.ts");
+var TestServer = /** @class */ (function (_super) {
+    __extends(TestServer, _super);
+    function TestServer() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    TestServer.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.core.setup()];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    return TestServer;
+}(server_1.CoreServer));
 exports.TestServer = TestServer;
 
 
@@ -467,16 +874,32 @@ exports.TestServer = TestServer;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/environment.ts");
-class CloudEnvironment extends environment_1.Environment {
-    constructor() {
-        super();
-        this.s3File = process.env.s3File;
-        this.s3Bucket = process.env.s3Bucket;
-        this.basePath = process.env.basePath;
+var environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/environment.ts");
+var CloudEnvironment = /** @class */ (function (_super) {
+    __extends(CloudEnvironment, _super);
+    function CloudEnvironment() {
+        var _this = _super.call(this) || this;
+        _this.s3File = process.env.s3File;
+        _this.s3Bucket = process.env.s3Bucket;
+        _this.basePath = process.env.basePath;
+        return _this;
     }
-}
+    return CloudEnvironment;
+}(environment_1.Environment));
 exports.CloudEnvironment = CloudEnvironment;
 
 
@@ -491,6 +914,19 @@ exports.CloudEnvironment = CloudEnvironment;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
@@ -499,17 +935,20 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/environment.ts");
-const dotenv = __importStar(__webpack_require__(/*! dotenv */ "dotenv"));
-class DevEnvironment extends environment_1.Environment {
-    constructor() {
-        super();
+var environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/environment.ts");
+var dotenv = __importStar(__webpack_require__(/*! dotenv */ "dotenv"));
+var DevEnvironment = /** @class */ (function (_super) {
+    __extends(DevEnvironment, _super);
+    function DevEnvironment() {
+        var _this = _super.call(this) || this;
         dotenv.config();
-        this.s3File = process.env.s3File;
-        this.s3Bucket = process.env.s3Bucket;
-        this.basePath = process.env.basePath;
+        _this.s3File = process.env.s3File;
+        _this.s3Bucket = process.env.s3Bucket;
+        _this.basePath = process.env.basePath;
+        return _this;
     }
-}
+    return DevEnvironment;
+}(environment_1.Environment));
 exports.DevEnvironment = DevEnvironment;
 
 
@@ -525,12 +964,13 @@ exports.DevEnvironment = DevEnvironment;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class Environment {
-    constructor() {
+var Environment = /** @class */ (function () {
+    function Environment() {
         this.basePath = '/';
         this.basePath = '/';
     }
-}
+    return Environment;
+}());
 exports.Environment = Environment;
 
 
@@ -565,55 +1005,102 @@ __export(__webpack_require__(/*! ./dev.environment */ "./src/environment/dev.env
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const coreserver_1 = __webpack_require__(/*! ./coreserver */ "./src/coreserver/index.ts");
-const app_1 = __webpack_require__(/*! ./app */ "./src/app/index.ts");
-const storage_1 = __webpack_require__(/*! ./storage */ "./src/storage/index.ts");
-const specifications_1 = __webpack_require__(/*! ./specifications */ "./src/specifications/index.ts");
-const environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/index.ts");
-class ServerFactory {
-    static create(coreserver, app, environment, storage, appConfig, server) {
-        const env = new environment();
-        const swagger = new specifications_1.Swagger(server, new specifications_1.SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth), env.basePath);
-        const core = new coreserver(server, new app(appConfig, server, storage, swagger));
-        return core;
-    }
-}
-exports.ServerFactory = ServerFactory;
-ServerFactory.createServer = async (type, server, appConfig) => {
-    let coreserver = {};
-    switch (type) {
-        case 'local': {
-            coreserver = ServerFactory.create(coreserver_1.LocalServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
-            break;
-        }
-        case 'debug': {
-            coreserver = ServerFactory.create(coreserver_1.LocalServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
-            break;
-        }
-        case 'development': {
-            const environment = new environment_1.DevEnvironment();
-            coreserver = ServerFactory.create(coreserver_1.DevServer, app_1.CloudApp, environment_1.DevEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
-            break;
-        }
-        case 'offline': {
-            const environment = new environment_1.CloudEnvironment();
-            coreserver = ServerFactory.create(coreserver_1.CloudServer, app_1.CloudApp, environment_1.DevEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
-            break;
-        }
-        case 'test': {
-            coreserver = ServerFactory.create(coreserver_1.TestServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
-            break;
-        }
-        default: {
-            const environment = new environment_1.CloudEnvironment();
-            coreserver = ServerFactory.create(coreserver_1.CloudServer, app_1.CloudApp, environment_1.CloudEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
-            break;
-        }
-    }
-    await coreserver.init();
-    return coreserver;
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
 };
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var coreserver_1 = __webpack_require__(/*! ./coreserver */ "./src/coreserver/index.ts");
+var app_1 = __webpack_require__(/*! ./app */ "./src/app/index.ts");
+var storage_1 = __webpack_require__(/*! ./storage */ "./src/storage/index.ts");
+var specifications_1 = __webpack_require__(/*! ./specifications */ "./src/specifications/index.ts");
+var environment_1 = __webpack_require__(/*! ./environment */ "./src/environment/index.ts");
+var ServerFactory = /** @class */ (function () {
+    function ServerFactory() {
+    }
+    ServerFactory.create = function (coreserver, app, environment, storage, appConfig, server) {
+        var env = new environment();
+        var swagger = new specifications_1.Swagger(server, new specifications_1.SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth), env.basePath);
+        var core = new coreserver(server, new app(appConfig, server, storage, swagger));
+        return core;
+    };
+    ServerFactory.createServer = function (type, server, appConfig) { return __awaiter(void 0, void 0, void 0, function () {
+        var coreserver, environment, environment, environment;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    coreserver = {};
+                    switch (type) {
+                        case 'local': {
+                            coreserver = ServerFactory.create(coreserver_1.LocalServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
+                            break;
+                        }
+                        case 'debug': {
+                            coreserver = ServerFactory.create(coreserver_1.LocalServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
+                            break;
+                        }
+                        case 'development': {
+                            environment = new environment_1.DevEnvironment();
+                            coreserver = ServerFactory.create(coreserver_1.DevServer, app_1.CloudApp, environment_1.DevEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
+                            break;
+                        }
+                        case 'offline': {
+                            environment = new environment_1.CloudEnvironment();
+                            coreserver = ServerFactory.create(coreserver_1.CloudServer, app_1.CloudApp, environment_1.DevEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
+                            break;
+                        }
+                        case 'test': {
+                            coreserver = ServerFactory.create(coreserver_1.TestServer, app_1.CoreApp, environment_1.Environment, new storage_1.FileStorageAdapter(appConfig.jsonFile), appConfig, server);
+                            break;
+                        }
+                        default: {
+                            environment = new environment_1.CloudEnvironment();
+                            coreserver = ServerFactory.create(coreserver_1.CloudServer, app_1.CloudApp, environment_1.CloudEnvironment, new storage_1.S3StorageAdapter(environment.s3Bucket, environment.s3File), appConfig, server);
+                            break;
+                        }
+                    }
+                    return [4 /*yield*/, coreserver.init()];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/, coreserver];
+            }
+        });
+    }); };
+    return ServerFactory;
+}());
+exports.ServerFactory = ServerFactory;
 
 
 /***/ }),
@@ -627,24 +1114,67 @@ ServerFactory.createServer = async (type, server, appConfig) => {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(__webpack_require__(/*! express */ "express"));
-const factory_1 = __webpack_require__(/*! ./factory */ "./src/factory.ts");
-const app_config_1 = __webpack_require__(/*! ./app/app.config */ "./src/app/app.config.ts");
-exports.startServer = async (environment, server, appConfig) => {
-    factory_1.ServerFactory.createServer(environment, server, appConfig);
-};
-(async () => {
-    if (__webpack_require__.c[__webpack_require__.s] === module) {
-        const server = express_1.default();
-        const defaultConfig = new app_config_1.AppConfig();
-        defaultConfig.jsonFile = '../../db.json';
-        exports.startServer("local", server, defaultConfig);
-    }
-})();
+var express_1 = __importDefault(__webpack_require__(/*! express */ "express"));
+var factory_1 = __webpack_require__(/*! ./factory */ "./src/factory.ts");
+var app_config_1 = __webpack_require__(/*! ./app/app.config */ "./src/app/app.config.ts");
+exports.startServer = function (environment, server, appConfig) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        factory_1.ServerFactory.createServer(environment, server, appConfig);
+        return [2 /*return*/];
+    });
+}); };
+(function () { return __awaiter(void 0, void 0, void 0, function () {
+    var server, defaultConfig;
+    return __generator(this, function (_a) {
+        if (__webpack_require__.c[__webpack_require__.s] === module) {
+            server = express_1.default();
+            defaultConfig = new app_config_1.AppConfig();
+            defaultConfig.jsonFile = '../../db.json';
+            exports.startServer("development", server, defaultConfig);
+        }
+        return [2 /*return*/];
+    });
+}); })();
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../node_modules/webpack/buildin/module.js */ "./node_modules/webpack/buildin/module.js")(module)))
 
@@ -679,14 +1209,15 @@ __export(__webpack_require__(/*! ./swagger/swagger.config */ "./src/specificatio
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class SwaggerConfig {
-    constructor(readOnly, enableApiKeyAuth) {
+var SwaggerConfig = /** @class */ (function () {
+    function SwaggerConfig(readOnly, enableApiKeyAuth) {
         this.readOnly = false;
         this.enableApiKeyAuth = false;
         this.readOnly = readOnly;
         this.enableApiKeyAuth = enableApiKeyAuth;
     }
-}
+    return SwaggerConfig;
+}());
 exports.SwaggerConfig = SwaggerConfig;
 
 
@@ -703,35 +1234,36 @@ exports.SwaggerConfig = SwaggerConfig;
 
 /* eslint-disable no-use-before-define */
 Object.defineProperty(exports, "__esModule", { value: true });
-class SwaggerDefGen {
-    constructor() {
+var SwaggerDefGen = /** @class */ (function () {
+    function SwaggerDefGen() {
+        var _this = this;
         this.outSwagger = '';
         this.tabCount = 0;
         this.indentator = '';
         this.nullType = 'string';
-        this.generateDefinitions = (json) => {
-            this.tabCount = 0;
-            this.indentator = '\n';
+        this.generateDefinitions = function (json) {
+            _this.tabCount = 0;
+            _this.indentator = '\n';
             // ---- Begin definitions ----
-            this.outSwagger = '{"definitions": {';
-            this.changeIndentation(1);
+            _this.outSwagger = '{"definitions": {';
+            _this.changeIndentation(1);
             // For each object inside the JSON
-            Object.keys(json).forEach(obj => {
-                this.outSwagger += `${this.indentator}"${obj}": {`;
-                this.conversorSelection(json[obj]);
-                this.outSwagger += `${this.indentator}},`;
+            Object.keys(json).forEach(function (obj) {
+                _this.outSwagger += _this.indentator + "\"" + obj + "\": {";
+                _this.conversorSelection(json[obj]);
+                _this.outSwagger += _this.indentator + "},";
             });
             // Remove last comma
-            this.outSwagger = this.outSwagger.substring(0, this.outSwagger.length - 1);
+            _this.outSwagger = _this.outSwagger.substring(0, _this.outSwagger.length - 1);
             // ---- End definitions ----
-            this.changeIndentation(this.tabCount - 1);
-            this.outSwagger += `${this.indentator}}}`;
-            const jsonDefinition = JSON.parse(this.outSwagger);
+            _this.changeIndentation(_this.tabCount - 1);
+            _this.outSwagger += _this.indentator + "}}";
+            var jsonDefinition = JSON.parse(_this.outSwagger);
             return jsonDefinition;
         };
     }
     // ---- Functions definitions ----
-    changeIndentation(count) {
+    SwaggerDefGen.prototype.changeIndentation = function (count) {
         /*
           Assign 'this.indentator' a string beginning with newline and followed by 'count' tabs
           Updates variable 'tabCount' with the number of tabs used
@@ -739,7 +1271,7 @@ class SwaggerDefGen {
           -identator
           -tabcount
           */
-        let i;
+        var i;
         if (count >= this.tabCount) {
             i = this.tabCount;
         }
@@ -752,105 +1284,106 @@ class SwaggerDefGen {
         }
         // Update tabCount
         this.tabCount = count;
-    }
-    isFloatNumber(num) {
+    };
+    SwaggerDefGen.prototype.isFloatNumber = function (num) {
         return Number(num) === num && num % 1 !== 0;
-    }
-    convertNumber(num) {
+    };
+    SwaggerDefGen.prototype.convertNumber = function (num) {
         /*
           Append to 'this.outSwagger' string with Swagger schema attributes relative to given number
           Global variables updated:
           -this.outSwagger
           */
         if (Number.isInteger(num)) {
-            this.outSwagger += `${this.indentator}"type": "integer",`;
+            this.outSwagger += this.indentator + "\"type\": \"integer\",";
             if (num < 2147483647 && num > -2147483647) {
-                this.outSwagger += `${this.indentator}"format": "int32"`;
+                this.outSwagger += this.indentator + "\"format\": \"int32\"";
             }
             else if (Number.isSafeInteger(num)) {
-                this.outSwagger += `${this.indentator}"format": "int64"`;
+                this.outSwagger += this.indentator + "\"format\": \"int64\"";
             }
             else {
-                this.outSwagger += `${this.indentator}"format": "unsafe"`;
+                this.outSwagger += this.indentator + "\"format\": \"unsafe\"";
             }
         }
         else if (this.isFloatNumber(num)) {
-            this.outSwagger += `${this.indentator}"format": "double"`;
+            this.outSwagger += this.indentator + "\"format\": \"double\"";
         }
         else {
-            this.outSwagger += `${this.indentator}"format": "unsafe"`;
+            this.outSwagger += this.indentator + "\"format\": \"unsafe\"";
         }
-        this.outSwagger += `,${this.indentator}"example": "${num}"`;
-    }
+        this.outSwagger += "," + this.indentator + "\"example\": \"" + num + "\"";
+    };
     // date is ISO8601 format - https://xml2rfc.tools.ietf.org/public/rfc/html/rfc3339.html#anchor14
-    convertString(str) {
+    SwaggerDefGen.prototype.convertString = function (str) {
         /*
           Append to 'this.outSwagger' string with Swagger schema attributes relative to given string
           Global variables updated:
           -this.outSwagger
           */
-        const regxDate = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
-        const regxDateTime = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]).([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]{1,2})?(Z|(\+|-)([0-1][0-9]|2[0-3]):[0-5][0-9])$/;
-        this.outSwagger += `${this.indentator}"type": "string"`;
+        var regxDate = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/;
+        var regxDateTime = /^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01]).([0-1][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]{1,2})?(Z|(\+|-)([0-1][0-9]|2[0-3]):[0-5][0-9])$/;
+        this.outSwagger += this.indentator + "\"type\": \"string\"";
         if (regxDateTime.test(str)) {
             this.outSwagger += ',';
-            this.outSwagger += `${this.indentator}"format": "date-time"`;
+            this.outSwagger += this.indentator + "\"format\": \"date-time\"";
         }
         else if (regxDate.test(str)) {
             this.outSwagger += ',';
-            this.outSwagger += `${this.indentator}"format": "date"`;
+            this.outSwagger += this.indentator + "\"format\": \"date\"";
         }
-        this.outSwagger += `,${this.indentator}"example": "${str}"`;
-    }
-    convertArray(obj) {
+        this.outSwagger += "," + this.indentator + "\"example\": \"" + str + "\"";
+    };
+    SwaggerDefGen.prototype.convertArray = function (obj) {
         /*
           Append to 'this.outSwagger' string with Swagger schema attributes relative to given array
           Global variables updated:
           -this.outSwagger
           */
-        this.outSwagger += `${this.indentator}"type": "array",`;
+        this.outSwagger += this.indentator + "\"type\": \"array\",";
         // ---- Begin items scope ----
-        this.outSwagger += `${this.indentator}"items": {`;
+        this.outSwagger += this.indentator + "\"items\": {";
         this.conversorSelection(obj);
-        this.outSwagger += `${this.indentator}}`;
+        this.outSwagger += this.indentator + "}";
         // ---- End items scope ----
-    }
-    convertObject(obj) {
+    };
+    SwaggerDefGen.prototype.convertObject = function (obj) {
         /*
           Append to 'this.outSwagger' string with Swagger schema attributes relative to given object
           Global variables updated:
           -this.outSwagger
           */
+        var _this = this;
         // Convert null attributes to given type
         if (obj === null) {
-            this.outSwagger += `${this.indentator}"type": "${this.nullType}",`;
-            this.outSwagger += `${this.indentator}"format": "nullable"`;
+            this.outSwagger += this.indentator + "\"type\": \"" + this.nullType + "\",";
+            this.outSwagger += this.indentator + "\"format\": \"nullable\"";
             return;
         }
         // ---- Begin properties scope ----
-        this.outSwagger += `${this.indentator}"type": "object",`;
-        this.outSwagger += `${this.indentator}"properties": {`;
+        this.outSwagger += this.indentator + "\"type\": \"object\",";
+        this.outSwagger += this.indentator + "\"properties\": {";
         this.changeIndentation(this.tabCount + 1);
         // For each attribute inside that object
-        Object.keys(obj).forEach(prop => {
+        Object.keys(obj).forEach(function (prop) {
             // ---- Begin property type scope ----
-            this.outSwagger += `${this.indentator}"${prop}": {`;
-            this.conversorSelection(obj[prop]);
-            this.outSwagger += `${this.indentator}},`;
+            _this.outSwagger += _this.indentator + "\"" + prop + "\": {";
+            _this.conversorSelection(obj[prop]);
+            _this.outSwagger += _this.indentator + "},";
             // ---- End property type scope ----
         });
         this.changeIndentation(this.tabCount - 1);
         if (Object.keys(obj).length > 0) {
             // At least 1 property inserted
             this.outSwagger = this.outSwagger.substring(0, this.outSwagger.length - 1); // Remove last comma
-            this.outSwagger += `${this.indentator}}`;
+            this.outSwagger += this.indentator + "}";
         }
         else {
             // No property inserted
             this.outSwagger += ' }';
         }
-    }
-    conversorSelection(obj) {
+    };
+    SwaggerDefGen.prototype.conversorSelection = function (obj) {
         this.changeIndentation(this.tabCount + 1);
         if (typeof obj === 'number') {
             // attribute is a number
@@ -870,15 +1403,16 @@ class SwaggerDefGen {
         }
         else if (typeof obj === 'boolean') {
             // attribute is a boolean
-            this.outSwagger += `${this.indentator}"type": "boolean"`;
+            this.outSwagger += this.indentator + "\"type\": \"boolean\"";
         }
         else {
             // not a valid Swagger type
-            throw new Error(`Property type "${typeof obj}" not valid for Swagger definitions`);
+            throw new Error("Property type \"" + typeof obj + "\" not valid for Swagger definitions");
         }
         this.changeIndentation(this.tabCount - 1);
-    }
-}
+    };
+    return SwaggerDefGen;
+}());
 exports.SwaggerDefGen = SwaggerDefGen;
 
 
@@ -897,98 +1431,109 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const lodash_1 = __importDefault(__webpack_require__(/*! lodash */ "lodash"));
-const listEndpoints = __webpack_require__(/*! express-list-endpoints */ "express-list-endpoints");
-const package_json_1 = __importDefault(__webpack_require__(/*! ../../../../../package.json */ "../../package.json"));
-class SwaggerSpec {
-    constructor() {
-        this.packageJsonPath = `${process.cwd()}/package.json`;
-        this.packageInfo = package_json_1.default;
+var lodash_1 = __importDefault(__webpack_require__(/*! lodash */ "lodash"));
+var listEndpoints = __webpack_require__(/*! express-list-endpoints */ "express-list-endpoints");
+var fs_1 = __importDefault(__webpack_require__(/*! fs */ "fs"));
+var PackageInfo = /** @class */ (function () {
+    function PackageInfo() {
+        this.name = '';
+        this.version = '';
+        this.title = '';
+        this.license = '';
+        this.description = '';
+    }
+    return PackageInfo;
+}());
+var SwaggerSpec = /** @class */ (function () {
+    function SwaggerSpec() {
+        var _this = this;
+        this.packageJsonPath = process.cwd() + "/package.json";
+        this.packageInfo = new PackageInfo();
         this.app = {};
         this.predefinedSpec = {};
         this.spec = {};
-        this.getSpec = (app, predefinedSpec, readOnly, basePath) => {
-            this.app = app;
-            this.predefinedSpec = predefinedSpec;
-            this.spec = this.initSpec(readOnly, basePath);
-            return this.spec;
+        this.getSpec = function (app, predefinedSpec, readOnly, basePath) {
+            _this.app = app;
+            _this.predefinedSpec = predefinedSpec;
+            _this.spec = _this.initSpec(readOnly, basePath);
+            return _this.spec;
         };
-        this.addSchemaDefitions = (specificaton, schemaDefinitons) => {
-            const spec = Object.assign(specificaton, schemaDefinitons);
-            Object.keys(spec.paths).forEach(path => {
-                Object.keys(spec.definitions).forEach((definition) => {
-                    const schemaDef = this.setSchemaReference(spec, definition);
+        this.addSchemaDefitions = function (specificaton, schemaDefinitons) {
+            var spec = Object.assign(specificaton, schemaDefinitons);
+            Object.keys(spec.paths).forEach(function (path) {
+                Object.keys(spec.definitions).forEach(function (definition) {
+                    var schemaDef = _this.setSchemaReference(spec, definition);
                     if (path.endsWith(definition)) {
                         if (spec.paths[path].get) {
-                            const operation = spec.paths[path].get;
-                            Object.assign(spec.paths[path].get, this.getDefaultSchemaProperties(definition));
+                            var operation = spec.paths[path].get;
+                            Object.assign(spec.paths[path].get, _this.getDefaultSchemaProperties(definition));
                             operation.responses[200] = {
-                                schema: { $ref: `#/definitions/${definition}` },
+                                schema: { $ref: "#/definitions/" + definition },
                                 description: 'successful operation',
                             };
-                            operation.parameters = this.getQueryParameterSchema();
+                            operation.parameters = _this.getQueryParameterSchema();
                         }
                         if (spec.paths[path].post) {
-                            const operation = spec.paths[path].post;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultPostResponses(definition));
-                            operation.parameters.push(this.getDefaultParameterSchema(schemaDef, definition));
+                            var operation = spec.paths[path].post;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultPostResponses(definition));
+                            operation.parameters.push(_this.getDefaultParameterSchema(schemaDef, definition));
                         }
                         if (spec.paths[path].put) {
-                            const operation = spec.paths[path].put;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultPutResponses(definition));
-                            operation.parameters.push(this.getDefaultParameterSchema(schemaDef, definition));
+                            var operation = spec.paths[path].put;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultPutResponses(definition));
+                            operation.parameters.push(_this.getDefaultParameterSchema(schemaDef, definition));
                         }
                         if (spec.paths[path].patch) {
-                            const operation = spec.paths[path].patch;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultPutResponses(definition));
-                            operation.parameters.push(this.getDefaultParameterSchema(schemaDef, definition));
+                            var operation = spec.paths[path].patch;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultPutResponses(definition));
+                            operation.parameters.push(_this.getDefaultParameterSchema(schemaDef, definition));
                         }
                     }
-                    if (path.endsWith(`${definition}/{id}`)) {
+                    if (path.endsWith(definition + "/{id}")) {
                         if (spec.paths[path].get) {
-                            const operation = spec.paths[path].get;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
+                            var operation = spec.paths[path].get;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
                             operation.responses[200] = {
-                                schema: { $ref: `#/definitions/${definition}` },
+                                schema: { $ref: "#/definitions/" + definition },
                                 description: 'successful operation',
                             };
                         }
                         if (spec.paths[path].delete) {
-                            const operation = spec.paths[path].delete;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultDeleteResponses(definition));
+                            var operation = spec.paths[path].delete;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultDeleteResponses(definition));
                         }
                         if (spec.paths[path].put) {
-                            const operation = spec.paths[path].put;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultPutResponses(definition));
-                            operation.parameters.push(this.getDefaultParameterSchema(schemaDef, definition));
+                            var operation = spec.paths[path].put;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultPutResponses(definition));
+                            operation.parameters.push(_this.getDefaultParameterSchema(schemaDef, definition));
                         }
                         if (spec.paths[path].patch) {
-                            const operation = spec.paths[path].patch;
-                            Object.assign(operation, this.getDefaultSchemaProperties(definition));
-                            Object.assign(operation, this.getDefaultPutResponses(definition));
-                            operation.parameters.push(this.getDefaultParameterSchema(schemaDef, definition));
+                            var operation = spec.paths[path].patch;
+                            Object.assign(operation, _this.getDefaultSchemaProperties(definition));
+                            Object.assign(operation, _this.getDefaultPutResponses(definition));
+                            operation.parameters.push(_this.getDefaultParameterSchema(schemaDef, definition));
                         }
                     }
                 });
             });
             return spec;
         };
-        this.addAuthentication = (specificaton, auth) => {
-            const spec = Object.assign(specificaton.securityDefinitions, auth);
+        this.addAuthentication = function (specificaton, auth) {
+            var spec = Object.assign(specificaton.securityDefinitions, auth);
             return spec;
         };
     }
-    updateSpecFromPackage(basePath) {
-        const newInfo = {
+    SwaggerSpec.prototype.updateSpecFromPackage = function (basePath) {
+        var newInfo = {
             version: '',
             title: '',
         };
-        this.packageInfo = package_json_1.default;
+        this.packageInfo = JSON.parse(fs_1.default.readFileSync(this.packageJsonPath, 'UTF-8'));
         if (this.packageInfo.name) {
             newInfo.title = this.packageInfo.name;
         }
@@ -998,36 +1543,36 @@ class SwaggerSpec {
         if (this.packageInfo.license) {
             newInfo.license = { name: this.packageInfo.license };
         }
-        newInfo.description = `[Specification JSON](${basePath}/api-spec)`;
+        newInfo.description = "[Specification JSON](" + basePath + "/api-spec)";
         if (this.packageInfo.description) {
-            newInfo.description += `\n\n${this.packageInfo.description}`;
+            newInfo.description += "\n\n" + this.packageInfo.description;
         }
         return newInfo;
-    }
-    sortObject(o) {
-        const sorted = {};
-        let key;
-        const a = Object.keys(o);
+    };
+    SwaggerSpec.prototype.sortObject = function (o) {
+        var sorted = {};
+        var key;
+        var a = Object.keys(o);
         a.sort();
         for (key = 0; key < a.length; key += 1) {
             sorted[a[key]] = o[a[key]];
         }
         return sorted;
-    }
-    initSpec(readOnly, basePath) {
-        const info = this.updateSpecFromPackage(basePath);
-        let specification = {
+    };
+    SwaggerSpec.prototype.initSpec = function (readOnly, basePath) {
+        var info = this.updateSpecFromPackage(basePath);
+        var specification = {
             swagger: '2.0',
             paths: {},
-            info,
+            info: info,
         };
         specification.swagger = '2.0';
         specification.paths = {};
-        const excludedRoutes = ['/api/:resource/:id/:nested', '/api/db'];
-        const endpoints = listEndpoints(this.app);
-        endpoints.forEach((endpoint) => {
+        var excludedRoutes = ['/api/:resource/:id/:nested', '/api/db'];
+        var endpoints = listEndpoints(this.app);
+        endpoints.forEach(function (endpoint) {
             if (readOnly) {
-                for (let i = 0; i < endpoint.methods.length; i += 1) {
+                for (var i = 0; i < endpoint.methods.length; i += 1) {
                     if (endpoint.methods[i] !== 'GET') {
                         endpoint.methods.splice(i, 1);
                         i -= 1;
@@ -1035,29 +1580,29 @@ class SwaggerSpec {
                 }
             }
             if (!excludedRoutes.includes(endpoint.path)) {
-                const params = new Array();
-                let { path } = endpoint;
-                const matches = path.match(/:([^/]+)/g);
+                var params_1 = new Array();
+                var path_1 = endpoint.path;
+                var matches = path_1.match(/:([^/]+)/g);
                 if (matches) {
-                    matches.forEach(found => {
-                        const paramName = found.substr(1);
-                        path = path.replace(found, `{${paramName}}`);
-                        params.push(paramName);
+                    matches.forEach(function (found) {
+                        var paramName = found.substr(1);
+                        path_1 = path_1.replace(found, "{" + paramName + "}");
+                        params_1.push(paramName);
                     });
                 }
-                if (!specification.paths[path]) {
-                    specification.paths[path] = {};
+                if (!specification.paths[path_1]) {
+                    specification.paths[path_1] = {};
                 }
-                endpoint.methods.forEach(m => {
-                    specification.paths[path][m.toLowerCase()] = {
-                        summary: path,
+                endpoint.methods.forEach(function (m) {
+                    specification.paths[path_1][m.toLowerCase()] = {
+                        summary: path_1,
                         consumes: ['application/json'],
-                        parameters: params.map(p => ({
+                        parameters: params_1.map(function (p) { return ({
                             name: p,
                             in: 'path',
                             required: true,
                             type: 'integer',
-                        })) || [],
+                        }); }) || [],
                         responses: {},
                     };
                 });
@@ -1066,18 +1611,18 @@ class SwaggerSpec {
         specification.basePath = basePath;
         specification = this.sortObject(lodash_1.default.merge(specification, this.predefinedSpec || {}));
         return specification;
-    }
-    setSchemaReference(spec, definition) {
-        let schemaDef = {};
+    };
+    SwaggerSpec.prototype.setSchemaReference = function (spec, definition) {
+        var schemaDef = {};
         if (spec.definitions[definition].type === 'array') {
-            schemaDef = { $ref: `#/definitions/${definition}/items` };
+            schemaDef = { $ref: "#/definitions/" + definition + "/items" };
         }
         else if (spec.definitions[definition].type === 'object') {
-            schemaDef = { $ref: `#/definitions/${definition}` };
+            schemaDef = { $ref: "#/definitions/" + definition };
         }
         return schemaDef;
-    }
-    getDefaultParameterSchema(schemaDef, definition) {
+    };
+    SwaggerSpec.prototype.getDefaultParameterSchema = function (schemaDef, definition) {
         return {
             schema: schemaDef,
             in: 'body',
@@ -1085,8 +1630,8 @@ class SwaggerSpec {
             description: definition,
             required: true,
         };
-    }
-    getQueryParameterSchema() {
+    };
+    SwaggerSpec.prototype.getQueryParameterSchema = function () {
         return [
             {
                 name: '_page',
@@ -1153,56 +1698,57 @@ class SwaggerSpec {
                 description: 'include parent resource',
             },
         ];
-    }
-    getDefaultPostResponses(definition) {
+    };
+    SwaggerSpec.prototype.getDefaultPostResponses = function (definition) {
         return {
             responses: {
                 200: {
                     description: 'successful operation',
                     schema: {
-                        $ref: `#/definitions/${definition}`,
+                        $ref: "#/definitions/" + definition,
                     },
                 },
                 400: {
-                    description: `Invalid ${definition}`,
+                    description: "Invalid " + definition,
                 },
             },
         };
-    }
-    getDefaultPutResponses(definition) {
+    };
+    SwaggerSpec.prototype.getDefaultPutResponses = function (definition) {
         return {
             responses: {
                 400: {
                     description: 'Invalid ID supplied',
                 },
                 404: {
-                    description: `${definition} not found`,
+                    description: definition + " not found",
                 },
                 405: {
                     description: 'Validation exception',
                 },
             },
         };
-    }
-    getDefaultDeleteResponses(definition) {
+    };
+    SwaggerSpec.prototype.getDefaultDeleteResponses = function (definition) {
         return {
             responses: {
                 400: {
                     description: 'Invalid ID supplied',
                 },
                 404: {
-                    description: `${definition} not found`,
+                    description: definition + " not found",
                 },
             },
         };
-    }
-    getDefaultSchemaProperties(definition) {
+    };
+    SwaggerSpec.prototype.getDefaultSchemaProperties = function (definition) {
         return {
             produces: ['application/json'],
             tags: [definition],
         };
-    }
-}
+    };
+    return SwaggerSpec;
+}());
 exports.SwaggerSpec = SwaggerSpec;
 
 
@@ -1225,44 +1771,46 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const swaggerUi = __importStar(__webpack_require__(/*! swagger-ui-express */ "swagger-ui-express"));
-const swagger_spec_1 = __webpack_require__(/*! ./swagger.spec */ "./src/specifications/swagger/swagger.spec.ts");
-const swagger_defgen_1 = __webpack_require__(/*! ./swagger.defgen */ "./src/specifications/swagger/swagger.defgen.ts");
-const logger_1 = __webpack_require__(/*! ../../utils/logger */ "./src/utils/logger.ts");
-const output_1 = __webpack_require__(/*! ../../utils/output */ "./src/utils/output.ts");
-class Swagger {
-    constructor(server, config, basePath) {
+var swaggerUi = __importStar(__webpack_require__(/*! swagger-ui-express */ "swagger-ui-express"));
+var swagger_spec_1 = __webpack_require__(/*! ./swagger.spec */ "./src/specifications/swagger/swagger.spec.ts");
+var swagger_defgen_1 = __webpack_require__(/*! ./swagger.defgen */ "./src/specifications/swagger/swagger.defgen.ts");
+var logger_1 = __webpack_require__(/*! ../../utils/logger */ "./src/utils/logger.ts");
+var output_1 = __webpack_require__(/*! ../../utils/output */ "./src/utils/output.ts");
+var Swagger = /** @class */ (function () {
+    function Swagger(server, config, basePath) {
+        var _this = this;
         this.swaggerSpec = new swagger_spec_1.SwaggerSpec();
         this.swaggerDefGen = new swagger_defgen_1.SwaggerDefGen();
         this.logger = new logger_1.Logger().logger;
         this.spec = {};
-        this.generateSpecification = (json, regenerate) => {
-            if (!this.spec || regenerate) {
+        this.generateSpecification = function (json, regenerate) {
+            if (!_this.spec || regenerate) {
                 output_1.Output.setInfo('Init Swagger');
-                const swaggerSchemaDefinitions = this.swaggerDefGen.generateDefinitions(json);
-                this.spec = this.swaggerSpec.getSpec(this.server, {}, this.config.readOnly, this.basePath);
-                const auth = {
+                var swaggerSchemaDefinitions = _this.swaggerDefGen.generateDefinitions(json);
+                _this.spec = _this.swaggerSpec.getSpec(_this.server, {}, _this.config.readOnly, _this.basePath);
+                var auth = {
                     type: 'apiKey',
                     in: 'header',
                     name: 'x-api-key',
                     description: 'All requests must include the `x-api-key` header containing your account ID.',
                 };
-                if (this.config.enableApiKeyAuth) {
-                    this.swaggerSpec.addAuthentication(this.spec, auth);
+                if (_this.config.enableApiKeyAuth) {
+                    _this.swaggerSpec.addAuthentication(_this.spec, auth);
                 }
-                this.swaggerSpec.addSchemaDefitions(this.spec, swaggerSchemaDefinitions);
+                _this.swaggerSpec.addSchemaDefitions(_this.spec, swaggerSchemaDefinitions);
             }
-            this.server.use('/api-spec', (req, res) => {
+            _this.server.use('/api-spec', function (req, res) {
                 res.setHeader('Content-Type', 'application/json');
-                res.send(this.spec);
+                res.send(_this.spec);
             });
-            this.server.use('/', swaggerUi.serve, swaggerUi.setup(this.spec));
+            _this.server.use('/', swaggerUi.serve, swaggerUi.setup(_this.spec));
         };
         this.server = server;
         this.config = config;
         this.basePath = basePath;
     }
-}
+    return Swagger;
+}());
 exports.Swagger = Swagger;
 
 
@@ -1277,20 +1825,62 @@ exports.Swagger = Swagger;
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const FileAsync_1 = __importDefault(__webpack_require__(/*! lowdb/adapters/FileAsync */ "lowdb/adapters/FileAsync"));
-class FileStorageAdapter {
-    constructor(initialFilePath) {
+var FileAsync_1 = __importDefault(__webpack_require__(/*! lowdb/adapters/FileAsync */ "lowdb/adapters/FileAsync"));
+var FileStorageAdapter = /** @class */ (function () {
+    function FileStorageAdapter(initialFilePath) {
         this.initialFilePath = initialFilePath;
     }
-    async init() {
-        const storageAdapter = new FileAsync_1.default(this.initialFilePath);
-        return storageAdapter;
-    }
-}
+    FileStorageAdapter.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var storageAdapter;
+            return __generator(this, function (_a) {
+                storageAdapter = new FileAsync_1.default(this.initialFilePath);
+                return [2 /*return*/, storageAdapter];
+            });
+        });
+    };
+    return FileStorageAdapter;
+}());
 exports.FileStorageAdapter = FileStorageAdapter;
 
 
@@ -1324,26 +1914,68 @@ __export(__webpack_require__(/*! ./s3.storage */ "./src/storage/s3.storage.ts"))
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const fs_1 = __importDefault(__webpack_require__(/*! fs */ "fs"));
-const awsAdapter = __webpack_require__(/*! lowdb-adapter-aws-s3 */ "lowdb-adapter-aws-s3");
-class S3StorageAdapter {
-    constructor(s3bucket, s3file) {
+var fs_1 = __importDefault(__webpack_require__(/*! fs */ "fs"));
+var awsAdapter = __webpack_require__(/*! lowdb-adapter-aws-s3 */ "lowdb-adapter-aws-s3");
+var S3StorageAdapter = /** @class */ (function () {
+    function S3StorageAdapter(s3bucket, s3file) {
         this.s3bucket = s3bucket;
         this.s3file = s3file;
     }
-    async init() {
-        const db = JSON.parse(fs_1.default.readFileSync(this.s3file, 'UTF-8'));
-        const storageAdapter = new awsAdapter(this.s3file, {
-            defaultValue: db,
-            aws: { bucketName: this.s3bucket },
+    S3StorageAdapter.prototype.init = function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var db, storageAdapter;
+            return __generator(this, function (_a) {
+                db = JSON.parse(fs_1.default.readFileSync(this.s3file, 'UTF-8'));
+                storageAdapter = new awsAdapter(this.s3file, {
+                    defaultValue: db,
+                    aws: { bucketName: this.s3bucket },
+                });
+                return [2 /*return*/, storageAdapter];
+            });
         });
-        return storageAdapter;
-    }
-}
+    };
+    return S3StorageAdapter;
+}());
 exports.S3StorageAdapter = S3StorageAdapter;
 
 
@@ -1359,13 +1991,14 @@ exports.S3StorageAdapter = S3StorageAdapter;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class Logger {
-    constructor() {
+var Logger = /** @class */ (function () {
+    function Logger() {
         this.logger = __webpack_require__(/*! pino */ "pino")({
             prettyPrint: { colorize: true },
         }, process.stderr);
     }
-}
+    return Logger;
+}());
 exports.Logger = Logger;
 
 
@@ -1381,18 +2014,21 @@ exports.Logger = Logger;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const logger_1 = __webpack_require__(/*! ./logger */ "./src/utils/logger.ts");
-class Output {
-    static setWarning(message) {
+var logger_1 = __webpack_require__(/*! ./logger */ "./src/utils/logger.ts");
+var Output = /** @class */ (function () {
+    function Output() {
+    }
+    Output.setWarning = function (message) {
         new logger_1.Logger().logger.warning(message);
-    }
-    static setError(message) {
+    };
+    Output.setError = function (message) {
         new logger_1.Logger().logger.error(message);
-    }
-    static setInfo(message) {
+    };
+    Output.setInfo = function (message) {
         new logger_1.Logger().logger.info(message);
-    }
-}
+    };
+    return Output;
+}());
 exports.Output = Output;
 
 
@@ -1408,22 +2044,26 @@ exports.Output = Output;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const validationrule_1 = __webpack_require__(/*! ./validationrule */ "./src/validations/validationrule.ts");
-const ruleevent_1 = __webpack_require__(/*! ./ruleevent */ "./src/validations/ruleevent.ts");
-const output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
-class JSONValidator {
-    static validate(json) {
-        let isValid = true;
-        const rules = new Array();
+var validationrule_1 = __webpack_require__(/*! ./validationrule */ "./src/validations/validationrule.ts");
+var ruleevent_1 = __webpack_require__(/*! ./ruleevent */ "./src/validations/ruleevent.ts");
+var output_1 = __webpack_require__(/*! ../utils/output */ "./src/utils/output.ts");
+var JSONValidator = /** @class */ (function () {
+    function JSONValidator() {
+    }
+    JSONValidator.validate = function (json) {
+        var isValid = true;
+        var rules = new Array();
         rules.push(new validationrule_1.IsObjectRule(json));
         rules.push(new validationrule_1.HasObjectKeyRule(json));
         rules.push(new validationrule_1.HasIdAttributeRule(json));
         output_1.Output.setInfo('ValidationRule:' +
             'Result'.padStart(60 - 'ValidationRule'.length) +
             'Message'.padStart(80));
-        for (const rule of rules) {
-            const results = rule.executeValidation();
-            for (const result of results.events) {
+        for (var _i = 0, rules_1 = rules; _i < rules_1.length; _i++) {
+            var rule = rules_1[_i];
+            var results = rule.executeValidation();
+            for (var _a = 0, _b = results.events; _a < _b.length; _a++) {
+                var result = _b[_a];
                 output_1.Output.setInfo(results.validationRule +
                     ':' +
                     result.result
@@ -1436,8 +2076,9 @@ class JSONValidator {
             }
         }
         return isValid;
-    }
-}
+    };
+    return JSONValidator;
+}());
 exports.JSONValidator = JSONValidator;
 
 
@@ -1453,19 +2094,21 @@ exports.JSONValidator = JSONValidator;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-class RuleEventList {
-    constructor() {
+var RuleEventList = /** @class */ (function () {
+    function RuleEventList() {
         this.events = new Array();
     }
-}
+    return RuleEventList;
+}());
 exports.RuleEventList = RuleEventList;
-class RuleEvent {
-    constructor(result, message) {
+var RuleEvent = /** @class */ (function () {
+    function RuleEvent(result, message) {
         this.message = '';
         this.result = result;
         this.message = message !== undefined ? message : '';
     }
-}
+    return RuleEvent;
+}());
 exports.RuleEvent = RuleEvent;
 var RuleResultSeverity;
 (function (RuleResultSeverity) {
@@ -1486,28 +2129,46 @@ var RuleResultSeverity;
 
 "use strict";
 
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 Object.defineProperty(exports, "__esModule", { value: true });
-const ruleevent_1 = __webpack_require__(/*! ./ruleevent */ "./src/validations/ruleevent.ts");
-class ValidationRule {
-    constructor(jsonObject) {
+var ruleevent_1 = __webpack_require__(/*! ./ruleevent */ "./src/validations/ruleevent.ts");
+var ValidationRule = /** @class */ (function () {
+    function ValidationRule(jsonObject) {
         this.jsonObject = {};
         this.ruleEvents = new Array();
         this.events = new Array();
         this.jsonObject = jsonObject;
     }
-    executeValidation() {
-        const ruleEventList = new ruleevent_1.RuleEventList();
-        const result = this.validate();
+    ValidationRule.prototype.executeValidation = function () {
+        var ruleEventList = new ruleevent_1.RuleEventList();
+        var result = this.validate();
         ruleEventList.events = ruleEventList.events.concat(result);
         ruleEventList.validationRule = this.constructor.name;
         return ruleEventList;
-    }
-}
+    };
+    return ValidationRule;
+}());
 exports.ValidationRule = ValidationRule;
-class IsObjectRule extends ValidationRule {
-    validate() {
-        let ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
-        let message = '';
+var IsObjectRule = /** @class */ (function (_super) {
+    __extends(IsObjectRule, _super);
+    function IsObjectRule() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    IsObjectRule.prototype.validate = function () {
+        var ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
+        var message = '';
         try {
             if (this.jsonObject &&
                 typeof this.jsonObject === 'object' &&
@@ -1522,13 +2183,18 @@ class IsObjectRule extends ValidationRule {
         }
         this.ruleEvents.push(new ruleevent_1.RuleEvent(ruleSeverity, message));
         return this.ruleEvents;
-    }
-}
+    };
+    return IsObjectRule;
+}(ValidationRule));
 exports.IsObjectRule = IsObjectRule;
-class HasObjectKeyRule extends ValidationRule {
-    validate() {
-        let ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
-        let message = '';
+var HasObjectKeyRule = /** @class */ (function (_super) {
+    __extends(HasObjectKeyRule, _super);
+    function HasObjectKeyRule() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    HasObjectKeyRule.prototype.validate = function () {
+        var ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
+        var message = '';
         try {
             if (this.jsonObject && typeof this.jsonObject === 'object') {
                 if (Object.keys(this.jsonObject).length === 0) {
@@ -1543,38 +2209,45 @@ class HasObjectKeyRule extends ValidationRule {
         }
         this.ruleEvents.push(new ruleevent_1.RuleEvent(ruleSeverity, message));
         return this.ruleEvents;
-    }
-}
+    };
+    return HasObjectKeyRule;
+}(ValidationRule));
 exports.HasObjectKeyRule = HasObjectKeyRule;
-class HasIdAttributeRule extends ValidationRule {
-    validate() {
+var HasIdAttributeRule = /** @class */ (function (_super) {
+    __extends(HasIdAttributeRule, _super);
+    function HasIdAttributeRule() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    HasIdAttributeRule.prototype.validate = function () {
+        var _this = this;
         try {
             if (this.jsonObject &&
                 typeof this.jsonObject === 'object' &&
                 Object.keys(this.jsonObject).length !== 0) {
-                Object.keys(this.jsonObject).forEach(item => {
-                    let ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
-                    let message = '';
-                    if (Array.isArray(this.jsonObject[item]) &&
-                        this.jsonObject[item].length > 0 &&
-                        !this.jsonObject[item][0].hasOwnProperty('id')) {
+                Object.keys(this.jsonObject).forEach(function (item) {
+                    var ruleSeverity = ruleevent_1.RuleResultSeverity.OK;
+                    var message = '';
+                    if (Array.isArray(_this.jsonObject[item]) &&
+                        _this.jsonObject[item].length > 0 &&
+                        !_this.jsonObject[item][0].hasOwnProperty('id')) {
                         (ruleSeverity = ruleevent_1.RuleResultSeverity.WARNING),
                             (message =
                                 item +
                                     ' is missing id attribute - not possible to do POST, PUT, PATCH');
                     }
-                    this.ruleEvents.push(new ruleevent_1.RuleEvent(ruleSeverity, message));
+                    _this.ruleEvents.push(new ruleevent_1.RuleEvent(ruleSeverity, message));
                 });
             }
         }
         catch (e) {
-            const ruleSeverityError = ruleevent_1.RuleResultSeverity.ALERT;
-            const messageError = e.message;
+            var ruleSeverityError = ruleevent_1.RuleResultSeverity.ALERT;
+            var messageError = e.message;
             this.ruleEvents.push(new ruleevent_1.RuleEvent(ruleSeverityError, messageError));
         }
         return this.ruleEvents;
-    }
-}
+    };
+    return HasIdAttributeRule;
+}(ValidationRule));
 exports.HasIdAttributeRule = HasIdAttributeRule;
 
 
