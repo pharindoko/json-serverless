@@ -1,7 +1,6 @@
 import _ from 'lodash';
 const listEndpoints = require('express-list-endpoints');
 import express from 'express';
-import packageInfo from '../../../../../package.json';
 import {
   Info,
   Spec,
@@ -12,15 +11,25 @@ import {
   BodyParameter,
   Reference,
 } from 'swagger-schema-official';
+import fs from 'fs';
 
 interface EndPoint {
   path: string;
   methods: string[];
 }
 
+class PackageInfo {
+  name = '';
+  version = '';
+  title = '';
+  license = '';
+  description = '';
+}
+
 export class SwaggerSpec {
   private packageJsonPath = `${process.cwd()}/package.json`;
-  private packageInfo = packageInfo;
+
+  private packageInfo = new PackageInfo();
   private app = {} as express.Express;
   private predefinedSpec = {} as object;
   private spec = {} as Spec;
@@ -31,7 +40,9 @@ export class SwaggerSpec {
       version: '',
       title: '',
     };
-    this.packageInfo = packageInfo;
+    this.packageInfo = JSON.parse(
+      fs.readFileSync(this.packageJsonPath, 'UTF-8')
+    ) as PackageInfo;
     if (this.packageInfo.name) {
       newInfo.title = this.packageInfo.name;
     }
