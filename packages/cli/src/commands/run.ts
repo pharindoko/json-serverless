@@ -1,6 +1,6 @@
 import {Command, flags} from '@oclif/command'
-import {startServer} from '../../../server/lib/packages/server/src/server'
-import { AppConfig } from '../../../server/lib/packages/server/src/app';
+import {startServer} from '../../../server/lib'
+import { AppConfig } from '../../../server/lib/app';
 import express from 'express';
 
 

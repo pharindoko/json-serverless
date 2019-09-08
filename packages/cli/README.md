@@ -29,9 +29,10 @@ USAGE
 # Commands
 <!-- commands -->
 * [`jsonsls create [FILE]`](#jsonsls-create-file)
+* [`jsonsls deploy [FILE]`](#jsonsls-deploy-file)
 * [`jsonsls hello [FILE]`](#jsonsls-hello-file)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
-* [`jsonsls run [FILE]`](#jsonsls-run-file)
+* [`jsonsls run FILE`](#jsonsls-run-file)
 
 ## `jsonsls create [FILE]`
 
@@ -48,6 +49,22 @@ OPTIONS
 ```
 
 _See code: [src/commands/create.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/create.ts)_
+
+## `jsonsls deploy [FILE]`
+
+describe the command here
+
+```
+USAGE
+  $ jsonsls deploy [FILE]
+
+OPTIONS
+  -f, --force
+  -h, --help       show CLI help
+  -n, --name=name  name to print
+```
+
+_See code: [src/commands/deploy.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/deploy.ts)_
 
 ## `jsonsls hello [FILE]`
 
@@ -86,18 +103,20 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
-## `jsonsls run [FILE]`
+## `jsonsls run FILE`
 
 describe the command here
 
 ```
 USAGE
-  $ jsonsls run [FILE]
+  $ jsonsls run FILE
+
+ARGUMENTS
+  FILE  path of JSON file
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -e, --env=development|local  [default: local] environment
+  -h, --help                   show CLI help
 ```
 
 _See code: [src/commands/run.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/run.ts)_
