@@ -74,7 +74,7 @@
     "nodemon": "1.19.2",
     "nodemon-webpack-plugin": "4.1.1",
     "pino-pretty": "3.2.1",
-    "serverless-offline": "5.10.1",
+    "serverless-offline": "5.11.0",
     "serverless-webpack": "5.3.1",
     "terser-webpack-plugin": "2.0.1",
     "ts-jest": "24.0.2",
