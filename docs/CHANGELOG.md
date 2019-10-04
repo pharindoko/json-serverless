@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/pharindoko/json-serverless/compare/v1.5.0...v1.5.1) (2019-10-04)
+
+
+### Bug Fixes
+
+* package.json, package-lock.json & .snyk to reduce vulnerabilities ([6104846](https://github.com/pharindoko/json-serverless/commit/6104846))
+
 # [1.5.0](https://github.com/pharindoko/json-serverless/compare/v1.4.1...v1.5.0) (2019-09-02)
 
 
