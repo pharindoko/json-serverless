@@ -18,7 +18,7 @@
     "clean": "gts clean",
     "compile": "tsc -p .",
     "fix": "gts fix",
-    "prepare": "npm run compile",
+    "prepare": "npm run snyk-protect && npm run compile",
     "pretest": "npm run compile",
     "posttest": "npm run check"
   },
@@ -43,7 +43,7 @@
     "pino": "^5.10.6",
     "pino-pretty": "^3.2.0",
     "serverless-http": "^2.3.0",
-    "snyk": "^1.221.1",
+    "snyk": "^1.230.5",
     "source-map-support": "^0.5.10",
     "supertest": "^4.0.2",
     "swagger-ui-express": "^4.0.7"
