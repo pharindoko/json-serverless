@@ -60,7 +60,7 @@
     "@types/lowdb": "1.0.9",
     "@types/node": "10.14.16",
     "@types/supertest": "2.0.8",
-    "@types/swagger-schema-official": "2.0.18",
+    "@types/swagger-schema-official": "2.0.19",
     "@types/swagger-ui-express": "3.0.1",
     "copy-webpack-plugin": "5.0.4",
     "cz-conventional-changelog": "3.0.2",
