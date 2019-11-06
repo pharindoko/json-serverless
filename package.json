@@ -62,7 +62,7 @@
     "@types/supertest": "2.0.8",
     "@types/swagger-schema-official": "2.0.19",
     "@types/swagger-ui-express": "3.0.1",
-    "copy-webpack-plugin": "5.0.4",
+    "copy-webpack-plugin": "5.0.5",
     "cz-conventional-changelog": "3.0.2",
     "eslint": "6.6.0",
     "eslint-config-airbnb-base": "14.0.0",
