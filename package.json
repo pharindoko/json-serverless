@@ -61,7 +61,7 @@
     "@types/node": "10.14.16",
     "@types/supertest": "2.0.8",
     "@types/swagger-schema-official": "2.0.20",
-    "@types/swagger-ui-express": "3.0.1",
+    "@types/swagger-ui-express": "4.1.0",
     "copy-webpack-plugin": "5.0.5",
     "cz-conventional-changelog": "3.0.2",
     "eslint": "6.6.0",
