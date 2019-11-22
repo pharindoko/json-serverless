@@ -64,7 +64,7 @@
     "@types/swagger-ui-express": "4.1.0",
     "copy-webpack-plugin": "5.0.5",
     "cz-conventional-changelog": "3.0.2",
-    "eslint": "6.6.0",
+    "eslint": "6.7.0",
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "express-swagger-generator": "1.1.15",
