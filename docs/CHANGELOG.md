@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/pharindoko/json-serverless/compare/v1.5.1...v1.5.2) (2019-12-08)
+
+
+### Bug Fixes
+
+* **dependencies:** update package-lock.json and old packages ([da5f815](https://github.com/pharindoko/json-serverless/commit/da5f815d0c01fd5ca786160cfdde7cbcfff9a039))
+
 ## [1.5.1](https://github.com/pharindoko/json-serverless/compare/v1.5.0...v1.5.1) (2019-10-04)
 
 
