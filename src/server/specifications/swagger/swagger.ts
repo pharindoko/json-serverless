@@ -11,7 +11,7 @@ import { Output } from '../../utils/output';
 export class Swagger implements ApiSpecification {
   private swaggerSpec = new SwaggerSpec();
   private swaggerDefGen = new SwaggerDefGen();
-  private logger = new Logger().logger;
+  private logger = Logger.getInstance();
   private spec = {} as Spec;
   private server: express.Express;
   private config: SwaggerConfig;

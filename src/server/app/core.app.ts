@@ -12,7 +12,7 @@ export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
   static adapter = {} as lowdb.LowdbAsync<{}>;
-  logger = new Logger().logger;
+  private prettyPrintLog = false;
   appConfig: AppConfig;
   protected server: express.Express;
   private apispec: ApiSpecification;
@@ -21,12 +21,15 @@ export class CoreApp {
     appConfig: AppConfig,
     server: express.Express,
     storageAdapter: StorageAdapter,
-    apispec: ApiSpecification
+    apispec: ApiSpecification,
+    prettyPrintLog = false
   ) {
     this.appConfig = appConfig;
     this.server = server;
     this.storageAdapter = storageAdapter;
     this.apispec = apispec;
+    this.prettyPrintLog = prettyPrintLog;
+    Logger.init(this.prettyPrintLog);
   }
 
   async setup(): Promise<void> {

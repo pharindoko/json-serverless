@@ -26,7 +26,8 @@ export class ServerFactory {
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
-          server
+          server,
+          true
         );
         break;
       }
@@ -37,7 +38,8 @@ export class ServerFactory {
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
-          server
+          server,
+          true
         );
         break;
       }
@@ -49,7 +51,8 @@ export class ServerFactory {
           DevEnvironment,
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
-          server
+          server,
+          true
         );
         break;
       }
@@ -61,7 +64,8 @@ export class ServerFactory {
           DevEnvironment,
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
-          server
+          server,
+          true
         );
         break;
       }
@@ -72,7 +76,8 @@ export class ServerFactory {
           Environment,
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
-          server
+          server,
+          true
         );
         break;
       }
@@ -84,7 +89,8 @@ export class ServerFactory {
           CloudEnvironment,
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
-          server
+          server,
+          false
         );
         break;
       }
@@ -105,13 +111,15 @@ export class ServerFactory {
         appConfig: AppConfig,
         server: express.Express,
         storage: S,
-        specification: ApiSpecification
+        specification: ApiSpecification,
+        prettyPrintLog: boolean
       ): A;
     },
     environment: { new (): E },
     storage: S,
     appConfig: AppConfig,
-    server: express.Express
+    server: express.Express,
+    prettyPrintLog = false
   ): C {
     const env = new environment();
     const swagger = new Swagger(
@@ -121,7 +129,7 @@ export class ServerFactory {
     );
     const core = new coreserver(
       server,
-      new app(appConfig, server, storage, swagger)
+      new app(appConfig, server, storage, swagger, prettyPrintLog)
     );
     return core;
   }
