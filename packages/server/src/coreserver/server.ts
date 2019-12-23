@@ -1,6 +1,6 @@
 import express from 'express';
 import { Logger } from '../utils/logger';
-const logger = new Logger().logger;
+const logger = Logger.getInstance();
 import { CoreApp } from '../app/core.app';
 export abstract class CoreServer {
   core: CoreApp;
