@@ -1,6 +1,6 @@
 {
   "name": "json-serverless-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Transform a json file into an api",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -72,5 +72,7 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "files": ["lib/**/*"]
+  "files": [
+    "lib/**/*"
+  ]
 }
