@@ -1,13 +1,8 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
-import { AppConfig } from '../../server/lib/app/app.config';
+import { AppConfig, CloudApp, Swagger, SwaggerConfig, S3StorageAdapter, CloudEnvironment } from 'json-serverless-lib';
 import fs from 'fs';
-import { CloudApp } from '../../server/lib/app';
-import { Swagger } from '../../server/lib/specifications/swagger/swagger';
-import { SwaggerConfig } from '../../server/lib/specifications/swagger/swagger.config';
-import { S3StorageAdapter } from '../../server/lib/storage/s3.storage';
-import { CloudEnvironment } from '../../server/lib/environment/cloud.environment';
 
 const server = express();
 const sls = serverlessHttp(server);

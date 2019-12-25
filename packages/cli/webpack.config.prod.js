@@ -32,10 +32,9 @@ module.exports = {
     filename: 'handler.js',
   },
   target: 'node',
-  externals: [nodeExternals(),
-    nodeExternals({
-      modulesDir: path.resolve(__dirname, '../server/node_modules'),
-    })],
+  externals: [nodeExternals({
+    whitelist: ['json-serverless-lib'],
+  })],
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

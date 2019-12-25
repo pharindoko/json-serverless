@@ -1,6 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import {startServer} from '../../../server/lib'
-import { AppConfig } from '../../../server/lib/app';
+import {startServer, AppConfig} from 'json-serverless-lib'
 import express from 'express';
 
 

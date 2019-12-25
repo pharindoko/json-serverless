@@ -33,7 +33,9 @@ module.exports = {
   },
 
   target: 'node',
-  externals: [nodeExternals()],
+  externals: [nodeExternals({
+    whitelist: ['json-serverless-lib'],
+  })],
   module: {
     rules: [
       // all files with a `.ts` or `.tsx` extension will be handled by `ts-loader`

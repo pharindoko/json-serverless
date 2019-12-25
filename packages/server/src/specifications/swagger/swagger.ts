@@ -1,5 +1,5 @@
 import * as swaggerUi from 'swagger-ui-express';
-import { SwaggerSpec } from './swagger.spec';
+import { SwaggerSpec } from './swaggerspec';
 import { SwaggerDefGen } from './swagger.defgen';
 import { Logger } from '../../utils/logger';
 import express from 'express';

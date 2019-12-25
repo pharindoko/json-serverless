@@ -2,7 +2,7 @@
   "name": "json-serverless",
   "description": "cli for json-serverless project",
   "version": "0.0.0",
-  "author": "flo @pharindoko",
+  "author": "pharindoko",
   "bin": {
     "jsonsls": "./bin/run"
   },
@@ -12,6 +12,7 @@
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
     "express": "^4.17.1",
+    "json-serverless-lib": "^0.0.0-development",
     "serverless": "^1.51.0",
     "serverless-http": "^2.3.0",
     "tslib": "^1.10.0"
@@ -23,12 +24,16 @@
     "copy-webpack-plugin": "^5.0.4",
     "globby": "^10.0.1",
     "listr": "^0.14.3",
-    "serverless-webpack": "5.3.1",
+    "node-env-webpack-plugin": "1.1.0",
+    "nodemon": "1.19.2",
+    "nodemon-webpack-plugin": "4.0.8",
+    "serverless-webpack": "^5.3.1",
     "terser-webpack-plugin": "1.4.1",
     "ts-node": "^8.3.0",
     "typescript": "^3.6.2",
-    "webpack": "^4.39.3",
-    "webpack-node-externals": "^1.7.2"
+    "webpack": "4.39.3",
+    "webpack-cli": "3.3.7",
+    "webpack-node-externals": "1.7.2"
   },
   "engines": {
     "node": ">=8.0.0"
