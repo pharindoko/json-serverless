@@ -64,5 +64,6 @@
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md"
   },
-  "types": "lib/index.d.ts"
+  "types": "lib/index.d.ts",
+  "gitHead": "719a029d62878e35e4f883c1d3d56048ee710ae7"
 }
