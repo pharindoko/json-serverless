@@ -11,29 +11,30 @@
     "@oclif/command": "^1.5.18",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
+    "copy-webpack-plugin": "^5.0.4",
     "express": "^4.17.1",
+    "globby": "^10.0.1",
+
     "json-serverless-lib": "^0.0.2",
+    "listr": "^0.14.3",
+    "node-env-webpack-plugin": "1.1.0",
+    "nodemon": "1.19.2",
+    "nodemon-webpack-plugin": "4.0.8",
     "serverless": "^1.51.0",
+    "serverless-webpack": "^5.3.1",
+    "terser-webpack-plugin": "1.4.1",
     "serverless-http": "^2.3.0",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "webpack": "4.39.3",
+    "webpack-cli": "3.3.7",
+    "webpack-node-externals": "1.7.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
     "@types/listr": "^0.14.2",
     "@types/node": "^10.14.17",
-    "copy-webpack-plugin": "^5.0.4",
-    "globby": "^10.0.1",
-    "listr": "^0.14.3",
-    "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "1.19.2",
-    "nodemon-webpack-plugin": "4.0.8",
-    "serverless-webpack": "^5.3.1",
-    "terser-webpack-plugin": "1.4.1",
     "ts-node": "^8.3.0",
-    "typescript": "^3.6.2",
-    "webpack": "4.39.3",
-    "webpack-cli": "3.3.7",
-    "webpack-node-externals": "1.7.2"
+    "typescript": "^3.6.2"
   },
   "engines": {
     "node": ">=8.0.0"
