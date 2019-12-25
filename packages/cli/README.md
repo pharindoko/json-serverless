@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/0.0.0 darwin-x64 node-v11.5.0
+json-serverless/0.0.1 darwin-x64 node-v12.12.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -28,63 +28,30 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`jsonsls create [FILE]`](#jsonsls-create-file)
-* [`jsonsls deploy [FILE]`](#jsonsls-deploy-file)
-* [`jsonsls hello [FILE]`](#jsonsls-hello-file)
+* [`jsonsls deploy FILE`](#jsonsls-deploy-file)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
 
-## `jsonsls create [FILE]`
+## `jsonsls deploy FILE`
 
 describe the command here
 
 ```
 USAGE
-  $ jsonsls create [FILE]
+  $ jsonsls deploy FILE
+
+ARGUMENTS
+  FILE  path of JSON file
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -a, --apikeyauth  require api key authentication to access api
+  -h, --help        show CLI help
+  -n, --name=name   [default: json-serverless] name of the api/stack
+  -r, --readonly    set api to readonly (true) or writeable (false)
+  -s, --swagger     activate swagger ui support
 ```
 
-_See code: [src/commands/create.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/create.ts)_
-
-## `jsonsls deploy [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ jsonsls deploy [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-```
-
-_See code: [src/commands/deploy.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/deploy.ts)_
-
-## `jsonsls hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ jsonsls hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ jsonsls hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src/commands/hello.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/deploy.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.1/src/commands/deploy.ts)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -119,5 +86,5 @@ OPTIONS
   -h, --help                   show CLI help
 ```
 
-_See code: [src/commands/run.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.0/src/commands/run.ts)_
+_See code: [src/commands/run.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.1/src/commands/run.ts)_
 <!-- commandsstop -->
