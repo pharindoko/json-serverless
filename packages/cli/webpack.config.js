@@ -34,7 +34,7 @@ module.exports = {
 
   target: 'node',
   externals: [nodeExternals({
-    whitelist: ['json-serverless-lib'],
+    whitelist: ['swagger-ui-express', 'json-server'],
   })],
   module: {
     rules: [
