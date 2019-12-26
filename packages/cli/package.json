@@ -41,8 +41,11 @@
   "files": [
     "/bin",
     "/lib",
+    "/config",
     "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
+    "/oclif.manifest.json",
+    "serverless.yml",
+    "webpack.config.prod.js"
   ],
   "homepage": "https://github.com/pharindoko/json-serverless",
   "keywords": [
