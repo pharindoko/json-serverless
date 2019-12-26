@@ -55,6 +55,7 @@ export class Deploy extends Command {
       {
           title: 'Deploy',
           task: async () => {
+            console.log(process.cwd());
             const exec = require('child_process').exec;
             const slsProcess = exec('sls deploy');
             slsProcess.stdout.pipe(process.stdout);;
