@@ -6,7 +6,7 @@
 
 # The `service` block is the name of the service
 service:
-  name: ${self:custom.file.stackName}
+  name: ${self:custom.appconfig.stackName}
 plugins:
   - serverless-webpack
   - serverless-offline

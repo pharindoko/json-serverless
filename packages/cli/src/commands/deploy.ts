@@ -1,7 +1,9 @@
 import {Command, flags} from '@oclif/command'
 import Listr = require('listr');
+import { AppConfig } from 'json-serverless-lib';
 import * as child from 'child_process';
-
+import * as path from 'path'; 
+import fs from 'fs';
 export class Deploy extends Command {
   static description = 'describe the command here'
 
@@ -14,7 +16,7 @@ export class Deploy extends Command {
       hidden: false,                // hide from help
       multiple: false,              // allow setting this flag multiple times
       default: 'json-serverless',             // default value if flag not passed (can be a function that returns a string or undefined)
-      required: false,              // make flag required (this is not common and you should probably use an argument instead)
+      required: true,              // make flag required (this is not common and you should probably use an argument instead)
     }),
     readonly: flags.boolean({
       char: 'r',                    // shorter flag version
@@ -55,11 +57,21 @@ export class Deploy extends Command {
       {
           title: 'Deploy',
           task: async () => {
-            console.log("currentDirectory: " + process.cwd());
+            const appconfig = new AppConfig();
+            let filePath = args.file;
+            if(!path.isAbsolute(args.file)) {
+              filePath = path.normalize(process.cwd() + "/" + args.file);
+            }
+            console.log("currentDirectory: " + filePath);
             console.log(this.config.root + "/serverless.yml");
+            appconfig.jsonFile = filePath;
+            appconfig.enableApiKeyAuth = flags.apikeyauth;
+            appconfig.readOnly = flags.readonly;
+            appconfig.enableSwagger =flags.swagger;
+            appconfig.stackName = flags.name;
+            fs.writeFileSync(this.config.root + '/config/appconfig.json', JSON.stringify(appconfig, null, 2), 'utf-8');
             const exec = require('child_process').exec;
-            exec('cd ' + this.config.root);
-            const slsProcess = exec('sls deploy');
+            const slsProcess = exec('sls deploy', {cwd: this.config.root});
             slsProcess.stdout.pipe(process.stdout);;
             slsProcess.on('exit', () => {              
               Promise.resolve();
