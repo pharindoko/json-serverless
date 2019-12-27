@@ -40,7 +40,7 @@
   },
   "files": [
     "/bin",
-    "/lib",
+    "/src",
     "/config",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
