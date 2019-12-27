@@ -55,14 +55,11 @@ export class Deploy extends Command {
       {
           title: 'Deploy',
           task: async () => {
-            console.log(JSON.stringify(this.config));
             console.log("currentDirectory: " + process.cwd());
-            console.log("executableDirectory: " + process.execPath);
             const exec = require('child_process').exec;
-            const slsProcess = exec('sls deploy --file '+ process.execPath + "/serverless.yml");
+            const slsProcess = exec('sls deploy --file '+ this.config.root + "/serverless.yml");
             slsProcess.stdout.pipe(process.stdout);;
-            slsProcess.on('exit', () => {
-              process.exit();
+            slsProcess.on('exit', () => {              
               Promise.resolve();
             })
           }
