@@ -11,8 +11,6 @@
     "@oclif/command": "^1.5.18",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
-    "@types/express": "^4.17.1",
-    "@types/express-serve-static-core": "^4.17.1",
     "copy-webpack-plugin": "^5.0.4",
     "express": "^4.17.1",
     "globby": "^10.0.1",
@@ -73,5 +71,5 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
-  "gitHead": "719a029d62878e35e4f883c1d3d56048ee710ae7"
+  "gitHead": "199768e869c27a2ee8197cc04508e248d806ad3d"
 }
