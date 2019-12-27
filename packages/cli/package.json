@@ -41,7 +41,7 @@
   },
   "files": [
     "/bin",
-    "/src",
+    "/src/handler.ts",
     "/lib",
     "/config",
     "/npm-shrinkwrap.json",
