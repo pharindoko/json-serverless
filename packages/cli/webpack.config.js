@@ -24,7 +24,7 @@ module.exports = {
   devtool: 'source-map',
   output: {
     libraryTarget: 'commonjs',
-    path: join(__dirname, 'lib'),
+    path: join(__dirname, '.webpack'),
     filename: 'index.js',
 
     // Bundle absolute resource paths in the source-map,
