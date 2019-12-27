@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/0.0.6-alpha.9 darwin-x64 node-v12.12.0
+json-serverless/0.0.6-alpha.10 darwin-x64 node-v12.12.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -28,30 +28,7 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`jsonsls deploy FILE`](#jsonsls-deploy-file)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
-* [`jsonsls run FILE`](#jsonsls-run-file)
-
-## `jsonsls deploy FILE`
-
-describe the command here
-
-```
-USAGE
-  $ jsonsls deploy FILE
-
-ARGUMENTS
-  FILE  path of JSON file
-
-OPTIONS
-  -a, --apikeyauth  require api key authentication to access api
-  -h, --help        show CLI help
-  -n, --name=name   (required) [default: json-serverless] name of the api/stack
-  -r, --readonly    set api to readonly (true) or writeable (false)
-  -s, --swagger     activate swagger ui support
-```
-
-_See code: [src/commands/deploy.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.9/src/commands/deploy.ts)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -69,22 +46,4 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
-
-## `jsonsls run FILE`
-
-describe the command here
-
-```
-USAGE
-  $ jsonsls run FILE
-
-ARGUMENTS
-  FILE  path of JSON file
-
-OPTIONS
-  -e, --env=development|local  [default: local] environment
-  -h, --help                   show CLI help
-```
-
-_See code: [src/commands/run.ts](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.9/src/commands/run.ts)_
 <!-- commandsstop -->
