@@ -12,3 +12,4 @@ jspm_packages
 /dist
 .env
 .webpack
+lib
