@@ -1,5 +1,4 @@
 import { StorageAdapter } from './storage';
-import fs from 'fs';
 import FileAsync from 'lowdb/adapters/FileAsync';
 
 export class FileStorageAdapter implements StorageAdapter {
