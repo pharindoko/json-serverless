@@ -9,7 +9,6 @@ service:
   name: ${self:custom.appconfig.stackName}
 plugins:
   - serverless-webpack
-  - serverless-offline
 package:
   individually: false
   excludeDevDependencies: true
