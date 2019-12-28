@@ -1,7 +1,7 @@
 {
   "name": "json-serverless",
   "description": "cli for json-serverless project",
-  "version": "0.0.6-alpha.16",
+  "version": "0.0.6-alpha.17",
   "author": "pharindoko",
   "bin": {
     "jsonsls": "./bin/run"
@@ -15,7 +15,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "express": "^4.17.1",
     "globby": "^10.0.1",
-    "json-serverless-lib": "^0.0.6-alpha.16",
+    "json-serverless-lib": "^0.0.6-alpha.17",
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "1.19.2",
