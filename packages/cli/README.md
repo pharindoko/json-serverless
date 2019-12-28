@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/0.0.6-alpha.18 darwin-x64 node-v12.12.0
+json-serverless/0.0.6-alpha.19 darwin-x64 node-v12.12.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -51,7 +51,7 @@ OPTIONS
   -s, --swagger     activate swagger ui support
 ```
 
-_See code: [lib/commands/deploy.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.18/lib/commands/deploy.js)_
+_See code: [lib/commands/deploy.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.19/lib/commands/deploy.js)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -86,5 +86,5 @@ OPTIONS
   -h, --help                   show CLI help
 ```
 
-_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.18/lib/commands/run.js)_
+_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.19/lib/commands/run.js)_
 <!-- commandsstop -->
