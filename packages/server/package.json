@@ -4,17 +4,21 @@
   "description": "Transform a json file into an api",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pharindoko/json-serverless.git"
+  },
   "scripts": {
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
-    "prepare": "npm run build",
-    "pretest": "npm run build",
-    "posttest": "npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pharindoko/json-serverless.git"
+    "prepare": "npm run compile",
+    "pretest": "npm run compile",
+    "posttest": "npm run check",
+    "check": "gts check",
+    "clean": "gts clean",
+    "compile": "tsc -p .",
+    "fix": "gts fix"
   },
   "author": "",
   "license": "MIT",
@@ -38,8 +42,6 @@
     "swagger-ui-express": "^4.0.7"
   },
   "devDependencies": {
-    "@semantic-release/changelog": "3.0.4",
-    "@semantic-release/git": "7.0.16",
     "@types/aws-lambda": "8.10.31",
     "@types/dotenv": "6.1.1",
     "@types/express": "4.17.1",
@@ -56,11 +58,9 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.18.2",
     "express-swagger-generator": "1.1.15",
-    "gts": "1.1.0",
+    "gts": "^1.1.0",
     "jest": "24.9.0",
     "pino-pretty": "^3.5.0",
-    "serverless-offline": "5.10.1",
-    "serverless-webpack": "5.3.1",
     "ts-jest": "24.0.2",
     "ts-loader": "6.0.4",
     "typescript": "3.6.2"
