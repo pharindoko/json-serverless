@@ -8,3 +8,4 @@ jspm_packages
 .env
 .webpack
 **/**/lerna_backup
+**/**/lerna-debug.log
