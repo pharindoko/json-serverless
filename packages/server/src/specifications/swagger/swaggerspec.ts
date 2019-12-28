@@ -28,13 +28,14 @@ class PackageInfo {
 
 export class SwaggerSpec {
   private packageJsonPath = `${process.cwd()}/package.json`;
-
   private packageInfo = new PackageInfo();
   private app = {} as express.Express;
   private predefinedSpec = {} as object;
   private spec = {} as Spec;
 
-  constructor() {}
+  constructor(packageInfoFilePath: string) {
+    this.packageJsonPath = packageInfoFilePath;
+  }
   private updateSpecFromPackage(basePath: string): Info {
     const newInfo: Info = {
       version: '',

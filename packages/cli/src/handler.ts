@@ -13,7 +13,7 @@ const environment = new CloudEnvironment();
 const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-  environment.basePath
+  environment.basePath, './package.json'
 );
 const core = new CloudApp(
   appConfig,

@@ -5,15 +5,8 @@ import { AppConfig } from './app/app.config';
 export const startServer = async (
   environment: string,
   server: express.Express,
-  appConfig: AppConfig
+  appConfig: AppConfig,
+  packageJsonFilePath: string
 ) => {
-  ServerFactory.createServer(environment, server, appConfig);
+  ServerFactory.createServer(environment, server, appConfig, packageJsonFilePath);
 };
-
-(async () => {
-  if (require.main === module) {
-    const server = express();
-    const defaultConfig = new AppConfig();
-    startServer(process.env.NODE_ENV as string, server, defaultConfig);
-  }
-})();

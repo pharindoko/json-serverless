@@ -14,7 +14,8 @@ export class ServerFactory {
   static createServer = async (
     type: string,
     server: express.Express,
-    appConfig: AppConfig
+    appConfig: AppConfig,
+    packageJsonFilePath = './package.json'
   ): Promise<CoreServer> => {
     let coreserver = {} as CoreServer;
 
@@ -27,7 +28,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true
+          true,
+          packageJsonFilePath
         );
         break;
       }
@@ -39,7 +41,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true
+          true,
+          packageJsonFilePath
         );
         break;
       }
@@ -52,7 +55,8 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          true
+          true,
+          packageJsonFilePath
         );
         break;
       }
@@ -65,7 +69,8 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          true
+          true,
+          packageJsonFilePath
         );
         break;
       }
@@ -77,7 +82,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true
+          true,
+          packageJsonFilePath
         );
         break;
       }
@@ -90,7 +96,8 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          false
+          false,
+          packageJsonFilePath
         );
         break;
       }
@@ -119,13 +126,14 @@ export class ServerFactory {
     storage: S,
     appConfig: AppConfig,
     server: express.Express,
-    prettyPrintLog = false
+    prettyPrintLog = false,
+    packageJsonFilePath: string,
   ): C {
     const env = new environment();
     const swagger = new Swagger(
       server,
       new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-      env.basePath
+      env.basePath, packageJsonFilePath
     );
     const core = new coreserver(
       server,

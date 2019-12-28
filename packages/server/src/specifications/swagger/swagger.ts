@@ -9,7 +9,7 @@ import { ApiSpecification } from '../apispecification';
 import { Output } from '../../utils/output';
 
 export class Swagger implements ApiSpecification {
-  private swaggerSpec = new SwaggerSpec();
+  private swaggerSpec: SwaggerSpec;
   private swaggerDefGen = new SwaggerDefGen();
   private logger = Logger.getInstance();
   private spec = {} as Spec;
@@ -19,11 +19,13 @@ export class Swagger implements ApiSpecification {
   constructor(
     server: express.Express,
     config: SwaggerConfig,
-    basePath: string
+    basePath: string,
+    packageJsonFilePath: string
   ) {
     this.server = server;
     this.config = config;
     this.basePath = basePath;
+    this.swaggerSpec = new SwaggerSpec(packageJsonFilePath);
   }
 
   generateSpecification = (json: object, regenerate: boolean) => {

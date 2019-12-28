@@ -34,7 +34,7 @@ export class Run extends Command {
     const defaultConfig = new AppConfig();
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
-      startServer(flags.env, server, defaultConfig);
+      startServer(flags.env, server, defaultConfig, this.config.root + '/package.json');
     }
   }
 }
