@@ -51,6 +51,8 @@ OPTIONS
   -s, --swagger     activate swagger ui support
 ```
 
+_See code: [lib/commands/deploy.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.15/lib/commands/deploy.js)_
+
 ## `jsonsls help [COMMAND]`
 
 display help for jsonsls
@@ -83,4 +85,6 @@ OPTIONS
   -e, --env=development|local  [default: local] environment
   -h, --help                   show CLI help
 ```
+
+_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.15/lib/commands/run.js)_
 <!-- commandsstop -->

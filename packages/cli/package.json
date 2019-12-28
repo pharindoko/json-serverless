@@ -11,6 +11,7 @@
     "@oclif/command": "^1.5.18",
     "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2.2.1",
+    "@types/express": "^4.17.2",
     "copy-webpack-plugin": "^5.0.4",
     "express": "^4.17.1",
     "globby": "^10.0.1",
