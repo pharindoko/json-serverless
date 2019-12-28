@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "baseUrl": "node_modules",
+    "paths": {
+      "express": ["@types/express"]
+    },
     "esModuleInterop": true,
     "declaration": true,
     "importHelpers": true,
@@ -9,7 +13,5 @@
     "strict": true,
     "target": "es2017"
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"]
 }
