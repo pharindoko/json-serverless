@@ -2,10 +2,10 @@ const nodeExternals = require('webpack-node-externals');
 const CopyPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const webpack = require('webpack');
-// const fs = require('fs');
+const fs = require('fs');
 const path = require('path');
 
-// const appConfig = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8'));
+const appConfig = JSON.parse(fs.readFileSync('config/appconfig.json', 'UTF-8'));
 
 module.exports = {
   mode: 'production',
@@ -15,6 +15,7 @@ module.exports = {
       DEBUG: false,
     }),
     new CopyPlugin([
+      { from: appConfig.jsonFile, to: './db.json' },
       { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
   ],
