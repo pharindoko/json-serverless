@@ -15,7 +15,15 @@ download:
 	jsonsls
 
 .PHONY: publish
-publish: ## Build Container
+publish:
 	make install
 	npx lerna publish prerelease --skip-git --yes
 	make download
+
+.PHONY: start-test
+start-test:
+	npx lerna run --scope json-serverless  --stream test:start
+
+.PHONY: deploy-test
+deploy-test:
+	npx lerna run --scope json-serverless  --stream test:deploy
