@@ -9,3 +9,5 @@ jspm_packages
 .webpack
 **/**/lerna_backup
 **/**/lerna-debug.log
+**/**/appconfig.json
+**/**/serverlessconfig.json
