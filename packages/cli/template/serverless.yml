@@ -16,20 +16,17 @@ custom:
   file: ${file(./config/serverlessconfig.json)}
   appconfig: ${file(./config/appconfig.json)}
   custom:
-  serverless-offline:
-    resourceRoutes: true
   webpack:
-    keepOutputDirectory: true
     webpackConfig: 'webpack.config.prod.js'   # Name of webpack configuration file
     includeModules: true
     packager: 'npm'   # Packager that will be used to package your external modules
   
   
 provider:
-  stage: ${opt:stage, 'dev'}
+  stage: ${self:custom.file.stage, 'dev'}
   name: aws
   runtime: nodejs10.x
-  region: ${opt:region, 'eu-central-1'}
+  region: ${self:custom.file.awsRegion, 'eu-central-1'}
   stackTags: # Tags that will be added to each of the deployment resources
     jsonsls: ${self:custom.file.stackName}
   environment:
