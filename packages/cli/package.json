@@ -46,6 +46,7 @@
     "/src/handler.ts",
     "/lib",
     "/config",
+    "/template",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json",
     "serverless.yml",
