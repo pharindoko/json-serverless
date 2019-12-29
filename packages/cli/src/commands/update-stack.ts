@@ -8,7 +8,7 @@ import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
 
 export class UpdateStackCommand extends Command {
-  static description = 'describe the command here'
+  static description = 'describe the command here';
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -37,32 +37,45 @@ export class UpdateStackCommand extends Command {
   };
 
   async run() {
-    const {args, flags} = this.parse(UpdateStackCommand)
+    const { args, flags } = this.parse(UpdateStackCommand);
+    const templateFolder = path.normalize(this.config.root + '/template');
     const stackFolder = process.cwd();
     const tasks = new Listr([
       {
         title: 'Validate AWS Identity',
-        task: async (task) => {
+        task: async task => {
           const identity = await AWSActions.checkValidAWSIdentity();
           task.output = 'AWS Account: ' + identity.Account;
         },
       },
       {
         title: 'Validate JSON Serverless Directory',
-        task: (task) => {
+        task: task => {
           Helpers.isJSONServerlessDirectory(stackFolder);
         },
       },
       {
-        title: 'Create Appconfig',
+        title: 'Copy Template Files',
+        task: async task => {
+          await fs.copy(templateFolder+'/src', stackFolder+'/src');
+          await fs.copy(templateFolder+'/package.json', stackFolder+'/package.json');
+          await fs.copy(templateFolder+'/package-lock.json', stackFolder+'/package-lock.json');
+          await fs.copy(templateFolder+'/serverless.yml', stackFolder+'/serverless.yml');
+          await fs.copy(templateFolder+'/tsconfig.json', stackFolder+'/tsconfig.json');
+          await fs.copy(templateFolder+'/webpack.config.prod.js', stackFolder+'/webpack.config.prod.js');
+          task.output = 'Copied files to stack folder: ' + stackFolder;
+        },
+      },
+      {
+        title: 'Update Appconfig',
         task: (ctx, task) => {
-          const appconfig = new AppConfig();
-          appconfig.enableApiKeyAuth = flags.apikeyauth;
-          appconfig.readOnly = flags.readonly;
-          appconfig.enableSwagger = flags.swagger;
-          fs.writeFileSync(path.normalize(
-            stackFolder + '/config/appconfig.json'),
-            JSON.stringify(appconfig, null, 2),
+          const appConfig = JSON.parse(fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8'));
+          appConfig.enableApiKeyAuth = flags.apikeyauth;
+          appConfig.readOnly = flags.readonly;
+          appConfig.enableSwagger = flags.swagger;
+          fs.writeFileSync(
+            path.normalize(stackFolder + '/config/appconfig.json'),
+            JSON.stringify(appConfig, null, 2),
             'utf-8'
           );
         },
@@ -78,7 +91,7 @@ export class UpdateStackCommand extends Command {
             false
           );
         },
-      }, 
+      },
       {
         title: 'Deploy Stack on AWS',
         task: async () => {
@@ -90,11 +103,11 @@ export class UpdateStackCommand extends Command {
             false
           );
         },
-      }
+      },
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess('sls info', { cwd: stackFolder});
+      await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
     } catch (error) {
       console.error(error);
     }
