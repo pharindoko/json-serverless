@@ -29,10 +29,9 @@ USAGE
 # Commands
 <!-- commands -->
 * [`jsonsls create-stack FILE [STAGE]`](#jsonsls-create-stack-file-stage)
-* [`jsonsls delete-stack`](#jsonsls-delete-stack)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
-* [`jsonsls update-stack FILE`](#jsonsls-update-stack-file)
+* [`jsonsls update-stack`](#jsonsls-update-stack)
 
 ## `jsonsls create-stack FILE [STAGE]`
 
@@ -54,17 +53,6 @@ OPTIONS
 ```
 
 _See code: [lib/commands/create-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/create-stack.js)_
-
-## `jsonsls delete-stack`
-
-describe the command here
-
-```
-USAGE
-  $ jsonsls delete-stack
-```
-
-_See code: [lib/commands/delete-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/delete-stack.js)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -101,20 +89,19 @@ OPTIONS
 
 _See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/run.js)_
 
-## `jsonsls update-stack FILE`
+## `jsonsls update-stack`
 
 describe the command here
 
 ```
 USAGE
-  $ jsonsls update-stack FILE
-
-ARGUMENTS
-  FILE  path of JSON file
+  $ jsonsls update-stack
 
 OPTIONS
-  -e, --env=development|local  [default: local] environment
-  -h, --help                   show CLI help
+  -a, --apikeyauth  require api key authentication to access api
+  -h, --help        show CLI help
+  -r, --readonly    set api to readonly (true) or writeable (false)
+  -s, --swagger     activate swagger ui support
 ```
 
 _See code: [lib/commands/update-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/update-stack.js)_
