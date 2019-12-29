@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/0.0.6-alpha.19 darwin-x64 node-v12.12.0
+json-serverless/0.0.6-alpha.20 darwin-x64 node-v12.12.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -28,30 +28,43 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`jsonsls deploy FILE`](#jsonsls-deploy-file)
+* [`jsonsls create-stack FILE [STAGE]`](#jsonsls-create-stack-file-stage)
+* [`jsonsls delete-stack`](#jsonsls-delete-stack)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
+* [`jsonsls update-stack FILE`](#jsonsls-update-stack-file)
 
-## `jsonsls deploy FILE`
+## `jsonsls create-stack FILE [STAGE]`
 
 describe the command here
 
 ```
 USAGE
-  $ jsonsls deploy FILE
+  $ jsonsls create-stack FILE [STAGE]
 
 ARGUMENTS
-  FILE  path of JSON file
+  FILE   path of JSON file
+  STAGE  [default: dev] stage name
 
 OPTIONS
   -a, --apikeyauth  require api key authentication to access api
   -h, --help        show CLI help
-  -n, --name=name   (required) [default: json-serverless] name of the api/stack
   -r, --readonly    set api to readonly (true) or writeable (false)
   -s, --swagger     activate swagger ui support
 ```
 
-_See code: [lib/commands/deploy.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.19/lib/commands/deploy.js)_
+_See code: [lib/commands/create-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/create-stack.js)_
+
+## `jsonsls delete-stack`
+
+describe the command here
+
+```
+USAGE
+  $ jsonsls delete-stack
+```
+
+_See code: [lib/commands/delete-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/delete-stack.js)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -86,5 +99,23 @@ OPTIONS
   -h, --help                   show CLI help
 ```
 
-_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.19/lib/commands/run.js)_
+_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/run.js)_
+
+## `jsonsls update-stack FILE`
+
+describe the command here
+
+```
+USAGE
+  $ jsonsls update-stack FILE
+
+ARGUMENTS
+  FILE  path of JSON file
+
+OPTIONS
+  -e, --env=development|local  [default: local] environment
+  -h, --help                   show CLI help
+```
+
+_See code: [lib/commands/update-stack.js](https://github.com/pharindoko/json-serverless/blob/v0.0.6-alpha.20/lib/commands/update-stack.js)_
 <!-- commandsstop -->
