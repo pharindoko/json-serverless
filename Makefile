@@ -22,8 +22,10 @@ publish:
 
 .PHONY: start-test
 start-test:
+	make install
 	npx lerna run --scope json-serverless  --stream test:start
 
 .PHONY: deploy-test
 deploy-test:
-	npx lerna run --scope json-serverless  --stream test:deploy
+	make install
+	npx lerna run --scope json-serverless  --stream test:create-stack
