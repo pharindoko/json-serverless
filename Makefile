@@ -7,6 +7,7 @@ help:  ## help target to show available commands with information
 
 .PHONY: install
 install: 
+	npm ci
 	npx lerna bootstrap
 
 .PHONY: download
@@ -18,7 +19,6 @@ download:
 publish:
 	make install
 	npx lerna publish prerelease --skip-git --yes
-	make download
 
 .PHONY: start-test
 start-test:
