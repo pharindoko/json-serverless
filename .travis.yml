@@ -1,6 +1,7 @@
 sudo: required
 dist: trusty
-
+git:
+  depth: false
 language: node_js
 cache:
   directories:
