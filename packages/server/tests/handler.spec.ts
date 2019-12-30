@@ -15,7 +15,7 @@ appConfig.jsonFile = './tests/resources/validate.json';
 const server = express();
 
 const environment = new Environment();
-const swagger = new Swagger(server,new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth), environment.basePath);
+const swagger = new Swagger(server,new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth), environment.basePath, 'package.json');
 const localServer = new TestServer(server, new CoreApp(appConfig, server,new FileStorageAdapter(appConfig.jsonFile),swagger));
 
 beforeAll(async (done) => {
