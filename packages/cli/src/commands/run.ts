@@ -1,6 +1,7 @@
 import {Command, flags} from '@oclif/command'
 import {startServer, AppConfig} from 'json-serverless-lib'
 import express from 'express';
+import { Helpers } from '../actions/helpers';
 
 
 export class Run extends Command {
@@ -29,6 +30,8 @@ export class Run extends Command {
   ]
 
   async run() {
+    await Helpers.generateLogo('json-serverless');
+    this.log();
     const {args, flags} = this.parse(Run)
     const server = express();
     const defaultConfig = new AppConfig();

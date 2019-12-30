@@ -55,6 +55,8 @@ export class CreateStackCommand extends Command {
   ];
 
   async run() {
+    await Helpers.generateLogo('json-serverless');
+    this.log();
     const { args, flags } = this.parse(CreateStackCommand);
     cli.action.start(`${chalk.whiteBright('Check AWS Identity')}`, `${chalk.whiteBright('initializing')}`, { stdout: true });
     try {
