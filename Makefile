@@ -7,7 +7,7 @@ help:  ## help target to show available commands with information
 
 .PHONY: install
 install: 
-	npm ci
+	npm i
 	npx lerna bootstrap
 
 .PHONY: download
