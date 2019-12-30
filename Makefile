@@ -29,3 +29,7 @@ start-test:
 deploy-test:
 	make install
 	npx lerna run --scope json-serverless  --stream test:create-stack
+
+.PHONY: fake-credentials
+fake-credentials:
+	echo -e "[default]\naws_access_key_id=xxxx\naws_secret_access_key=xxx" > ~/.aws/credentials

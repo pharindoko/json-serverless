@@ -9,13 +9,18 @@ notifications:
   email: true
 node_js:
   - '10'
-install: make install
+install: make install && make fake-credentials
 jobs:
   include:
     - stage: build-server
       before_script: cd packages/server
       script:
         - npm run build
+    - stage: build-cli
+      before_script: cd packages/cli
+      script:
+        - npm run build
+        - bin/run --version
     - stage: test-server
       before_script: cd packages/server
       script:
@@ -23,6 +28,7 @@ jobs:
         - npx snyk test
     - stage: release
       before_script:
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       script:
         - make publish

@@ -75,6 +75,8 @@
   },
   "repository": "pharindoko/json-serverless",
   "scripts": {
+    "build": "rm -rf lib && tsc",
+    "clean": "rm -f .oclif.manifest.json",
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
