@@ -30,5 +30,14 @@
   "homepage": "https://github.com/pharindoko/json-serverless",
   "license": "MIT",
   "main": "src/handler.ts",
-  "repository": "pharindoko/json-serverless"
+  "repository": "pharindoko/json-serverless",
+  "files": [
+    "/src",
+    "/config",
+    "serverless.yml",
+    "webpack.config.prod.js",
+    "tsconfig.json",
+    "package.json",
+    "package-lock.json"
+  ]
 }
