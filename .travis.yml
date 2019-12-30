@@ -9,18 +9,21 @@ notifications:
   email: true
 node_js:
   - '10'
-install: npm ci
+install: make install
 jobs:
   include:
-    - stage: build
+    - stage: build-server
+      before_script: cd packages/cli
       script:
-        - npm run build
-    - stage: test
+        - npm run prepack
+    - stage: test-server
+      before_script: cd packages/server
       script:
         - npm run test
         - npx snyk test
     - stage: release
-      if: branch = master
+      before_script:
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       script:
-        - npx semantic-release
+        - make publish
           
