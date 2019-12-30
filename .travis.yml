@@ -13,9 +13,9 @@ install: make install
 jobs:
   include:
     - stage: build-server
-      before_script: cd packages/cli
+      before_script: cd packages/server
       script:
-        - npm run prepack
+        - npm run build
     - stage: test-server
       before_script: cd packages/server
       script:
