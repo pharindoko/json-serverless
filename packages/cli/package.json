@@ -1,7 +1,7 @@
 {
   "name": "json-serverless",
   "description": "cli for json-serverless project",
-  "version": "1.5.4",
+  "version": "1.5.5",
   "author": "pharindoko",
   "bin": {
     "jsonsls": "./bin/run"
