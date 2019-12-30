@@ -3,22 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-# [0.1.0-alpha.0](https://github.com/pharindoko/json-serverless/compare/v1.5.3...v0.1.0-alpha.0) (2019-12-30)
-
-
-### Features
-
-* **cli:** add cli to json-serverless project ([bf1213a](https://github.com/pharindoko/json-serverless/commit/bf1213a1ad18c59ae3cafacd8a6cb3c737caf6cc))
-
-
-### Reverts
-
-* Revert "v0.0.6-alpha.16" ([8a7f087](https://github.com/pharindoko/json-serverless/commit/8a7f08784289b7936c704caecfbb8f757719b876))
-
-
-
-
-
 ## [0.0.6-alpha.27](https://github.com/pharindoko/json-serverless/compare/v0.0.6-alpha.26...v0.0.6-alpha.27) (2019-12-30)
 
 **Note:** Version bump only for package json-serverless-lib
