@@ -18,7 +18,7 @@ download:
 .PHONY: publish-test
 publish-manually:
 	make install
-	npx lerna version patch --force-publish --conventional-commits --create-release github --yes
+	npx lerna version --force-publish --conventional-commits --create-release github
 
 .PHONY: publish
 publish:
