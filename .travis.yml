@@ -9,7 +9,7 @@ notifications:
   email: true
 node_js:
   - '10'
-install: make install && make fake-credentials
+install: make install
 jobs:
   include:
     - stage: build-server
@@ -31,5 +31,5 @@ jobs:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       script:
+        - make fake-credentials
         - make publish
-          
