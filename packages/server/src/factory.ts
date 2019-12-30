@@ -127,13 +127,14 @@ export class ServerFactory {
     appConfig: AppConfig,
     server: express.Express,
     prettyPrintLog = false,
-    packageJsonFilePath: string,
+    packageJsonFilePath: string
   ): C {
     const env = new environment();
     const swagger = new Swagger(
       server,
       new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-      env.basePath, packageJsonFilePath
+      env.basePath,
+      packageJsonFilePath
     );
     const core = new coreserver(
       server,

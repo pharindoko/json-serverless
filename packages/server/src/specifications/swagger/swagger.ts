@@ -57,7 +57,15 @@ export class Swagger implements ApiSpecification {
       res.setHeader('Content-Type', 'application/json');
       res.send(this.spec);
     });
-    this.server.use('/', swaggerUi.serveFiles(this.spec), swaggerUi.setup(this.spec));
-    this.server.get('/', swaggerUi.serveFiles(this.spec), swaggerUi.setup(this.spec));
+    this.server.use(
+      '/',
+      swaggerUi.serveFiles(this.spec),
+      swaggerUi.setup(this.spec)
+    );
+    this.server.get(
+      '/',
+      swaggerUi.serveFiles(this.spec),
+      swaggerUi.setup(this.spec)
+    );
   };
 }
