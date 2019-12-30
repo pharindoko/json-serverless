@@ -19,11 +19,13 @@ download:
 publish-manually:
 	make install
 	npx lerna version --conventional-commits --create-release github --yes
+	npx lerna publish --yes --skip-git
 
 .PHONY: publish
 publish:
 	make install
-	npx lerna version patch --force-publish --conventional-commits --create-release github --yes
+	npx lerna version patch --conventional-commits --create-release github --yes
+	npx lerna publish --yes --skip-git
 
 .PHONY: start-test
 start-test:
