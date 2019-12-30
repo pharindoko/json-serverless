@@ -27,8 +27,8 @@ jobs:
         - npm run test
         - npx snyk test
     - stage: release
+      if: branch = master
       before_script:
-        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
       script:
         - make fake-credentials
