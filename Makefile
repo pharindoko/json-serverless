@@ -32,4 +32,5 @@ deploy-test:
 
 .PHONY: fake-credentials
 fake-credentials:
+	touch ~/.aws/credentials
 	echo -e "[default]\naws_access_key_id=xxxx\naws_secret_access_key=xxx" > ~/.aws/credentials
