@@ -15,15 +15,17 @@ download:
 	npm i -g json-serverless
 	jsonsls
 
-.PHONY: publish-test
+.PHONY: publish-manually
 publish-manually:
 	make install
 	npx lerna version --force-publish --conventional-commits --create-release github
+	npx lerna publish from-git --yes
 
 .PHONY: publish
 publish:
 	make install
 	npx lerna version patch --force-publish --conventional-commits --create-release github --yes
+	npx lerna publish from-git --yes
 
 .PHONY: start-test
 start-test:
