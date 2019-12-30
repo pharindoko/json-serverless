@@ -16,14 +16,14 @@ download:
 	jsonsls
 
 .PHONY: publish-test
-publish-test:
+publish-manually:
 	make install
-	npx lerna version --force-publish --conventional-commits --create-release github
+	npx lerna version --conventional-commits --create-release github --yes
 
 .PHONY: publish
 publish:
 	make install
-	npx lerna publish prerelease --skip-git --yes
+	npx lerna version patch --force-publish --conventional-commits --create-release github --yes
 
 .PHONY: start-test
 start-test:
