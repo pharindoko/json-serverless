@@ -1,11 +1,11 @@
 import fs from 'fs-extra';
 import { Command, flags } from '@oclif/command';
 import Listr = require('listr');
-import { AppConfig } from 'json-serverless-lib';
 import * as path from 'path';
 import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
-import { ServerlessConfig } from '../classes/serverlessconfig';
+import chalk from 'chalk'
+import cli from 'cli-ux';
 
 export class UpdateStackCommand extends Command {
   static description = 'describe the command here';
@@ -38,16 +38,19 @@ export class UpdateStackCommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(UpdateStackCommand);
+    cli.action.start(`${chalk.whiteBright('Check AWS Identity')}`, `${chalk.whiteBright('initializing')}`, { stdout: true });
+    try {
+      const identity = await AWSActions.checkValidAWSIdentity();
+      this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
+    } catch (error) {
+
+      this.error(`${chalk.red(error.message)}`);
+    }
+    cli.action.stop();
+    this.log();
     const templateFolder = path.normalize(this.config.root + '/template');
     const stackFolder = process.cwd();
     const tasks = new Listr([
-      {
-        title: 'Validate AWS Identity',
-        task: async task => {
-          const identity = await AWSActions.checkValidAWSIdentity();
-          task.output = 'AWS Account: ' + identity.Account;
-        },
-      },
       {
         title: 'Validate JSON Serverless Directory',
         task: task => {
@@ -63,7 +66,6 @@ export class UpdateStackCommand extends Command {
           await fs.copy(templateFolder+'/serverless.yml', stackFolder+'/serverless.yml');
           await fs.copy(templateFolder+'/tsconfig.json', stackFolder+'/tsconfig.json');
           await fs.copy(templateFolder+'/webpack.config.prod.js', stackFolder+'/webpack.config.prod.js');
-          task.output = 'Copied files to stack folder: ' + stackFolder;
         },
       },
       {
@@ -109,7 +111,7 @@ export class UpdateStackCommand extends Command {
       await tasks.run();
       await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
     } catch (error) {
-      console.error(error);
+      this.error(`${chalk.red(error.message)}`);
     }
   }
 }

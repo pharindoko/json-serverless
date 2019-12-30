@@ -8,7 +8,7 @@ import cli from 'cli-ux';
 import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
-
+import chalk from 'chalk'
 export class CreateStackCommand extends Command {
   static description = 'describe the command here';
 
@@ -56,42 +56,46 @@ export class CreateStackCommand extends Command {
 
   async run() {
     const { args, flags } = this.parse(CreateStackCommand);
-    const stackName = await cli.prompt('What is the name of the api ?');
+    cli.action.start(`${chalk.whiteBright('Check AWS Identity')}`, `${chalk.whiteBright('initializing')}`, { stdout: true });
+    try {
+      const identity = await AWSActions.checkValidAWSIdentity();
+      this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
+    } catch (error) {
+
+      this.error(`${chalk.red(error.message)}`);
+    }
+    cli.action.stop();
+    this.log();
+ 
+
+    const stackName = await cli.prompt(`${chalk.yellow('What is the name of the api ?')}`);
+    this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
     const templateFolder = path.normalize(this.config.root + '/template');
-    const stackFolder= path.normalize(process.cwd() + '/' + stackName);
-
-    console.log('New stack will be created under folder: ' + stackFolder)
-    await cli.confirm('Continue ? y/n')
+    const stackFolder = path.normalize(process.cwd() + '/' + stackName);
+    this.log();
+    this.log('New stack will be created under folder: ' + `${chalk.whiteBright.bold.underline(stackFolder)}`);
+    this.log();
+    await cli.confirm(`${chalk.yellow('Continue ? y/n')}`);
+    this.log();
     const tasks = new Listr([
       {
-        title: 'Validate AWS Identity',
-        task: async (task) => {
-          const identity = await AWSActions.checkValidAWSIdentity();
-          task.output = 'AWS Account: ' + identity.Account;
-        },
-      },
-      {
         title: 'Validate Files',
-        task: (task) => {
+        task: async task => {
           filePath = Helpers.validateFile(filePath);
-          task.output = 'JSONFile found under path: ' + filePath;
         },
       },
       {
         title: 'Validate StackFolder',
-        task: (task) => {
+        task: task => {
           Helpers.validateStackFolder(stackFolder);
-          task.output = 'Validate that the stackfolder doesn`t exist: ' + stackFolder;
         },
       },
       {
         title: 'Copy Template Files',
-        task: async (task) => {
+        task: async task => {
           await fs.copy(templateFolder, stackFolder);
-          task.output =
-            'Copied files to new stack folder: ' + stackFolder
         },
       },
       {
@@ -103,8 +107,8 @@ export class CreateStackCommand extends Command {
           appconfig.readOnly = flags.readonly;
           appconfig.enableSwagger = flags.swagger;
           appconfig.stackName = stackName;
-          fs.writeFileSync(path.normalize(
-            stackFolder + '/config/appconfig.json'),
+          fs.writeFileSync(
+            path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appconfig, null, 2),
             'utf-8'
           );
@@ -115,9 +119,9 @@ export class CreateStackCommand extends Command {
         task: (ctx, task) => {
           const serverlessConfig = new ServerlessConfig();
           serverlessConfig.awsRegion = region;
-          serverlessConfig.stage = args.stage
-          fs.writeFileSync(path.normalize(
-            stackFolder + '/config/serverlessconfig.json'),
+          serverlessConfig.stage = args.stage;
+          fs.writeFileSync(
+            path.normalize(stackFolder + '/config/serverlessconfig.json'),
             JSON.stringify(serverlessConfig, null, 2),
             'utf-8'
           );
@@ -125,7 +129,8 @@ export class CreateStackCommand extends Command {
       },
       {
         title: 'Install Dependencies',
-        task: async () => {
+        task: async (task) => {
+          task.output = 'INSTALL DEPENDENCIES';
           await Helpers.executeChildProcess(
             'npm i',
             {
@@ -134,7 +139,7 @@ export class CreateStackCommand extends Command {
             false
           );
         },
-      }, 
+      },
       {
         title: 'Deploy Stack on AWS',
         task: async () => {
@@ -146,13 +151,13 @@ export class CreateStackCommand extends Command {
             false
           );
         },
-      }
+      },
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess('sls info', { cwd: stackFolder});
+      await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
     } catch (error) {
-      console.error(error);
+      this.error(`${chalk.red(error.message)}`);
     }
   }
 
@@ -167,7 +172,7 @@ export class CreateStackCommand extends Command {
           name: 'region',
           message: 'select a region',
           type: 'list',
-          choices: regions,
+          choices: regions
         },
       ]);
       region = responses.region;
