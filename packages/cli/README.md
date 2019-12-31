@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.6 darwin-x64 node-v12.12.0
+json-serverless/1.5.7 linux-x64 node-v10.18.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -51,8 +51,6 @@ OPTIONS
   -r, --readonly    set api to readonly (true) or writeable (false)
   -s, --swagger     activate swagger ui support
 ```
-
-_See code: [lib/commands/create-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.5.6/lib/commands/create-stack.js)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -87,8 +85,6 @@ OPTIONS
   -h, --help                   show CLI help
 ```
 
-_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v1.5.6/lib/commands/run.js)_
-
 ## `jsonsls update-stack`
 
 describe the command here
@@ -103,6 +99,4 @@ OPTIONS
   -r, --readonly    set api to readonly (true) or writeable (false)
   -s, --swagger     activate swagger ui support
 ```
-
-_See code: [lib/commands/update-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.5.6/lib/commands/update-stack.js)_
 <!-- commandsstop -->
