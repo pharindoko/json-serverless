@@ -105,4 +105,15 @@ export class Helpers {
   });
 });
   }
+
+  static createDir(dir: string) {
+    const fs = require("fs")
+    try {
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+      }
+    } catch(e) {
+      console.log("createDir: An error occurred." + e)
+    }
+  }
 }
