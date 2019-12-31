@@ -38,4 +38,4 @@ jobs:
         - git checkout master
       script:
         - make fake-credentials
-        - make publish
+        - make publish 
