@@ -17,14 +17,20 @@ download:
 
 .PHONY: publish-manually
 publish-manually:
+ifndef GH_TOKEN
+	$(error GH_TOKEN is undefined)
+endif
 	make install
 	npx lerna version --include-merged-tags --force-publish --conventional-commits --create-release github
 	npx lerna publish from-git --yes
 
 .PHONY: publish
 publish:
+ifndef GH_TOKEN
+	$(error GH_TOKEN is undefined)
+endif
 	make install
-	npx lerna version patch --include-merged-tags --force-publish --conventional-commits --create-release github --yes
+	npx lerna version patch -m "chore(release): Travis CI update [ci skip]" --include-merged-tags --force-publish --conventional-commits --create-release github --yes
 	npx lerna publish from-git --yes
 
 .PHONY: start-test

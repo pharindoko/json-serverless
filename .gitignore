@@ -13,3 +13,4 @@ jspm_packages
 **/**/appconfig.json
 **/**/serverlessconfig.json
 **/.DS_Store
+.npmrc
