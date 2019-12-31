@@ -10,7 +10,9 @@ notifications:
   email: true
 node_js:
   - '10'
-install: make install
+install: 
+  - npm config set package-lock false
+  - make install
 jobs:
   include:
     - stage: build-server
