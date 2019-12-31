@@ -28,7 +28,7 @@ jobs:
         - npm run test
         - npx snyk test
     - stage: release
-      if: branch = master
+      if: (type = push AND branch = master)
       before_script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
