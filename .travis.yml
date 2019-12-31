@@ -15,20 +15,20 @@ install:
   - make install
 jobs:
   include:
-    - script:
-        - npm run build
+    - stage: build-server
       before_script: cd packages/server
-      name: build-server
-    - script:
+      script:
+        - npm run build
+    - stage: build-cli
+      before_script: cd packages/cli
+      script:
         - npm run build
         - bin/run --version
-      before_script: cd packages/cli
-      name: build-cli
-    - script:
+    - stage: test-server
+      before_script: cd packages/server
+      script:
         - npm run test
         - npx snyk test
-      before_script: cd packages/server
-      name: test-server
     - stage: release
       if: (type = push AND branch = master)
       before_script:
