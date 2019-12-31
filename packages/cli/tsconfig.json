@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": "node_modules",
+    "paths": {
+      "express": ["@types/express"]
+    },
+    "esModuleInterop": true,
+    "declaration": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "lib",
+    "rootDir": "src",
+    "strict": true,
+    "target": "es2017"
+  },
+  "include": ["src/**/*"]
+}

@@ -1,6 +1,7 @@
 sudo: required
 dist: trusty
-
+git:
+  depth: false
 language: node_js
 cache:
   directories:
@@ -9,18 +10,30 @@ notifications:
   email: true
 node_js:
   - '10'
-install: npm ci
+install: make install
 jobs:
   include:
-    - stage: build
+    - stage: build-server
+      before_script: cd packages/server
       script:
         - npm run build
-    - stage: test
+    - stage: build-cli
+      before_script: cd packages/cli
+      script:
+        - npm run build
+        - bin/run --version
+    - stage: test-server
+      before_script: cd packages/server
       script:
         - npm run test
         - npx snyk test
     - stage: release
       if: branch = master
+      before_script:
+        - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+        - git fetch pub master
+        - git checkout master
       script:
-        - npx semantic-release
-          
+        - make fake-credentials
+        - make publish

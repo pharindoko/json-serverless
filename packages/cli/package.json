@@ -1,0 +1,89 @@
+{
+  "name": "json-serverless",
+  "description": "cli for json-serverless project",
+  "version": "1.5.7",
+  "author": "pharindoko",
+  "bin": {
+    "jsonsls": "./bin/run"
+  },
+  "bugs": "https://github.com/pharindoko/json-serverless/issues",
+  "dependencies": {
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
+    "@oclif/plugin-help": "^2.2.3",
+    "@types/express": "^4.17.2",
+    "@types/figlet": "^1.2.0",
+    "@types/fs-extra": "^8.0.1",
+    "@types/inquirer": "^6.5.0",
+    "chalk": "^3.0.0",
+    "cli-ux": "^5.4.1",
+    "copy-webpack-plugin": "^5.1.1",
+    "express": "^4.17.1",
+    "figlet": "^1.2.4",
+    "globby": "^10.0.1",
+    "inquirer": "^7.0.1",
+    "json-serverless-lib": "^1.5.7",
+    "listr": "^0.14.3",
+    "node-env-webpack-plugin": "1.1.0",
+    "nodemon": "1.19.2",
+    "nodemon-webpack-plugin": "4.0.8",
+    "pino-pretty": "^3.5.0",
+    "serverless": "^1.60.4",
+    "serverless-http": "^2.3.0",
+    "serverless-webpack": "^5.3.1",
+    "terser-webpack-plugin": "1.4.1",
+    "ts-loader": "^6.2.1",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.4",
+    "webpack": "4.39.3",
+    "webpack-cli": "3.3.7",
+    "webpack-node-externals": "1.7.2"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.22.2",
+    "@types/listr": "^0.14.2",
+    "@types/node": "^10.17.13",
+    "ts-node": "^8.5.4"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/src/handler.ts",
+    "/lib",
+    "/config",
+    "/template",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "serverless.yml",
+    "webpack.config.prod.js",
+    "tsconfig.json"
+  ],
+  "homepage": "https://github.com/pharindoko/json-serverless",
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "lib/index.js",
+  "oclif": {
+    "commands": "./lib/commands",
+    "bin": "jsonsls",
+    "plugins": [
+      "@oclif/plugin-help"
+    ]
+  },
+  "repository": "pharindoko/json-serverless",
+  "scripts": {
+    "build": "rm -rf lib && tsc -b",
+    "clean": "rm -f .oclif.manifest.json",
+    "postpack": "rm -f oclif.manifest.json",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "test": "echo NO TESTS",
+    "test:start": "bin/run run ../../db.json",
+    "test:create-stack": "bin/run create-stack ../../db.json",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "types": "lib/index.d.ts",
+  "gitHead": "199768e869c27a2ee8197cc04508e248d806ad3d"
+}
