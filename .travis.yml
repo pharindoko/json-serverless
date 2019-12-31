@@ -31,6 +31,9 @@ jobs:
       if: branch = feat/add-cli
       before_script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
+        - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
+        - git fetch pub feat/add-cli
+        - git checkout feat/add-cli
       script:
         - make fake-credentials
         - git checkout feat/add-cli
