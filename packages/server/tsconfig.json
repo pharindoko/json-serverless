@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "incremental": false,
+    "moduleResolution": "node",
+    "target": "es5",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationMap": true,
+    "outDir": "lib",               
+    "rootDir": "./src",
+    "composite": false,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "lib": [ "es2015" ],
+    "sourceMap": false
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["tests"]
+}

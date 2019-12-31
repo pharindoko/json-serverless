@@ -1,0 +1,8 @@
+{
+  "packages": [
+    "packages/cli",
+    "packages/cli/template",
+    "packages/server"
+  ],
+  "version": "1.5.7"
+}

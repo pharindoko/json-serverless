@@ -1,5 +1,0 @@
-{
-  "s3File": "db.json",
-  "s3Bucket": "${self:service}-${self:provider.stage}",
-  "basePath": "/${self:provider.stage}"
-}

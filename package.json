@@ -4,23 +4,9 @@
   "description": "Transform a json file into an api",
   "main": "src/server.js",
   "scripts": {
-    "test": "NODE_ENV=local jest",
-    "debug": "NODE_ENV=debug webpack --watch",
-    "start": "NODE_ENV=local webpack --watch",
-    "dev": "NODE_ENV=development webpack --watch",
-    "diagnostic": "NODE_ENV=offline sls offline",
-    "build": "webpack",
-    "deploy": "serverless deploy --stage=dev",
     "snyk-protect": "snyk protect",
     "commit": "git-cz",
-    "bootstrap": "lerna bootstrap",
-    "check": "gts check",
-    "clean": "gts clean",
-    "compile": "tsc -p .",
-    "fix": "gts fix",
-    "prepare": "npm run compile",
-    "pretest": "npm run compile",
-    "posttest": "npm run check"
+    "bootstrap": "lerna bootstrap"
   },
   "repository": {
     "type": "git",
@@ -32,21 +18,6 @@
     "url": "https://github.com/pharindoko/json-serverless/issues"
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
-  "dependencies": {
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-list-endpoints": "^4.0.1",
-    "json-server": "^0.15.1",
-    "lodash": "^4.17.15",
-    "lowdb": "^1.0.0",
-    "lowdb-adapter-aws-s3": "^1.1.2",
-    "pino": "^5.14.0",
-    "serverless-http": "^2.3.0",
-    "snyk": "^1.258.1",
-    "source-map-support": "^0.5.16",
-    "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.1.2"
-  },
   "devDependencies": {
     "@semantic-release/changelog": "3.0.6",
     "@semantic-release/git": "7.0.18",
@@ -70,6 +41,7 @@
     "express-swagger-generator": "1.1.15",
     "gts": "1.1.2",
     "jest": "24.9.0",
+    "lerna": "^3.18.3",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.2",
     "nodemon-webpack-plugin": "4.2.2",
@@ -89,5 +61,10 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "bit": {
+    "env": {},
+    "componentsDefaultDirectory": "components/{name}",
+    "packageManager": "npm"
   }
 }
