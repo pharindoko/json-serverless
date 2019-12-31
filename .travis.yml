@@ -28,12 +28,12 @@ jobs:
         - npm run test
         - npx snyk test
     - stage: release
-      if: branch = feat/add-cli
+      if: branch = master
       before_script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
-        - git fetch pub feat/add-cli
-        - git checkout feat/add-cli
+        - git fetch pub master
+        - git checkout master
       script:
         - make fake-credentials
         - make publish
