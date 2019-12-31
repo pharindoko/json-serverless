@@ -25,13 +25,13 @@
     "json-serverless-lib": "^1.5.10",
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "1.19.2",
+    "nodemon": "2.0.2",
     "nodemon-webpack-plugin": "4.0.8",
     "pino-pretty": "^3.5.0",
     "serverless": "^1.60.4",
     "serverless-http": "^2.3.0",
     "serverless-webpack": "^5.3.1",
-    "terser-webpack-plugin": "1.4.1",
+    "terser-webpack-plugin": "2.3.1",
     "ts-loader": "^6.2.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4",
@@ -40,10 +40,10 @@
     "webpack-node-externals": "1.7.2"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "^1.22.2",
-    "@types/listr": "^0.14.2",
-    "@types/node": "^10.17.13",
-    "ts-node": "^8.5.4"
+    "@oclif/dev-cli": "1.22.2",
+    "@types/listr": "0.14.2",
+    "@types/node": "10.17.13",
+    "ts-node": "8.5.4"
   },
   "engines": {
     "node": ">=8.0.0"
