@@ -16,8 +16,8 @@
 
 ## Features
 
-- Easily generate routes and resources for the Api via ([json-server](https://github.com/typicode/json-server))
-- **New:** Added Swagger UI support
+- Easily generate routes and resources for the Api via [json-server](https://github.com/typicode/json-server)
+- **New:** Added CLI
 - Deployment:
    - Deployed in AWS cloud within Minutes by a single command
    - Almost **zero costs** (First million requests for Lambda are free)
@@ -34,76 +34,67 @@
 
 ## Quickstart
 
-### 1. Clone Solution
+### 1. Install Solution
 
 ```bash
-git clone https://github.com/pharindoko/json-serverless.git
-cd json-serverless
+npm i -g json-serverless
 ```
 
-### 2. Install dependencies
+### 2. Run local
+1. create a jsonserver-file sample e.g. db.json
 
-```bash
-npm install -g serverless
-npm i
-```
+    ```
+    {
+        "posts": [
+          { "id": 1, "title": "json-server", "author": "typicode" },
+          { "id": 2, "title": "test", "author": "yourAuthor" }
+        ],
+        "comments": [
+          { "id": 1, "body": "some comment", "postId": 1 }
+        ],
+        "profile": { "name": "typicode" }
+    }
+    ```
 
-### 3. Verify AWS Access / Credentials
 
-=> You need to have access to AWS to upload the solution.
+2. execute command
 
-```bash
-aws sts get-caller-identity
-```
+    ```
+    jsonsls run db.json
+    ```
 
-### 4. Update db.json file in root directory
 
-- Root properties marked in **bold** are the generated endpoints of the API  ([route generation and json validation is done via json-server](https://github.com/typicode/json-server))
+### 3. Deploy to AWS
 
-<pre><code>
-{
-    <b>"posts"</b>: [
-      { "id": 1, "title": "json-server", "author": "typicode" }
-    ],
-    <b>"comments"</b>: [
-      { "id": 1, "body": "some comment", "postId": 1 }
-    ],
-    <b>"profile"</b>: { "name": "typicode" }
-}
-</code></pre>
+1. Verify that you have a AWS account and set appropriate credentials
+2. execute command
 
-### 5. Deploy via Serverless Framework
+    ```bash
+    jsonsls create-stack db.json {optional: STAGE}
+    ```
 
-```bash
-# set --stage parameter for different stages
-serverless deploy --stage dev
-```
+  When the deployment was successful you can see following output
 
-- serverless-webpack is used
-- the build will be triggered automatically
+    <pre>
+    <code>
+    Service Information
+    service: serverless-json-server
+    stage: dev
+    region: eu-central-1
+    stack: serverless-json-server-dev
+    api keys:
+      serverless-json-server.dev: <b>{API-KEY}</b>
+    endpoints:
+      ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ <== {ENDPOINTURL}</b>
+      ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
+    functions:
+      app: serverless-json-server-dev-app
+    layers:
+      None
+    Serverless: Removing old service artifacts from S3...
+    </pre></code>
 
-### 6. When the deployment with serverless framework was successful you can see following output
-
-<pre>
-<code>
-Service Information
-service: serverless-json-server
-stage: dev
-region: eu-central-1
-stack: serverless-json-server-dev
-api keys:
-  serverless-json-server.dev: <b>{API-KEY}</b>
-endpoints:
-  ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ <== {ENDPOINTURL}</b>
-  ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
-functions:
-  app: serverless-json-server-dev-app
-layers:
-  None
-Serverless: Removing old service artifacts from S3...
-</pre></code>
-
-### 7. Test your Api
+### 4. Test your Api
 
 #### With Swagger
 
@@ -158,10 +149,6 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 ```
 
 => With the next request a new db.json file will be created in the S3 Bucket
-
-#### Change Stackname
-
-[edit service property in serverless.yml (in root directory)](https://github.com/pharindoko/json-server-less-lambda/blob/66756961d960c44cf317ca307b097f595799a890/serverless.yml#L8)
 
 #### Adapt settings in config/appconfig.yml file
 
