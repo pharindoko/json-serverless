@@ -30,7 +30,8 @@ ifndef GH_TOKEN
 	$(error GH_TOKEN is undefined)
 endif
 	make install
-	npx lerna version patch -m "chore(release): Travis CI update [ci skip]" --include-merged-tags --force-publish --conventional-commits --create-release github --yes
+	git status
+	npx lerna version patch -m "chore(release): Travis CI update [ci skip]" --include-merged-tags --force-publish --conventional-commits --create-release github --yes --git-remote pub
 	npx lerna publish from-git --yes
 
 .PHONY: start-test
