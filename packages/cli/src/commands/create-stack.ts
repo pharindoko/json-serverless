@@ -109,6 +109,7 @@ export class CreateStackCommand extends Command {
           appconfig.readOnly = flags.readonly;
           appconfig.enableSwagger = flags.swagger;
           appconfig.stackName = stackName;
+          Helpers.createDir(stackFolder + "/config");
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appconfig, null, 2),
@@ -122,6 +123,7 @@ export class CreateStackCommand extends Command {
           const serverlessConfig = new ServerlessConfig();
           serverlessConfig.awsRegion = region;
           serverlessConfig.stage = args.stage;
+          Helpers.createDir(stackFolder + "/config");
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/serverlessconfig.json'),
             JSON.stringify(serverlessConfig, null, 2),
