@@ -16,19 +16,19 @@ install:
 jobs:
   include:
     - script:
-      - npm run build
-    before_script: cd packages/server
-    name: build-server
+        - npm run build
+      before_script: cd packages/server
+      name: build-server
     - script:
-      - npm run build
-      - bin/run --version
-    before_script: cd packages/cli
-    name: build-cli  
+        - npm run build
+        - bin/run --version
+      before_script: cd packages/cli
+      name: build-cli
     - script:
-      - npm run test
-      - npx snyk test
-    before_script: cd packages/server
-    name: test-server
+        - npm run test
+        - npx snyk test
+      before_script: cd packages/server
+      name: test-server
     - stage: release
       if: (type = push AND branch = master)
       before_script:
@@ -38,4 +38,4 @@ jobs:
         - git checkout master
       script:
         - make fake-credentials
-        - make publish 
+        - make publish
