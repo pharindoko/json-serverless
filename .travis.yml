@@ -36,5 +36,4 @@ jobs:
         - git checkout feat/add-cli
       script:
         - make fake-credentials
-        - git checkout feat/add-cli
         - make publish
