@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.11](https://github.com/pharindoko/json-serverless/compare/v1.5.8...v1.5.11) (2019-12-31)
+
+
+### Bug Fixes
+
+* **deps:** update dependency nodemon to v2 ([c755eff](https://github.com/pharindoko/json-serverless/commit/c755effe6fca0a846fbcbd1752f2dfd2057fdcf2))
+* **deps:** update dependency terser-webpack-plugin to v2 ([ef6d71c](https://github.com/pharindoko/json-serverless/commit/ef6d71c77550d3abd43cc952e6571028018d4e31))
+
+
+
+
+
 ## [1.5.10](https://github.com/pharindoko/json-serverless/compare/v1.5.9...v1.5.10) (2019-12-31)
 
 **Note:** Version bump only for package json-serverless
