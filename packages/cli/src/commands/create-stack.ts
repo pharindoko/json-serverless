@@ -58,7 +58,7 @@ export class CreateStackCommand extends Command {
     await Helpers.generateLogo('json-serverless');
     this.log();
     const { args, flags } = this.parse(CreateStackCommand);
-    cli.action.start(`${chalk.whiteBright('Check AWS Identity')}`, `${chalk.whiteBright('initializing')}`, { stdout: true });
+    cli.action.start(`${chalk.blueBright('Check AWS Identity')}`, `${chalk.blueBright('initializing')}`, { stdout: true });
     try {
       const identity = await AWSActions.checkValidAWSIdentity();
       this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
@@ -70,16 +70,16 @@ export class CreateStackCommand extends Command {
     this.log();
  
 
-    const stackName = await cli.prompt(`${chalk.yellow('What is the name of the api ?')}`);
+    const stackName = await cli.prompt(`${chalk.magenta('What is the name of the api ?')}`);
     this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
     const templateFolder = path.normalize(this.config.root + '/template');
     const stackFolder = path.normalize(process.cwd() + '/' + stackName);
     this.log();
-    this.log('New stack will be created under folder: ' + `${chalk.whiteBright.bold.underline(stackFolder)}`);
+    this.log('New stack template folder will be created under path: ' + `${chalk.blueBright.bold.underline(stackFolder)}`);
     this.log();
-    await cli.confirm(`${chalk.yellow('Continue ? y/n')}`);
+    await cli.confirm(`${chalk.magenta('Continue ? y/n')}`);
     this.log();
     const tasks = new Listr([
       {
