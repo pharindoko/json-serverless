@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.14](https://github.com/pharindoko/json-serverless/compare/v1.5.13...v1.5.14) (2020-01-03)
+
+
+### Bug Fixes
+
+* **cli:** update colors to fit to white and black terminal ([b4e6f57](https://github.com/pharindoko/json-serverless/commit/b4e6f573e3372376a82b38b0aa9183daea531d42))
+
+
+
+
+
 ## [1.5.13](https://github.com/pharindoko/json-serverless/compare/v1.5.12...v1.5.13) (2020-01-03)
 
 **Note:** Version bump only for package json-serverless
