@@ -40,7 +40,7 @@ export class UpdateStackCommand extends Command {
     await Helpers.generateLogo("json-serverless");
     this.log();
     const { args, flags } = this.parse(UpdateStackCommand);
-    cli.action.start(`${chalk.whiteBright('Check AWS Identity')}`, `${chalk.whiteBright('initializing')}`, { stdout: true });
+    cli.action.start(`${chalk.blueBright('Check AWS Identity')}`, `${chalk.blueBright('initializing')}`, { stdout: true });
     try {
       const identity = await AWSActions.checkValidAWSIdentity();
       this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
