@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.12](https://github.com/pharindoko/json-serverless/compare/v1.5.11...v1.5.12) (2019-12-31)
+
+
+### Bug Fixes
+
+* **cli:** add missing directory config before create config files ([b39d30f](https://github.com/pharindoko/json-serverless/commit/b39d30f8b8655b83d3c56abc20b41ebd93eda76f))
+
+
+
+
+
 ## [1.5.11](https://github.com/pharindoko/json-serverless/compare/v1.5.8...v1.5.11) (2019-12-31)
 
 
