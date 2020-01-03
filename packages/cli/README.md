@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.12 linux-x64 node-v10.18.0
+json-serverless/1.5.13 linux-x64 node-v10.18.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -35,7 +35,7 @@ USAGE
 
 ## `jsonsls create-stack FILE [STAGE]`
 
-create the stack in AWS.
+describe the command here
 
 ```
 USAGE
@@ -71,7 +71,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `jsonsls run FILE`
 
-run solution locally.
+describe the command here
 
 ```
 USAGE
@@ -87,7 +87,7 @@ OPTIONS
 
 ## `jsonsls update-stack`
 
-update the stack in AWS.
+describe the command here
 
 ```
 USAGE
