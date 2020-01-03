@@ -64,7 +64,7 @@ npm i -g json-serverless
     ```
 
 
-### 3. Deploy to AWS
+### 3. Deploy api to AWS
 
 1. Verify that you have a AWS account and set appropriate credentials
 2. execute command
@@ -73,7 +73,12 @@ npm i -g json-serverless
     jsonsls create-stack db.json {optional: STAGE}
     ```
 
-  When the deployment was successful you can see following output
+  - a stack template folder will be created that contains the deployable serverless framework solution.
+  <b>You can use the serverless cli in this stack template folder.</b> 
+
+
+
+  - When the deployment was successful you can see following output
 
     <pre>
     <code>
@@ -133,7 +138,7 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 2. re-deploy the stack via serverless framework
 
    ```bash
-    sls deploy
+    jsonsls update-stack
    ```
 
 3. delete db.json file in S3 Bucket
@@ -150,14 +155,13 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 
 => With the next request a new db.json file will be created in the S3 Bucket
 
-#### Adapt settings in config/appconfig.yml file
+#### Adapt settings
 
 | Attribute  | Description  | Type | Default |
 |---|---|---|---|
 | readOnly  |  Make API readonly - all API - write operations are forbidden (http 403)) | string |false |
 | enableSwagger  | Enable swagger and swagger UI support  | string | true |
 | enableApiKeyAuth  | Make your routes private by using an additional ApiKey | boolean | false |
-| jsonFile  | path of json file that will be used  | string | db.json |
 | enableJSONValidation  | validate JSON file at start | boolean | true |
 
 ## Used Packages
@@ -174,22 +178,14 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 - [AWS Lambda](https://aws.amazon.com/lambda/features/)
 - [AWS S3](https://aws.amazon.com/s3/)
 
-## Develop and debug locally
+## Further Development
 
-db.json file will be loaded directly from your local filesystem. No AWS access is needed.
+the json file will be loaded directly from your local filesystem. No AWS access is needed.
 
 ### Start solution
 
 ```bash
-npm run start
-```
-
-### Debug solution
-
-If you want to debug locally in VS Code everything is already setup (using webpack with sourcemap support)
-
-```bash
-npm run debug
+make start-test
 ```
 
 ### Test your API
@@ -216,100 +212,7 @@ curl -H "Content-Type: application/json" http://localhost:3000/api/{route}
 
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
 
-## Develop locally with cloud resources
-
-Use same components (S3, LowDB) as the lambda does but have code executed locally.
-
-### 1. Add .env file to root folder
-
-**Mind:** If you haven`t deployed the solution yet, please create a private S3-Bucket and .json - file manually or deploy the solution first to AWS via serverless framework<br>
-**Mind:** This function requires that you have access to AWS (e.g. via credentials)
-
-- Copy the .env file from .env.sample in the root folder
-
-```bash
-cp .env.sample .env
-```
-
-- Required: Adapt settings in .env file
-
-| Attribute  | Description  | Type | Default |
-|---|---|---|---|
-| S3File  |  JSON file used as db to read and write (will be created with a default json value - customize in db.json)   | string |db.json |
-| S3Bucket  | S3-Bucket - this bucket must already exist in AWS  | string | json-server-less-lambda-dev |
-| readOnly  | all API - write operations are forbidden (http 403))  | boolean | false |
-
-#### 2. Start solution
-
-```bash
-npm run dev
-```
-
-#### 3. Test your API
-
-#### With Swagger
-
-Open the {ENDPOINTURL}: http://localhost:3000/ that you received as output
-
-#### With Curl
-
-1. replace the url with the url provided by serverless (see above)
-2. replace the {API - KEY} with the key you get from serverless (see above)
-3. replace {route} at the end of the url e.g. with posts (default value)
-
-Default Schema:
-
-```bash
-Default route is posts: (see db.json)
-curl -H "Content-Type: application/json" http://localhost:3000/api/posts
-
-# or another route given in db.json file
-curl -H "Content-Type: application/json" http://localhost:3000/api/{route}
-
-# with enableApiKeyAuth=true
-curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/api/{route}
-
-```
-
-What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
-
-## Diagnose issues
-
-serverless-offline will help you to troubleshoot issues with the lambda execution in a fast manner.
-
-**Mind:** The assumption is that the solution has been already deployed<br>
-**Mind:** This function requires that you have access to AWS (e.g. via credentials)
-
-### 1. build sources and execute serverless offline
-
-- sources will be build with typescript (tsc) in advance to test the functionality.
-- after that sls offline will be started
-
-<pre><code>npm run diagnostic
-
-<u>Result:</u>
-Serverless: Starting Offline: dev/eu-central-1.
-Serverless: Key with token: <b>{API-KEY}</b>
-Serverless: Remember to use <b>x-api-key</b> on the request headers
-
-```
-</pre></code>
-
-#### 2. make api calls
-
-- Use a new terminal window and start to make api calls.
-- Replace {API-KEY} with the api key in the sls offline output (see above).
-- Replace {route} with the route you want to test e.g. /posts
-
-<pre><code>
-curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" http://localhost:3000/api/{route}
-</pre></code>
-
 ## FAQ
-
-### How can I change the lambda region or stack name
-
-Please have a look to the serverless guideline: https://serverless.com/framework/docs/providers/aws/guide/deploying/
 
 ### Cannot use Swagger UI when enableApiKeyAuth is true
 
@@ -323,7 +226,7 @@ If you want to see the Swagger UI you need to add a plugin e.g. ModHeader to Chr
 
 ### I forgot the API-KEY I have set
 
-Ensure you have credentials for AWS set.
+Ensure you have credentials for AWS set. 
 
 ```bash
 sls info
