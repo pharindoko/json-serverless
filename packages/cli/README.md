@@ -35,7 +35,7 @@ USAGE
 
 ## `jsonsls create-stack FILE [STAGE]`
 
-describe the command here
+create the stack in AWS.
 
 ```
 USAGE
@@ -71,7 +71,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `jsonsls run FILE`
 
-describe the command here
+run solution locally.
 
 ```
 USAGE
@@ -87,7 +87,7 @@ OPTIONS
 
 ## `jsonsls update-stack`
 
-describe the command here
+update the stack in AWS.
 
 ```
 USAGE
