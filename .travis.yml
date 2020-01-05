@@ -20,8 +20,6 @@ install:
   - make install
 
 jobs:
-  exclude:
-    - if: COMMITCOUNT != 0
   include:
     - script:
         - npm run build
