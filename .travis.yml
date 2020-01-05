@@ -2,6 +2,8 @@ dist: trusty
 git:
   depth: false
 language: node_js
+env:
+  - COMMITCOUNT=0
 cache:
   directories:
     - ~/.npm
@@ -10,11 +12,16 @@ notifications:
 node_js:
   - '10'
 before_install:
-  - export COMMITCOUNT=git log $(git describe --tags --abbrev=0)..HEAD --oneline | grep -iv "revert" |grep -e "fix(" -e "feat(" | wc -l
+  - export COMMITCOUNT=$(git log $(git describe --tags --abbrev=0)..HEAD --oneline | grep -iv "revert" |grep -e "fix(" -e "feat(" | wc -l | awk '{print $1}')
+  - git log $(git describe --tags --abbrev=0)..HEAD --oneline
+  - echo $COMMITCOUNT
 install: 
   - npm config set package-lock false
   - make install
+
 jobs:
+  exclude:
+    - if: COMMITCOUNT != 0
   include:
     - script:
         - npm run build
@@ -31,7 +38,7 @@ jobs:
       before_script: cd packages/server
       name: test-server
     - stage: release
-      if: (type = push AND branch = master AND env.COMMITCOUNT!=0)
+      if: (type = push AND branch = master AND env(COMMITCOUNT) != 0)
       before_script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
