@@ -19,7 +19,7 @@
     "pino-pretty": "3.5.0",
     "serverless": "1.60.5",
     "serverless-webpack": "5.3.1",
-    "terser-webpack-plugin": "2.3.1",
+    "terser-webpack-plugin": "2.3.2",
     "ts-loader": "6.2.1",
     "ts-node": "8.5.4",
     "typescript": "3.7.4",
