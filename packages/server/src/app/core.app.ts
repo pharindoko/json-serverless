@@ -43,7 +43,6 @@ export class CoreApp {
       await this.setupApp();
       this.setupSwagger(json);
       await this.setupRoutes();
-
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
@@ -84,12 +83,6 @@ export class CoreApp {
       Error('not implemented');
     });
   }
-
-  protected setupCors(): void {
-
-  }
-
-
   protected async initializeLayers() {
     if (
       CoreApp.adapter &&
@@ -115,12 +108,7 @@ export class CoreApp {
         1
       );
     }
-    this.server.use((req:any, res:any, next:any) => {
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      next();
-    });
     this.server.use(middlewares);
-
     this.server.use('/api', router);
   }
 }
