@@ -34,8 +34,6 @@ export class CoreApp {
 
   async setup(): Promise<void> {
     this.server.use(cors());
-    this.server.options('*', cors());
-
     await this.setupStorage();
     const json = await this.getJSON();
     const isValid = this.validateJSON(json);
