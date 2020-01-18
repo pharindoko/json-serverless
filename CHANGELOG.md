@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.18](https://github.com/pharindoko/json-serverless/compare/v1.5.17...v1.5.18) (2020-01-18)
+
+
+### Bug Fixes
+
+* **cli:** fix wrong reference to serverless binary in update function ([be25968](https://github.com/pharindoko/json-serverless/commit/be25968382e7919d379620d016755634aa934ec6))
+
+
+
+
+
 ## [1.5.17](https://github.com/pharindoko/json-serverless/compare/v1.5.14...v1.5.17) (2020-01-18)
 
 
