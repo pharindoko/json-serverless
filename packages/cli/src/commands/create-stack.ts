@@ -155,7 +155,7 @@ export class CreateStackCommand extends Command {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
-            'sls deploy',
+            'node_modules/serverless/bin/serverless deploy',
             {
               cwd: stackFolder,
             },
@@ -166,7 +166,10 @@ export class CreateStackCommand extends Command {
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
+      await Helpers.executeChildProcess(
+        'node_modules/serverless/bin/serverless info',
+        { cwd: stackFolder }
+      );
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
     }
