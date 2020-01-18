@@ -4,7 +4,7 @@ import Listr = require('listr');
 import * as path from 'path';
 import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
-import chalk from 'chalk'
+import chalk from 'chalk';
 import cli from 'cli-ux';
 
 export class UpdateStackCommand extends Command {
@@ -37,15 +37,18 @@ export class UpdateStackCommand extends Command {
   };
 
   async run() {
-    await Helpers.generateLogo("json-serverless");
+    await Helpers.generateLogo('json-serverless');
     this.log();
     const { args, flags } = this.parse(UpdateStackCommand);
-    cli.action.start(`${chalk.blueBright('Check AWS Identity')}`, `${chalk.blueBright('initializing')}`, { stdout: true });
+    cli.action.start(
+      `${chalk.blueBright('Check AWS Identity')}`,
+      `${chalk.blueBright('initializing')}`,
+      { stdout: true }
+    );
     try {
       const identity = await AWSActions.checkValidAWSIdentity();
       this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
     } catch (error) {
-
       this.error(`${chalk.red(error.message)}`);
     }
     cli.action.stop();
@@ -62,18 +65,35 @@ export class UpdateStackCommand extends Command {
       {
         title: 'Copy Template Files',
         task: async task => {
-          await fs.copy(templateFolder+'/src', stackFolder+'/src');
-          await fs.copy(templateFolder+'/package.json', stackFolder+'/package.json');
-          await fs.copy(templateFolder+'/package-lock.json', stackFolder+'/package-lock.json');
-          await fs.copy(templateFolder+'/serverless.yml', stackFolder+'/serverless.yml');
-          await fs.copy(templateFolder+'/tsconfig.json', stackFolder+'/tsconfig.json');
-          await fs.copy(templateFolder+'/webpack.config.prod.js', stackFolder+'/webpack.config.prod.js');
+          await fs.copy(templateFolder + '/src', stackFolder + '/src');
+          await fs.copy(
+            templateFolder + '/package.json',
+            stackFolder + '/package.json'
+          );
+          await fs.copy(
+            templateFolder + '/package-lock.json',
+            stackFolder + '/package-lock.json'
+          );
+          await fs.copy(
+            templateFolder + '/serverless.yml',
+            stackFolder + '/serverless.yml'
+          );
+          await fs.copy(
+            templateFolder + '/tsconfig.json',
+            stackFolder + '/tsconfig.json'
+          );
+          await fs.copy(
+            templateFolder + '/webpack.config.prod.js',
+            stackFolder + '/webpack.config.prod.js'
+          );
         },
       },
       {
         title: 'Update Appconfig',
         task: (ctx, task) => {
-          const appConfig = JSON.parse(fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8'));
+          const appConfig = JSON.parse(
+            fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
+          );
           appConfig.enableApiKeyAuth = flags.apikeyauth;
           appConfig.readOnly = flags.readonly;
           appConfig.enableSwagger = flags.swagger;
@@ -100,7 +120,7 @@ export class UpdateStackCommand extends Command {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
-            'sls deploy',
+            'node_modules/serverless/bin/serverless deploy',
             {
               cwd: stackFolder,
             },
@@ -111,7 +131,10 @@ export class UpdateStackCommand extends Command {
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
+      await Helpers.executeChildProcess(
+        'node_modules/serverless/bin/serverless info',
+        { cwd: stackFolder }
+      );
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
     }
