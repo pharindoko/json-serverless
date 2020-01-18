@@ -1,13 +1,13 @@
 {
   "name": "json-serverless-template",
-  "version": "1.5.18",
+  "version": "1.5.19",
   "description": "template for json-serverless project",
   "author": "pharindoko",
   "bugs": "https://github.com/pharindoko/json-serverless/issues",
   "dependencies": {
     "@types/express": "4.17.1",
     "express": "4.17.1",
-    "json-serverless-lib": "^1.5.18",
+    "json-serverless-lib": "^1.5.19",
     "serverless-http": "^2.3.0"
   },
   "devDependencies": {
