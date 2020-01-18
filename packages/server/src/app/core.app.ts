@@ -7,7 +7,7 @@ import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
 import { JSONValidator } from '../validations/json.validator';
 import { Output } from '../utils/output';
-
+import cors from 'cors';
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
@@ -33,6 +33,9 @@ export class CoreApp {
   }
 
   async setup(): Promise<void> {
+    this.server.use(cors());
+    this.server.options('*', cors());
+
     await this.setupStorage();
     const json = await this.getJSON();
     const isValid = this.validateJSON(json);
@@ -40,6 +43,7 @@ export class CoreApp {
       await this.setupApp();
       this.setupSwagger(json);
       await this.setupRoutes();
+
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
@@ -81,6 +85,11 @@ export class CoreApp {
     });
   }
 
+  protected setupCors(): void {
+
+  }
+
+
   protected async initializeLayers() {
     if (
       CoreApp.adapter &&
@@ -106,7 +115,12 @@ export class CoreApp {
         1
       );
     }
+    this.server.use((req:any, res:any, next:any) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      next();
+    });
     this.server.use(middlewares);
+
     this.server.use('/api', router);
   }
 }
