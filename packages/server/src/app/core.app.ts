@@ -7,7 +7,7 @@ import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
 import { JSONValidator } from '../validations/json.validator';
 import { Output } from '../utils/output';
-
+import cors from 'cors';
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
@@ -33,6 +33,9 @@ export class CoreApp {
   }
 
   async setup(): Promise<void> {
+    this.server.use(cors());
+    this.server.options('*', cors());
+
     await this.setupStorage();
     const json = await this.getJSON();
     const isValid = this.validateJSON(json);
@@ -80,7 +83,6 @@ export class CoreApp {
       Error('not implemented');
     });
   }
-
   protected async initializeLayers() {
     if (
       CoreApp.adapter &&

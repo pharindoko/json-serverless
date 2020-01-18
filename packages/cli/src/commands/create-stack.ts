@@ -8,7 +8,7 @@ import cli from 'cli-ux';
 import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
-import chalk from 'chalk'
+import chalk from 'chalk';
 export class CreateStackCommand extends Command {
   static description = 'describe the command here';
 
@@ -58,26 +58,33 @@ export class CreateStackCommand extends Command {
     await Helpers.generateLogo('json-serverless');
     this.log();
     const { args, flags } = this.parse(CreateStackCommand);
-    cli.action.start(`${chalk.blueBright('Check AWS Identity')}`, `${chalk.blueBright('initializing')}`, { stdout: true });
+    cli.action.start(
+      `${chalk.blueBright('Check AWS Identity')}`,
+      `${chalk.blueBright('initializing')}`,
+      { stdout: true }
+    );
     try {
       const identity = await AWSActions.checkValidAWSIdentity();
       this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
     } catch (error) {
-
       this.error(`${chalk.red(error.message)}`);
     }
     cli.action.stop();
     this.log();
- 
 
-    const stackName = await cli.prompt(`${chalk.magenta('What is the name of the api ?')}`);
+    const stackName = await cli.prompt(
+      `${chalk.magenta('What is the name of the api ?')}`
+    );
     this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
     const templateFolder = path.normalize(this.config.root + '/template');
     const stackFolder = path.normalize(process.cwd() + '/' + stackName);
     this.log();
-    this.log('New stack template folder will be created under path: ' + `${chalk.blueBright.bold.underline(stackFolder)}`);
+    this.log(
+      'New stack template folder will be created under path: ' +
+        `${chalk.blueBright.bold.underline(stackFolder)}`
+    );
     this.log();
     await cli.confirm(`${chalk.magenta('Continue ? y/n')}`);
     this.log();
@@ -109,7 +116,7 @@ export class CreateStackCommand extends Command {
           appconfig.readOnly = flags.readonly;
           appconfig.enableSwagger = flags.swagger;
           appconfig.stackName = stackName;
-          Helpers.createDir(stackFolder + "/config");
+          Helpers.createDir(stackFolder + '/config');
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appconfig, null, 2),
@@ -123,7 +130,7 @@ export class CreateStackCommand extends Command {
           const serverlessConfig = new ServerlessConfig();
           serverlessConfig.awsRegion = region;
           serverlessConfig.stage = args.stage;
-          Helpers.createDir(stackFolder + "/config");
+          Helpers.createDir(stackFolder + '/config');
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/serverlessconfig.json'),
             JSON.stringify(serverlessConfig, null, 2),
@@ -133,7 +140,7 @@ export class CreateStackCommand extends Command {
       },
       {
         title: 'Install Dependencies',
-        task: async (task) => {
+        task: async task => {
           task.output = 'INSTALL DEPENDENCIES';
           await Helpers.executeChildProcess(
             'npm i',
@@ -148,7 +155,7 @@ export class CreateStackCommand extends Command {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
-            'sls deploy',
+            'node_modules/serverless/bin/serverless deploy',
             {
               cwd: stackFolder,
             },
@@ -159,7 +166,10 @@ export class CreateStackCommand extends Command {
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess('sls info', { cwd: stackFolder });
+      await Helpers.executeChildProcess(
+        'node_modules/serverless/bin/serverless info',
+        { cwd: stackFolder }
+      );
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
     }
@@ -176,7 +186,7 @@ export class CreateStackCommand extends Command {
           name: 'region',
           message: 'select a region',
           type: 'list',
-          choices: regions
+          choices: regions,
         },
       ]);
       region = responses.region;
