@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.17](https://github.com/pharindoko/json-serverless/compare/v1.5.14...v1.5.17) (2020-01-18)
+
+
+### Bug Fixes
+
+* **server:** add cors origin headers ([b3b6f16](https://github.com/pharindoko/json-serverless/commit/b3b6f16918a1a2888a1e3c9f426cccb4fe544c1c))
+
+
+
+
+
 ## [1.5.16](https://github.com/pharindoko/json-serverless/compare/v1.5.14...v1.5.16) (2020-01-06)
 
 **Note:** Version bump only for package json-serverless-lib
