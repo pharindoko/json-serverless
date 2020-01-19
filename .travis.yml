@@ -2,6 +2,9 @@ dist: trusty
 git:
   depth: false
 language: node_js
+env:
+  global:
+    - COMMITCOUNT
 cache:
   directories:
     - ~/.npm
