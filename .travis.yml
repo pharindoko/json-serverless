@@ -4,7 +4,7 @@ git:
 language: node_js
 env:
   global:
-    - COMMITCOUNT
+    - COMMITCOUNT="$(git log $(git describe --tags --abbrev=0)..HEAD --oneline | grep -iv "revert" |grep -e "fix(" -e "feat(" | wc -l | awk '{print $1}')"
 cache:
   directories:
     - ~/.npm
@@ -14,7 +14,6 @@ node_js:
   - '10'
 before_install:
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
-  - export COMMITCOUNT="$(git log $(git describe --tags --abbrev=0)..HEAD --oneline | grep -iv "revert" |grep -e "fix(" -e "feat(" | wc -l | awk '{print $1}')"
   - echo $COMMITCOUNT
 install: 
   - npm config set package-lock false
