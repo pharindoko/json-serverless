@@ -40,7 +40,7 @@
     "eslint-plugin-import": "2.20.0",
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.2",
-    "jest": "24.9.0",
+    "jest": "25.1.0",
     "lerna": "3.20.2",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.2",
