@@ -58,12 +58,10 @@ functions:
       - http:
           path: /
           method: ANY
-          cors: true
           private: ${self:custom.appconfig.enableApiKeyAuth}
       - http:
           path: "{proxy+}"
           method: ANY
-          cors: true
           private: ${self:custom.appconfig.enableApiKeyAuth}
 resources:
   Resources:
