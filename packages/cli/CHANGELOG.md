@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.22](https://github.com/pharindoko/json-serverless/compare/v1.5.21...v1.5.22) (2020-01-27)
+
+
+### Features
+
+* **cli:** add readonly mode for local run option ([a16c5ee](https://github.com/pharindoko/json-serverless/commit/a16c5ee1031b255e07b3367055efcde9562ce47d))
+
+
+
+
+
 ## [1.5.21](https://github.com/pharindoko/json-serverless/compare/v1.5.19...v1.5.21) (2020-01-25)
 
 

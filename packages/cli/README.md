@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.21 linux-x64 node-v10.18.1
+json-serverless/1.5.22 linux-x64 node-v10.18.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -83,6 +83,7 @@ ARGUMENTS
 OPTIONS
   -e, --env=development|local  [default: local] environment
   -h, --help                   show CLI help
+  -r, --readonly               set api to readonly (true) or writeable (false)
 ```
 
 ## `jsonsls update-stack`

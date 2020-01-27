@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.22](https://github.com/pharindoko/json-serverless/compare/v1.5.21...v1.5.22) (2020-01-27)
+
+
+### Bug Fixes
+
+* **server:** fix missing property initialization in swagger spec ([942a38a](https://github.com/pharindoko/json-serverless/commit/942a38ad956c3934f7df4446b05c399295e0df65))
+
+
+
+
+
 ## [1.5.21](https://github.com/pharindoko/json-serverless/compare/v1.5.19...v1.5.21) (2020-01-25)
 
 **Note:** Version bump only for package json-serverless-lib
