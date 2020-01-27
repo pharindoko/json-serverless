@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "devDependencies": {
-    "@semantic-release/changelog": "3.0.6",
+    "@semantic-release/changelog": "5.0.0",
     "@semantic-release/git": "9.0.0",
     "@types/aws-lambda": "8.10.40",
     "@types/dotenv": "6.1.1",
