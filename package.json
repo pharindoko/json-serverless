@@ -29,7 +29,7 @@
     "@types/lodash": "4.14.149",
     "@types/lowdb": "1.0.9",
     "@types/node": "10.14.16",
-    "@types/pino": "5.15.3",
+    "@types/pino": "5.15.4",
     "@types/supertest": "2.0.8",
     "@types/swagger-schema-official": "2.0.20",
     "@types/swagger-ui-express": "4.1.1",
