@@ -31,7 +31,7 @@
     "serverless": "^1.60.4",
     "serverless-http": "^2.3.0",
     "serverless-webpack": "^5.3.1",
-    "terser-webpack-plugin": "2.3.4",
+    "terser-webpack-plugin": "2.3.5",
     "ts-loader": "^6.2.1",
     "tslib": "^1.10.0",
     "typescript": "^3.7.4",
