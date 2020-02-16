@@ -59,10 +59,30 @@ functions:
           path: /
           method: ANY
           private: ${self:custom.appconfig.enableApiKeyAuth}
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
       - http:
           path: "{proxy+}"
           method: ANY
           private: ${self:custom.appconfig.enableApiKeyAuth}
+          cors:
+            origin: '*' # <-- Specify allowed origin
+            headers: # <-- Specify allowed headers
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+            allowCredentials: false
 resources:
   Resources:
     s3BucketStorage:
