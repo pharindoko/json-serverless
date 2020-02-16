@@ -1,4 +1,5 @@
 {
-    "jsonFile": "./db.json"
+    "jsonFile": "./db.json",
+    "enableSwagger": "false"
 }
   
