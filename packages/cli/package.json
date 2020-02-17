@@ -26,7 +26,7 @@
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.2",
-    "nodemon-webpack-plugin": "4.0.8",
+    "nodemon-webpack-plugin": "4.3.1",
     "pino-pretty": "^3.5.0",
     "serverless": "^1.60.4",
     "serverless-http": "^2.3.0",

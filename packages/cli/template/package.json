@@ -15,7 +15,7 @@
     "copy-webpack-plugin": "5.1.1",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.2",
-    "nodemon-webpack-plugin": "4.0.8",
+    "nodemon-webpack-plugin": "4.3.1",
     "pino-pretty": "3.6.0",
     "serverless": "1.63.0",
     "serverless-webpack": "5.3.1",
