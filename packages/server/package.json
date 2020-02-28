@@ -64,7 +64,7 @@
     "pino-pretty": "3.6.0",
     "ts-jest": "25.2.1",
     "ts-loader": "6.0.4",
-    "typescript": "3.8.2"
+    "typescript": "3.8.3"
   },
   "snyk": true,
   "config": {
