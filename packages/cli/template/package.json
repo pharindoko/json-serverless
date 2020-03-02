@@ -16,7 +16,7 @@
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.2",
     "nodemon-webpack-plugin": "4.3.1",
-    "pino-pretty": "3.6.0",
+    "pino-pretty": "3.6.1",
     "serverless": "1.65.0",
     "serverless-webpack": "5.3.1",
     "terser-webpack-plugin": "2.3.5",
