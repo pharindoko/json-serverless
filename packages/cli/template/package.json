@@ -17,7 +17,7 @@
     "nodemon": "2.0.2",
     "nodemon-webpack-plugin": "4.3.1",
     "pino-pretty": "3.6.1",
-    "serverless": "1.66.0",
+    "serverless": "1.67.0",
     "serverless-webpack": "5.3.1",
     "terser-webpack-plugin": "2.3.5",
     "ts-loader": "6.2.1",
