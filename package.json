@@ -32,7 +32,7 @@
     "@types/pino": "5.17.0",
     "@types/supertest": "2.0.8",
     "@types/swagger-schema-official": "2.0.21",
-    "@types/swagger-ui-express": "4.1.1",
+    "@types/swagger-ui-express": "4.1.2",
     "copy-webpack-plugin": "5.1.1",
     "cz-conventional-changelog": "3.1.0",
     "eslint": "6.8.0",
