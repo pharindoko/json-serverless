@@ -60,7 +60,7 @@
     "eslint-plugin-import": "2.20.1",
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.0",
-    "jest": "25.2.1",
+    "jest": "25.2.2",
     "pino-pretty": "3.6.1",
     "ts-jest": "25.2.1",
     "ts-loader": "6.2.2",
