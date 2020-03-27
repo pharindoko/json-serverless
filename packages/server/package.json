@@ -35,7 +35,7 @@
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "lowdb-adapter-aws-s3": "^1.1.2",
-    "pino": "^5.10.6",
+    "pino": "^6.0.0",
     "serverless-http": "^2.3.0",
     "snyk": "^1.266.0",
     "source-map-support": "^0.5.16",
