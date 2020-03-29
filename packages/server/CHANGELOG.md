@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.25](https://github.com/pharindoko/json-serverless/compare/v1.5.24...v1.5.25) (2020-03-29)
+
+
+### Bug Fixes
+
+* **server:** fix security vulnerabilities detected by snyk ([1b653c7](https://github.com/pharindoko/json-serverless/commit/1b653c7126129c577737fbe620ab821e5d07b4c3))
+
+
+
+
+
 ## [1.5.24](https://github.com/pharindoko/json-serverless/compare/v1.5.23...v1.5.24) (2020-03-01)
 
 
