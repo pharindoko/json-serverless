@@ -72,9 +72,23 @@ export class CreateStackCommand extends Command {
     cli.action.stop();
     this.log();
 
-    const stackName = await cli.prompt(
-      `${chalk.magenta('What is the name of the api ?')}`
-    );
+    const s3BucketValidator = async (input: string) => {
+      const s3regex = new RegExp(
+        '(?=^.{3,63}$)(?!^(d+.)+d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)'
+      );
+      const test = s3regex.test(input);
+      if (!test) {
+        return 'Sorry this is not valid \n=> allowed pattern: ?=^.{3,63}$)(?!^(d+.)+d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)';
+      }
+      return true;
+    };
+    const apiAnswer = await inquirer.prompt({
+      name: 'answer',
+      message: `${chalk.magenta('What is the name of the api ?')}`,
+      type: 'input',
+      validate: s3BucketValidator,
+    });
+    const stackName = apiAnswer.answer;
     this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
