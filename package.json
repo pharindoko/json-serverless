@@ -37,7 +37,7 @@
     "cz-conventional-changelog": "3.1.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.1.0",
-    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-import": "2.20.2",
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.2",
     "jest": "25.2.3",
