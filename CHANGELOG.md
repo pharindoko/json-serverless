@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.26](https://github.com/pharindoko/json-serverless/compare/v1.5.25...v1.5.26) (2020-03-29)
+
+
+### Bug Fixes
+
+* **cli:** validate apiname to avoid issues in deployment with s3 or cloudformation stack ([f564f87](https://github.com/pharindoko/json-serverless/commit/f564f87a6f5a3b4dde4bbfb57fac4e658df2c05b))
+
+
+
+
+
 ## [1.5.25](https://github.com/pharindoko/json-serverless/compare/v1.5.24...v1.5.25) (2020-03-29)
 
 
