@@ -1,6 +1,6 @@
 {
   "extends": ["config:base"],
-  "baseBranches": ["dev"],
+  "baseBranches": ["master"],
   "automerge": true,
   "packageRules": [{
 	"depTypeList": ["dependencies"],
