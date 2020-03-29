@@ -3,7 +3,7 @@ git:
   depth: false
 language: node_js
 env:
-  - COMMITCOUNT="$(git log $(git describe --tags --abbrev=0)..HEAD --oneline|grep -iv 'revert' |grep -e 'fix(' -e 'feat(' | wc -l | awk '{print $1}')"
+  - COMMITCOUNT="$(git log $(git describe --tags --abbrev=0)..HEAD --oneline|grep -iv 'revert' |grep -e 'fix(' -e 'feat(' -e 'fix:' -e 'feat:' | wc -l | awk '{print $1}')"
 cache:
   directories:
     - ~/.npm
@@ -35,12 +35,15 @@ jobs:
       before_script: cd packages/server
       name: test-server
     - stage: release
-      if: (type = push AND branch = master AND env(COMMITCOUNT) != 0)
+      if: (type = push AND branch = master)
       before_script:
         - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> $HOME/.npmrc 2> /dev/null
         - git remote add pub https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git
         - git fetch pub master
         - git checkout master
       script:
-        - make fake-credentials
-        - make publish
+        - if [ $COMMITCOUNT != 0 ]; then
+            echo "########create new release########";
+            make fake-credentials;
+            make publish;
+          fi
