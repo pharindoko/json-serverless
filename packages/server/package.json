@@ -9,7 +9,7 @@
     "url": "git+https://github.com/pharindoko/json-serverless.git"
   },
   "scripts": {
-    "test": "npx jest",
+    "test": "snyk test && npx jest",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
@@ -38,7 +38,7 @@
     "lowdb-adapter-aws-s3": "^1.1.2",
     "pino": "^5.10.6",
     "serverless-http": "^2.3.0",
-    "snyk": "^1.290.1",
+    "snyk": "^1.305.0",
     "source-map-support": "^0.5.16",
     "supertest": "^4.0.2",
     "swagger-ui-express": "^4.0.7"
