@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.27](https://github.com/pharindoko/json-serverless/compare/v1.5.26...v1.5.27) (2020-04-02)
+
+
+### Bug Fixes
+
+* **deps:** update dependency chalk to v4 ([ce27e00](https://github.com/pharindoko/json-serverless/commit/ce27e009db3f9eee2d9e1171faa0ccd09d9463b2))
+
+
+
+
+
 ## [1.5.26](https://github.com/pharindoko/json-serverless/compare/v1.5.25...v1.5.26) (2020-03-29)
 
 
