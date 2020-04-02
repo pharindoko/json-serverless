@@ -63,7 +63,7 @@
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.0",
     "jest": "24.9.0",
-    "pino-pretty": "3.5.0",
+    "pino-pretty": "4.0.0",
     "ts-jest": "24.3.0",
     "ts-loader": "6.0.4",
     "typescript": "3.7.5"
