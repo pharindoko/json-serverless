@@ -26,7 +26,7 @@
     "json-serverless-lib": "^1.5.27",
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "^4.3.1",
     "pino-pretty": "^4.0.0",
     "serverless": "^1.67.0",

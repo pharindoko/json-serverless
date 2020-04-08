@@ -14,7 +14,7 @@
     "@types/node": "10.17.13",
     "copy-webpack-plugin": "5.1.1",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "4.0.8",
     "pino-pretty": "4.0.0",
     "serverless": "1.67.3",

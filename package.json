@@ -41,7 +41,7 @@
     "jest": "24.9.0",
     "lerna": "3.20.2",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "2.0.2",
+    "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "4.2.2",
     "pino-pretty": "4.0.0",
     "serverless-offline": "5.12.1",
