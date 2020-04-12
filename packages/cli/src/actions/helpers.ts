@@ -91,29 +91,50 @@ export class Helpers {
       throw new Error(err);
     }
   }
-  static async generateLogo(text:string) {
-    return await new Promise((resolve,reject) => {figlet.text(text, {
-      font: 'Stellar',
-      horizontalLayout: 'default',
-      verticalLayout: 'default'
-  }, function(err, data) {
-      if (err) {
-        return reject(err);
-      }
-      console.log(data);
-      return resolve();
-  });
-});
+  static async generateLogo(text: string) {
+    return await new Promise((resolve, reject) => {
+      figlet.text(
+        text,
+        {
+          font: 'Stellar',
+          horizontalLayout: 'default',
+          verticalLayout: 'default',
+        },
+        function (err, data) {
+          if (err) {
+            return reject(err);
+          }
+          console.log(data);
+          return resolve();
+        }
+      );
+    });
   }
 
   static createDir(dir: string) {
-    const fs = require("fs")
+    const fs = require('fs');
     try {
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
       }
-    } catch(e) {
-      console.log("createDir: An error occurred." + e)
+    } catch (e) {
+      console.log('createDir: An error occurred.' + e);
+    }
+  }
+
+  static removeDir(dir: string) {
+    if (fs.existsSync(dir)) {
+      fs.readdirSync(dir).forEach((file, index) => {
+        const curPath = path.join(dir, file);
+        if (fs.lstatSync(curPath).isDirectory()) {
+          // recurse
+          Helpers.removeDir(curPath);
+        } else {
+          // delete file
+          fs.unlinkSync(curPath);
+        }
+      });
+      fs.rmdirSync(dir);
     }
   }
 }

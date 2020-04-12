@@ -8,7 +8,7 @@
     "@types/express": "4.17.1",
     "express": "4.17.1",
     "json-serverless-lib": "^1.5.27",
-    "serverless-http": "^2.3.0"
+    "serverless-http": "^2.3.2"
   },
   "devDependencies": {
     "@types/node": "10.17.13",

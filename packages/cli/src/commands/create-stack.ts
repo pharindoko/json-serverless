@@ -92,8 +92,10 @@ export class CreateStackCommand extends Command {
     this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
-    const templateFolder = path.normalize(this.config.root + '/template');
-    const stackFolder = path.normalize(process.cwd() + '/' + stackName);
+    const templateFolder = path.normalize(
+      this.config.root + '/node_modules/json-serverless-template/'
+    );
+    const stackFolder = path.normalize(process.cwd() + '/' + stackName + '/');
     this.log();
     this.log(
       'New stack template folder will be created under path: ' +
@@ -105,19 +107,19 @@ export class CreateStackCommand extends Command {
     const tasks = new Listr([
       {
         title: 'Validate Files',
-        task: async task => {
+        task: async (task) => {
           filePath = Helpers.validateFile(filePath);
         },
       },
       {
         title: 'Validate StackFolder',
-        task: task => {
+        task: (task) => {
           Helpers.validateStackFolder(stackFolder);
         },
       },
       {
         title: 'Copy Template Files',
-        task: async task => {
+        task: async (task) => {
           await fs.copy(templateFolder, stackFolder);
         },
       },
@@ -149,19 +151,6 @@ export class CreateStackCommand extends Command {
             path.normalize(stackFolder + '/config/serverlessconfig.json'),
             JSON.stringify(serverlessConfig, null, 2),
             'utf-8'
-          );
-        },
-      },
-      {
-        title: 'Install Dependencies',
-        task: async task => {
-          task.output = 'INSTALL DEPENDENCIES';
-          await Helpers.executeChildProcess(
-            'npm i',
-            {
-              cwd: stackFolder,
-            },
-            false
           );
         },
       },
