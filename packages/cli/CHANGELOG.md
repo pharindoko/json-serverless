@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.28](https://github.com/pharindoko/json-serverless/compare/v1.5.27...v1.5.28) (2020-04-12)
+
+
+### Features
+
+* **cli:** remove additional install step to improve performance ([ea9a8ab](https://github.com/pharindoko/json-serverless/commit/ea9a8abb64fc82fab0da96804cd1d07d0b9dafd5))
+
+
+
+
+
 ## [1.5.27](https://github.com/pharindoko/json-serverless/compare/v1.5.26...v1.5.27) (2020-04-02)
 
 
