@@ -58,13 +58,13 @@ export class UpdateStackCommand extends Command {
     const tasks = new Listr([
       {
         title: 'Validate JSON Serverless Directory',
-        task: task => {
+        task: (task) => {
           Helpers.isJSONServerlessDirectory(stackFolder);
         },
       },
       {
         title: 'Copy Template Files',
-        task: async task => {
+        task: async (task) => {
           await fs.copy(templateFolder + '/src', stackFolder + '/src');
           await fs.copy(
             templateFolder + '/package.json',
@@ -105,8 +105,10 @@ export class UpdateStackCommand extends Command {
         },
       },
       {
-        title: 'Install Dependencies',
-        task: async () => {
+        title: 'Update Dependencies',
+        task: async (task) => {
+          task.output = 'INSTALL DEPENDENCIES';
+          Helpers.removeDir(stackFolder + '/node_modules');
           await Helpers.executeChildProcess(
             'npm i',
             {
