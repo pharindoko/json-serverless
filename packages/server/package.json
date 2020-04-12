@@ -36,12 +36,12 @@
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "lowdb-adapter-aws-s3": "^1.1.2",
-    "pino": "^5.10.6",
-    "serverless-http": "^2.3.0",
-    "snyk": "^1.305.0",
+    "pino": "^5.17.0",
+    "serverless-http": "^2.3.2",
+    "snyk": "^1.305.1",
     "source-map-support": "^0.5.16",
     "supertest": "^4.0.2",
-    "swagger-ui-express": "^4.0.7"
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.48",
@@ -53,6 +53,7 @@
     "@types/lodash": "4.14.138",
     "@types/lowdb": "1.0.9",
     "@types/node": "10.14.16",
+    "@types/pino": "^5.17.0",
     "@types/supertest": "2.0.8",
     "@types/swagger-schema-official": "2.0.18",
     "@types/swagger-ui-express": "4.1.1",
@@ -61,7 +62,7 @@
     "eslint-config-airbnb-base": "14.0.0",
     "eslint-plugin-import": "2.20.0",
     "express-swagger-generator": "1.1.17",
-    "gts": "1.1.0",
+    "gts": "^1.1.0",
     "jest": "24.9.0",
     "pino-pretty": "4.0.0",
     "ts-jest": "24.3.0",
