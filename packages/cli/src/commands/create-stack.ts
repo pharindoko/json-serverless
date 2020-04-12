@@ -155,6 +155,20 @@ export class CreateStackCommand extends Command {
         },
       },
       {
+        title: 'Install Dependencies',
+        task: async (task) => {
+          task.output = 'INSTALL DEPENDENCIES';
+          Helpers.removeDir(stackFolder + '/node_modules');
+          await Helpers.executeChildProcess(
+            'npm i',
+            {
+              cwd: stackFolder,
+            },
+            false
+          );
+        },
+      },
+      {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
