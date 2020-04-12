@@ -25,7 +25,7 @@ custom:
 provider:
   stage: ${self:custom.file.stage, 'dev'}
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   region: ${self:custom.file.awsRegion, 'eu-central-1'}
   stackTags: # Tags that will be added to each of the deployment resources
     jsonsls: ${self:custom.file.stackName}
