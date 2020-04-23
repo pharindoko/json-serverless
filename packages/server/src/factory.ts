@@ -9,6 +9,7 @@ import {
 import { ApiSpecification, Swagger, SwaggerConfig } from './specifications';
 import { CoreServer } from './coreserver/server';
 import { Environment, DevEnvironment, CloudEnvironment } from './environment';
+import { Logger } from './utils/logger';
 
 export class ServerFactory {
   static createServer = async (
@@ -28,7 +29,6 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true,
           packageJsonFilePath
         );
         break;
@@ -41,7 +41,6 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true,
           packageJsonFilePath
         );
         break;
@@ -55,7 +54,6 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          true,
           packageJsonFilePath
         );
         break;
@@ -69,7 +67,6 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          true,
           packageJsonFilePath
         );
         break;
@@ -82,7 +79,6 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          true,
           packageJsonFilePath
         );
         break;
@@ -96,7 +92,6 @@ export class ServerFactory {
           new S3StorageAdapter(environment.s3Bucket, environment.s3File),
           appConfig,
           server,
-          false,
           packageJsonFilePath
         );
         break;
@@ -119,14 +114,13 @@ export class ServerFactory {
         server: express.Express,
         storage: S,
         specification: ApiSpecification,
-        prettyPrintLog: boolean
+        environment: Environment
       ): A;
     },
     environment: { new (): E },
     storage: S,
     appConfig: AppConfig,
     server: express.Express,
-    prettyPrintLog = false,
     packageJsonFilePath: string
   ): C {
     const env = new environment();
@@ -138,7 +132,7 @@ export class ServerFactory {
     );
     const core = new coreserver(
       server,
-      new app(appConfig, server, storage, swagger, prettyPrintLog)
+      new app(appConfig, server, storage, swagger, env)
     );
     return core;
   }
