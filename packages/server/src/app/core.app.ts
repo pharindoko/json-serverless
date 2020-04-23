@@ -1,5 +1,6 @@
 import { Logger } from '../utils/logger';
 import { AppConfig } from './app.config';
+import * as swaggerUi from 'swagger-ui-express';
 import * as lowdb from 'lowdb';
 import express from 'express';
 import jsonServer = require('json-server');
@@ -7,55 +8,69 @@ import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
 import { JSONValidator } from '../validations/json.validator';
 import { Output } from '../utils/output';
+import graphqlHTTP from 'express-graphql';
+import { createSchema } from 'swagger-to-graphql';
 import cors from 'cors';
+import { GraphQLMethods } from '../utils/grapqhl_callback';
+import { GraphQLSchema } from 'graphql';
+import { Environment } from '../environment';
+import bodyParser from 'body-parser';
+const safeJsonStringify = require('safe-json-stringify');
+const listEndpoints = require('express-list-endpoints');
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
   static adapter = {} as lowdb.LowdbAsync<{}>;
-  private prettyPrintLog = false;
+  static swaggerSpec = null;
+  static isValid = false;
+  static swaggerMiddleware: express.RequestHandler = null;
   appConfig: AppConfig;
   protected server: express.Express;
   private apispec: ApiSpecification;
-
+  static graphqlSchema: GraphQLSchema = null;
+  private environment: Environment;
+  private url = '';
   constructor(
     appConfig: AppConfig,
     server: express.Express,
     storageAdapter: StorageAdapter,
     apispec: ApiSpecification,
-    prettyPrintLog = false
+    environment: Environment
   ) {
     this.appConfig = appConfig;
     this.server = server;
     this.storageAdapter = storageAdapter;
     this.apispec = apispec;
-    this.prettyPrintLog = prettyPrintLog;
-    Logger.init(this.prettyPrintLog);
+    this.environment = environment;
+    Logger.getInstance().info(
+      'environment: ' + JSON.stringify(this.environment)
+    );
   }
 
   async setup(): Promise<void> {
     this.server.use(cors());
+    this.server.use(bodyParser.json());
+    this.server.use(bodyParser.urlencoded({ extended: true }));
     await this.setupStorage();
     const json = await this.getJSON();
-    const isValid = this.validateJSON(json);
-    if (isValid) {
-      await this.setupApp();
-      this.setupSwagger(json);
-      await this.setupRoutes();
+    if (!CoreApp.isValid) CoreApp.isValid = this.validateJSON(json);
+    if (CoreApp.isValid) {
+      const { middlewares, router } = await this.initializeLayers();
+      await this.setupSwagger(json, middlewares, router);
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
     }
   }
 
+  // Define your own http client here
+
   protected async setupStorage() {
     CoreApp.storage = await this.storageAdapter.init();
     CoreApp.adapter = await lowdb.default(CoreApp.storage);
   }
 
-  protected async setupApp(): Promise<void> {
-    const { middlewares, router } = await this.initializeLayers();
-    this.setupServer(middlewares, router);
-  }
+  protected async setupApp(): Promise<void> {}
 
   protected validateJSON(db: {}): boolean {
     let isValid = true;
@@ -70,17 +85,89 @@ export class CoreApp {
     return json;
   }
 
-  protected setupSwagger(db: {}): void {
-    if (this.appConfig.enableSwagger) {
-      this.apispec.generateSpecification(db, true);
+  protected async setupSwagger(db: {}, middlewares, router): Promise<void> {
+    middlewares.splice(
+      middlewares.findIndex(x => x.name === 'serveStatic'),
+      1
+    );
+    this.server.use(middlewares);
+    this.server.use('/api', router);
+    if (!CoreApp.swaggerSpec) {
+      CoreApp.swaggerSpec = this.apispec.generateSpecification(db, true);
+      Output.setInfo('swaggerspec: ' + JSON.stringify(CoreApp.swaggerSpec));
+      CoreApp.swaggerMiddleware = swaggerUi.setup(CoreApp.swaggerSpec);
+      CoreApp.graphqlSchema = await createSchema({
+        swaggerSchema: CoreApp.swaggerSpec,
+        callBackend: args => {
+          return GraphQLMethods.callRestBackend({
+            requestOptions: {
+              path: args.requestOptions.path,
+              method: args.requestOptions.method,
+              bodyType: args.requestOptions.bodyType,
+            },
+            context: args.context,
+          });
+        },
+      });
+
+      this.server.post('/graphql', (req, res) => {
+        const graphqlFunc = graphqlHTTP({
+          schema: CoreApp.graphqlSchema,
+          graphiql: false,
+          context:
+            this.environment.basePath == '/'
+              ? req.headers['origin']
+              : req.headers['origin'] + this.environment.basePath,
+        });
+        return graphqlFunc(req, res);
+      });
+
+      this.server.get('/graphql', (req, res) => {
+        const graphqlFunc = graphqlHTTP({
+          schema: CoreApp.graphqlSchema,
+          graphiql: true,
+        });
+        return graphqlFunc(req, res);
+      });
+
+      this.server.use('/api-spec', (req, res) => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(CoreApp.swaggerSpec);
+      });
+      Output.setInfo('Hello');
+
+      this.server.use(
+        '/ui',
+        function(req, res, next) {
+          CoreApp.swaggerSpec.host = req.get('host');
+          req.swaggerDoc = CoreApp.swaggerSpec;
+          next();
+        },
+        swaggerUi.serveWithOptions({ redirect: false })
+      );
+      this.server.use(
+        '/',
+        function(req, res, next) {
+          CoreApp.swaggerSpec.host = req.get('host');
+          req.swaggerDoc = CoreApp.swaggerSpec;
+          next();
+        },
+        swaggerUi.serveWithOptions({ redirect: false })
+      );
+
+      this.server.get(
+        '/ui/index.html',
+        swaggerUi.serveWithOptions({ redirect: false }),
+        CoreApp.swaggerMiddleware
+      );
+      this.server.get(
+        '/ui',
+        swaggerUi.serveWithOptions({ redirect: false }),
+        CoreApp.swaggerMiddleware
+      );
     }
   }
 
-  protected setupRoutes(): void {
-    this.server.use('/reload', async () => {
-      Error('not implemented');
-    });
-  }
   protected async initializeLayers() {
     if (
       CoreApp.adapter &&
@@ -89,24 +176,11 @@ export class CoreApp {
     ) {
       CoreApp.adapter = await lowdb.default(CoreApp.storage);
     }
+
     const router = jsonServer.router(CoreApp.adapter);
     const middlewares = jsonServer.defaults({
       readOnly: this.appConfig.readOnly,
     });
     return { middlewares, router };
-  }
-
-  protected setupServer(
-    middlewares: express.Handler[],
-    router: express.Router
-  ) {
-    if (this.appConfig.enableSwagger) {
-      middlewares.splice(
-        middlewares.findIndex(x => x.name === 'serveStatic'),
-        1
-      );
-    }
-    this.server.use(middlewares);
-    this.server.use('/api', router);
   }
 }

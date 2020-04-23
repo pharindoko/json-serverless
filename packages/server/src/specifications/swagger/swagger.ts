@@ -1,4 +1,3 @@
-import * as swaggerUi from 'swagger-ui-express';
 import { SwaggerSpec } from './swaggerspec';
 import { SwaggerDefGen } from './swagger.defgen';
 import { Logger } from '../../utils/logger';
@@ -11,7 +10,6 @@ import { Output } from '../../utils/output';
 export class Swagger implements ApiSpecification {
   private swaggerSpec: SwaggerSpec;
   private swaggerDefGen = new SwaggerDefGen();
-  private logger = Logger.getInstance();
   private spec = {} as Spec;
   private server: express.Express;
   private config: SwaggerConfig;
@@ -28,7 +26,7 @@ export class Swagger implements ApiSpecification {
     this.swaggerSpec = new SwaggerSpec(packageJsonFilePath);
   }
 
-  generateSpecification = (json: object, regenerate: boolean) => {
+  generateSpecification = (json: object, regenerate: boolean): object => {
     if (!this.spec || regenerate) {
       Output.setInfo('Init Swagger');
       const swaggerSchemaDefinitions = this.swaggerDefGen.generateDefinitions(
@@ -53,19 +51,6 @@ export class Swagger implements ApiSpecification {
       }
       this.swaggerSpec.addSchemaDefitions(this.spec, swaggerSchemaDefinitions);
     }
-    this.server.use('/api-spec', (req, res) => {
-      res.setHeader('Content-Type', 'application/json');
-      res.send(this.spec);
-    });
-    this.server.use(
-      '/',
-      swaggerUi.serveFiles(this.spec),
-      swaggerUi.setup(this.spec)
-    );
-    this.server.get(
-      '/',
-      swaggerUi.serveFiles(this.spec),
-      swaggerUi.setup(this.spec)
-    );
+    return this.spec;
   };
 }

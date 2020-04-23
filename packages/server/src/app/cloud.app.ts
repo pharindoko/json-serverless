@@ -3,8 +3,7 @@ import { Output } from '../utils/output';
 export class CloudApp extends CoreApp {
   request = async () => {
     try {
-      const { middlewares, router } = await this.initializeLayers();
-      this.setupServer(middlewares, router);
+      await this.initializeLayers();
     } catch (e) {
       if (e.code === 'ExpiredToken') {
         Output.setError(
