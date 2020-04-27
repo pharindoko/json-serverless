@@ -15,15 +15,14 @@ import { GraphQLMethods } from '../utils/grapqhl_callback';
 import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
 import bodyParser from 'body-parser';
-const safeJsonStringify = require('safe-json-stringify');
-const listEndpoints = require('express-list-endpoints');
+
 export class CoreApp {
   storageAdapter: StorageAdapter;
   static storage = {} as lowdb.AdapterAsync;
   static adapter = {} as lowdb.LowdbAsync<{}>;
   static swaggerSpec = null;
-  static isValid = false;
-  static swaggerMiddleware: express.RequestHandler = null;
+  private isValid = false;
+  swaggerMiddleware: express.RequestHandler = null;
   appConfig: AppConfig;
   protected server: express.Express;
   private apispec: ApiSpecification;
@@ -48,29 +47,32 @@ export class CoreApp {
   }
 
   async setup(): Promise<void> {
-    this.server.use(cors());
-    this.server.use(bodyParser.json());
-    this.server.use(bodyParser.urlencoded({ extended: true }));
-    await this.setupStorage();
-    const json = await this.getJSON();
-    if (!CoreApp.isValid) CoreApp.isValid = this.validateJSON(json);
-    if (CoreApp.isValid) {
+    this.setupMiddleware();
+    CoreApp.adapter = await this.setupStorage(this.storageAdapter);
+    const json = await this.getJSON(CoreApp.adapter);
+    if (!this.isValid) this.isValid = this.validateJSON(json);
+    if (this.isValid) {
       const { middlewares, router } = await this.initializeLayers();
-      await this.setupSwagger(json, middlewares, router);
+      await this.setupRoutes(json, middlewares, router);
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
     }
   }
 
-  // Define your own http client here
-
-  protected async setupStorage() {
-    CoreApp.storage = await this.storageAdapter.init();
-    CoreApp.adapter = await lowdb.default(CoreApp.storage);
+  private setupMiddleware() {
+    this.server.use(cors());
+    this.server.use(bodyParser.json());
+    this.server.use(bodyParser.urlencoded({ extended: true }));
   }
 
-  protected async setupApp(): Promise<void> {}
+  protected async setupStorage(
+    storageAdapter: StorageAdapter
+  ): Promise<lowdb.LowdbAsync<any>> {
+    CoreApp.storage = storageAdapter.init();
+    const adapter = await lowdb.default(CoreApp.storage);
+    return adapter;
+  }
 
   protected validateJSON(db: {}): boolean {
     let isValid = true;
@@ -80,12 +82,12 @@ export class CoreApp {
     return isValid;
   }
 
-  protected async getJSON(): Promise<object> {
-    const json = await CoreApp.adapter.getState();
+  protected async getJSON(adapter: lowdb.LowdbAsync<any>): Promise<object> {
+    const json = await adapter.getState();
     return json;
   }
 
-  protected async setupSwagger(db: {}, middlewares, router): Promise<void> {
+  protected async setupRoutes(db: {}, middlewares, router): Promise<void> {
     middlewares.splice(
       middlewares.findIndex(x => x.name === 'serveStatic'),
       1
@@ -94,8 +96,7 @@ export class CoreApp {
     this.server.use('/api', router);
     if (!CoreApp.swaggerSpec) {
       CoreApp.swaggerSpec = this.apispec.generateSpecification(db, true);
-      Output.setInfo('swaggerspec: ' + JSON.stringify(CoreApp.swaggerSpec));
-      CoreApp.swaggerMiddleware = swaggerUi.setup(CoreApp.swaggerSpec);
+
       CoreApp.graphqlSchema = await createSchema({
         swaggerSchema: CoreApp.swaggerSpec,
         callBackend: args => {
@@ -134,37 +135,9 @@ export class CoreApp {
         res.setHeader('Content-Type', 'application/json');
         res.send(CoreApp.swaggerSpec);
       });
-      Output.setInfo('Hello');
-
-      this.server.use(
-        '/ui',
-        function(req, res, next) {
-          CoreApp.swaggerSpec.host = req.get('host');
-          req.swaggerDoc = CoreApp.swaggerSpec;
-          next();
-        },
-        swaggerUi.serveWithOptions({ redirect: false })
-      );
-      this.server.use(
-        '/',
-        function(req, res, next) {
-          CoreApp.swaggerSpec.host = req.get('host');
-          req.swaggerDoc = CoreApp.swaggerSpec;
-          next();
-        },
-        swaggerUi.serveWithOptions({ redirect: false })
-      );
-
-      this.server.get(
-        '/ui/index.html',
-        swaggerUi.serveWithOptions({ redirect: false }),
-        CoreApp.swaggerMiddleware
-      );
-      this.server.get(
-        '/ui',
-        swaggerUi.serveWithOptions({ redirect: false }),
-        CoreApp.swaggerMiddleware
-      );
+      this.server.use('/ui', swaggerUi.serveWithOptions({ redirect: false }));
+      this.server.use('/', swaggerUi.serveWithOptions({ redirect: false }));
+      this.server.get('/ui', swaggerUi.setup(CoreApp.swaggerSpec));
     }
   }
 
