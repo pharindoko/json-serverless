@@ -1,15 +1,10 @@
 import express from 'express';
 import { LocalServer, TestServer } from './coreserver';
 import { CoreApp, AppConfig } from './app';
-import {
-  StorageAdapter,
-  FileStorageAdapter,
-  S3StorageAdapter,
-} from './storage';
+import { StorageAdapter, FileStorageAdapter } from './storage';
 import { ApiSpecification, Swagger, SwaggerConfig } from './specifications';
 import { CoreServer } from './coreserver/server';
-import { Environment, CloudEnvironment } from './environment';
-import { Logger } from './utils/logger';
+import { Environment } from './environment';
 
 export class ServerFactory {
   static createServer = async (
