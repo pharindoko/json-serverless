@@ -63,8 +63,6 @@ export class GraphQLMethods {
       }
     }
     throw new Error(`Response: ${response.status} - ${text}`);
-
-    return;
   }
 
   static async getSchemaFromUrl(url: string): Promise<GraphQLSchema> {
