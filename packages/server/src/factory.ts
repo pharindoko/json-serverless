@@ -1,6 +1,6 @@
 import express from 'express';
-import { LocalServer, DevServer, CloudServer, TestServer } from './coreserver';
-import { CloudApp, CoreApp, AppConfig } from './app';
+import { LocalServer, TestServer } from './coreserver';
+import { CoreApp, AppConfig } from './app';
 import {
   StorageAdapter,
   FileStorageAdapter,
@@ -8,7 +8,7 @@ import {
 } from './storage';
 import { ApiSpecification, Swagger, SwaggerConfig } from './specifications';
 import { CoreServer } from './coreserver/server';
-import { Environment, DevEnvironment, CloudEnvironment } from './environment';
+import { Environment, CloudEnvironment } from './environment';
 import { Logger } from './utils/logger';
 
 export class ServerFactory {
@@ -33,44 +33,6 @@ export class ServerFactory {
         );
         break;
       }
-      case 'debug': {
-        coreserver = ServerFactory.create(
-          LocalServer,
-          CoreApp,
-          Environment,
-          new FileStorageAdapter(appConfig.jsonFile),
-          appConfig,
-          server,
-          packageJsonFilePath
-        );
-        break;
-      }
-      case 'development': {
-        const environment = new DevEnvironment();
-        coreserver = ServerFactory.create(
-          DevServer,
-          CloudApp,
-          DevEnvironment,
-          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
-          appConfig,
-          server,
-          packageJsonFilePath
-        );
-        break;
-      }
-      case 'offline': {
-        const environment = new CloudEnvironment();
-        coreserver = ServerFactory.create(
-          CloudServer,
-          CloudApp,
-          DevEnvironment,
-          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
-          appConfig,
-          server,
-          packageJsonFilePath
-        );
-        break;
-      }
       case 'test': {
         coreserver = ServerFactory.create(
           TestServer,
@@ -84,12 +46,11 @@ export class ServerFactory {
         break;
       }
       default: {
-        const environment = new CloudEnvironment();
         coreserver = ServerFactory.create(
-          CloudServer,
-          CloudApp,
-          CloudEnvironment,
-          new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+          LocalServer,
+          CoreApp,
+          Environment,
+          new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
           packageJsonFilePath
