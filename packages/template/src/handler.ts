@@ -3,11 +3,11 @@ import express from 'express';
 import serverlessHttp from 'serverless-http';
 import {
   AppConfig,
-  CloudApp,
   Swagger,
   SwaggerConfig,
   S3StorageAdapter,
   CloudEnvironment,
+  CoreApp,
 } from 'json-serverless-lib';
 
 import fs from 'fs';
@@ -25,7 +25,7 @@ const swagger = new Swagger(
   './package.json'
 );
 
-const core = new CloudApp(
+const core = new CoreApp(
   appConfig,
   server,
   new S3StorageAdapter(environment.s3Bucket, environment.s3File),
