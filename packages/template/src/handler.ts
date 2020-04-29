@@ -33,8 +33,16 @@ const core = new CoreApp(
   environment
 );
 
+const init = async () => {
+  return new Promise(async (resolve, reject) => {
+    await core.setup();
+    resolve();
+  });
+};
+const initPromise = init();
+
 export const handler: APIGatewayProxyHandler = async (event, context) => {
-  await core.setup();
+  await initPromise;
   const result = await sls(event, context);
   return result;
 };
