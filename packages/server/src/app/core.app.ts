@@ -1,13 +1,12 @@
 import { Logger } from '../utils/logger';
 import { AppConfig } from './app.config';
-import * as swaggerUi from 'swagger-ui-express';
+const swaggerUi = require('swagger-ui-express');
 import * as lowdb from 'lowdb';
 import express from 'express';
 import jsonServer = require('json-server');
 import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
 import { JSONValidator } from '../validations/json.validator';
-import { Output } from '../utils/output';
 import graphqlHTTP from 'express-graphql';
 import { createSchema } from 'swagger-to-graphql';
 import cors from 'cors';
@@ -15,20 +14,18 @@ import { GraphQLMethods } from '../utils/grapqhl_callback';
 import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
 import bodyParser from 'body-parser';
+import { Output } from '../utils/output';
 
 export class CoreApp {
-  storageAdapter: StorageAdapter;
-  static storage = {} as lowdb.AdapterAsync;
-  static adapter = {} as lowdb.LowdbAsync<{}>;
-  static swaggerSpec = null;
-  private isValid = false;
-  swaggerMiddleware: express.RequestHandler = null;
-  appConfig: AppConfig;
+  private storageAdapter: StorageAdapter;
+  private storage = {} as lowdb.AdapterAsync;
+  private adapter = {} as lowdb.LowdbAsync<{}>;
+  private swaggerSpec = null;
+  private appConfig: AppConfig;
   protected server: express.Express;
   private apispec: ApiSpecification;
-  static graphqlSchema: GraphQLSchema = null;
+  private graphqlSchema: GraphQLSchema = null;
   private environment: Environment;
-  private url = '';
   constructor(
     appConfig: AppConfig,
     server: express.Express,
@@ -48,10 +45,9 @@ export class CoreApp {
 
   async setup(): Promise<void> {
     this.setupMiddleware();
-    CoreApp.adapter = await this.setupStorage(this.storageAdapter);
-    const json = await this.getJSON(CoreApp.adapter);
-    if (!this.isValid) this.isValid = this.validateJSON(json);
-    if (this.isValid) {
+    this.adapter = await this.setupStorage(this.storageAdapter);
+    const json = await this.adapter.getState();
+    if (this.validateJSON(json)) {
       const { middlewares, router } = await this.initializeLayers();
       await this.setupRoutes(json, middlewares, router);
     } else {
@@ -69,8 +65,8 @@ export class CoreApp {
   protected async setupStorage(
     storageAdapter: StorageAdapter
   ): Promise<lowdb.LowdbAsync<any>> {
-    CoreApp.storage = storageAdapter.init();
-    const adapter = await lowdb.default(CoreApp.storage);
+    this.storage = storageAdapter.init();
+    const adapter = await lowdb.default(this.storage);
     return adapter;
   }
 
@@ -82,11 +78,6 @@ export class CoreApp {
     return isValid;
   }
 
-  protected async getJSON(adapter: lowdb.LowdbAsync<any>): Promise<object> {
-    const json = await adapter.getState();
-    return json;
-  }
-
   protected async setupRoutes(db: {}, middlewares, router): Promise<void> {
     middlewares.splice(
       middlewares.findIndex(x => x.name === 'serveStatic'),
@@ -94,11 +85,15 @@ export class CoreApp {
     );
     this.server.use(middlewares);
     this.server.use('/api', router);
+    if (!this.swaggerSpec) {
+      this.swaggerSpec = this.apispec.generateSpecification(db, true);
     if (!CoreApp.swaggerSpec) {
       CoreApp.swaggerSpec = this.apispec.generateSpecification(db, true);
 
       CoreApp.graphqlSchema = await createSchema({
         swaggerSchema: CoreApp.swaggerSpec,
+      this.graphqlSchema = await createSchema({
+        swaggerSchema: this.swaggerSpec,
         callBackend: args => {
           return GraphQLMethods.callRestBackend({
             requestOptions: {
@@ -113,7 +108,7 @@ export class CoreApp {
 
       this.server.post('/graphql', (req, res) => {
         const graphqlFunc = graphqlHTTP({
-          schema: CoreApp.graphqlSchema,
+          schema: this.graphqlSchema,
           graphiql: false,
           context:
             this.environment.basePath == '/'
@@ -125,7 +120,7 @@ export class CoreApp {
 
       this.server.get('/graphql', (req, res) => {
         const graphqlFunc = graphqlHTTP({
-          schema: CoreApp.graphqlSchema,
+          schema: this.graphqlSchema,
           graphiql: true,
         });
         return graphqlFunc(req, res);
@@ -133,24 +128,17 @@ export class CoreApp {
 
       this.server.use('/api-spec', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(CoreApp.swaggerSpec);
+        res.send(this.swaggerSpec);
       });
+
       this.server.use('/ui', swaggerUi.serveWithOptions({ redirect: false }));
       this.server.use('/', swaggerUi.serveWithOptions({ redirect: false }));
-      this.server.get('/ui', swaggerUi.setup(CoreApp.swaggerSpec));
+      this.server.get('/ui', swaggerUi.setup(this.swaggerSpec));
     }
   }
 
-  protected async initializeLayers() {
-    if (
-      CoreApp.adapter &&
-      Object.entries(CoreApp.adapter).length === 0 &&
-      CoreApp.adapter.constructor === Object
-    ) {
-      CoreApp.adapter = await lowdb.default(CoreApp.storage);
-    }
-
-    const router = jsonServer.router(CoreApp.adapter);
+  protected initializeLayers() {
+    const router = jsonServer.router(this.adapter);
     const middlewares = jsonServer.defaults({
       readOnly: this.appConfig.readOnly,
     });
