@@ -310,7 +310,6 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            console.log('hello: ' + JSON.stringify(operation));
             Object.assign(operation, this.getDefaultPostResponses(definition));
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
