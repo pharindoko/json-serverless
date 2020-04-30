@@ -87,11 +87,10 @@ export class CoreApp {
     this.server.use('/api', router);
     if (!this.swaggerSpec) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
-    if (!CoreApp.swaggerSpec) {
-      CoreApp.swaggerSpec = this.apispec.generateSpecification(db, true);
-
-      CoreApp.graphqlSchema = await createSchema({
-        swaggerSchema: CoreApp.swaggerSpec,
+      const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
+      swaggerSetupMiddleware({}, { send: () => {} }, function(err: any): any {
+        console.log(err);
+      });
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
