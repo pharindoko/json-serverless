@@ -322,8 +322,6 @@ export class SwaggerSpec {
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
-            console.log('definition: ' + JSON.stringify(definition));
-            console.log('operation: ' + JSON.stringify(operation));
           }
           if (spec.paths[path].put) {
             const operation = spec.paths[path].put as Operation;

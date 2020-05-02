@@ -33,28 +33,21 @@ export class GraphQLMethods {
     requestOptions: { method, body, baseUrl, path, query, headers, bodyType },
     context,
   }: CallBackendArguments<{}>) {
-    console.log('callback');
-    console.log(query);
-    console.log(context);
-
-    console.log('callback');
-
     const searchPath = query ? `?${new URLSearchParams(query)}` : '';
-    console.log('callback');
-
     const url = `${context}${path}${searchPath}`;
-    console.log('url: ' + url);
     const bodyAndHeaders = GraphQLMethods.getBodyAndHeaders(
       body,
       bodyType,
       headers
     );
+
     const response = await fetch(url, {
       method,
       ...bodyAndHeaders,
     });
 
     const text = await response.text();
+
     if (response.ok) {
       try {
         return JSON.parse(text);
@@ -63,10 +56,5 @@ export class GraphQLMethods {
       }
     }
     throw new Error(`Response: ${response.status} - ${text}`);
-  }
-
-  static async getSchemaFromUrl(url: string): Promise<GraphQLSchema> {
-    const schema = await fetch(url);
-    return schema;
   }
 }

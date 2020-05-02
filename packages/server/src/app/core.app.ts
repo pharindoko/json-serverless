@@ -94,33 +94,18 @@ export class CoreApp {
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
-          return GraphQLMethods.callRestBackend({
-            requestOptions: {
-              path: args.requestOptions.path,
-              method: args.requestOptions.method,
-              bodyType: args.requestOptions.bodyType,
-            },
-            context: args.context,
-          });
+          return GraphQLMethods.callRestBackend(args);
         },
       });
 
-      this.server.post('/graphql', (req, res) => {
+      this.server.use('/graphql', (req, res) => {
         const graphqlFunc = graphqlHTTP({
           schema: this.graphqlSchema,
-          graphiql: false,
+          graphiql: true,
           context:
             this.environment.basePath == '/'
               ? req.headers['origin']
               : req.headers['origin'] + this.environment.basePath,
-        });
-        return graphqlFunc(req, res);
-      });
-
-      this.server.get('/graphql', (req, res) => {
-        const graphqlFunc = graphqlHTTP({
-          schema: this.graphqlSchema,
-          graphiql: true,
         });
         return graphqlFunc(req, res);
       });
