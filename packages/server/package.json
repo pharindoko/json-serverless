@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "snyk test && npx jest",
-    "start": "cd example && ts-node index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
@@ -73,6 +73,7 @@
     "express-swagger-generator": "1.1.17",
     "gts": "^1.1.0",
     "jest": "24.9.0",
+    "nodemon": "^2.0.3",
     "ts-jest": "24.3.0",
     "ts-loader": "6.0.4",
     "typescript": "3.7.5"

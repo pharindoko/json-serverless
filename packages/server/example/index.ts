@@ -13,7 +13,7 @@ const start = async () => {
     'local',
     server,
     defaultConfig,
-    '../package.json'
+    './package.json'
   );
 };
 
