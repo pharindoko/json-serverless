@@ -16,21 +16,24 @@
 
 ## Features
 
-- Easily generate routes and resources for the Api via [json-server](https://github.com/typicode/json-server)
-- **New:** Added CLI
+- Automatically generates routes and resources for the REST Api -> Fully [json-server](https://github.com/typicode/json-server) compatible - used in core library
+- Swagger UI integrated (Swagger spec automatically generated)
+- GrapqhiQL integrated (Graphql schema automatically generated)
+- Additional JSON File validations at startup
 - Deployment:
-   - Deployed in AWS cloud within Minutes by a single command
-   - Almost **zero costs** (First million requests for Lambda are free)
-   - Less maintenance as the deployed solution runs **serverless**
+  - Own CLI to test locally and immediately deploy
+  - Deployed in AWS cloud within Minutes by a single command
+  - Almost **zero costs** (First million requests for Lambda are free)
+  - Less maintenance as the deployed solution runs **serverless**
 - Security:
-  -  Secured with https by default.
-  -  Optional: Use a generated API Key
+  - Secured with https by default.
+  - Optional: Use a generated API Key
 - Customization:
-   - This solution written in **Typescript** can be easily extended for additional enhanced scenarios
-      - adding user authentication
-      - own custom domain
-      - additional routes etc.
-   - Develop and debug solution locally in Visual Studio Code
+  - This solution written in **Typescript** can be easily extended for additional enhanced scenarios
+    - adding user authentication
+    - own custom domain
+    - additional routes etc.
+  - Develop and extend solution locally in Visual Studio Code the way you want to have it
 
 ## Quickstart
 
@@ -41,63 +44,60 @@ npm i -g json-serverless
 ```
 
 ### 2. Run local
+
 1. create a jsonserver-file sample e.g. db.json
 
-    ```
-    {
-        "posts": [
-          { "id": 1, "title": "json-server", "author": "typicode" },
-          { "id": 2, "title": "test", "author": "yourAuthor" }
-        ],
-        "comments": [
-          { "id": 1, "body": "some comment", "postId": 1 }
-        ],
-        "profile": { "name": "typicode" }
-    }
-    ```
+   ```
+   {
+       "posts": [
+         { "id": 1, "title": "json-server", "author": "typicode" },
+         { "id": 2, "title": "test", "author": "yourAuthor" }
+       ],
+       "comments": [
+         { "id": 1, "body": "some comment", "postId": 1 }
+       ],
+       "profile": { "name": "typicode" }
+   }
+   ```
 
+2) execute command
 
-2. execute command
-
-    ```
-    jsonsls run db.json
-    ```
-
+   ```
+   jsonsls run db.json
+   ```
 
 ### 3. Deploy api to AWS
 
 1. Verify that you have a AWS account and set appropriate credentials
 2. execute command
 
-    ```bash
-    jsonsls create-stack db.json {optional: STAGE}
-    ```
+   ```bash
+   jsonsls create-stack db.json {optional: STAGE}
+   ```
 
-  - a stack template folder will be created that contains the deployable serverless framework solution.
-  <b>You can use the serverless cli in this stack template folder.</b> 
+- a stack template folder will be created that contains the deployable serverless framework solution.
+  <b>You can use the serverless cli in this stack template folder.</b>
 
+* When the deployment was successful you can see following output
 
-
-  - When the deployment was successful you can see following output
-
-    <pre>
-    <code>
-    Service Information
-    service: serverless-json-server
-    stage: dev
-    region: eu-central-1
-    stack: serverless-json-server-dev
-    api keys:
-      serverless-json-server.dev: <b>{API-KEY}</b>
-    endpoints:
-      ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ <== {ENDPOINTURL}</b>
-      ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
-    functions:
-      app: serverless-json-server-dev-app
-    layers:
-      None
-    Serverless: Removing old service artifacts from S3...
-    </pre></code>
+  <pre>
+  <code>
+  Service Information
+  service: serverless-json-server
+  stage: dev
+  region: eu-central-1
+  stack: serverless-json-server-dev
+  api keys:
+    serverless-json-server.dev: <b>{API-KEY}</b>
+  endpoints:
+    ANY - <b>https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ <== {ENDPOINTURL}</b>
+    ANY - https://xxxxxxx.eu-central-1.amazonaws.com/dev/{proxy+}
+  functions:
+    app: serverless-json-server-dev-app
+  layers:
+    None
+  Serverless: Removing old service artifacts from S3...
+  </pre></code>
 
 ### 4. Test your Api
 
@@ -157,12 +157,11 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 
 #### Adapt settings
 
-| Attribute  | Description  | Type | Default |
-|---|---|---|---|
-| readOnly  |  Make API readonly - all API - write operations are forbidden (http 403)) | string |false |
-| enableSwagger  | Enable swagger and swagger UI support  | string | true |
-| enableApiKeyAuth  | Make your routes private by using an additional ApiKey | boolean | false |
-| enableJSONValidation  | validate JSON file at start | boolean | true |
+| Attribute            | Description                                                              | Type    | Default |
+| -------------------- | ------------------------------------------------------------------------ | ------- | ------- |
+| readOnly             | Make API readonly - all API - write operations are forbidden (http 403)) | string  | false   |
+| enableApiKeyAuth     | Make your routes private by using an additional ApiKey                   | boolean | false   |
+| enableJSONValidation | validate JSON file at start                                              | boolean | true    |
 
 ## Used Packages
 
@@ -219,14 +218,15 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 The apiKey is set in AWS API Gateway. This means all requests (even the standard route) need to use the API-KEY.
 
 If you want to see the Swagger UI you need to add a plugin e.g. ModHeader to Chrome and add the needed headers:
+
 - Content-Type: application/json
-- x-api-key:    {provided by sls info in the output after deployment}
+- x-api-key: {provided by sls info in the output after deployment}
 
 ![ModHeader](docs/header.png)
 
 ### I forgot the API-KEY I have set
 
-Ensure you have credentials for AWS set. 
+Ensure you have credentials for AWS set.
 
 ```bash
 sls info
@@ -241,4 +241,3 @@ sls remove
 ### I deployed the solution but I get back a http 500 error
 
 Check Cloudwatch Logs in AWS - the issue should be describe there. Log has the same name as the stack that has been created.
-
