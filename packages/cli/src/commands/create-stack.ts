@@ -113,7 +113,11 @@ export class CreateStackCommand extends Command {
       {
         title: 'Copy Template Files',
         task: async (task) => {
-          await fs.copy(templateFolder, stackFolder);
+          await fs.copy(templateFolder, stackFolder, {
+            dereference: true,
+            recursive: true,
+            overwrite: true,
+          });
         },
       },
       {
@@ -149,10 +153,24 @@ export class CreateStackCommand extends Command {
       {
         title: 'Install Dependencies',
         task: async (task) => {
-          task.output = 'INSTALL DEPENDENCIES';
-          Helpers.removeDir(stackFolder + '/node_modules');
+          if (process.env.NODE_ENV != 'local') {
+            task.output = 'INSTALL DEPENDENCIES';
+            Helpers.removeDir(stackFolder + '/node_modules');
+            await Helpers.executeChildProcess(
+              'npm i',
+              {
+                cwd: stackFolder,
+              },
+              false
+            );
+          }
+        },
+      },
+      {
+        title: 'Build Code',
+        task: async () => {
           await Helpers.executeChildProcess(
-            'npm i',
+            'npm run build',
             {
               cwd: stackFolder,
             },
