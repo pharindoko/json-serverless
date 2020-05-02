@@ -19,6 +19,7 @@
   "devDependencies": {
     "@types/node": "10.17.13",
     "copy-webpack-plugin": "5.1.1",
+    "lerna": "^3.20.2",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "4.0.8",
