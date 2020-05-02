@@ -234,27 +234,29 @@ export class SwaggerSpec {
     ];
   }
 
-  private getDefaultPostResponses(definition: string) {
+  private getDefaultPostResponses(definition: string, schemaDef: Reference) {
     return {
       responses: {
-        200: {
+        201: {
           description: 'successful operation',
-          schema: {
-            $ref: `#/definitions/${definition}`,
-          },
+          schema: schemaDef,
         },
         400: {
-          description: `Invalid ${definition}`,
+          description: `invalid ${definition}`,
         },
       },
     };
   }
 
-  private getDefaultPutResponses(definition: string) {
+  private getDefaultPutResponses(definition: string, schemaDef: Reference) {
     return {
       responses: {
+        200: {
+          description: 'successful operation',
+          schema: schemaDef,
+        },
         400: {
-          description: 'Invalid ID supplied',
+          description: 'invalid ID supplied',
         },
         404: {
           description: `${definition} not found`,
@@ -269,8 +271,11 @@ export class SwaggerSpec {
   private getDefaultDeleteResponses(definition: string) {
     return {
       responses: {
+        200: {
+          description: 'successful operation',
+        },
         400: {
-          description: 'Invalid ID supplied',
+          description: 'invalid ID supplied',
         },
         404: {
           description: `${definition} not found`,
@@ -286,8 +291,8 @@ export class SwaggerSpec {
     };
   }
 
-  addSchemaDefitions = (specificaton: Spec, schemaDefinitons: Schema) => {
-    const spec = Object.assign(specificaton, schemaDefinitons) as Spec;
+  addSchemaDefitions = (specification: Spec, schemaDefinitons: Schema) => {
+    const spec = Object.assign(specification, schemaDefinitons) as Spec;
     Object.keys(spec.paths).forEach(path => {
       Object.keys(spec.definitions!).forEach((definition: string) => {
         const schemaDef = this.setSchemaReference(spec, definition);
@@ -310,10 +315,15 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            Object.assign(operation, this.getDefaultPostResponses(definition));
+            Object.assign(
+              operation,
+              this.getDefaultPostResponses(definition, schemaDef)
+            );
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
+            console.log('definition: ' + JSON.stringify(definition));
+            console.log('operation: ' + JSON.stringify(operation));
           }
           if (spec.paths[path].put) {
             const operation = spec.paths[path].put as Operation;
@@ -321,7 +331,10 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            Object.assign(operation, this.getDefaultPutResponses(definition));
+            Object.assign(
+              operation,
+              this.getDefaultPutResponses(definition, schemaDef)
+            );
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
@@ -332,7 +345,10 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            Object.assign(operation, this.getDefaultPutResponses(definition));
+            Object.assign(
+              operation,
+              this.getDefaultPutResponses(definition, schemaDef)
+            );
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
@@ -346,7 +362,7 @@ export class SwaggerSpec {
               this.getDefaultSchemaProperties(definition)
             );
             operation.responses[200] = {
-              schema: { $ref: `#/definitions/${definition}` },
+              schema: schemaDef,
               description: 'successful operation',
             };
           }
@@ -368,7 +384,10 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            Object.assign(operation, this.getDefaultPutResponses(definition));
+            Object.assign(
+              operation,
+              this.getDefaultPutResponses(definition, schemaDef)
+            );
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
@@ -379,7 +398,10 @@ export class SwaggerSpec {
               operation,
               this.getDefaultSchemaProperties(definition)
             );
-            Object.assign(operation, this.getDefaultPutResponses(definition));
+            Object.assign(
+              operation,
+              this.getDefaultPutResponses(definition, schemaDef)
+            );
             operation.parameters!.push(
               this.getDefaultParameterSchema(schemaDef, definition)
             );
