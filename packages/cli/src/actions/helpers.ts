@@ -95,7 +95,7 @@ export class Helpers {
       figlet.text(
         text,
         {
-          font: 'Stellar',
+          font: 'ANSI Shadow',
           horizontalLayout: 'default',
           verticalLayout: 'default',
         },
