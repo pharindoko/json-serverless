@@ -3,7 +3,6 @@ import * as path from 'path';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 import figlet from 'figlet';
-
 export class Helpers {
   static validateFile(filePath: string): string {
     if (!path.isAbsolute(filePath)) {
@@ -91,7 +90,7 @@ export class Helpers {
       throw new Error(err);
     }
   }
-  static async generateLogo(text: string) {
+  static async generateLogo(text: string): Promise<string> {
     return await new Promise((resolve, reject) => {
       figlet.text(
         text,
@@ -104,8 +103,7 @@ export class Helpers {
           if (err) {
             return reject(err);
           }
-          console.log(data);
-          return resolve();
+          return resolve(data);
         }
       );
     });

@@ -3,7 +3,7 @@ import { startServer, AppConfig } from 'json-serverless-lib';
 import express from 'express';
 import { Helpers } from '../actions/helpers';
 import cli from 'cli-ux';
-
+import chalk from 'chalk';
 export class Run extends Command {
   static description = 'describe the command here';
 
@@ -37,7 +37,8 @@ export class Run extends Command {
   ];
 
   async run() {
-    await Helpers.generateLogo('json-serverless');
+    const logo = await Helpers.generateLogo('json-serverless');
+    this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(Run);
     const server = express();

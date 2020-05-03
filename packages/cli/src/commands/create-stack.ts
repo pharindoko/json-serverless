@@ -48,7 +48,8 @@ export class CreateStackCommand extends Command {
   ];
 
   async run() {
-    await Helpers.generateLogo('json-serverless');
+    const logo = await Helpers.generateLogo('json-serverless');
+    this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(CreateStackCommand);
     cli.action.start(
