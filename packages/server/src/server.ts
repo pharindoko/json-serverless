@@ -8,7 +8,7 @@ export const startServer = async (
   appConfig: AppConfig,
   packageJsonFilePath: string
 ) => {
-  ServerFactory.createServer(
+  await ServerFactory.createServer(
     environment,
     server,
     appConfig,
