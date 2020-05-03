@@ -6,8 +6,7 @@
   "bugs": "https://github.com/pharindoko/json-serverless/issues",
   "scripts": {
     "start": "npm run build && sls offline",
-    "build": "lerna bootstrap && webpack",
-    "build:npm": "webpack",
+    "build": "webpack",
     "deploy": "npm run build && sls deploy"
   },
   "dependencies": {
