@@ -4,7 +4,6 @@
   "description": "Transform a json file into an api",
   "main": "src/server.js",
   "scripts": {
-    "snyk-protect": "snyk protect",
     "commit": "git-cz",
     "bootstrap": "lerna bootstrap"
   },
@@ -21,7 +20,6 @@
   "devDependencies": {
     "cz-conventional-changelog": "3.0.2"
   },
-  "snyk": true,
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

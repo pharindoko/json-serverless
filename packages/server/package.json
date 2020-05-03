@@ -9,7 +9,7 @@
     "url": "git+https://github.com/pharindoko/json-serverless.git"
   },
   "scripts": {
-    "test": "snyk test && npx jest",
+    "test": "npx jest",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
@@ -45,7 +45,6 @@
     "pino": "^5.17.0",
     "safe-json-stringify": "^1.2.0",
     "serverless-http": "^2.3.2",
-    "snyk": "^1.305.1",
     "source-map-support": "^0.5.16",
     "supertest": "^4.0.2",
     "swagger-to-graphql": "^4.0.2",
@@ -78,7 +77,6 @@
     "ts-loader": "6.0.4",
     "typescript": "3.7.5"
   },
-  "snyk": true,
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"

@@ -35,7 +35,6 @@ jobs:
       name: build-template
     - script:
         - npm run test
-        - npx snyk test
       before_script: cd packages/server
       name: test-server
     - stage: release
