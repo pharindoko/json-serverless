@@ -30,9 +30,9 @@ jobs:
       before_script: cd packages/cli
       name: build-cli
     - script:
-        - npm run build:npm
+        - npm run build
       before_script: cd packages/template
-      name: test-server
+      name: build-template
     - script:
         - npm run test
         - npx snyk test
