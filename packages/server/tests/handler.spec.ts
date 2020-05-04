@@ -27,7 +27,8 @@ const localServer = new TestServer(
     appConfig,
     server,
     new FileStorageAdapter(appConfig.jsonFile),
-    swagger
+    swagger,
+    environment
   )
 );
 
