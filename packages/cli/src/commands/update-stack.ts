@@ -127,6 +127,18 @@ export class UpdateStackCommand extends Command {
         },
       },
       {
+        title: 'Build Code',
+        task: async () => {
+          await Helpers.executeChildProcess(
+            'npm run build',
+            {
+              cwd: stackFolder,
+            },
+            false
+          );
+        },
+      },
+      {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
