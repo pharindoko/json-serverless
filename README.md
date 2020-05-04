@@ -105,6 +105,13 @@ npm i -g json-serverless
 
 Open the {ENDPOINTURL}: https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ that you received as output
 
+| Features              | Relative Path | Sample with Endpoint                                                |
+| --------------------- | ------------- | ------------------------------------------------------------------- |
+| Swagger UI            | /ui           | https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ui        |
+| Swagger Specification | /api-spec     | https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/api-spec  |
+| GraphiQL              | /graphql      | https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/graphql   |
+| API Routes            | /api/{routes} | https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/api/posts |
+
 **MIND**: If you have set enableApiKeyAuth to true => [SwaggerUI](#Cannot-use-Swagger-UI-when-enableApiKeyAuth-is-true)
 )
 
@@ -191,7 +198,7 @@ make start-test
 
 #### With Swagger
 
-Open the {ENDPOINTURL}: http://localhost:3000/ that you received as output
+Open the {ENDPOINTURL}: http://localhost:3000/ui that you received as output
 
 #### With Curl
 
