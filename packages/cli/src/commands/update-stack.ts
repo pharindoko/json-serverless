@@ -27,6 +27,13 @@ export class UpdateStackCommand extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    currentdirectory: flags.string({
+      char: 'p', // shorter flag version
+      description: 'current working directory that will be used for execution', // help description for flag
+      hidden: false, // hide from help
+      default: '', // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   async run() {
@@ -34,6 +41,11 @@ export class UpdateStackCommand extends Command {
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(UpdateStackCommand);
+
+    if (flags.currentdirectory) {
+      Helpers.changeDirectory(flags.currentdirectory);
+    }
+
     cli.action.start(
       `${chalk.blueBright('Check AWS Identity')}`,
       `${chalk.blueBright('initializing')}`,
@@ -47,7 +59,10 @@ export class UpdateStackCommand extends Command {
     }
     cli.action.stop();
     this.log();
-    const templateFolder = path.normalize(this.config.root + '/template');
+
+    const templateFolder = path.normalize(
+      this.config.root + '/node_modules/json-serverless-template/'
+    );
     const stackFolder = process.cwd();
     const tasks = new Listr([
       {
@@ -77,8 +92,8 @@ export class UpdateStackCommand extends Command {
             stackFolder + '/tsconfig.json'
           );
           await fs.copy(
-            templateFolder + '/webpack.config.prod.js',
-            stackFolder + '/webpack.config.prod.js'
+            templateFolder + '/webpack.config.js',
+            stackFolder + '/webpack.config.js'
           );
         },
       },
@@ -104,6 +119,18 @@ export class UpdateStackCommand extends Command {
           Helpers.removeDir(stackFolder + '/node_modules');
           await Helpers.executeChildProcess(
             'npm i',
+            {
+              cwd: stackFolder,
+            },
+            false
+          );
+        },
+      },
+      {
+        title: 'Build Code',
+        task: async () => {
+          await Helpers.executeChildProcess(
+            'npm run build',
             {
               cwd: stackFolder,
             },
