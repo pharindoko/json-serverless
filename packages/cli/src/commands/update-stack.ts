@@ -27,6 +27,13 @@ export class UpdateStackCommand extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    currentdirectory: flags.string({
+      char: 'p', // shorter flag version
+      description: 'current working directory that will be used for execution', // help description for flag
+      hidden: false, // hide from help
+      default: '', // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   async run() {
@@ -34,6 +41,11 @@ export class UpdateStackCommand extends Command {
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(UpdateStackCommand);
+
+    if (flags.currentdirectory) {
+      Helpers.changeDirectory(flags.currentdirectory);
+    }
+
     cli.action.start(
       `${chalk.blueBright('Check AWS Identity')}`,
       `${chalk.blueBright('initializing')}`,

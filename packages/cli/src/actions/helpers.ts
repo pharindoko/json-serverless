@@ -34,6 +34,22 @@ export class Helpers {
     }
   }
 
+  static changeDirectory(directoryPath: string): void {
+    try {
+      if (!fs.existsSync(path.resolve(__dirname, directoryPath))) {
+        throw new Error(
+          'Cannot find path' +
+            path.resolve(__dirname, directoryPath) +
+            '- please verify that this path exists.'
+        );
+      } else {
+        process.chdir(path.resolve(__dirname, directoryPath));
+      }
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   static isJSONServerlessDirectory(directoryPath: string): void {
     try {
       const serverlessFile = path.normalize(directoryPath + '/serverless.yml');
