@@ -13,7 +13,6 @@ import cors from 'cors';
 import { GraphQLMethods } from '../utils/grapqhl_callback';
 import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
-import bodyParser from 'body-parser';
 import { Output } from '../utils/output';
 
 export class CoreApp {
