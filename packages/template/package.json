@@ -41,7 +41,7 @@
     "/dist",
     "/config",
     "serverless.yml",
-    "webpack.config.prod.js",
+    "webpack.config.js",
     "tsconfig.json",
     "package.json",
     "package-lock.json"
