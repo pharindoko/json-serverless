@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.30 linux-x64 node-v10.20.1
+json-serverless/1.5.31 linux-x64 node-v10.20.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -49,7 +49,6 @@ OPTIONS
   -a, --apikeyauth  require api key authentication to access api
   -h, --help        show CLI help
   -r, --readonly    set api to readonly (true) or writeable (false)
-  -s, --swagger     activate swagger ui support
 ```
 
 ## `jsonsls help [COMMAND]`
@@ -98,6 +97,5 @@ OPTIONS
   -a, --apikeyauth  require api key authentication to access api
   -h, --help        show CLI help
   -r, --readonly    set api to readonly (true) or writeable (false)
-  -s, --swagger     activate swagger ui support
 ```
 <!-- commandsstop -->

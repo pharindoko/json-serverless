@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.31](https://github.com/pharindoko/json-serverless/compare/v1.5.30...v1.5.31) (2020-05-04)
+
+
+### Bug Fixes
+
+* **server:** correct wrong swagger response types ([f4ce050](https://github.com/pharindoko/json-serverless/commit/f4ce0507adb1b84e004f811ea80c100f22bdd6a2))
+* **server:** fail on first request to swagger ui solved by initial request ot middleware ([9cb764d](https://github.com/pharindoko/json-serverless/commit/9cb764d209c33f0c2dc2a6f7ef2ec8db46ac2ef5))
+
+
+### Features
+
+* **cli:** list all relevant urls as output ([c9a053e](https://github.com/pharindoko/json-serverless/commit/c9a053ee0974ce8b5de68f36980354247ed21bba))
+* **server:** add example to start the library directly ([01ec1a9](https://github.com/pharindoko/json-serverless/commit/01ec1a958391bd908cc668df4c3f0ae0ba8457e0))
+* **server:** add graphql interface ([51aae16](https://github.com/pharindoko/json-serverless/commit/51aae16642a3694aedadbd80df702a4d8724eac2))
+
+
+### Reverts
+
+* **server:** revert change of db.json back to basic sample ([fbb743c](https://github.com/pharindoko/json-serverless/commit/fbb743ce055c16e6a79a1a5465d7250c2f6a3021))
+
+
+
+
+
 ## [1.5.30](https://github.com/pharindoko/json-serverless/compare/v1.5.27...v1.5.30) (2020-04-12)
 
 **Note:** Version bump only for package json-serverless-lib
