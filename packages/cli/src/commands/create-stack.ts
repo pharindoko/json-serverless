@@ -214,17 +214,16 @@ export class CreateStackCommand extends Command {
     regions.unshift({ name: AWSActions.getCurrentRegion() });
     let region = '';
 
-    if (!region) {
-      let responses: any = await inquirer.prompt([
-        {
-          name: 'region',
-          message: 'select a region',
-          type: 'list',
-          choices: regions,
-        },
-      ]);
-      region = responses.region;
-    }
+    let responses: any = await inquirer.prompt([
+      {
+        name: 'region',
+        message: 'select a region',
+        type: 'list',
+        choices: regions,
+      },
+    ]);
+    region = responses.region;
+
     return region;
   }
 }
