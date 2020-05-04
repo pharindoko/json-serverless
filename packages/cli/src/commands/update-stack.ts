@@ -40,7 +40,7 @@ export class UpdateStackCommand extends Command {
     const logo = await Helpers.generateLogo('json-serverless');
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
-    const { args, flags } = this.parse(UpdateStackCommand);
+    const { flags } = this.parse(UpdateStackCommand);
 
     if (flags.currentdirectory) {
       Helpers.changeDirectory(flags.currentdirectory);
