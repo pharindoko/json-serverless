@@ -78,10 +78,7 @@ export class CoreApp {
   }
 
   protected async setupRoutes(db: {}, middlewares, router): Promise<void> {
-    middlewares.splice(
-      middlewares.findIndex(x => x.name === 'serveStatic'),
-      1
-    );
+    middlewares.splice(middlewares.findIndex(x => x.name === 'serveStatic'), 1);
     this.server.use(middlewares);
     this.server.use('/api', router);
     if (!this.swaggerSpec) {
