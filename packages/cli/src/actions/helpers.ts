@@ -36,14 +36,14 @@ export class Helpers {
 
   static changeDirectory(directoryPath: string): void {
     try {
-      if (!fs.existsSync(path.resolve(__dirname, directoryPath))) {
+      if (!fs.existsSync(path.resolve(process.cwd(), directoryPath))) {
         throw new Error(
-          'Cannot find path' +
-            path.resolve(__dirname, directoryPath) +
+          'Cannot find path ' +
+            path.resolve(process.cwd(), directoryPath) +
             '- please verify that this path exists.'
         );
       } else {
-        process.chdir(path.resolve(__dirname, directoryPath));
+        process.chdir(path.resolve(process.cwd(), directoryPath));
       }
     } catch (err) {
       throw new Error(err);
