@@ -134,7 +134,7 @@ export class SwaggerDefGen {
     }
   }
 
-  private conversorSelection(obj: object) {
+  private conversorSelection(obj) {
     this.changeIndentation(this.tabCount + 1);
     if (typeof obj === 'number') {
       // attribute is a number
