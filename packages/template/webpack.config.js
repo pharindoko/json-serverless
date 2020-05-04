@@ -13,7 +13,7 @@ module.exports = {
       DEBUG: false,
     }),
     new CopyPlugin([
-      { from: appConfig.jsonFile, to: './db.json' },
+      { from: appConfig.jsonFile, to: '../db.json' },
       { from: './config/appconfig.json', to: './config/appconfig.json' },
     ]),
   ],
