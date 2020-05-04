@@ -59,7 +59,10 @@ export class UpdateStackCommand extends Command {
     }
     cli.action.stop();
     this.log();
-    const templateFolder = path.normalize(this.config.root + '/template');
+
+    const templateFolder = path.normalize(
+      this.config.root + '/node_modules/json-serverless-template/'
+    );
     const stackFolder = process.cwd();
     const tasks = new Listr([
       {
@@ -89,8 +92,8 @@ export class UpdateStackCommand extends Command {
             stackFolder + '/tsconfig.json'
           );
           await fs.copy(
-            templateFolder + '/webpack.config.prod.js',
-            stackFolder + '/webpack.config.prod.js'
+            templateFolder + '/webpack.config.js',
+            stackFolder + '/webpack.config.js'
           );
         },
       },
