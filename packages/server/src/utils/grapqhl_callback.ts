@@ -1,11 +1,10 @@
 import fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 import { CallBackendArguments } from 'swagger-to-graphql';
-import { GraphQLSchema } from 'graphql';
 
 export class GraphQLMethods {
   static getBodyAndHeaders(
-    body: any,
+    body: string,
     bodyType: 'json' | 'formData',
     headers: { [key: string]: string } | undefined
   ) {

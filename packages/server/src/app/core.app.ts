@@ -58,13 +58,13 @@ export class CoreApp {
 
   private setupMiddleware() {
     this.server.use(cors());
-    this.server.use(bodyParser.json());
-    this.server.use(bodyParser.urlencoded({ extended: true }));
+    this.server.use(express.json());
+    this.server.use(express.urlencoded({ extended: true }));
   }
 
   protected async setupStorage(
     storageAdapter: StorageAdapter
-  ): Promise<lowdb.LowdbAsync<any>> {
+  ): Promise<lowdb.LowdbAsync<object>> {
     this.storage = storageAdapter.init();
     const adapter = await lowdb.default(this.storage);
     return adapter;
@@ -88,9 +88,13 @@ export class CoreApp {
     if (!this.swaggerSpec) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
-      swaggerSetupMiddleware({}, { send: () => {} }, function(err: any): any {
-        console.log(err);
-      });
+      swaggerSetupMiddleware(
+        {},
+        { send: () => {} },
+        () => (err: object): void => {
+          console.log(err);
+        }
+      );
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
@@ -103,7 +107,7 @@ export class CoreApp {
           schema: this.graphqlSchema,
           graphiql: true,
           context:
-            this.environment.basePath == '/'
+            this.environment.basePath === '/'
               ? req.headers['origin']
               : req.headers['origin'] + this.environment.basePath,
         });
