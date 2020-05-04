@@ -39,6 +39,16 @@ start-test:
 	make install
 	npx lerna run --scope json-serverless  --stream test:start
 
+.PHONY: start-offline
+start-offline:
+	lerna bootstrap
+	npx lerna run --scope json-serverless-template  --stream start
+
+.PHONY: start
+start:
+	npx lerna run --scope json-serverless-lib  --stream start
+
+
 .PHONY: deploy-test
 deploy-test:
 	make install

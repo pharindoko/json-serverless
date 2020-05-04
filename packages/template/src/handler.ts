@@ -1,7 +1,15 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
-import { AppConfig, CloudApp, Swagger, SwaggerConfig, S3StorageAdapter, CloudEnvironment } from 'json-serverless-lib';
+import {
+  AppConfig,
+  Swagger,
+  SwaggerConfig,
+  S3StorageAdapter,
+  CloudEnvironment,
+  CoreApp,
+} from 'json-serverless-lib';
+
 import fs from 'fs';
 
 const server = express();
@@ -13,21 +21,28 @@ const environment = new CloudEnvironment();
 const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-  environment.basePath, './package.json'
+  environment.basePath,
+  './package.json'
 );
-const core = new CloudApp(
+
+const core = new CoreApp(
   appConfig,
   server,
   new S3StorageAdapter(environment.s3Bucket, environment.s3File),
-  swagger
+  swagger,
+  environment
 );
-(async () => {
-  await core.setup();
-  await core.request();
-})();
 
-export const handler: APIGatewayProxyHandler = async (event, _context) => {
-  await core.request();
-  const result = await sls(event, _context);
+const init = async () => {
+  return new Promise(async (resolve, reject) => {
+    await core.setup();
+    resolve();
+  });
+};
+const initPromise = init();
+
+export const handler: APIGatewayProxyHandler = async (event, context) => {
+  await initPromise;
+  const result = await sls(event, context);
   return result;
 };

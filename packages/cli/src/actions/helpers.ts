@@ -3,7 +3,6 @@ import * as path from 'path';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 import figlet from 'figlet';
-
 export class Helpers {
   static validateFile(filePath: string): string {
     if (!path.isAbsolute(filePath)) {
@@ -91,12 +90,12 @@ export class Helpers {
       throw new Error(err);
     }
   }
-  static async generateLogo(text: string) {
+  static async generateLogo(text: string): Promise<string> {
     return await new Promise((resolve, reject) => {
       figlet.text(
         text,
         {
-          font: 'Stellar',
+          font: 'ANSI Shadow',
           horizontalLayout: 'default',
           verticalLayout: 'default',
         },
@@ -104,8 +103,7 @@ export class Helpers {
           if (err) {
             return reject(err);
           }
-          console.log(data);
-          return resolve();
+          return resolve(data);
         }
       );
     });
@@ -136,5 +134,47 @@ export class Helpers {
       });
       fs.rmdirSync(dir);
     }
+  }
+  static updatePackageJson(
+    directoryPath: string,
+    name: string,
+    description: string
+  ) {
+    const packageJsonFile = path.normalize(directoryPath + '/package.json');
+    if (!fs.existsSync(packageJsonFile)) {
+      throw new Error('file' + packageJsonFile + ' does not exist');
+    } else {
+      const packageJson = JSON.parse(fs.readFileSync(packageJsonFile, 'UTF-8'));
+      packageJson.name = name;
+      packageJson.description = description;
+      fs.writeFileSync(
+        path.normalize(packageJsonFile),
+        JSON.stringify(packageJson, null, 2),
+        'utf-8'
+      );
+    }
+  }
+  static s3BucketValidator(input: string): any {
+    const regexPattern =
+      '(?=^.{3,63}$)(?!^(d+.)+d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)';
+    const regex = new RegExp(regexPattern);
+    const test = regex.test(input);
+    if (!test) {
+      return 'Sorry this is not valid \n=> allowed pattern: ' + regexPattern;
+    }
+    return true;
+  }
+
+  static descriptionValidator(input: string): any {
+    const regexPattern = '^[^`~!@#$%^*+={}[]|\\:;“’<>?๐฿]*$';
+    const regex = new RegExp(regexPattern);
+    const test = regex.test(input);
+    if (!test) {
+      return (
+        'Sorry this is not valid - no special characters are allowed \n=> allowed pattern: ' +
+        regexPattern
+      );
+    }
+    return true;
   }
 }

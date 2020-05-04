@@ -8,24 +8,27 @@
 service:
   name: ${self:custom.appconfig.stackName}
 plugins:
-  - serverless-webpack
+  - serverless-offline
 package:
   individually: false
   excludeDevDependencies: true
+  include:
+    - config/
+    - dist/
+    - node_modules/
 custom:
   file: ${file(./config/serverlessconfig.json)}
   appconfig: ${file(./config/appconfig.json)}
   custom:
+  serverless-offline:
+    resourceRoutes: true
   webpack:
-    webpackConfig: 'webpack.config.prod.js'   # Name of webpack configuration file
     includeModules: true
-    packager: 'npm'   # Packager that will be used to package your external modules
-  
-  
+    packager: 'npm'
 provider:
   stage: ${self:custom.file.stage, 'dev'}
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   region: ${self:custom.file.awsRegion, 'eu-central-1'}
   stackTags: # Tags that will be added to each of the deployment resources
     jsonsls: ${self:custom.file.stackName}
@@ -35,24 +38,25 @@ provider:
     basePath: ${self:custom.file.basePath}
   apiGateway: # Optional API Gateway global config
     binaryMediaTypes: # Optional binary media types the API might return
-    - '*/*'
+      - '*/*'
   apiKeys:
     - ${self:service}.${self:provider.stage}
   iamRoleStatements:
-    -  Effect: "Allow"
-       Action:
-         - "s3:*"
-       Resource: "*"
-    -  Effect: "Allow"
-       Action:
-         - "s3:*"
-       Resource:
-         - "arn:aws:s3:::${self:custom.file.s3Bucket}/*"
+    - Effect: 'Allow'
+      Action:
+        - 's3:*'
+      Resource: '*'
+    - Effect: 'Allow'
+      Action:
+        - 's3:*'
+      Resource:
+        - 'arn:aws:s3:::${self:custom.file.s3Bucket}/*'
 
 # The `functions` block defines what code to deploy
 functions:
   app:
-    handler: ./src/handler.handler
+    timeout: 15
+    handler: ./dist/handler.handler
     # The `events` block defines how to trigger the handler.helloWorld code
     events:
       - http:
@@ -70,7 +74,7 @@ functions:
               - X-Amz-User-Agent
             allowCredentials: false
       - http:
-          path: "{proxy+}"
+          path: '{proxy+}'
           method: ANY
           private: ${self:custom.appconfig.enableApiKeyAuth}
           cors:

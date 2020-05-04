@@ -7,7 +7,7 @@ export class FileStorageAdapter implements StorageAdapter {
     this.initialFilePath = initialFilePath;
   }
 
-  async init(): Promise<import('lowdb').AdapterAsync> {
+  init(): import('lowdb').AdapterAsync {
     const storageAdapter = new FileAsync(this.initialFilePath);
     return storageAdapter;
   }

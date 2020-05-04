@@ -29,7 +29,6 @@
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "^4.3.1",
-    "pino-pretty": "^4.0.0",
     "serverless": "^1.67.3",
     "serverless-http": "^2.3.2",
     "serverless-webpack": "^5.3.1",
@@ -79,8 +78,8 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
-    "test:start": "bin/run run ../../db.json",
-    "test:create-stack": "bin/run create-stack ../../db.json",
+    "start": "bin/run run ../../db.json",
+    "deploy": "export NODE_ENV=local && bin/run create-stack ../../db.json",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",

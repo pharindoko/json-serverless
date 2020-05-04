@@ -2,7 +2,8 @@ import { Command, flags } from '@oclif/command';
 import { startServer, AppConfig } from 'json-serverless-lib';
 import express from 'express';
 import { Helpers } from '../actions/helpers';
-
+import cli from 'cli-ux';
+import chalk from 'chalk';
 export class Run extends Command {
   static description = 'describe the command here';
 
@@ -36,7 +37,8 @@ export class Run extends Command {
   ];
 
   async run() {
-    await Helpers.generateLogo('json-serverless');
+    const logo = await Helpers.generateLogo('json-serverless');
+    this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(Run);
     const server = express();
@@ -44,12 +46,39 @@ export class Run extends Command {
     defaultConfig.readOnly = flags.readonly;
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
-      startServer(
+      const promise = startServer(
         flags.env,
         server,
         defaultConfig,
         this.config.root + '/package.json'
       );
+      await promise;
+      this.log();
+      this.log();
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('Swagger UI')}`,
+            link: 'http://localhost:3000/ui',
+          },
+          {
+            text: `${chalk.blueBright('GraphiQL')}`,
+            link: 'http://localhost:3000/graphql',
+          },
+          {
+            text: `${chalk.blueBright('Swagger Specification')}`,
+            link: 'http://localhost:3000/api-spec',
+          },
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: 'http://localhost:3000/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+      this.log();
+      this.log();
     }
   }
 }

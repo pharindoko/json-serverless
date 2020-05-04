@@ -22,13 +22,6 @@ export class CreateStackCommand extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // default value if flag not passed (can be a function that returns a string or undefined)
     }),
-    swagger: flags.boolean({
-      char: 's', // shorter flag version
-      description: 'activate swagger ui support', // help description for flag
-      hidden: false, // hide from help
-      default: true, // default value if flag not passed (can be a function that returns a string or undefined)
-      required: false, // make flag required (this is not common and you should probably use an argument instead)
-    }),
     apikeyauth: flags.boolean({
       char: 'a', // shorter flag version
       description: 'require api key authentication to access api', // help description for flag
@@ -55,7 +48,8 @@ export class CreateStackCommand extends Command {
   ];
 
   async run() {
-    await Helpers.generateLogo('json-serverless');
+    const logo = await Helpers.generateLogo('json-serverless');
+    this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(CreateStackCommand);
     cli.action.start(
@@ -72,23 +66,22 @@ export class CreateStackCommand extends Command {
     cli.action.stop();
     this.log();
 
-    const s3BucketValidator = async (input: string) => {
-      const s3regex = new RegExp(
-        '(?=^.{3,63}$)(?!^(d+.)+d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)'
-      );
-      const test = s3regex.test(input);
-      if (!test) {
-        return 'Sorry this is not valid \n=> allowed pattern: ?=^.{3,63}$)(?!^(d+.)+d+$)(^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9]).)*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$)';
-      }
-      return true;
-    };
-    const apiAnswer = await inquirer.prompt({
+    const apiName = await inquirer.prompt({
       name: 'answer',
       message: `${chalk.magenta('What is the name of the api ?')}`,
       type: 'input',
-      validate: s3BucketValidator,
+      validate: Helpers.s3BucketValidator,
     });
-    const stackName = apiAnswer.answer;
+
+    const apiDesription = await inquirer.prompt({
+      name: 'answer',
+      message: `${chalk.magenta('What is this api used for ? (description)')}`,
+      type: 'input',
+      validate: Helpers.descriptionValidator,
+    });
+
+    const stackName = apiName.answer;
+    const stackDescription = apiDesription.answer;
     this.log();
     const region = await this.getRegion();
     let filePath = path.normalize(args.file);
@@ -120,7 +113,11 @@ export class CreateStackCommand extends Command {
       {
         title: 'Copy Template Files',
         task: async (task) => {
-          await fs.copy(templateFolder, stackFolder);
+          await fs.copy(templateFolder, stackFolder, {
+            dereference: true,
+            recursive: true,
+            overwrite: true,
+          });
         },
       },
       {
@@ -130,7 +127,6 @@ export class CreateStackCommand extends Command {
           appconfig.jsonFile = filePath;
           appconfig.enableApiKeyAuth = flags.apikeyauth;
           appconfig.readOnly = flags.readonly;
-          appconfig.enableSwagger = flags.swagger;
           appconfig.stackName = stackName;
           Helpers.createDir(stackFolder + '/config');
           fs.writeFileSync(
@@ -157,10 +153,31 @@ export class CreateStackCommand extends Command {
       {
         title: 'Install Dependencies',
         task: async (task) => {
-          task.output = 'INSTALL DEPENDENCIES';
-          Helpers.removeDir(stackFolder + '/node_modules');
+          if (process.env.NODE_ENV != 'local') {
+            task.output = 'INSTALL DEPENDENCIES';
+            Helpers.removeDir(stackFolder + '/node_modules');
+            await Helpers.executeChildProcess(
+              'npm i',
+              {
+                cwd: stackFolder,
+              },
+              false
+            );
+          }
+        },
+      },
+      {
+        title: 'Update Package.json',
+        task: async (task) => {
+          task.output = 'UPDATE PACKAGE.JSON';
+          Helpers.updatePackageJson(stackFolder, stackName, stackDescription);
+        },
+      },
+      {
+        title: 'Build Code',
+        task: async () => {
           await Helpers.executeChildProcess(
-            'npm i',
+            'npm run build',
             {
               cwd: stackFolder,
             },
@@ -197,17 +214,16 @@ export class CreateStackCommand extends Command {
     regions.unshift({ name: AWSActions.getCurrentRegion() });
     let region = '';
 
-    if (!region) {
-      let responses: any = await inquirer.prompt([
-        {
-          name: 'region',
-          message: 'select a region',
-          type: 'list',
-          choices: regions,
-        },
-      ]);
-      region = responses.region;
-    }
+    let responses: any = await inquirer.prompt([
+      {
+        name: 'region',
+        message: 'select a region',
+        type: 'list',
+        choices: regions,
+      },
+    ]);
+    region = responses.region;
+
     return region;
   }
 }

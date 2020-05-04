@@ -10,7 +10,5 @@ jspm_packages
 **/**/lerna_backup
 **/**/lerna-debug.log
 **/package.json.lerna_backup
-**/**/appconfig.json
-**/**/serverlessconfig.json
 **/.DS_Store
 .npmrc

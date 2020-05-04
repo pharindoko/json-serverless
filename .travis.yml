@@ -14,7 +14,7 @@ node_js:
 before_install:
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
   - echo $COMMITCOUNT
-install: 
+install:
   - npm config set package-lock false
   - make install
 
@@ -30,8 +30,11 @@ jobs:
       before_script: cd packages/cli
       name: build-cli
     - script:
+        - npm run build
+      before_script: cd packages/template
+      name: build-template
+    - script:
         - npm run test
-        - npx snyk test
       before_script: cd packages/server
       name: test-server
     - stage: release
@@ -43,7 +46,7 @@ jobs:
         - git checkout master
       script:
         - if [ $COMMITCOUNT != 0 ]; then
-            echo "########create new release########";
-            make fake-credentials;
-            make publish;
+          echo "########create new release########";
+          make fake-credentials;
+          make publish;
           fi

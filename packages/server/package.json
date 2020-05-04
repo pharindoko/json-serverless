@@ -9,7 +9,8 @@
     "url": "git+https://github.com/pharindoko/json-serverless.git"
   },
   "scripts": {
-    "test": "snyk test && npx jest",
+    "test": "npx jest",
+    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
@@ -31,20 +32,26 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-graphql": "^0.9.0",
     "express-list-endpoints": "^4.0.1",
+    "express-slash": "^2.0.1",
+    "graphql": "^15.0.0",
     "json-server": "^0.16.1",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",
     "lowdb-adapter-aws-s3": "^1.1.2",
+    "node-fetch": "^2.6.0",
     "pino": "^5.17.0",
+    "safe-json-stringify": "^1.2.0",
     "serverless-http": "^2.3.2",
-    "snyk": "^1.305.1",
     "source-map-support": "^0.5.16",
     "supertest": "^4.0.2",
+    "swagger-to-graphql": "^4.0.2",
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.48",
+    "@types/body-parser": "^1.19.0",
     "@types/cors": "2.8.6",
     "@types/dotenv": "6.1.1",
     "@types/express": "4.17.1",
@@ -64,12 +71,11 @@
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.0",
     "jest": "24.9.0",
-    "pino-pretty": "4.0.0",
+    "nodemon": "^2.0.3",
     "ts-jest": "24.3.0",
     "ts-loader": "6.0.4",
     "typescript": "3.7.5"
   },
-  "snyk": true,
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
