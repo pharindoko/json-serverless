@@ -47,7 +47,7 @@ export class CoreApp {
     this.adapter = await this.setupStorage(this.storageAdapter);
     const json = await this.adapter.getState();
     if (this.validateJSON(json)) {
-      const { middlewares, router } = await this.initializeLayers();
+      const { middlewares, router } = this.initializeLayers();
       await this.setupRoutes(json, middlewares, router);
     } else {
       Output.setError('provided json is not valid - see validation checks');
