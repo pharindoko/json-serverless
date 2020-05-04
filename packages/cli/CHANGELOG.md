@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.31](https://github.com/pharindoko/json-serverless/compare/v1.5.30...v1.5.31) (2020-05-04)
+
+
+### Features
+
+* **cli:** list all relevant urls as output ([c9a053e](https://github.com/pharindoko/json-serverless/commit/c9a053ee0974ce8b5de68f36980354247ed21bba))
+
+
+
+
+
 ## [1.5.30](https://github.com/pharindoko/json-serverless/compare/v1.5.27...v1.5.30) (2020-04-12)
 
 
