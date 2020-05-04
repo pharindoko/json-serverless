@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.33](https://github.com/pharindoko/json-serverless/compare/v1.5.32...v1.5.33) (2020-05-04)
+
+
+### Bug Fixes
+
+* **template:** adapt jsonfilepath in webpack config ([fd95387](https://github.com/pharindoko/json-serverless/commit/fd95387f137978766173a5ed0d4bad3706c73abd))
+
+
+
+
+
 ## [1.5.32](https://github.com/pharindoko/json-serverless/compare/v1.5.31...v1.5.32) (2020-05-04)
 
 
