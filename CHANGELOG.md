@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.34](https://github.com/pharindoko/json-serverless/compare/v1.5.33...v1.5.34) (2020-05-04)
+
+
+### Bug Fixes
+
+* **cli:** update-stack: adapth path and file references ([67a14a9](https://github.com/pharindoko/json-serverless/commit/67a14a9e0d41721fdee7a47cbcea3cba9e7fa30c))
+* **cli:** update-stack: add missing build-step ([1e6ecd2](https://github.com/pharindoko/json-serverless/commit/1e6ecd24d0307fd4b6fefc92890756e78247526f))
+
+
+### Features
+
+* **cli:** add option to update-stack to use another current working directory ([fcbbba5](https://github.com/pharindoko/json-serverless/commit/fcbbba58b9522735919c31fd5d51c617d9146b76))
+
+
+
+
+
 ## [1.5.33](https://github.com/pharindoko/json-serverless/compare/v1.5.32...v1.5.33) (2020-05-04)
 
 

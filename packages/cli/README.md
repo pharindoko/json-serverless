@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.33 linux-x64 node-v10.20.1
+json-serverless/1.5.34 linux-x64 node-v10.20.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -94,8 +94,9 @@ USAGE
   $ jsonsls update-stack
 
 OPTIONS
-  -a, --apikeyauth  require api key authentication to access api
-  -h, --help        show CLI help
-  -r, --readonly    set api to readonly (true) or writeable (false)
+  -a, --apikeyauth                         require api key authentication to access api
+  -h, --help                               show CLI help
+  -p, --currentdirectory=currentdirectory  current working directory that will be used for execution
+  -r, --readonly                           set api to readonly (true) or writeable (false)
 ```
 <!-- commandsstop -->
