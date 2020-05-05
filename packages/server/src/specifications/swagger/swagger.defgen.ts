@@ -49,11 +49,13 @@ export class SwaggerDefGen {
         this.outSwagger += `${this.indentator}"format": "unsafe"`;
       }
     } else if (this.isFloatNumber(num)) {
-      this.outSwagger += `${this.indentator}"format": "double"`;
+      this.outSwagger += `${this.indentator}"type": "number",`;
+      this.outSwagger += `${this.indentator}"format": "float"`;
     } else {
+      this.outSwagger += `${this.indentator}"type": "number",`;
       this.outSwagger += `${this.indentator}"format": "unsafe"`;
     }
-    this.outSwagger += `,${this.indentator}"example": "${num}"`;
+    this.outSwagger += `,${this.indentator}"example": ${num}`;
   }
 
   // date is ISO8601 format - https://xml2rfc.tools.ietf.org/public/rfc/html/rfc3339.html#anchor14
