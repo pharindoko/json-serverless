@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.35](https://github.com/pharindoko/json-serverless/compare/v1.5.34...v1.5.35) (2020-05-04)
+
+
+### Bug Fixes
+
+* **cli:** update-stack: get current working directory correctly ([f511ac0](https://github.com/pharindoko/json-serverless/commit/f511ac0375351089904a2bf4461672708543f4b1))
+
+
+
+
+
 ## [1.5.34](https://github.com/pharindoko/json-serverless/compare/v1.5.33...v1.5.34) (2020-05-04)
 
 

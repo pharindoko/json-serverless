@@ -1,6 +1,6 @@
 {
   "name": "json-serverless-template",
-  "version": "1.5.34",
+  "version": "1.5.35",
   "description": "template for json-serverless project",
   "author": "pharindoko",
   "bugs": "https://github.com/pharindoko/json-serverless/issues",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "express": "4.17.1",
-    "json-serverless-lib": "^1.5.34",
+    "json-serverless-lib": "^1.5.35",
     "serverless-http": "^2.3.2"
   },
   "devDependencies": {
@@ -24,7 +24,7 @@
     "nodemon": "2.0.3",
     "nodemon-webpack-plugin": "4.0.8",
     "serverless": "1.67.3",
-    "serverless-offline": "6.1.4",
+    "serverless-offline": "6.1.5",
     "ts-loader": "6.2.1",
     "ts-node": "8.8.2",
     "typescript": "3.7.5",
