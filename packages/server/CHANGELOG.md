@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.36](https://github.com/pharindoko/json-serverless/compare/v1.5.35...v1.5.36) (2020-05-05)
+
+
+### Bug Fixes
+
+* **server:** exception when json file contains float values ([14e735d](https://github.com/pharindoko/json-serverless/commit/14e735dddd4d3407ef82dcf38623be71e658a51f))
+
+
+
+
+
 ## [1.5.35](https://github.com/pharindoko/json-serverless/compare/v1.5.34...v1.5.35) (2020-05-04)
 
 **Note:** Version bump only for package json-serverless-lib
