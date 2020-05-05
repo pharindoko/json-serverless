@@ -37,7 +37,7 @@ endif
 .PHONY: start-test
 start-test:
 	make install
-	npx lerna run --scope json-serverless  --stream test:start
+	npx lerna run --scope json-serverless  --stream start
 
 .PHONY: start-offline
 start-offline:
