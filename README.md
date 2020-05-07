@@ -1,27 +1,16 @@
 # JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-serverless) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![DeepScan grade](https://deepscan.io/api/teams/8861/projects/11081/branches/160781/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8861&pid=11081&bid=160781)<a href="https://codeclimate.com/github/pharindoko/json-serverless/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
 
-- [Architecture](#architecture)
-- [Features](#features)
-- [Quickstart](#quickstart)
-- [Customization](#customization)
-- [Used Packages](#used-packages)
-- [Components](#components)
-- [Develop and debug locally](#develop-and-debug-locally)
-- [Develop locally with cloud resources](#develop-locally-with-cloud-resources)
-- [Diagnose issues](#diagnose-issues)
-
-## Architecture
-
-![Architecture](docs/json-serverless.png)
+![Trailer](docs/jsonsls-local.gif)
 
 ## Features
 
-- Automatically generates routes and resources for the REST Api -> Fully [json-server](https://github.com/typicode/json-server) compatible - used in core library
+- Create a REST API out of a [json-server](https://github.com/typicode/json-server) compatible JSON-File
 - Swagger UI integrated (Swagger spec automatically generated)
 - GrapqhiQL integrated (Graphql schema automatically generated)
 - Additional JSON File validations at startup
-- Deployment:
-  - Own CLI to test locally and immediately deploy
+- Readonly or Read/Write Mode (file stored in S3 Bucket)
+- Deployment in AWS:
+  - Own CLI to test locally and immediately deploy it to the cloud
   - Deployed in AWS cloud within Minutes by a single command
   - Almost **zero costs** (First million requests for Lambda are free)
   - Less maintenance as the deployed solution runs **serverless**
@@ -33,7 +22,6 @@
     - adding user authentication
     - own custom domain
     - additional routes etc.
-  - Develop and extend solution locally in Visual Studio Code the way you want to have it
 
 ## Quickstart
 
@@ -101,8 +89,6 @@ npm i -g json-serverless
 
 ### 4. Test your Api
 
-#### With Swagger
-
 Open the {ENDPOINTURL}: https://xxxxxx.execute-api.eu-central-1.amazonaws.com/dev/ that you received as output
 
 | Features              | Relative Path | Sample with Endpoint                                                |
@@ -136,6 +122,10 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 ```
 
 What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+
+## Architecture in AWS
+
+![Architecture](docs/json-serverless.png)
 
 ## Customization
 
