@@ -92,6 +92,22 @@ export class Helpers {
     }
   }
 
+  static async executeChildProcess2(
+    command: string,
+    options: {},
+    stdout = true
+  ): Promise<string> {
+    try {
+      const childProcess = await exec(command, options);
+      if (stdout) {
+        return Promise.resolve(childProcess.stdout);
+      }
+      return Promise.reject(childProcess.stderr);
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
   static async copyFiles(source: string, destination: string) {
     try {
       if (!fs.existsSync(source)) {

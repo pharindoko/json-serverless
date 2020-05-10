@@ -6,6 +6,7 @@ import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import chalk from 'chalk';
 import cli from 'cli-ux';
+import { AppConfig } from 'json-serverless-lib';
 
 export class UpdateStackCommand extends Command {
   static description = 'describe the command here';
@@ -38,6 +39,7 @@ export class UpdateStackCommand extends Command {
 
   async run() {
     const logo = await Helpers.generateLogo('json-serverless');
+    this.log();
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { flags } = this.parse(UpdateStackCommand);
@@ -153,10 +155,118 @@ export class UpdateStackCommand extends Command {
     ]);
     try {
       await tasks.run();
-      await Helpers.executeChildProcess(
+      const testff = await Helpers.executeChildProcess2(
         'node_modules/serverless/bin/serverless info',
         { cwd: stackFolder }
       );
+
+      const rows = JSON.stringify(testff).split('\\n') as any[];
+      const createKeyValues = rows.map((x, i, rows) => {
+        if (x.startsWith('  ANY -')) {
+          x = {
+            name: x.split(' - ')[0],
+            value: x.split(' - ')[1],
+          };
+        } else {
+          x = {
+            name: x.split(':')[0],
+            value: x.split(':')[1],
+          };
+        }
+        return x;
+      });
+
+      const outputJson = createKeyValues
+        .map((x, i, rows) => {
+          if (rows[i + 1] && rows[i + 1].name.startsWith('  ')) {
+            x.value = rows[i + 1].value;
+          }
+          if (x && x.name.startsWith('  ')) {
+            return null;
+          }
+          if (x.name) {
+            x.name = x.name.replace(/\s/g, '');
+          }
+          if (x.value) {
+            x.value = x.value.replace(/\s/g, '');
+          }
+
+          return x;
+        })
+        .filter(
+          (item) =>
+            item != null &&
+            item.hasOwnProperty('value') &&
+            item.value != undefined
+        )
+        .reduce(
+          (obj, item) => Object.assign(obj, { [item.name]: item.value }),
+          {}
+        );
+      this.log();
+      this.log(
+        'The Api ' + outputJson.service + ' has been successfully deployed'
+      );
+      this.log();
+      this.log('Further details:');
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('Stage')}`,
+            link: outputJson.stage,
+          },
+          {
+            text: `${chalk.blueBright('Region')}`,
+            link: outputJson.region,
+          },
+          {
+            text: `${chalk.blueBright('Cloudformation Stack')}`,
+            link: outputJson.stack,
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+
+      this.log();
+      this.log();
+      const appConfig = JSON.parse(
+        fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
+      ) as AppConfig;
+      if (appConfig.enableApiKeyAuth) {
+        this.log(
+          `${chalk.green(
+            'Please use the following apiKey (x-api-key) to authenticate:'
+          )} ` + outputJson.apikeys
+        );
+      }
+      this.log();
+      this.log();
+
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('Swagger UI')}`,
+            link: outputJson.endpoints + '/ui',
+          },
+          {
+            text: `${chalk.blueBright('GraphiQL')}`,
+            link: outputJson.endpoints + '/graphql',
+          },
+          {
+            text: `${chalk.blueBright('Swagger Specification')}`,
+            link: outputJson.endpoints + '/api-spec',
+          },
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: outputJson.endpoints + '/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+      this.log();
+      this.log();
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
     }
