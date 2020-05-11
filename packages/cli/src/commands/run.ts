@@ -18,6 +18,14 @@ export class Run extends Command {
       default: 'local',
       required: false,
     }),
+    swagger: flags.boolean({
+      char: 's', // shorter flag version
+      description: 'enable or disable swagger interface support', // help description for flag
+      hidden: false, // hide from help
+      default: true, // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      allowNo: true,
+    }),
     readonly: flags.boolean({
       char: 'r', // shorter flag version
       description: 'set api to readonly (true) or writeable (false)', // help description for flag
@@ -44,6 +52,7 @@ export class Run extends Command {
     const server = express();
     const defaultConfig = new AppConfig();
     defaultConfig.readOnly = flags.readonly;
+    defaultConfig.enableSwagger = flags.swagger;
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
       const promise = startServer(
@@ -55,28 +64,42 @@ export class Run extends Command {
       await promise;
       this.log();
       this.log();
-      cli.table(
-        [
-          {
-            text: `${chalk.blueBright('Swagger UI')}`,
-            link: 'http://localhost:3000/ui',
-          },
-          {
-            text: `${chalk.blueBright('GraphiQL')}`,
-            link: 'http://localhost:3000/graphql',
-          },
-          {
-            text: `${chalk.blueBright('Swagger Specification')}`,
-            link: 'http://localhost:3000/api-spec',
-          },
-          {
-            text: `${chalk.blueBright('API Routes')}`,
-            link: 'http://localhost:3000/api/{routes}',
-          },
-        ],
-        { text: { minWidth: 30 }, link: { minWidth: 20 } },
-        { 'no-header': true }
-      );
+
+      if (flags.swagger) {
+        cli.table(
+          [
+            {
+              text: `${chalk.blueBright('Swagger UI')}`,
+              link: 'http://localhost:3000/ui',
+            },
+            {
+              text: `${chalk.blueBright('GraphiQL')}`,
+              link: 'http://localhost:3000/graphql',
+            },
+            {
+              text: `${chalk.blueBright('Swagger Specification')}`,
+              link: 'http://localhost:3000/api-spec',
+            },
+            {
+              text: `${chalk.blueBright('API Routes')}`,
+              link: 'http://localhost:3000/api/{routes}',
+            },
+          ],
+          { text: { minWidth: 30 }, link: { minWidth: 20 } },
+          { 'no-header': true }
+        );
+      } else {
+        cli.table(
+          [
+            {
+              text: `${chalk.blueBright('API Routes')}`,
+              link: 'http://localhost:3000/api/{routes}',
+            },
+          ],
+          { text: { minWidth: 30 }, link: { minWidth: 20 } },
+          { 'no-header': true }
+        );
+      }
       this.log();
       this.log();
     }

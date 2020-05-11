@@ -20,6 +20,14 @@ export class UpdateStackCommand extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // default value if flag not passed (can be a function that returns a string or undefined)
     }),
+    swagger: flags.boolean({
+      char: 's', // shorter flag version
+      description: 'enable or disable swagger interface support', // help description for flag
+      hidden: false, // hide from help
+      default: true, // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      allowNo: true,
+    }),
     apikeyauth: flags.boolean({
       char: 'a', // shorter flag version
       description: 'require api key authentication to access api', // help description for flag
@@ -74,6 +82,12 @@ export class UpdateStackCommand extends Command {
       {
         title: 'Copy Template Files',
         task: async (task) => {
+          if (process.env.NODE_ENV === 'local') {
+            await fs.copy(
+              templateFolder + '/node_modules',
+              stackFolder + '/node_modules'
+            );
+          }
           await fs.copy(templateFolder + '/src', stackFolder + '/src');
           await fs.copy(
             templateFolder + '/package.json',
@@ -105,6 +119,7 @@ export class UpdateStackCommand extends Command {
           );
           appConfig.enableApiKeyAuth = flags.apikeyauth;
           appConfig.readOnly = flags.readonly;
+          appConfig.enableSwagger = flags.swagger;
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appConfig, null, 2),
@@ -115,15 +130,17 @@ export class UpdateStackCommand extends Command {
       {
         title: 'Update Dependencies',
         task: async (task) => {
-          task.output = 'INSTALL DEPENDENCIES';
-          Helpers.removeDir(stackFolder + '/node_modules');
-          await Helpers.executeChildProcess(
-            'npm i',
-            {
-              cwd: stackFolder,
-            },
-            false
-          );
+          if (process.env.NODE_ENV != 'local') {
+            task.output = 'INSTALL DEPENDENCIES';
+            Helpers.removeDir(stackFolder + '/node_modules');
+            await Helpers.executeChildProcess(
+              'npm i',
+              {
+                cwd: stackFolder,
+              },
+              false
+            );
+          }
         },
       },
       {
