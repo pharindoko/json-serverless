@@ -74,7 +74,7 @@
     "jest": "26.0.1",
     "nodemon": "2.0.3",
     "ts-jest": "24.3.0",
-    "ts-loader": "7.0.2",
+    "ts-loader": "7.0.4",
     "typescript": "3.7.5"
   },
   "config": {
