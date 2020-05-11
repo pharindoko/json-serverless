@@ -8,12 +8,10 @@ import { FileStorageAdapter } from '../src/storage/file.storage';
 import { Environment } from '../src/environment/environment';
 import { CoreApp, AppConfig } from '../src/app';
 
-const appConfig: AppConfig = JSON.parse(
-  fs.readFileSync('./tests/resources/appconfig.json', 'UTF-8')
-);
+const appConfig = new AppConfig();
 appConfig.jsonFile = './tests/resources/validate.json';
-const server = express();
 
+const server = express();
 const environment = new Environment();
 const swagger = new Swagger(
   server,
