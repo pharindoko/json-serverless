@@ -159,6 +159,7 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 | readOnly             | Make API readonly - all API - write operations are forbidden (http 403)) | string  | false   |
 | enableApiKeyAuth     | Make your routes private by using an additional ApiKey                   | boolean | false   |
 | enableJSONValidation | validate JSON file at start                                              | boolean | true    |
+| enableSwagger        | enable or disable Swagger (and related Graphql) features                 | boolean | true    |
 
 ## Used Packages
 
