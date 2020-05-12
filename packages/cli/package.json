@@ -1,7 +1,7 @@
 {
   "name": "json-serverless",
   "description": "cli for json-serverless project",
-  "version": "1.5.36",
+  "version": "1.5.37",
   "author": "pharindoko",
   "bin": {
     "jsonsls": "./bin/run"
@@ -23,8 +23,8 @@
     "figlet": "^1.3.0",
     "globby": "^11.0.0",
     "inquirer": "^7.1.0",
-    "json-serverless-lib": "^1.5.36",
-    "json-serverless-template": "^1.5.36",
+    "json-serverless-lib": "^1.5.37",
+    "json-serverless-template": "^1.5.37",
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.3",

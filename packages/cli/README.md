@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.36 linux-x64 node-v10.20.1
+json-serverless/1.5.37 linux-x64 node-v10.20.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -46,9 +46,10 @@ ARGUMENTS
   STAGE  [default: dev] stage name
 
 OPTIONS
-  -a, --apikeyauth  require api key authentication to access api
-  -h, --help        show CLI help
-  -r, --readonly    set api to readonly (true) or writeable (false)
+  -a, --apikeyauth    require api key authentication to access api
+  -h, --help          show CLI help
+  -r, --readonly      set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger  enable or disable swagger interface support
 ```
 
 ## `jsonsls help [COMMAND]`
@@ -83,6 +84,7 @@ OPTIONS
   -e, --env=development|local  [default: local] environment
   -h, --help                   show CLI help
   -r, --readonly               set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger           enable or disable swagger interface support
 ```
 
 ## `jsonsls update-stack`
@@ -98,5 +100,6 @@ OPTIONS
   -h, --help                               show CLI help
   -p, --currentdirectory=currentdirectory  current working directory that will be used for execution
   -r, --readonly                           set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger                       enable or disable swagger interface support
 ```
 <!-- commandsstop -->
