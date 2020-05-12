@@ -1,7 +1,6 @@
 import request from 'supertest';
 import express from 'express';
 import { TestServer } from '../src/coreserver';
-import fs from 'fs';
 import { Swagger } from '../src/specifications/swagger/swagger';
 import { SwaggerConfig } from '../src/specifications/swagger/swagger.config';
 import { FileStorageAdapter } from '../src/storage/file.storage';
