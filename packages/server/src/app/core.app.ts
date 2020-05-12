@@ -48,7 +48,7 @@ export class CoreApp {
     const json = await this.adapter.getState();
     if (this.validateJSON(json)) {
       const { middlewares, router } = this.initializeLayers();
-      await this.setupRoutes(json, middlewares, router);
+      await this.setupRoutes(json, middlewares, router, this.appConfig);
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
@@ -77,11 +77,16 @@ export class CoreApp {
     return isValid;
   }
 
-  protected async setupRoutes(db: {}, middlewares, router): Promise<void> {
+  protected async setupRoutes(
+    db: {},
+    middlewares,
+    router,
+    appConfig: AppConfig
+  ): Promise<void> {
     middlewares.splice(middlewares.findIndex(x => x.name === 'serveStatic'), 1);
     this.server.use(middlewares);
     this.server.use('/api', router);
-    if (!this.swaggerSpec) {
+    if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
       swaggerSetupMiddleware(
