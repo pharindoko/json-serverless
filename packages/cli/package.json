@@ -27,7 +27,7 @@
     "json-serverless-template": "^1.5.37",
     "listr": "^0.14.3",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "2.0.3",
+    "nodemon": "2.0.4",
     "nodemon-webpack-plugin": "^4.3.1",
     "serverless": "^1.67.3",
     "serverless-http": "^2.3.2",

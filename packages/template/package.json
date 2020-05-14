@@ -21,7 +21,7 @@
     "copy-webpack-plugin": "5.1.1",
     "lerna": "3.21.0",
     "node-env-webpack-plugin": "1.1.0",
-    "nodemon": "2.0.3",
+    "nodemon": "2.0.4",
     "nodemon-webpack-plugin": "4.0.8",
     "serverless": "1.70.1",
     "serverless-offline": "6.1.5",
