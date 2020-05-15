@@ -73,7 +73,7 @@
     "gts": "1.1.0",
     "jest": "26.0.1",
     "nodemon": "2.0.4",
-    "ts-jest": "24.3.0",
+    "ts-jest": "26.0.0",
     "ts-loader": "7.0.4",
     "typescript": "3.9.2"
   },
