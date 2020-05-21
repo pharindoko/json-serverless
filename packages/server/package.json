@@ -50,7 +50,7 @@
     "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.48",
+    "@types/aws-lambda": "8.10.51",
     "@types/body-parser": "1.19.0",
     "@types/cors": "2.8.6",
     "@types/dotenv": "6.1.1",
