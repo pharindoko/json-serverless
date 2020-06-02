@@ -9,7 +9,7 @@ module.exports = {
   mode: 'production',
   plugins: [
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production', // use 'development' unless process.env.NODE_ENV is defined
+      NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : 'dev', // use 'dev' unless process.env.NODE_ENV is defined
       DEBUG: false,
     }),
     new CopyPlugin([
