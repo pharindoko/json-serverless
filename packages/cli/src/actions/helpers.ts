@@ -217,6 +217,7 @@ export class Helpers {
     apiAuth: boolean,
     enableSwagger: boolean
   ) {
+
     const rows = JSON.stringify(slsinfo).split('\\n') as any[];
     const createKeyValues = rows.map((x, i, rows) => {
       if (x.startsWith('  ANY -')) {
@@ -296,6 +297,7 @@ export class Helpers {
     }
     console.log();
     console.log();
+
     if (enableSwagger) {
       cli.table(
         [
@@ -331,6 +333,7 @@ export class Helpers {
         { 'no-header': true }
       );
     }
+
     console.log();
     console.log();
   }
