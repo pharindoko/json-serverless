@@ -3,6 +3,8 @@ import * as path from 'path';
 const util = require('util');
 const exec = util.promisify(require('child_process').exec);
 import figlet from 'figlet';
+import chalk from 'chalk';
+import cli from 'cli-ux';
 export class Helpers {
   static validateFile(filePath: string): string {
     if (!path.isAbsolute(filePath)) {
@@ -87,6 +89,22 @@ export class Helpers {
       }
       console.log('stderr:', childProcess.stderr);
       Promise.resolve();
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+
+  static async executeChildProcess2(
+    command: string,
+    options: {},
+    stdout = true
+  ): Promise<string> {
+    try {
+      const childProcess = await exec(command, options);
+      if (stdout) {
+        return Promise.resolve(childProcess.stdout);
+      }
+      return Promise.reject(childProcess.stderr);
     } catch (err) {
       throw new Error(err);
     }
@@ -192,5 +210,128 @@ export class Helpers {
       );
     }
     return true;
+  }
+
+  static createCLIOutput(
+    slsinfo: string,
+    apiAuth: boolean,
+    enableSwagger: boolean
+  ) {
+    const rows = JSON.stringify(slsinfo).split('\\n') as any[];
+    const createKeyValues = rows.map((x, i, rows) => {
+      if (x.startsWith('  ANY -')) {
+        x = {
+          name: x.split(' - ')[0],
+          value: x.split(' - ')[1],
+        };
+      } else {
+        x = {
+          name: x.split(':')[0],
+          value: x.split(':')[1],
+        };
+      }
+      return x;
+    });
+
+    const outputJson = createKeyValues
+      .map((x, i, rows) => {
+        if (rows[i + 1] && rows[i + 1].name.startsWith('  ')) {
+          x.value = rows[i + 1].value;
+        }
+        if (x && x.name.startsWith('  ')) {
+          return null;
+        }
+        if (x && x.name) {
+          x.name = x.name.replace(/\s/g, '');
+        }
+        if (x && x.value) {
+          x.value = x.value.replace(/\s/g, '');
+        }
+
+        return x;
+      })
+      .filter(
+        (item) =>
+          item != null &&
+          item.hasOwnProperty('value') &&
+          item.value != undefined
+      )
+      .reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }),
+        {}
+      );
+    console.log();
+    console.log(
+      'The Api ' + outputJson.service + ' has been successfully deployed'
+    );
+    console.log();
+    console.log('Further details:');
+    cli.table(
+      [
+        {
+          text: `${chalk.blueBright('Stage')}`,
+          link: outputJson.stage,
+        },
+        {
+          text: `${chalk.blueBright('Region')}`,
+          link: outputJson.region,
+        },
+        {
+          text: `${chalk.blueBright('Cloudformation Stack')}`,
+          link: outputJson.stack,
+        },
+      ],
+      { text: { minWidth: 30 }, link: { minWidth: 20 } },
+      { 'no-header': true }
+    );
+
+    console.log();
+    console.log();
+    if (apiAuth) {
+      console.log(
+        `${chalk.green(
+          'Please use the following apiKey (x-api-key) to authenticate:'
+        )} ` + outputJson.apikeys
+      );
+    }
+    console.log();
+    console.log();
+    if (enableSwagger) {
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('Swagger UI')}`,
+            link: outputJson.endpoints + '/ui',
+          },
+          {
+            text: `${chalk.blueBright('GraphiQL')}`,
+            link: outputJson.endpoints + '/graphql',
+          },
+          {
+            text: `${chalk.blueBright('Swagger Specification')}`,
+            link: outputJson.endpoints + '/api-spec',
+          },
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: outputJson.endpoints + '/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+    } else {
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: outputJson.endpoints + '/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+    }
+    console.log();
+    console.log();
   }
 }

@@ -207,14 +207,28 @@ export class CreateStackCommand extends Command {
         },
       },
     ]);
+    let slsinfo = '';
     try {
       await tasks.run();
-      await Helpers.executeChildProcess(
+      slsinfo = await Helpers.executeChildProcess2(
         'node_modules/serverless/bin/serverless info',
         { cwd: stackFolder }
       );
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
+    }
+    try {
+      const appConfig = JSON.parse(
+        fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
+      ) as AppConfig;
+      Helpers.createCLIOutput(
+        slsinfo,
+        appConfig.enableApiKeyAuth,
+        appConfig.enableSwagger
+      );
+    } catch (error) {
+      this.log(`${chalk.red(error.message)}`);
+      this.log(slsinfo);
     }
   }
 
