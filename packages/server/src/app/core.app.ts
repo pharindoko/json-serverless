@@ -1,6 +1,6 @@
 import { Logger } from '../utils/logger';
 import { AppConfig } from './app.config';
-const swaggerUi = require('swagger-ui-express');
+import swaggerUi from 'swagger-ui-express';
 import * as lowdb from 'lowdb';
 import express from 'express';
 import jsonServer = require('json-server');
@@ -89,13 +89,11 @@ export class CoreApp {
     if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
-      swaggerSetupMiddleware(
-        {},
-        { send: () => {} },
-        () => (err: object): void => {
-          console.log(err);
-        }
-      );
+      const req: any = {};
+      const res: any = { send: () => {} };
+      swaggerSetupMiddleware(req, res, () => (err: object): void => {
+        console.log(err);
+      });
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
