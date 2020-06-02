@@ -152,7 +152,7 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 
 => With the next request a new db.json file will be created in the S3 Bucket
 
-#### Adapt settings
+### Adapt settings (in the stackfolder you can find this config under ./config/appconfig.json)
 
 | Attribute            | Description                                                              | Type    | Default |
 | -------------------- | ------------------------------------------------------------------------ | ------- | ------- |
@@ -175,39 +175,72 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 - [AWS Lambda](https://aws.amazon.com/lambda/features/)
 - [AWS S3](https://aws.amazon.com/s3/)
 
-## Further Development
+## Develop & Contribute
+
+PRs are welcome!
+
+### Overview
+
+Please have a look into the makefile to get the understanding how this construct is built.
+There are components managed: (under /packages)
+
+- cli
+  - built with oclif
+  - main purpose is to enease the usage of the tool
+  - creates a stack folder out of the template package
+- server
+  - the core component of the solution
+  - has json server implemented under the hood
+  - components will be injected from outside into the library (storageadapter, swagger)
+  - can be customized and used without the other parts (could be deployed with docker)
+  - library can be used in other solutions as well
+- template
+
+  - a serverless framework template
+  - can be used standalone without the cli
+
+    ```bash
+      serverless create --template-url https://github.com/pharindoko/json-serverless/tree/master/packages/template
+
+      npm i
+      npm run build
+      sls deploy
+      sls offline
+    ```
+
+### Installation
+
+```
+make install
+```
+
+### Start the server component
+
+```bash
+make start-server
+```
 
 the json file will be loaded directly from your local filesystem. No AWS access is needed.
 
-### Start solution
+### Start the template component
+
+Mind: Ensure you have AWS credentials in place due to requests to S3 bucket.
 
 ```bash
-make start-test
+make start-template
 ```
 
-### Test your API
+the json file will be loaded directly from the s3 bucket. This is very close to how the solution behaves in the lambda and aws cloud.
 
-#### With Swagger
+### Start the cli component
 
-Open the {ENDPOINTURL}: http://localhost:3000/ui that you received as output
-
-#### With Curl
-
-1. replace the url with the url provided by serverless (see above)
-2. replace the {API - KEY} with the key you get from serverless (see above)
-3. replace {route} at the end of the url e.g. with posts (default value)
-
-Default Schema:
+you should see a direct output of all local endpoints.
 
 ```bash
-Default route is posts: (see db.json)
-curl -H "Content-Type: application/json" http://localhost:3000/api/posts
-
-#or another route given in db.json file
-curl -H "Content-Type: application/json" http://localhost:3000/api/{route}
+make start-cli
 ```
 
-What`s my {route} ? -> see [json-server documentation](https://github.com/typicode/json-server)
+the json file will be loaded directly from your local filesystem. No AWS access is needed.
 
 ## FAQ
 
