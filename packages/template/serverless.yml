@@ -36,6 +36,7 @@ provider:
     s3Bucket: ${self:custom.file.s3Bucket}
     s3File: ${self:custom.file.s3File}
     basePath: ${self:custom.file.basePath}
+    AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
   apiGateway: # Optional API Gateway global config
     binaryMediaTypes: # Optional binary media types the API might return
       - '*/*'
