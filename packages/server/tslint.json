@@ -1,8 +1,7 @@
 {
   "extends": "gts/tslint.json",
   "linterOptions": {
-    "exclude": [
-      "**/*.json"
-    ]
-  }
+    "exclude": ["**/*.json"]
+  },
+  "rules": { "no-any": false }
 }
