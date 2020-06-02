@@ -37,11 +37,19 @@ endif
 	npx lerna publish from-git --yes
 
 #######################
+# SERVER LIB PACKAGE
+#######################
+
+.PHONY: start-server
+start-server: # execute the library locally
+	npx lerna run --scope json-serverless-lib  --stream start
+
+#######################
 # CLI PACKAGE
 #######################
 
 .PHONY: start-cli
-start-cli:
+start-cli: # execute locally via cli run command
 	make install
 	npx lerna run --scope json-serverless  --stream start
 
@@ -50,17 +58,9 @@ start-cli:
 #######################
 
 .PHONY: start-template
-start-template:
-	lerna bootstrap
+start-template: # execute the stack via serverless offline / serverless framework (needs to be deployed once in advance)
+	lerna bootstrap 
 	npx lerna run --scope json-serverless-template  --stream start
-
-#######################
-# SERVER LIB PACKAGE
-#######################
-
-.PHONY: start-server
-start-server:
-	npx lerna run --scope json-serverless-lib  --stream start
 
 #######################
 # CICD COMMANDS
