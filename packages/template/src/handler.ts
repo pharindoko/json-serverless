@@ -8,6 +8,7 @@ import {
   S3StorageAdapter,
   CloudEnvironment,
   CoreApp,
+  FileStorageAdapter,
 } from 'json-serverless-lib';
 
 import fs from 'fs';
@@ -25,17 +26,28 @@ const swagger = new Swagger(
   './package.json'
 );
 
-const core = new CoreApp(
-  appConfig,
-  server,
-  new S3StorageAdapter(environment.s3Bucket, environment.s3File),
-  swagger,
-  environment
-);
+let core: CoreApp | undefined;
+if (process.env.IS_OFFLINE) {
+  core = new CoreApp(
+    appConfig,
+    server,
+    new FileStorageAdapter('db.json'),
+    swagger,
+    environment
+  );
+} else {
+  core = new CoreApp(
+    appConfig,
+    server,
+    new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+    swagger,
+    environment
+  );
+}
 
 const init = async () => {
   return new Promise(async (resolve, reject) => {
-    await core.setup();
+    await core!.setup();
     resolve();
   });
 };

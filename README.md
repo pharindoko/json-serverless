@@ -214,6 +214,12 @@ There are components managed: (under /packages)
 make install
 ```
 
+Lerna will be used to manage the monorepo`s dependencies.
+
+```
+lerna bootstrap
+```
+
 ### Start the server component
 
 ```bash
@@ -224,13 +230,13 @@ the json file will be loaded directly from your local filesystem. No AWS access 
 
 ### Start the template component
 
-Mind: Ensure you have AWS credentials in place due to requests to S3 bucket.
+This part is using the serverless offline and is close to how the solution behaves in the cloud.
 
 ```bash
 make start-template
 ```
 
-the json file will be loaded directly from the s3 bucket. This is very close to how the solution behaves in the lambda and aws cloud.
+the json file will be loaded directly from your local filesystem. No AWS access is needed.
 
 ### Start the cli component
 
