@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.40 linux-x64 node-v10.20.1
+json-serverless/1.5.41 linux-x64 node-v10.21.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -46,10 +46,14 @@ ARGUMENTS
   STAGE  [default: dev] stage name
 
 OPTIONS
-  -a, --apikeyauth    require api key authentication to access api
-  -h, --help          show CLI help
-  -r, --readonly      set api to readonly (true) or writeable (false)
-  -s, --[no-]swagger  enable or disable swagger interface support
+  -a, --apikeyauth               require api key authentication to access api
+  -d, --description=description  api description
+  -h, --help                     show CLI help
+  -i, --region=region            AWS region
+  -n, --name=name                api name
+  -r, --readonly                 set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger             enable or disable swagger interface support
+  -y, --autoapprove              skip interactive approval before deployment
 ```
 
 ## `jsonsls help [COMMAND]`
