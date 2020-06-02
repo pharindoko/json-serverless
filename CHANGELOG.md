@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.38](https://github.com/pharindoko/json-serverless/compare/v1.5.37...v1.5.38) (2020-05-15)
+
+
+### Bug Fixes
+
+* **deps:** update dependency tslib to v2 ([dbaa3c4](https://github.com/pharindoko/json-serverless/commit/dbaa3c4c3eb58567bf503179886387dfea545243))
+
+
+
+
+
+## [1.5.37](https://github.com/pharindoko/json-serverless/compare/v1.5.36...v1.5.37) (2020-05-12)
+
+
+### Features
+
+* **common:** add option to enable/disable swagger interface ([e38766e](https://github.com/pharindoko/json-serverless/commit/e38766e811977959983430f72de8dcff764946ea))
+
+
+
+
+
 ## [1.5.36](https://github.com/pharindoko/json-serverless/compare/v1.5.35...v1.5.36) (2020-05-05)
 
 

@@ -22,6 +22,14 @@ export class CreateStackCommand extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // default value if flag not passed (can be a function that returns a string or undefined)
     }),
+    swagger: flags.boolean({
+      char: 's', // shorter flag version
+      description: 'enable or disable swagger interface support', // help description for flag
+      hidden: false, // hide from help
+      default: true, // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      allowNo: true,
+    }),
     apikeyauth: flags.boolean({
       char: 'a', // shorter flag version
       description: 'require api key authentication to access api', // help description for flag
@@ -127,6 +135,7 @@ export class CreateStackCommand extends Command {
           appconfig.jsonFile = filePath;
           appconfig.enableApiKeyAuth = flags.apikeyauth;
           appconfig.readOnly = flags.readonly;
+          appconfig.enableSwagger = flags.swagger;
           appconfig.stackName = stackName;
           Helpers.createDir(stackFolder + '/config');
           fs.writeFileSync(

@@ -1,4 +1,4 @@
-# JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-serverless) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![DeepScan grade](https://deepscan.io/api/teams/8861/projects/11081/branches/160781/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8861&pid=11081&bid=160781)<a href="https://codeclimate.com/github/pharindoko/json-serverless/maintainability"><img src="https://api.codeclimate.com/v1/badges/12f2aa333ec4e24b1ac9/maintainability" /></a>
+# JSON Serverless [![Renovate enabled](https://img.shields.io/badge/renovate-enabled-brightgreen.svg)](https://renovatebot.com/) [![Build Status](https://travis-ci.org/pharindoko/json-serverless.svg?branch=master)](https://travis-ci.org/pharindoko/json-serverless) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![DeepScan grade](https://deepscan.io/api/teams/8861/projects/11081/branches/160781/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=8861&pid=11081&bid=160781)<a href="https://codeclimate.com/github/pharindoko/json-serverless/maintainability"></a> ![aws provider](https://img.shields.io/badge/provider-AWS-orange?logo=amazon-aws&color=ff9900)
 
 ![Trailer](docs/jsonsls-local.gif)
 
@@ -159,6 +159,7 @@ curl -H "x-api-key: {API-KEY}" -H "Content-Type: application/json" https://xxxxx
 | readOnly             | Make API readonly - all API - write operations are forbidden (http 403)) | string  | false   |
 | enableApiKeyAuth     | Make your routes private by using an additional ApiKey                   | boolean | false   |
 | enableJSONValidation | validate JSON file at start                                              | boolean | true    |
+| enableSwagger        | enable or disable Swagger (and related Graphql) features                 | boolean | true    |
 
 ## Used Packages
 

@@ -1,6 +1,6 @@
 import { Logger } from '../utils/logger';
 import { AppConfig } from './app.config';
-const swaggerUi = require('swagger-ui-express');
+import swaggerUi from 'swagger-ui-express';
 import * as lowdb from 'lowdb';
 import express from 'express';
 import jsonServer = require('json-server');
@@ -48,7 +48,7 @@ export class CoreApp {
     const json = await this.adapter.getState();
     if (this.validateJSON(json)) {
       const { middlewares, router } = this.initializeLayers();
-      await this.setupRoutes(json, middlewares, router);
+      await this.setupRoutes(json, middlewares, router, this.appConfig);
     } else {
       Output.setError('provided json is not valid - see validation checks');
       throw Error('provided json is not valid - see validation checks');
@@ -77,20 +77,23 @@ export class CoreApp {
     return isValid;
   }
 
-  protected async setupRoutes(db: {}, middlewares, router): Promise<void> {
+  protected async setupRoutes(
+    db: {},
+    middlewares,
+    router,
+    appConfig: AppConfig
+  ): Promise<void> {
     middlewares.splice(middlewares.findIndex(x => x.name === 'serveStatic'), 1);
     this.server.use(middlewares);
     this.server.use('/api', router);
-    if (!this.swaggerSpec) {
+    if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
-      swaggerSetupMiddleware(
-        {},
-        { send: () => {} },
-        () => (err: object): void => {
-          console.log(err);
-        }
-      );
+      const req: any = {};
+      const res: any = { send: () => {} };
+      swaggerSetupMiddleware(req, res, () => (err: object): void => {
+        console.log(err);
+      });
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
