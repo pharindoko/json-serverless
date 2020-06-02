@@ -10,7 +10,7 @@ help:  ## help target to show available commands with information
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) |  awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 #######################
-# General
+# INSTALLATION
 #######################
 
 .PHONY: install
@@ -22,19 +22,6 @@ install:
 download: 
 	npm i -g json-serverless
 	jsonsls
-
-#######################
-# Publishing
-#######################
-
-.PHONY: publish-manually
-publish-manually:
-ifndef GH_TOKEN
-	$(error GH_TOKEN is undefined)
-endif
-	make install
-	npx lerna version --include-merged-tags --force-publish --conventional-commits --create-release github
-	npx lerna publish from-git --yes
 
 #######################
 # SERVER LIB PACKAGE
@@ -81,4 +68,17 @@ endif
 	make install
 	git status
 	npx lerna version patch -m "chore(release): Travis CI update [ci skip]" --include-merged-tags --force-publish --conventional-commits --create-release github --yes --git-remote pub
+	npx lerna publish from-git --yes
+
+#######################
+# PUBLISH
+#######################
+
+.PHONY: publish-manually
+publish-manually:
+ifndef GH_TOKEN
+	$(error GH_TOKEN is undefined)
+endif
+	make install
+	npx lerna version --include-merged-tags --force-publish --conventional-commits --create-release github
 	npx lerna publish from-git --yes
