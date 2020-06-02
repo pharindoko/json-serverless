@@ -6,6 +6,7 @@ import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import chalk from 'chalk';
 import cli from 'cli-ux';
+import { AppConfig } from 'json-serverless-lib';
 
 export class UpdateStackCommand extends Command {
   static description = 'describe the command here';
@@ -46,6 +47,7 @@ export class UpdateStackCommand extends Command {
 
   async run() {
     const logo = await Helpers.generateLogo('json-serverless');
+    this.log();
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { flags } = this.parse(UpdateStackCommand);
@@ -168,14 +170,24 @@ export class UpdateStackCommand extends Command {
         },
       },
     ]);
+    let slsinfo = '';
     try {
       await tasks.run();
-      await Helpers.executeChildProcess(
+      slsinfo = await Helpers.executeChildProcess2(
         'node_modules/serverless/bin/serverless info',
         { cwd: stackFolder }
       );
     } catch (error) {
       this.error(`${chalk.red(error.message)}`);
+    }
+    try {
+      const appConfig = JSON.parse(
+        fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
+      ) as AppConfig;
+      Helpers.createCLIOutput(slsinfo, appConfig.enableApiKeyAuth);
+    } catch (error) {
+      this.log(`${chalk.red(error.message)}`);
+      this.log(slsinfo);
     }
   }
 }
