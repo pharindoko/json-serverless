@@ -184,7 +184,13 @@ export class UpdateStackCommand extends Command {
       const appConfig = JSON.parse(
         fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
       ) as AppConfig;
-      Helpers.createCLIOutput(slsinfo, appConfig.enableApiKeyAuth);
+
+      Helpers.createCLIOutput(
+        slsinfo,
+        appConfig.enableApiKeyAuth,
+        appConfig.enableSwagger
+      );
+
     } catch (error) {
       this.log(`${chalk.red(error.message)}`);
       this.log(slsinfo);

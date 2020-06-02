@@ -212,7 +212,12 @@ export class Helpers {
     return true;
   }
 
-  static createCLIOutput(slsinfo: string, apiAuth: boolean) {
+  static createCLIOutput(
+    slsinfo: string,
+    apiAuth: boolean,
+    enableSwagger: boolean
+  ) {
+
     const rows = JSON.stringify(slsinfo).split('\\n') as any[];
     const createKeyValues = rows.map((x, i, rows) => {
       if (x.startsWith('  ANY -')) {
@@ -293,28 +298,42 @@ export class Helpers {
     console.log();
     console.log();
 
-    cli.table(
-      [
-        {
-          text: `${chalk.blueBright('Swagger UI')}`,
-          link: outputJson.endpoints + '/ui',
-        },
-        {
-          text: `${chalk.blueBright('GraphiQL')}`,
-          link: outputJson.endpoints + '/graphql',
-        },
-        {
-          text: `${chalk.blueBright('Swagger Specification')}`,
-          link: outputJson.endpoints + '/api-spec',
-        },
-        {
-          text: `${chalk.blueBright('API Routes')}`,
-          link: outputJson.endpoints + '/api/{routes}',
-        },
-      ],
-      { text: { minWidth: 30 }, link: { minWidth: 20 } },
-      { 'no-header': true }
-    );
+    if (enableSwagger) {
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('Swagger UI')}`,
+            link: outputJson.endpoints + '/ui',
+          },
+          {
+            text: `${chalk.blueBright('GraphiQL')}`,
+            link: outputJson.endpoints + '/graphql',
+          },
+          {
+            text: `${chalk.blueBright('Swagger Specification')}`,
+            link: outputJson.endpoints + '/api-spec',
+          },
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: outputJson.endpoints + '/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+    } else {
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('API Routes')}`,
+            link: outputJson.endpoints + '/api/{routes}',
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+    }
+
     console.log();
     console.log();
   }
