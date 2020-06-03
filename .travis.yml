@@ -12,6 +12,7 @@ notifications:
 node_js:
   - '10'
 before_install:
+  - pip install awscli
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
   - echo $COMMITCOUNT
 install:

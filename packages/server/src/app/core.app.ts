@@ -83,7 +83,10 @@ export class CoreApp {
     router,
     appConfig: AppConfig
   ): Promise<void> {
-    middlewares.splice(middlewares.findIndex(x => x.name === 'serveStatic'), 1);
+    middlewares.splice(
+      middlewares.findIndex(x => x.name === 'serveStatic'),
+      1
+    );
     this.server.use(middlewares);
     this.server.use('/api', router);
     if (!this.swaggerSpec && appConfig.enableSwagger) {
