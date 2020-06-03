@@ -79,7 +79,8 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "start": "bin/run run ../../db.json",
-    "deploy": "export NODE_ENV=local && bin/run create-stack ../../db.json",
+    "deploy": "bin/run create-stack ../../db.json -i=us-east-1 -d='serverless deploy test' -n=sls-deployment-test -y",
+    "remove": "cd sls-deployment-test && aws s3 rm s3://jsonsls-sls-deployment-test-dev/ --recursive && sls remove",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",

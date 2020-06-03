@@ -1,4 +1,4 @@
-dist: trusty
+dist: bionic
 git:
   depth: false
 language: node_js
@@ -37,6 +37,26 @@ jobs:
         - npm run test
       before_script: cd packages/server
       name: test-server
+    - script:
+        - |
+          if [ $TRAVIS_PULL_REQUEST == "true" ]; then
+          npm run build;
+          bin/run --version;
+          npm run deploy;
+          fi
+      before_script:
+        - |
+          if [ $TRAVIS_PULL_REQUEST == "true" ]; then
+          pip install awscli;
+          make fake-credentials;
+          cd packages/cli;
+          fi
+      after_script:
+        - |
+          if [ $TRAVIS_PULL_REQUEST == "true" ]; then
+          npm run remove;
+          fi
+      name: deploy-cli
     - stage: release
       if: (type = push AND branch = master)
       before_script:
