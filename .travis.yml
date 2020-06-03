@@ -1,4 +1,4 @@
-dist: trusty
+dist: bionic
 git:
   depth: false
 language: node_js
@@ -12,6 +12,7 @@ notifications:
 node_js:
   - '10'
 before_install:
+  - pip install awscli
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
   - echo $COMMITCOUNT
 install:
@@ -37,6 +38,16 @@ jobs:
         - npm run test
       before_script: cd packages/server
       name: test-server
+    - script:
+        - npm run build
+        - bin/run --version
+        - npm run deploy
+      before_script:
+        - make fake-credentials
+        - cd packages/cli
+      after_script: npm run remove
+      name: deploy-cli
+
     - stage: release
       if: (type = push AND branch = master)
       before_script:
