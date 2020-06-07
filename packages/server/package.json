@@ -66,7 +66,7 @@
     "@types/swagger-schema-official": "2.0.21",
     "@types/swagger-ui-express": "4.1.2",
     "cz-conventional-changelog": "3.2.0",
-    "eslint": "7.1.0",
+    "eslint": "7.2.0",
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-plugin-import": "2.20.2",
     "express-swagger-generator": "1.1.17",
