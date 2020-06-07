@@ -9,7 +9,7 @@ import cli from 'cli-ux';
 import { AppConfig } from 'json-serverless-lib';
 
 export class UpdateStackCommand extends Command {
-  static description = 'describe the command here';
+  static description = 'update the stackfolder and update the stack in the cloud';
 
   static flags = {
     help: flags.help({ char: 'h' }),

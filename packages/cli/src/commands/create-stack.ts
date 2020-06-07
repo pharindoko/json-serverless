@@ -10,7 +10,7 @@ import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
 import chalk from 'chalk';
 export class CreateStackCommand extends Command {
-  static description = 'describe the command here';
+  static description = 'create the stackfolder and deploy the stack in the cloud';
 
   static flags = {
     help: flags.help({ char: 'h' }),

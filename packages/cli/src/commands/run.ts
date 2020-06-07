@@ -5,7 +5,7 @@ import { Helpers } from '../actions/helpers';
 import cli from 'cli-ux';
 import chalk from 'chalk';
 export class Run extends Command {
-  static description = 'describe the command here';
+  static description = 'run and test the api locally';
 
   static flags = {
     help: flags.help({ char: 'h' }),
