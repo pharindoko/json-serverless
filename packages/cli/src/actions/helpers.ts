@@ -6,6 +6,16 @@ import figlet from 'figlet';
 import chalk from 'chalk';
 import cli from 'cli-ux';
 export class Helpers {
+  static readFileSync(directoryPath: string): string {
+    const normalizedPath = path.normalize(directoryPath);
+    if (!fs.existsSync(normalizedPath)) {
+      throw new Error('file' + normalizedPath + ' does not exist');
+    } else {
+      const file = fs.readFileSync(normalizedPath, 'UTF-8');
+      return file;
+    }
+  }
+
   static validateFile(filePath: string): string {
     if (!path.isAbsolute(filePath)) {
       filePath = path.normalize(process.cwd() + '/' + filePath);
@@ -217,7 +227,6 @@ export class Helpers {
     apiAuth: boolean,
     enableSwagger: boolean
   ) {
-
     const rows = JSON.stringify(slsinfo).split('\\n') as any[];
     const createKeyValues = rows.map((x, i, rows) => {
       if (x.startsWith('  ANY -')) {
