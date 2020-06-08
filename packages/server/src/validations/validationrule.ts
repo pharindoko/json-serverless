@@ -1,5 +1,6 @@
 import { RuleEvent, RuleResultSeverity, RuleEventList } from './ruleevent';
-
+import * as requestSchema from './requestschema.json';
+import ajv from 'ajv';
 export abstract class ValidationRule {
   protected jsonObject = {} as object;
   ruleEvents = new Array<RuleEvent>();
@@ -83,6 +84,35 @@ export class HasIdAttributeRule extends ValidationRule {
           }
           this.ruleEvents.push(new RuleEvent(ruleSeverity, message));
         });
+      }
+    } catch (e) {
+      const ruleSeverityError = RuleResultSeverity.ALERT;
+      const messageError = e.message;
+      this.ruleEvents.push(new RuleEvent(ruleSeverityError, messageError));
+    }
+    return this.ruleEvents;
+  }
+}
+export class EmptyArrayRule extends ValidationRule {
+  validate(): RuleEvent[] {
+    try {
+      if (this.jsonObject) {
+        const ajvObject = new ajv();
+        const result = ajvObject.validate(requestSchema, this.jsonObject);
+        if (!result) {
+          for (const error of ajvObject.errors) {
+            if (error.message.includes('should NOT have fewer than 1 items')) {
+              const ruleSeverityError = RuleResultSeverity.ALERT;
+              const messageError =
+                'empty array found at path: ' +
+                error.dataPath +
+                ' - please deactivate Swagger/GraphQL interface (--no-swagger) or add at least one item in the array';
+              this.ruleEvents.push(
+                new RuleEvent(ruleSeverityError, messageError)
+              );
+            }
+          }
+        }
       }
     } catch (e) {
       const ruleSeverityError = RuleResultSeverity.ALERT;
