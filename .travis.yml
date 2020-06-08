@@ -38,16 +38,16 @@ jobs:
         - npm run test
       before_script: cd packages/server
       name: test-server
-    - script:
-        - npm run build
-        - bin/run --version
-        - npm run deploy
+    - stage: deploy
+      if: (type = pull_request)
       before_script:
         - make fake-credentials
         - cd packages/cli
-      after_script: npm run remove
-      name: deploy-cli
-
+      script:
+        - npm run build
+        - bin/run --version
+        - npm run deploy
+        - npm run remove
     - stage: release
       if: (type = push AND branch = master)
       before_script:
