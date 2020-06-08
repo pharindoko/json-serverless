@@ -18,8 +18,8 @@ export class Output {
   static printValidationReport(validationResult: ValidationResult) {
     const flattenedRules = new Array<any>();
     flattenedRules.push(['ValidationRule', 'Result', 'Message']);
-    for (let ruleEvent of validationResult.ruleEventList) {
-      for (let event of ruleEvent.events) {
+    for (const ruleEvent of validationResult.ruleEventList) {
+      for (const event of ruleEvent.events) {
         flattenedRules.push([
           ruleEvent.validationRule,
           event.result,
