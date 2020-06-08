@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import { startServer, AppConfig, JSONValidator } from 'json-serverless-lib';
+import { JSONValidator, Output } from 'json-serverless-lib';
 import express from 'express';
 import { Helpers } from '../actions/helpers';
 import cli from 'cli-ux';
@@ -35,6 +35,20 @@ export class Validate extends Command {
     const { args, flags } = this.parse(Validate);
     const filePath = Helpers.validateFile(args.file);
     const jsonFileContent = JSON.parse(Helpers.readFileSync(filePath));
-    JSONValidator.validate(jsonFileContent, flags.swagger);
+    const validationResult = JSONValidator.validate(
+      jsonFileContent,
+      flags.swagger
+    );
+    if (validationResult.isValid) {
+      this.log(
+        `${chalk.green('Validation was successful - No errors found.')}`
+      );
+    } else {
+      this.log(
+        `${chalk.red('Validation was not successful - see details below.')}`
+      );
+    }
+    this.log();
+    Output.printValidationReport(validationResult);
   }
 }
