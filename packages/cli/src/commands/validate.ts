@@ -1,8 +1,6 @@
 import { Command, flags } from '@oclif/command';
 import { JSONValidator, Output } from 'json-serverless-lib';
-import express from 'express';
 import { Helpers } from '../actions/helpers';
-import cli from 'cli-ux';
 import chalk from 'chalk';
 export class Validate extends Command {
   static description = 'describe the command here';
