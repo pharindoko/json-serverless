@@ -2,7 +2,7 @@ import * as inquirer from 'inquirer';
 import fs from 'fs-extra';
 import { Command, flags } from '@oclif/command';
 import Listr = require('listr');
-import { AppConfig } from 'json-serverless-lib';
+import { AppConfig, LogLevel } from 'json-serverless-lib';
 import * as path from 'path';
 import cli from 'cli-ux';
 import { Helpers } from '../actions/helpers';
@@ -10,7 +10,8 @@ import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
 import chalk from 'chalk';
 export class CreateStackCommand extends Command {
-  static description = 'create the stackfolder and deploy the stack in the cloud';
+  static description =
+    'create the stackfolder and deploy the stack in the cloud';
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -63,6 +64,14 @@ export class CreateStackCommand extends Command {
       description: 'skip interactive approval before deployment', // help description for flag
       hidden: false, // hide from help
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    loglevel: flags.string({
+      char: 'l', // shorter flag version
+      description: 'loglevel of outputs', // help description for flag
+      hidden: false, // hide from help
+      default: 'info',
+      options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
   };
@@ -186,6 +195,7 @@ export class CreateStackCommand extends Command {
             appconfig.readOnly = flags.readonly;
             appconfig.enableSwagger = flags.swagger;
             appconfig.stackName = stackName!;
+            appconfig.logLevel = flags.loglevel as LogLevel;;
             Helpers.createDir(stackFolder + '/config');
             fs.writeFileSync(
               path.normalize(stackFolder + '/config/appconfig.json'),

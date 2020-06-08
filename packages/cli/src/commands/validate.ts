@@ -9,6 +9,14 @@ export class Validate extends Command {
 
   static flags = {
     help: flags.help({ char: 'h' }),
+    swagger: flags.boolean({
+      char: 's', // shorter flag version
+      description: 'enable or disable swagger interface support', // help description for flag
+      hidden: false, // hide from help
+      default: true, // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      allowNo: true,
+    }),
   };
 
   static args = [
@@ -24,9 +32,9 @@ export class Validate extends Command {
     const logo = await Helpers.generateLogo('json-serverless');
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
-    const { args } = this.parse(Validate);
+    const { args, flags } = this.parse(Validate);
     const filePath = Helpers.validateFile(args.file);
     const jsonFileContent = JSON.parse(Helpers.readFileSync(filePath));
-    JSONValidator.validate(jsonFileContent);
+    JSONValidator.validate(jsonFileContent, flags.swagger);
   }
 }

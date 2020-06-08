@@ -1,5 +1,5 @@
 import { Logger } from '../utils/logger';
-import { AppConfig } from './app.config';
+import { AppConfig, LogLevel } from './app.config';
 import swaggerUi from 'swagger-ui-express';
 import * as lowdb from 'lowdb';
 import express from 'express';
@@ -14,6 +14,7 @@ import { GraphQLMethods } from '../utils/grapqhl_callback';
 import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
 import { Output } from '../utils/output';
+import { ValidationResult } from '../validations/validationresult';
 
 export class CoreApp {
   private storageAdapter: StorageAdapter;
@@ -37,9 +38,8 @@ export class CoreApp {
     this.storageAdapter = storageAdapter;
     this.apispec = apispec;
     this.environment = environment;
-    Logger.getInstance().info(
-      'environment: ' + JSON.stringify(this.environment)
-    );
+    Logger.init(appConfig.logLevel);
+    Output.setDebugInfo('environment: ' + JSON.stringify(this.environment));
   }
 
   async setup(): Promise<void> {
@@ -50,8 +50,12 @@ export class CoreApp {
       const { middlewares, router } = this.initializeLayers();
       await this.setupRoutes(json, middlewares, router, this.appConfig);
     } else {
-      Output.setError('provided json is not valid - see validation checks');
-      throw Error('provided json is not valid - see validation checks');
+      Output.setError(
+        'provided json is not valid - please solve the mentioned issues first to go ahead'
+      );
+      throw Error(
+        'provided json is not valid - please solve the mentioned issues first'
+      );
     }
   }
 
@@ -70,11 +74,20 @@ export class CoreApp {
   }
 
   protected validateJSON(db: {}): boolean {
-    let isValid = true;
+    let validationResult = new ValidationResult();
     if (this.appConfig.enableJSONValidation) {
-      isValid = JSONValidator.validate(db);
+      validationResult = JSONValidator.validate(
+        db,
+        this.appConfig.enableSwagger
+      );
+      if (
+        !validationResult.isValid ||
+        this.appConfig.logLevel === LogLevel.debug
+      ) {
+        Output.printValidationReport(validationResult);
+      }
     }
-    return isValid;
+    return validationResult.isValid;
   }
 
   protected async setupRoutes(

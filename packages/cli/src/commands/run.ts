@@ -1,5 +1,5 @@
 import { Command, flags } from '@oclif/command';
-import { startServer, AppConfig } from 'json-serverless-lib';
+import { startServer, AppConfig, LogLevel } from 'json-serverless-lib';
 import express from 'express';
 import { Helpers } from '../actions/helpers';
 import cli from 'cli-ux';
@@ -33,6 +33,14 @@ export class Run extends Command {
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // default value if flag not passed (can be a function that returns a string or undefined)
     }),
+    loglevel: flags.string({
+      char: 'l', // shorter flag version
+      description: 'loglevel of outputs', // help description for flag
+      hidden: false, // hide from help
+      default: 'info',
+      options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   static args = [
@@ -53,6 +61,7 @@ export class Run extends Command {
     const defaultConfig = new AppConfig();
     defaultConfig.readOnly = flags.readonly;
     defaultConfig.enableSwagger = flags.swagger;
+    defaultConfig.logLevel = flags.loglevel as LogLevel;
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
       const promise = startServer(

@@ -25,7 +25,7 @@ export class Swagger implements ApiSpecification {
   }
 
   generateSpecification = (json: object): object => {
-    Output.setInfo('Init Swagger');
+    Output.setDebugInfo('Init Swagger');
     const swaggerSchemaDefinitions = this.swaggerDefGen.generateDefinitions(
       json
     );
