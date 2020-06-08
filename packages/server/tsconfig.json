@@ -6,13 +6,14 @@
     "declaration": true,
     "esModuleInterop": true,
     "declarationMap": true,
-    "outDir": "lib",               
+    "outDir": "lib",
     "rootDir": "./src",
     "composite": false,
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
-    "lib": [ "es2015" ],
-    "sourceMap": false
+    "lib": ["es2015"],
+    "sourceMap": false,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["tests"]
