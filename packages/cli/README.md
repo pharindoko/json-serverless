@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.41 darwin-x64 node-v14.2.0
+json-serverless/1.5.42 linux-x64 node-v10.21.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -32,11 +32,11 @@ USAGE
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
 * [`jsonsls update-stack`](#jsonsls-update-stack)
-* [`jsonsls validate`](#jsonsls-validate)
+* [`jsonsls validate FILE`](#jsonsls-validate-file)
 
 ## `jsonsls create-stack FILE [STAGE]`
 
-describe the command here
+create the stackfolder and deploy the stack in the cloud
 
 ```
 USAGE
@@ -51,6 +51,7 @@ OPTIONS
   -d, --description=description  api description
   -h, --help                     show CLI help
   -i, --region=region            AWS region
+  -l, --loglevel=info|debug      [default: info] loglevel of outputs
   -n, --name=name                api name
   -r, --readonly                 set api to readonly (true) or writeable (false)
   -s, --[no-]swagger             enable or disable swagger interface support
@@ -76,7 +77,7 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1
 
 ## `jsonsls run FILE`
 
-describe the command here
+run and test the api locally
 
 ```
 USAGE
@@ -88,13 +89,14 @@ ARGUMENTS
 OPTIONS
   -e, --env=development|local  [default: local] environment
   -h, --help                   show CLI help
+  -l, --loglevel=info|debug    [default: info] loglevel of outputs
   -r, --readonly               set api to readonly (true) or writeable (false)
   -s, --[no-]swagger           enable or disable swagger interface support
 ```
 
 ## `jsonsls update-stack`
 
-describe the command here
+update the stackfolder and update the stack in the cloud
 
 ```
 USAGE
@@ -103,24 +105,25 @@ USAGE
 OPTIONS
   -a, --apikeyauth                         require api key authentication to access api
   -h, --help                               show CLI help
+  -l, --loglevel=info|debug                [default: info] loglevel of outputs
   -p, --currentdirectory=currentdirectory  current working directory that will be used for execution
   -r, --readonly                           set api to readonly (true) or writeable (false)
   -s, --[no-]swagger                       enable or disable swagger interface support
 ```
 
-## `jsonsls validate`
+## `jsonsls validate FILE`
 
-Describe the command here
+describe the command here
 
 ```
 USAGE
-  $ jsonsls validate
+  $ jsonsls validate FILE
+
+ARGUMENTS
+  FILE  path of JSON file
 
 OPTIONS
-  -n, --name=name  name to print
-
-DESCRIPTION
-  ...
-  Extra documentation goes here
+  -h, --help          show CLI help
+  -s, --[no-]swagger  enable or disable swagger interface support
 ```
 <!-- commandsstop -->

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.42](https://github.com/pharindoko/json-serverless/compare/v1.5.41...v1.5.42) (2020-06-09)
+
+
+### Features
+
+* **server:** add loglevels (info as default, debug) to have less unneeded output ([d482752](https://github.com/pharindoko/json-serverless/commit/d482752204b2743d275578f38cce1a3fff8baaeb))
+* **server:** add new validation rule to check for empty arrays ([6e3da25](https://github.com/pharindoko/json-serverless/commit/6e3da2541c109ba3ae00631931ba3392ce9a9868))
+
+
+
+
+
 ## [1.5.41](https://github.com/pharindoko/json-serverless/compare/v1.5.40...v1.5.41) (2020-06-02)
 
 **Note:** Version bump only for package json-serverless-lib
