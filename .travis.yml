@@ -4,7 +4,6 @@ git:
 language: node_js
 env:
   - COMMITCOUNT="$(git log $(git describe --tags --abbrev=0)..HEAD --oneline|grep -iv 'revert' |grep -e 'fix(' -e 'feat(' -e 'fix:' -e 'feat:' | wc -l | awk '{print $1}')"
-  - SLS_NAME="$(echo sls-$TRAVIS_BRANCH | sed 's/[^a-zA-Z0-9-]//g' |cut -c1-20)"
 cache:
   directories:
     - ~/.npm
@@ -13,13 +12,12 @@ notifications:
 node_js:
   - '10'
 before_install:
-  - pip install awscli
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
   - echo $COMMITCOUNT
-  - echo $SLSNAME
 install:
   - npm config set package-lock false
   - make install
+
 jobs:
   include:
     - script:
@@ -39,18 +37,6 @@ jobs:
         - npm run test
       before_script: cd packages/server
       name: test-server
-    - stage: deploy
-      if: (type = pull_request)
-      before_script:
-        - make fake-credentials
-        - cd packages/cli
-      script:
-        - npm run build
-        - bin/run --version
-        - bin/run create-stack ../../db.json -i=us-east-1 -d='serverless deploy test' -n=$SLS_NAME -y
-        - cd $SLS_NAME && aws s3 rm s3://jsonsls-$SLS_NAME-dev/ --recursive && sls remove
-      after_script:
-        - aws cloudformation delete-stack --stack-name $SLS_NAME
     - stage: release
       if: (type = push AND branch = master)
       before_script:
