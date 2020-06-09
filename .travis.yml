@@ -20,7 +20,6 @@ before_install:
 install:
   - npm config set package-lock false
   - make install
-
 jobs:
   include:
     - script:
@@ -50,6 +49,8 @@ jobs:
         - bin/run --version
         - bin/run create-stack ../../db.json -i=us-east-1 -d='serverless deploy test' -n=$SLS_NAME -y
         - cd $SLS_NAME && aws s3 rm s3://jsonsls-$SLS_NAME-dev/ --recursive && sls remove
+      after_script:
+        - aws cloudformation delete-stack --stack-name $SLS_NAME
     - stage: release
       if: (type = push AND branch = master)
       before_script:
