@@ -6,10 +6,11 @@ import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import chalk from 'chalk';
 import cli from 'cli-ux';
-import { AppConfig } from 'json-serverless-lib';
+import { AppConfig, LogLevel } from 'json-serverless-lib';
 
 export class UpdateStackCommand extends Command {
-  static description = 'update the stackfolder and update the stack in the cloud';
+  static description =
+    'update the stackfolder and update the stack in the cloud';
 
   static flags = {
     help: flags.help({ char: 'h' }),
@@ -41,6 +42,14 @@ export class UpdateStackCommand extends Command {
       description: 'current working directory that will be used for execution', // help description for flag
       hidden: false, // hide from help
       default: '', // default value if flag not passed (can be a function that returns a string or undefined)
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    loglevel: flags.string({
+      char: 'l', // shorter flag version
+      description: 'loglevel of outputs', // help description for flag
+      hidden: false, // hide from help
+      default: 'info',
+      options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
   };
@@ -116,12 +125,13 @@ export class UpdateStackCommand extends Command {
       {
         title: 'Update Appconfig',
         task: (ctx, task) => {
-          const appConfig = JSON.parse(
+          const appConfig: AppConfig = JSON.parse(
             fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
           );
           appConfig.enableApiKeyAuth = flags.apikeyauth;
           appConfig.readOnly = flags.readonly;
           appConfig.enableSwagger = flags.swagger;
+          appConfig.logLevel = flags.loglevel as LogLevel;
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appConfig, null, 2),
@@ -190,7 +200,6 @@ export class UpdateStackCommand extends Command {
         appConfig.enableApiKeyAuth,
         appConfig.enableSwagger
       );
-
     } catch (error) {
       this.log(`${chalk.red(error.message)}`);
       this.log(slsinfo);

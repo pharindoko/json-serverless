@@ -10,6 +10,7 @@
   },
   "scripts": {
     "test": "npx jest",
+    "debug": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec node --inspect-brk -r ts-node/register example/index.ts",
     "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "dependencies": {
+    "ajv": "^6.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
@@ -47,7 +49,8 @@
     "source-map-support": "^0.5.16",
     "supertest": "^4.0.2",
     "swagger-to-graphql": "^4.0.2",
-    "swagger-ui-express": "^4.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "table": "^5.4.6"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.52",
@@ -65,6 +68,7 @@
     "@types/supertest": "2.0.9",
     "@types/swagger-schema-official": "2.0.21",
     "@types/swagger-ui-express": "4.1.2",
+    "@types/table": "^5.0.0",
     "cz-conventional-changelog": "3.2.0",
     "eslint": "7.1.0",
     "eslint-config-airbnb-base": "14.1.0",
@@ -75,7 +79,7 @@
     "nodemon": "2.0.4",
     "ts-jest": "26.1.0",
     "ts-loader": "7.0.5",
-    "typescript": "3.9.3"
+    "typescript": "^3.9.3"
   },
   "config": {
     "commitizen": {

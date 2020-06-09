@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.41 linux-x64 node-v10.21.0
+json-serverless/1.5.41 darwin-x64 node-v14.2.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -32,6 +32,7 @@ USAGE
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
 * [`jsonsls update-stack`](#jsonsls-update-stack)
+* [`jsonsls validate`](#jsonsls-validate)
 
 ## `jsonsls create-stack FILE [STAGE]`
 
@@ -105,5 +106,21 @@ OPTIONS
   -p, --currentdirectory=currentdirectory  current working directory that will be used for execution
   -r, --readonly                           set api to readonly (true) or writeable (false)
   -s, --[no-]swagger                       enable or disable swagger interface support
+```
+
+## `jsonsls validate`
+
+Describe the command here
+
+```
+USAGE
+  $ jsonsls validate
+
+OPTIONS
+  -n, --name=name  name to print
+
+DESCRIPTION
+  ...
+  Extra documentation goes here
 ```
 <!-- commandsstop -->
