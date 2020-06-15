@@ -16,7 +16,7 @@ help:  ## help target to show available commands with information
 .PHONY: install
 install: 
 	npm i
-	npx lerna bootstrap
+	npx lerna bootstrap --no-ci
 
 .PHONY: download
 download: 
