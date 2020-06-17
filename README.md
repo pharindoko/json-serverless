@@ -19,7 +19,7 @@
   - Optional: Use a generated API Key
 - Customization:
   - This solution written in **Typescript** can be easily extended for additional enhanced scenarios
-    - adding user authentication
+    - adding user authentication ([Here`s an example](https://github.com/pharindoko/jsonsls-vue-cognito-demo))
     - own custom domain
     - additional routes etc.
 
@@ -128,6 +128,11 @@ What`s my {route} ? -> see [json-server documentation](https://github.com/typico
 ![Architecture](docs/json-serverless.png)
 
 ## Customization
+
+### Examples
+
+Please have a look at this example to see how you can add own middleware and authentication.  
+https://github.com/pharindoko/jsonsls-vue-cognito-demo
 
 ### Update content of db.json
 
