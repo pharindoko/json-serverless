@@ -6,6 +6,7 @@ export class AppConfig {
   enableSwagger = true;
   logLevel = LogLevel.info;
   stackName = 'jsonsls';
+  basePath = '/api';
   static merge = <T, U>(t: T, u: U) => Object.assign({}, t, u);
 }
 

@@ -101,7 +101,7 @@ export class CoreApp {
       1
     );
     this.server.use(middlewares);
-    this.server.use('/api', router);
+    this.server.use(appConfig.basePath, router);
     if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
