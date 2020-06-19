@@ -12,15 +12,18 @@ export class Swagger implements ApiSpecification {
   private server: express.Express;
   private config: SwaggerConfig;
   private basePath: string;
+  private apiRoutePath: string;
   constructor(
     server: express.Express,
     config: SwaggerConfig,
     basePath: string,
+    apiRoutePath: string,
     packageJsonFilePath: string
   ) {
     this.server = server;
     this.config = config;
     this.basePath = basePath;
+    this.apiRoutePath = apiRoutePath;
     this.swaggerSpec = new SwaggerSpec(packageJsonFilePath);
   }
 
@@ -33,7 +36,8 @@ export class Swagger implements ApiSpecification {
       this.server,
       {},
       this.config.readOnly,
-      this.basePath
+      this.basePath,
+      this.apiRoutePath
     );
     const auth: ApiKeySecurity = {
       type: 'apiKey',

@@ -52,6 +52,12 @@ export class UpdateStackCommand extends Command {
       options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    apiRoute: flags.string({
+      description: 'path to use for api route', // help description for flag
+      hidden: false, // hide from help
+      default: '/api',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   async run() {
@@ -132,6 +138,7 @@ export class UpdateStackCommand extends Command {
           appConfig.readOnly = flags.readonly;
           appConfig.enableSwagger = flags.swagger;
           appConfig.logLevel = flags.loglevel as LogLevel;
+          appConfig.apiRoutePath = flags.apiRoute;
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appConfig, null, 2),

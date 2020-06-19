@@ -71,7 +71,7 @@ export class SwaggerSpec {
     return sorted;
   }
 
-  initSpec(readOnly: boolean, basePath: string) {
+  initSpec(readOnly: boolean, basePath: string, routePath: string) {
     const info = this.updateSpecFromPackage(basePath);
     let specification: Spec = {
       swagger: '2.0',
@@ -80,7 +80,10 @@ export class SwaggerSpec {
     };
     specification.swagger = '2.0';
     specification.paths = {};
-    const excludedRoutes = ['/api/:resource/:id/:nested', '/api/db'];
+    const excludedRoutes = [
+      routePath + '/:resource/:id/:nested',
+      routePath + '/db',
+    ];
     const endpoints = listEndpoints(this.app);
     endpoints.forEach((endpoint: EndPoint) => {
       if (readOnly) {
@@ -134,11 +137,12 @@ export class SwaggerSpec {
     app: express.Express,
     predefinedSpec: object,
     readOnly: boolean,
-    basePath: string
+    basePath: string,
+    apiRoutePath: string
   ) => {
     this.app = app;
     this.predefinedSpec = predefinedSpec;
-    this.spec = this.initSpec(readOnly, basePath);
+    this.spec = this.initSpec(readOnly, basePath, apiRoutePath);
     return this.spec;
   };
 
