@@ -41,6 +41,12 @@ export class Run extends Command {
       options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    apiRoute: flags.string({
+      description: 'path to use for api route', // help description for flag
+      hidden: false, // hide from help
+      default: '/api',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   static args = [
@@ -62,6 +68,7 @@ export class Run extends Command {
     defaultConfig.readOnly = flags.readonly;
     defaultConfig.enableSwagger = flags.swagger;
     defaultConfig.logLevel = flags.loglevel as LogLevel;
+    defaultConfig.apiRoutePath = flags.apiRoute;
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
       const promise = startServer(
@@ -91,7 +98,7 @@ export class Run extends Command {
             },
             {
               text: `${chalk.blueBright('API Routes')}`,
-              link: 'http://localhost:3000/api/{routes}',
+              link: 'http://localhost:3000' + flags.apiRoute + '/{routes}',
             },
           ],
           { text: { minWidth: 30 }, link: { minWidth: 20 } },
@@ -102,7 +109,7 @@ export class Run extends Command {
           [
             {
               text: `${chalk.blueBright('API Routes')}`,
-              link: 'http://localhost:3000/api/{routes}',
+              link: 'http://localhost:3000' + flags.apiRoute + '/{routes}',
             },
           ],
           { text: { minWidth: 30 }, link: { minWidth: 20 } },

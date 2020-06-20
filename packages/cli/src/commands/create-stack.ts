@@ -74,6 +74,12 @@ export class CreateStackCommand extends Command {
       options: ['info', 'debug'], // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    apiRoute: flags.string({
+      description: 'path to use for api route', // help description for flag
+      hidden: false, // hide from help
+      default: '/api',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   static args = [
@@ -195,7 +201,8 @@ export class CreateStackCommand extends Command {
             appconfig.readOnly = flags.readonly;
             appconfig.enableSwagger = flags.swagger;
             appconfig.stackName = stackName!;
-            appconfig.logLevel = flags.loglevel as LogLevel;;
+            appconfig.logLevel = flags.loglevel as LogLevel;
+            appconfig.apiRoutePath = flags.apiRoute;
             Helpers.createDir(stackFolder + '/config');
             fs.writeFileSync(
               path.normalize(stackFolder + '/config/appconfig.json'),
