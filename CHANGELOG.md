@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.43](https://github.com/pharindoko/json-serverless/compare/v1.5.42...v1.5.43) (2020-06-20)
+
+
+### Bug Fixes
+
+* **server:** add ts-node to dev dependencies ([5f9f32d](https://github.com/pharindoko/json-serverless/commit/5f9f32db71e97da1915866dcc7df50582bce38a8))
+
+
+### Features
+
+* **server:** expose api base path in app.config ([9d0de45](https://github.com/pharindoko/json-serverless/commit/9d0de45e8def5528663e1ba4d02d701be3c3cf37))
+
+
+
+
+
 ## [1.5.42](https://github.com/pharindoko/json-serverless/compare/v1.5.41...v1.5.42) (2020-06-09)
 
 

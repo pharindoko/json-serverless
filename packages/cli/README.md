@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.42 linux-x64 node-v10.21.0
+json-serverless/1.5.43 linux-x64 node-v10.21.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -56,6 +56,7 @@ OPTIONS
   -r, --readonly                 set api to readonly (true) or writeable (false)
   -s, --[no-]swagger             enable or disable swagger interface support
   -y, --autoapprove              skip interactive approval before deployment
+  --apiRoute=apiRoute            [default: /api] path to use for api route
 ```
 
 ## `jsonsls help [COMMAND]`
@@ -73,7 +74,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.0.1/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 
 ## `jsonsls run FILE`
 
@@ -92,6 +93,7 @@ OPTIONS
   -l, --loglevel=info|debug    [default: info] loglevel of outputs
   -r, --readonly               set api to readonly (true) or writeable (false)
   -s, --[no-]swagger           enable or disable swagger interface support
+  --apiRoute=apiRoute          [default: /api] path to use for api route
 ```
 
 ## `jsonsls update-stack`
@@ -109,6 +111,7 @@ OPTIONS
   -p, --currentdirectory=currentdirectory  current working directory that will be used for execution
   -r, --readonly                           set api to readonly (true) or writeable (false)
   -s, --[no-]swagger                       enable or disable swagger interface support
+  --apiRoute=apiRoute                      [default: /api] path to use for api route
 ```
 
 ## `jsonsls validate FILE`
