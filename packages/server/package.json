@@ -10,8 +10,8 @@
   },
   "scripts": {
     "test": "npx jest",
-    "debug": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec node --inspect-brk -r ts-node/register example/index.ts",
-    "start": "nodemon --watch 'src/**/*.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
+    "debug": "nodemon --watch 'src/**/*.ts' --watch 'example/index.ts' --ignore 'src/**/*.spec.ts' --exec node --inspect-brk -r ts-node/register example/index.ts",
+    "start": "nodemon --watch 'src/**/*.ts' --watch 'example/index.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
