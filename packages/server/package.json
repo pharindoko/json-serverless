@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "dependencies": {
+    "@types/lowdb": "1.0.9",
+    "@types/pino": "6.0.1",
     "ajv": "^6.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
