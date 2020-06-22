@@ -3,7 +3,6 @@ import {
   AppConfig,
   Swagger,
   SwaggerConfig,
-  CloudEnvironment,
   CoreApp,
   FileStorageAdapter,
   Environment,
