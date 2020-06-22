@@ -68,7 +68,7 @@ describe('JSONSLS: Default Settings', () => {
 describe('JSONSLS: Change ApiRoute', () => {
   const appConfig = new AppConfig();
   appConfig.jsonFile = './tests/resources/validate.json';
-  appConfig.apiRoutePath = '/api/v1';
+  appConfig.routes.apiRoutePath = '/api/v1';
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
     await localServer.init();
@@ -82,6 +82,100 @@ describe('JSONSLS: Change ApiRoute', () => {
   });
   test('It should return a default object', async done => {
     const response = await request(localServer.server).get('/api/v1/posts');
+    expect(response.status).toBe(200);
+    expect(response.body[0].title).toBe('json-server');
+    done();
+  });
+});
+
+describe('JSONSLS: Change swaggerUIRoute', () => {
+  const appConfig = new AppConfig();
+  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.routes.swaggerUIRoutePath = '/swagger';
+  const localServer = initServerComponents(appConfig);
+  beforeAll(async done => {
+    await localServer.init();
+    done();
+  });
+
+  test('It should return the swagger ui', async done => {
+    const response = await request(localServer.server).get('/swagger');
+    expect(response.status).toBe(200);
+    done();
+  });
+  test('It should return a default object', async done => {
+    const response = await request(localServer.server).get('/api/posts');
+    expect(response.status).toBe(200);
+    expect(response.body[0].title).toBe('json-server');
+    done();
+  });
+});
+
+describe('JSONSLS: Change apiSpecRoute', () => {
+  const appConfig = new AppConfig();
+  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.routes.swaggerSpecRoutePath = '/specification';
+  const localServer = initServerComponents(appConfig);
+  beforeAll(async done => {
+    await localServer.init();
+    done();
+  });
+
+  test('It should return the swagger ui', async done => {
+    const response = await request(localServer.server).get('/ui');
+    expect(response.status).toBe(200);
+    done();
+  });
+  test('It should return the swagger specification', async done => {
+    const response = await request(localServer.server).get('/specification');
+    expect(response.status).toBe(200);
+    expect(response.body).toMatchObject({ basePath: '/', info: {} });
+    done();
+  });
+  test('It should return a default object', async done => {
+    const response = await request(localServer.server).get('/api/posts');
+    expect(response.status).toBe(200);
+    expect(response.body[0].title).toBe('json-server');
+    done();
+  });
+});
+
+describe('JSONSLS: Change graphql', () => {
+  const appConfig = new AppConfig();
+  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.routes.graphqlRoutePath = '/graph';
+  const localServer = initServerComponents(appConfig);
+  beforeAll(async done => {
+    await localServer.init();
+    done();
+  });
+
+  test('It should return the swagger ui', async done => {
+    const response = await request(localServer.server).get('/ui');
+    expect(response.status).toBe(200);
+    done();
+  });
+
+  test('It should return a default object', async done => {
+    const response = await request(localServer.server).post(
+      '/graph?query=query%7Bget_api_posts%7Btitle%7D%7D'
+    );
+    expect(response.status).toBe(200);
+
+    expect(response.body).toMatchObject({
+      data: {
+        get_api_posts: [
+          {
+            title: 'json-server',
+          },
+        ],
+      },
+    });
+    done();
+  });
+
+  test('It should return a default object', async done => {
+    const response = await request(localServer.server).get('/api/posts');
     expect(response.status).toBe(200);
     expect(response.body[0].title).toBe('json-server');
     done();
@@ -171,7 +265,7 @@ function initServerComponents(appConfig: AppConfig) {
     server,
     new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
     environment.basePath,
-    appConfig.apiRoutePath,
+    appConfig.routes.apiRoutePath,
     'package.json'
   );
   const localServer = new TestServer(

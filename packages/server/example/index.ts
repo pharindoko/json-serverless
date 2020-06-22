@@ -16,7 +16,7 @@ const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
   environment.basePath,
-  appConfig.apiRoutePath,
+  appConfig.routes.apiRoutePath,
   './package.json'
 );
 

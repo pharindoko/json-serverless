@@ -103,7 +103,7 @@ export class CoreApp {
       1
     );
     this.server.use(middlewares);
-    this.server.use(appConfig.apiRoutePath, router);
+    this.server.use(appConfig.routes.apiRoutePath, router);
     if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
@@ -140,7 +140,7 @@ export class CoreApp {
         },
       });
 
-      this.server.use('/graphql', (req, res) => {
+      this.server.use(appConfig.routes.graphqlRoutePath, (req, res) => {
         const graphqlFunc = graphqlHTTP({
           schema: this.graphqlSchema,
           graphiql: true,
@@ -151,14 +151,20 @@ export class CoreApp {
         return graphqlFunc(req, res);
       });
 
-      this.server.use('/api-spec', (req, res) => {
+      this.server.use(appConfig.routes.swaggerSpecRoutePath, (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(this.swaggerSpec);
       });
 
-      this.server.use('/ui', swaggerUi.serveWithOptions({ redirect: false }));
+      this.server.use(
+        appConfig.routes.swaggerUIRoutePath,
+        swaggerUi.serveWithOptions({ redirect: false })
+      );
       this.server.use('/', swaggerUi.serveWithOptions({ redirect: false }));
-      this.server.get('/ui', swaggerUi.setup(this.swaggerSpec));
+      this.server.get(
+        appConfig.routes.swaggerUIRoutePath,
+        swaggerUi.setup(this.swaggerSpec)
+      );
     }
   }
 

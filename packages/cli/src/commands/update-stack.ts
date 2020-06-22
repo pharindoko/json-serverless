@@ -58,6 +58,24 @@ export class UpdateStackCommand extends Command {
       default: '/api',
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    graphqlRoute: flags.string({
+      description: 'path for the graphql interface', // help description for flag
+      hidden: false, // hide from help
+      default: '/graphql',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    apispecRoute: flags.string({
+      description: 'path for the swagger / open api specification', // help description for flag
+      hidden: false, // hide from help
+      default: '/api-spec',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    swaggeruiRoute: flags.string({
+      description: 'path for the swagger ui interface', // help description for flag
+      hidden: false, // hide from help
+      default: '/ui',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   async run() {
@@ -138,7 +156,11 @@ export class UpdateStackCommand extends Command {
           appConfig.readOnly = flags.readonly;
           appConfig.enableSwagger = flags.swagger;
           appConfig.logLevel = flags.loglevel as LogLevel;
-          appConfig.apiRoutePath = flags.apiRoute;
+          appConfig.routes.apiRoutePath = flags.apiRoute;
+          appConfig.routes.graphqlRoutePath = flags.graphqlRoute;
+          appConfig.routes.swaggerSpecRoutePath = flags.apispecRoute;
+          appConfig.routes.swaggerUIRoutePath = flags.swaggeruiRoute;
+
           fs.writeFileSync(
             path.normalize(stackFolder + '/config/appconfig.json'),
             JSON.stringify(appConfig, null, 2),
@@ -202,11 +224,7 @@ export class UpdateStackCommand extends Command {
         fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
       ) as AppConfig;
 
-      Helpers.createCLIOutput(
-        slsinfo,
-        appConfig.enableApiKeyAuth,
-        appConfig.enableSwagger
-      );
+      Helpers.createCLIOutput(slsinfo, appConfig);
     } catch (error) {
       this.log(`${chalk.red(error.message)}`);
       this.log(slsinfo);

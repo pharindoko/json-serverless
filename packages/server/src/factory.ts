@@ -84,7 +84,7 @@ export class ServerFactory {
       server,
       new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
       env.basePath,
-      appConfig.apiRoutePath,
+      appConfig.routes.apiRoutePath,
       packageJsonFilePath
     );
     const core = new coreserver(

@@ -47,6 +47,24 @@ export class Run extends Command {
       default: '/api',
       required: false, // make flag required (this is not common and you should probably use an argument instead)
     }),
+    graphqlRoute: flags.string({
+      description: 'path for the graphql interface', // help description for flag
+      hidden: false, // hide from help
+      default: '/graphql',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    apispecRoute: flags.string({
+      description: 'path for the swagger / open api specification', // help description for flag
+      hidden: false, // hide from help
+      default: '/api-spec',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    swaggeruiRoute: flags.string({
+      description: 'path for the swagger ui interface', // help description for flag
+      hidden: false, // hide from help
+      default: '/ui',
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
   };
 
   static args = [
@@ -68,7 +86,11 @@ export class Run extends Command {
     defaultConfig.readOnly = flags.readonly;
     defaultConfig.enableSwagger = flags.swagger;
     defaultConfig.logLevel = flags.loglevel as LogLevel;
-    defaultConfig.apiRoutePath = flags.apiRoute;
+    defaultConfig.routes.apiRoutePath = flags.apiRoute;
+    defaultConfig.routes.graphqlRoutePath = flags.graphqlRoute;
+    defaultConfig.routes.swaggerSpecRoutePath = flags.apispecRoute;
+    defaultConfig.routes.swaggerUIRoutePath = flags.swaggeruiRoute;
+
     defaultConfig.jsonFile = args.file;
     if (args.file && flags.env) {
       const promise = startServer(
