@@ -10,7 +10,7 @@ import { RuleResultSeverity } from '../src/validations/ruleevent';
 let validateJSON = '';
 beforeAll(() => {
   validateJSON = JSON.parse(
-    fs.readFileSync('./tests/resources/validate.json', 'UTF-8')
+    fs.readFileSync('./tests/resources/validate.json', 'utf-8')
   );
 });
 test('It should have an id attribute', () => {
