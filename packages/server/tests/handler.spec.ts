@@ -6,6 +6,7 @@ import { SwaggerConfig } from '../src/specifications/swagger/swagger.config';
 import { FileStorageAdapter } from '../src/storage/file.storage';
 import { Environment } from '../src/environment/environment';
 import { CoreApp, AppConfig } from '../src/app';
+import { update } from 'lodash';
 
 const appConfig = new AppConfig();
 appConfig.jsonFile = './tests/resources/validate.json';
