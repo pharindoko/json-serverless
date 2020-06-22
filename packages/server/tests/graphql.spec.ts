@@ -17,8 +17,9 @@ const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
   environment.basePath,
-  appConfig.apiRoutePath,
-  'package.json'
+  appConfig.routes.apiRoutePath,
+  'package.json',
+  appConfig.routes.swaggerSpecRoutePath
 );
 const localServer = new TestServer(
   server,

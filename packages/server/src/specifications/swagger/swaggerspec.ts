@@ -36,7 +36,7 @@ export class SwaggerSpec {
   constructor(packageInfoFilePath: string) {
     this.packageJsonPath = packageInfoFilePath;
   }
-  private updateSpecFromPackage(basePath: string): Info {
+  private updateSpecFromPackage(basePath: string, specPath: string): Info {
     const newInfo: Info = {
       version: '',
       title: '',
@@ -53,7 +53,7 @@ export class SwaggerSpec {
     if (this.packageInfo.license) {
       newInfo.license = { name: this.packageInfo.license };
     }
-    newInfo.description = `[Specification JSON](${basePath}/api-spec)`;
+    newInfo.description = `[Specification JSON](${basePath}${specPath})`;
 
     if (this.packageInfo.description) {
       newInfo.description += `\n\n${this.packageInfo.description}`;
@@ -71,8 +71,13 @@ export class SwaggerSpec {
     return sorted;
   }
 
-  initSpec(readOnly: boolean, basePath: string, routePath: string) {
-    const info = this.updateSpecFromPackage(basePath);
+  initSpec(
+    readOnly: boolean,
+    basePath: string,
+    routePath: string,
+    specPath: string
+  ) {
+    const info = this.updateSpecFromPackage(basePath, specPath);
     let specification: Spec = {
       swagger: '2.0',
       paths: {},
@@ -138,11 +143,12 @@ export class SwaggerSpec {
     predefinedSpec: object,
     readOnly: boolean,
     basePath: string,
-    apiRoutePath: string
+    apiRoutePath: string,
+    specPath: string
   ) => {
     this.app = app;
     this.predefinedSpec = predefinedSpec;
-    this.spec = this.initSpec(readOnly, basePath, apiRoutePath);
+    this.spec = this.initSpec(readOnly, basePath, apiRoutePath, specPath);
     return this.spec;
   };
 
