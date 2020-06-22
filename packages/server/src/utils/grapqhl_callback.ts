@@ -9,7 +9,7 @@ export class GraphQLMethods {
     headers: { [key: string]: string } | undefined
   ) {
     if (!body) {
-      return { headers };
+      return headers;
     }
 
     if (bodyType === 'json') {
@@ -33,7 +33,7 @@ export class GraphQLMethods {
     context,
   }: CallBackendArguments<{}>) {
     const searchPath = query ? `?${new URLSearchParams(query)}` : '';
-    const url = `${context}${path}${searchPath}`;
+    const url = `${baseUrl}${path}${searchPath}`;
     const bodyAndHeaders = GraphQLMethods.getBodyAndHeaders(
       body,
       bodyType,
@@ -41,6 +41,7 @@ export class GraphQLMethods {
     );
 
     const response = await fetch(url, {
+      query,
       method,
       ...bodyAndHeaders,
     });
