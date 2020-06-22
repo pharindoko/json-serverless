@@ -15,6 +15,7 @@ import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
 import { Output } from '../utils/output';
 import { ValidationResult } from '../validations/validationresult';
+import helmet from 'helmet';
 
 export class CoreApp {
   private storageAdapter: StorageAdapter;
@@ -60,6 +61,7 @@ export class CoreApp {
   }
 
   private setupMiddleware() {
+    this.server.use(helmet());
     this.server.use(cors());
     this.server.use(express.json());
     this.server.use(express.urlencoded({ extended: true }));
