@@ -314,7 +314,11 @@ export class CreateStackCommand extends Command {
           fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
         ) as AppConfig;
 
-        Helpers.createCLIOutput(slsinfo, appConfig);
+        Helpers.createCLIOutput(
+          slsinfo,
+          appConfig,
+          'jsonsls-' + appConfig.stackName + '-' + args.stage
+        );
       } catch (error) {
         this.log(`${chalk.red(error.message)}`);
         this.log(slsinfo);

@@ -223,7 +223,11 @@ export class Helpers {
     return true;
   }
 
-  static createCLIOutput(slsinfo: string, appConfig: AppConfig) {
+  static createCLIOutput(
+    slsinfo: string,
+    appConfig: AppConfig,
+    s3bucketPath?: string
+  ) {
     const rows = JSON.stringify(slsinfo).split('\\n') as any[];
     const createKeyValues = rows.map((x, i, rows) => {
       if (x.startsWith('  ANY -')) {
@@ -291,6 +295,18 @@ export class Helpers {
       { text: { minWidth: 30 }, link: { minWidth: 20 } },
       { 'no-header': true }
     );
+
+    if (s3bucketPath)
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('S3 Bucket')}`,
+            link: s3bucketPath,
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
 
     console.log();
     console.log();
