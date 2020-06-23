@@ -3,6 +3,29 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.44](https://github.com/pharindoko/json-serverless/compare/v1.5.43...v1.5.44) (2020-06-23)
+
+
+### Bug Fixes
+
+* **server:** add missing types to fix build issues when using json-serverless-lib standalone ([1a0f333](https://github.com/pharindoko/json-serverless/commit/1a0f33350b98412c2410c456b151eaef83124e22))
+* **server:** update broken graphql feature by adding request options in graphql queries ([4d6511b](https://github.com/pharindoko/json-serverless/commit/4d6511bbc35cec83a8020a166444e9a6955b374b))
+* **server:** update broken graphql feature by adding request options in graphql queries ([fa9edf7](https://github.com/pharindoko/json-serverless/commit/fa9edf7188f46e6c56e2c03f143da111e63a8e4f))
+
+
+### Features
+
+* **cli:** add new flags to setup internal routes via cli and appconfig ([6d62fdd](https://github.com/pharindoko/json-serverless/commit/6d62fddd5321265c3b70a63da807900069b29618))
+* **cli:** add new flags to setup internal routes via cli and appconfig ([6445406](https://github.com/pharindoko/json-serverless/commit/64454066a408f1936b7bca07592495e44703d892))
+* **cli:** create-stack: print created s3 bucket name as output ([24d8fa0](https://github.com/pharindoko/json-serverless/commit/24d8fa0578d71fa3da707c90e4bf50d11c69e48f))
+* **examples:** add example to show simple standalone usage of library ([8c5ac49](https://github.com/pharindoko/json-serverless/commit/8c5ac4992e817125672af09f870c292df2913d73))
+* **server:** improved security by using helmet ([48468b4](https://github.com/pharindoko/json-serverless/commit/48468b42cd3fb8d1d7d17f7a6375d0f30de74d00))
+* **server:** improved security by using helmet ([c33ce21](https://github.com/pharindoko/json-serverless/commit/c33ce218d7127c8cc0a32dbc0a7ec2cdeaebbeb4))
+
+
+
+
+
 ## [1.5.43](https://github.com/pharindoko/json-serverless/compare/v1.5.42...v1.5.43) (2020-06-20)
 
 

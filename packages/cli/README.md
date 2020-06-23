@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.43 linux-x64 node-v10.21.0
+json-serverless/1.5.44 linux-x64 node-v10.21.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -47,16 +47,19 @@ ARGUMENTS
   STAGE  [default: dev] stage name
 
 OPTIONS
-  -a, --apikeyauth               require api key authentication to access api
-  -d, --description=description  api description
-  -h, --help                     show CLI help
-  -i, --region=region            AWS region
-  -l, --loglevel=info|debug      [default: info] loglevel of outputs
-  -n, --name=name                api name
-  -r, --readonly                 set api to readonly (true) or writeable (false)
-  -s, --[no-]swagger             enable or disable swagger interface support
-  -y, --autoapprove              skip interactive approval before deployment
-  --apiRoute=apiRoute            [default: /api] path to use for api route
+  -a, --apikeyauth                 require api key authentication to access api
+  -d, --description=description    api description
+  -h, --help                       show CLI help
+  -i, --region=region              AWS region
+  -l, --loglevel=info|debug        [default: info] loglevel of outputs
+  -n, --name=name                  api name
+  -r, --readonly                   set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger               enable or disable swagger interface support
+  -y, --autoapprove                skip interactive approval before deployment
+  --apiRoute=apiRoute              [default: /api] path to use for api route
+  --apispecRoute=apispecRoute      [default: /api-spec] path for the swagger / open api specification
+  --graphqlRoute=graphqlRoute      [default: /graphql] path for the graphql interface
+  --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
 
 ## `jsonsls help [COMMAND]`
@@ -88,12 +91,15 @@ ARGUMENTS
   FILE  path of JSON file
 
 OPTIONS
-  -e, --env=development|local  [default: local] environment
-  -h, --help                   show CLI help
-  -l, --loglevel=info|debug    [default: info] loglevel of outputs
-  -r, --readonly               set api to readonly (true) or writeable (false)
-  -s, --[no-]swagger           enable or disable swagger interface support
-  --apiRoute=apiRoute          [default: /api] path to use for api route
+  -e, --env=development|local      [default: local] environment
+  -h, --help                       show CLI help
+  -l, --loglevel=info|debug        [default: info] loglevel of outputs
+  -r, --readonly                   set api to readonly (true) or writeable (false)
+  -s, --[no-]swagger               enable or disable swagger interface support
+  --apiRoute=apiRoute              [default: /api] path to use for api route
+  --apispecRoute=apispecRoute      [default: /api-spec] path for the swagger / open api specification
+  --graphqlRoute=graphqlRoute      [default: /graphql] path for the graphql interface
+  --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
 
 ## `jsonsls update-stack`
@@ -112,6 +118,9 @@ OPTIONS
   -r, --readonly                           set api to readonly (true) or writeable (false)
   -s, --[no-]swagger                       enable or disable swagger interface support
   --apiRoute=apiRoute                      [default: /api] path to use for api route
+  --apispecRoute=apispecRoute              [default: /api-spec] path for the swagger / open api specification
+  --graphqlRoute=graphqlRoute              [default: /graphql] path for the graphql interface
+  --swaggeruiRoute=swaggeruiRoute          [default: /ui] path for the swagger ui interface
 ```
 
 ## `jsonsls validate FILE`

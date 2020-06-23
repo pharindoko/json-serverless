@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.44](https://github.com/pharindoko/json-serverless/compare/v1.5.43...v1.5.44) (2020-06-23)
+
+
+### Features
+
+* **cli:** add new flags to setup internal routes via cli and appconfig ([6d62fdd](https://github.com/pharindoko/json-serverless/commit/6d62fddd5321265c3b70a63da807900069b29618))
+* **cli:** create-stack: print created s3 bucket name as output ([24d8fa0](https://github.com/pharindoko/json-serverless/commit/24d8fa0578d71fa3da707c90e4bf50d11c69e48f))
+
+
+
+
+
 ## [1.5.43](https://github.com/pharindoko/json-serverless/compare/v1.5.42...v1.5.43) (2020-06-20)
 
 
