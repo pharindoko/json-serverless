@@ -121,7 +121,6 @@ export class CoreApp {
             .startsWith('localhost')
             ? 'http'
             : graphqlRequest.protocol;
-          console.log('protocol: ' + httpProtocol);
           return GraphQLMethods.callRestBackend({
             requestOptions: {
               bodyType: args.requestOptions.bodyType,
