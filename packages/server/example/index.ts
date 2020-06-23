@@ -37,4 +37,4 @@ const init = async () => {
   );
   server.listen(3000);
 };
-const initPromise = init();
+init();
