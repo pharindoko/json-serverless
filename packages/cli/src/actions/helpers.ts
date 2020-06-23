@@ -5,6 +5,7 @@ const exec = util.promisify(require('child_process').exec);
 import figlet from 'figlet';
 import chalk from 'chalk';
 import cli from 'cli-ux';
+import { AppConfig } from 'json-serverless-lib';
 export class Helpers {
   static readFileSync(directoryPath: string): string {
     const normalizedPath = path.normalize(directoryPath);
@@ -224,8 +225,8 @@ export class Helpers {
 
   static createCLIOutput(
     slsinfo: string,
-    apiAuth: boolean,
-    enableSwagger: boolean
+    appConfig: AppConfig,
+    s3bucketPath?: string
   ) {
     const rows = JSON.stringify(slsinfo).split('\\n') as any[];
     const createKeyValues = rows.map((x, i, rows) => {
@@ -295,9 +296,21 @@ export class Helpers {
       { 'no-header': true }
     );
 
+    if (s3bucketPath)
+      cli.table(
+        [
+          {
+            text: `${chalk.blueBright('S3 Bucket')}`,
+            link: s3bucketPath,
+          },
+        ],
+        { text: { minWidth: 30 }, link: { minWidth: 20 } },
+        { 'no-header': true }
+      );
+
     console.log();
     console.log();
-    if (apiAuth) {
+    if (appConfig.enableApiKeyAuth) {
       console.log(
         `${chalk.green(
           'Please use the following apiKey (x-api-key) to authenticate:'
@@ -307,24 +320,27 @@ export class Helpers {
     console.log();
     console.log();
 
-    if (enableSwagger) {
+    if (appConfig.enableSwagger) {
       cli.table(
         [
           {
             text: `${chalk.blueBright('Swagger UI')}`,
-            link: outputJson.endpoints + '/ui',
+            link: outputJson.endpoints + appConfig.routes.swaggerUIRoutePath,
           },
           {
             text: `${chalk.blueBright('GraphiQL')}`,
-            link: outputJson.endpoints + '/graphql',
+            link: outputJson.endpoints + appConfig.routes.graphqlRoutePath,
           },
           {
             text: `${chalk.blueBright('Swagger Specification')}`,
-            link: outputJson.endpoints + '/api-spec',
+            link: outputJson.endpoints + appConfig.routes.swaggerSpecRoutePath,
           },
           {
             text: `${chalk.blueBright('API Routes')}`,
-            link: outputJson.endpoints + '/api/{routes}',
+            link:
+              outputJson.endpoints +
+              appConfig.routes.apiRoutePath +
+              '/{routes}',
           },
         ],
         { text: { minWidth: 30 }, link: { minWidth: 20 } },
@@ -335,7 +351,10 @@ export class Helpers {
         [
           {
             text: `${chalk.blueBright('API Routes')}`,
-            link: outputJson.endpoints + '/api/{routes}',
+            link:
+              outputJson.endpoints +
+              appConfig.routes.apiRoutePath +
+              '/{routes}',
           },
         ],
         { text: { minWidth: 30 }, link: { minWidth: 20 } },

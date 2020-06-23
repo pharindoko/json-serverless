@@ -30,6 +30,8 @@
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "dependencies": {
+    "@types/lowdb": "1.0.9",
+    "@types/pino": "6.0.1",
     "ajv": "^6.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -38,6 +40,7 @@
     "express-list-endpoints": "^4.0.1",
     "express-slash": "^2.0.1",
     "graphql": "^15.0.0",
+    "helmet": "^3.23.1",
     "json-server": "^0.16.1",
     "lodash": "^4.17.15",
     "lowdb": "^1.0.0",

@@ -15,6 +15,7 @@ import { GraphQLSchema } from 'graphql';
 import { Environment } from '../environment';
 import { Output } from '../utils/output';
 import { ValidationResult } from '../validations/validationresult';
+import helmet from 'helmet';
 
 export class CoreApp {
   private storageAdapter: StorageAdapter;
@@ -60,6 +61,7 @@ export class CoreApp {
   }
 
   private setupMiddleware() {
+    this.server.use(helmet());
     this.server.use(cors());
     this.server.use(express.json());
     this.server.use(express.urlencoded({ extended: true }));
@@ -101,7 +103,7 @@ export class CoreApp {
       1
     );
     this.server.use(middlewares);
-    this.server.use(appConfig.apiRoutePath, router);
+    this.server.use(appConfig.routes.apiRoutePath, router);
     if (!this.swaggerSpec && appConfig.enableSwagger) {
       this.swaggerSpec = this.apispec.generateSpecification(db, true);
       const swaggerSetupMiddleware = swaggerUi.setup(this.swaggerSpec);
@@ -113,30 +115,61 @@ export class CoreApp {
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
         callBackend: args => {
-          return GraphQLMethods.callRestBackend(args);
+          const graphqlRequest = args.context['req'];
+          const httpProtocol = graphqlRequest
+            .get('host')
+            .startsWith('localhost')
+            ? 'http'
+            : graphqlRequest.protocol;
+          return GraphQLMethods.callRestBackend({
+            requestOptions: {
+              bodyType: args.requestOptions.bodyType,
+              method: args.requestOptions.method,
+              path: args.requestOptions.path,
+              baseUrl:
+                this.environment.basePath === '/'
+                  ? httpProtocol + '://' + graphqlRequest.get('host')
+                  : httpProtocol +
+                    '://' +
+                    graphqlRequest.get('host') +
+                    this.environment.basePath,
+              body:
+                args.requestOptions.method === 'get'
+                  ? ''
+                  : args.requestOptions.body,
+              headers: graphqlRequest.headers,
+              query: graphqlRequest.query,
+            },
+            context: graphqlRequest,
+          });
         },
       });
 
-      this.server.use('/graphql', (req, res) => {
+      this.server.use(appConfig.routes.graphqlRoutePath, (req, res) => {
         const graphqlFunc = graphqlHTTP({
           schema: this.graphqlSchema,
           graphiql: true,
-          context:
-            this.environment.basePath === '/'
-              ? req.headers['origin']
-              : req.headers['origin'] + this.environment.basePath,
+          context: {
+            req,
+          },
         });
         return graphqlFunc(req, res);
       });
 
-      this.server.use('/api-spec', (req, res) => {
+      this.server.use(appConfig.routes.swaggerSpecRoutePath, (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(this.swaggerSpec);
       });
 
-      this.server.use('/ui', swaggerUi.serveWithOptions({ redirect: false }));
+      this.server.use(
+        appConfig.routes.swaggerUIRoutePath,
+        swaggerUi.serveWithOptions({ redirect: false })
+      );
       this.server.use('/', swaggerUi.serveWithOptions({ redirect: false }));
-      this.server.get('/ui', swaggerUi.setup(this.swaggerSpec));
+      this.server.get(
+        appConfig.routes.swaggerUIRoutePath,
+        swaggerUi.setup(this.swaggerSpec)
+      );
     }
   }
 

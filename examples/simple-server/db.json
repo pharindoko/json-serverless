@@ -4,22 +4,21 @@
       "id": 1,
       "title": "json-server",
       "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "test",
+      "author": "yourAuthor"
     }
   ],
   "comments": [
     {
+      "id": 1,
       "body": "some comment",
       "postId": 1
     }
   ],
   "profile": {
     "name": "typicode"
-  },
-  "coordinates": [
-    {
-      "id": 3,
-      "latitude": 40.73061,
-      "longitude": -73.935242
-    }
-  ]
+  }
 }

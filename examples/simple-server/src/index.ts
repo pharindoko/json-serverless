@@ -6,7 +6,7 @@ import {
   CoreApp,
   FileStorageAdapter,
   Environment,
-} from '../src/index';
+} from 'json-serverless-lib';
 
 const server = express();
 const appConfig = new AppConfig();
@@ -16,13 +16,11 @@ const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
   environment.basePath,
-  appConfig.routes.apiRoutePath,
-  './package.json',
-  appConfig.routes.swaggerSpecRoutePath
+  appConfig.apiRoutePath,
+  './package.json'
 );
 
-let core: CoreApp | undefined;
-core = new CoreApp(
+let core = new CoreApp(
   appConfig,
   server,
   new FileStorageAdapter('db.json'),
@@ -32,9 +30,13 @@ core = new CoreApp(
 
 const init = async () => {
   await core!.setup();
-  console.log(
-    'JSON Server is running under port 3000. Use http://localhost:3000/ to access it'
-  );
+  console.log('JSON Server is running under port 3000.');
+
+  console.log('#####################################');
+  console.log('swagger-ui: ' + 'http://localhost:3000/ui');
+  console.log('graphql: ' + 'http://localhost:3000/graphql');
+  console.log('swagger-api-spec: ' + 'http://localhost:3000/graphql');
+
   server.listen(3000);
 };
 init();

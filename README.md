@@ -23,7 +23,7 @@
     - own custom domain
     - additional routes etc.
 
-## Quickstart
+## Quickstar
 
 ### 1. Install Solution
 
