@@ -78,7 +78,7 @@
     "eslint-plugin-import": "2.20.2",
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.0",
-    "jest": "26.0.1",
+    "jest": "26.1.0",
     "nodemon": "2.0.4",
     "ts-jest": "26.1.0",
     "ts-loader": "7.0.5",
