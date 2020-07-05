@@ -19,7 +19,7 @@
     "@types/express-serve-static-core": "4.17.8",
     "@types/node": "10.17.13",
     "copy-webpack-plugin": "5.1.1",
-    "lerna": "3.22.0",
+    "lerna": "3.22.1",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.4",
     "nodemon-webpack-plugin": "4.3.1",
