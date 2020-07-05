@@ -198,7 +198,7 @@ There are components managed: (under /packages)
   - has json server implemented under the hood
   - components will be injected from outside into the library (storageadapter, swagger)
   - can be customized and used without the other parts (could be deployed with docker)
-  - library can be used in other solutions as well
+  - library can be used standalone as well ([see example](https://github.com/pharindoko/json-serverless/tree/master/examples/simple-server))
 - template
 
   - a serverless framework template
