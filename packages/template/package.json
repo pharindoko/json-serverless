@@ -22,7 +22,7 @@
     "lerna": "3.22.0",
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.4",
-    "nodemon-webpack-plugin": "4.3.1",
+    "nodemon-webpack-plugin": "4.3.2",
     "serverless": "1.74.1",
     "serverless-offline": "6.3.0",
     "ts-loader": "7.0.5",
