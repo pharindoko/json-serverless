@@ -31,7 +31,7 @@
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "dependencies": {
     "@types/lowdb": "1.0.9",
-    "@types/pino": "6.0.1",
+    "@types/pino": "6.3.0",
     "ajv": "^6.12.2",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -67,7 +67,7 @@
     "@types/lodash": "4.14.157",
     "@types/lowdb": "1.0.9",
     "@types/node": "10.14.16",
-    "@types/pino": "6.0.1",
+    "@types/pino": "6.3.0",
     "@types/supertest": "2.0.10",
     "@types/swagger-schema-official": "2.0.21",
     "@types/swagger-ui-express": "4.1.2",
