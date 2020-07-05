@@ -10,7 +10,7 @@
 - Additional JSON File validations at startup
 - Readonly or Read/Write Mode (file stored in S3 Bucket)
 - Deployment in AWS:
-  - Own CLI to test locally and immediately deploy it to the cloud
+  - [Own CLI to test locally and immediately deploy it to the cloud](https://github.com/pharindoko/json-serverless/tree/master/packages/cli)
   - Deployed in AWS cloud within Minutes by a single command
   - Almost **zero costs** (First million requests for Lambda are free)
   - Less maintenance as the deployed solution runs **serverless**
