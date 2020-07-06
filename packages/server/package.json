@@ -56,7 +56,7 @@
     "table": "^5.4.6"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.57",
+    "@types/aws-lambda": "8.10.58",
     "@types/body-parser": "1.19.0",
     "@types/cors": "2.8.6",
     "@types/dotenv": "6.1.1",
