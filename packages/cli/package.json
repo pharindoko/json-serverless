@@ -38,7 +38,7 @@
     "typescript": "^3.8.3",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12",
-    "webpack-node-externals": "2.2.0"
+    "webpack-node-externals": "2.3.0"
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
