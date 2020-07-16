@@ -20,7 +20,7 @@
   "devDependencies": {
     "@types/jest": "26.0.4",
     "cz-conventional-changelog": "3.2.0",
-    "typescript": "3.9.6"
+    "typescript": "3.9.7"
   },
   "config": {
     "commitizen": {

@@ -27,7 +27,7 @@
     "serverless-offline": "6.4.0",
     "ts-loader": "8.0.1",
     "ts-node": "8.10.2",
-    "typescript": "3.9.6",
+    "typescript": "3.9.7",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.12",
     "webpack-node-externals": "2.3.0"
