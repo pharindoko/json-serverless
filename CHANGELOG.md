@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.45](https://github.com/pharindoko/json-serverless/compare/v1.5.44...v1.5.45) (2020-07-20)
+
+
+### Bug Fixes
+
+* **cli:** output urls are truncated when terminal size is too small ([e651ffd](https://github.com/pharindoko/json-serverless/commit/e651ffd832d37eb289c87871857bbcf0263015c3))
+
+
+
+
+
 ## [1.5.44](https://github.com/pharindoko/json-serverless/compare/v1.5.43...v1.5.44) (2020-06-23)
 
 
