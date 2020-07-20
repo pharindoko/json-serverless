@@ -293,7 +293,8 @@ export class Helpers {
         },
       ],
       { text: { minWidth: 30 }, link: { minWidth: 20 } },
-      { 'no-header': true }
+
+      { 'no-header': true, 'no-truncate': true }
     );
 
     if (s3bucketPath)
@@ -305,7 +306,7 @@ export class Helpers {
           },
         ],
         { text: { minWidth: 30 }, link: { minWidth: 20 } },
-        { 'no-header': true }
+        { 'no-header': true, 'no-truncate': true }
       );
 
     console.log();
@@ -344,7 +345,7 @@ export class Helpers {
           },
         ],
         { text: { minWidth: 30 }, link: { minWidth: 20 } },
-        { 'no-header': true }
+        { 'no-header': true, 'no-truncate': true }
       );
     } else {
       cli.table(
@@ -358,7 +359,7 @@ export class Helpers {
           },
         ],
         { text: { minWidth: 30 }, link: { minWidth: 20 } },
-        { 'no-header': true }
+        { 'no-header': true, 'no-truncate': true }
       );
     }
 
