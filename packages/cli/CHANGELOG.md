@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.46](https://github.com/pharindoko/json-serverless/compare/v1.5.45...v1.5.46) (2020-07-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/inquirer to v7 ([bd577e4](https://github.com/pharindoko/json-serverless/commit/bd577e4b1c63407e43a0084a69947400d05afcff))
+
+
+
+
+
 ## [1.5.45](https://github.com/pharindoko/json-serverless/compare/v1.5.44...v1.5.45) (2020-07-20)
 
 
