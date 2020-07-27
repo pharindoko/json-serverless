@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.47](https://github.com/pharindoko/json-serverless/compare/v1.5.46...v1.5.47) (2020-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency terser-webpack-plugin to v3.0.8 ([ec9112f](https://github.com/pharindoko/json-serverless/commit/ec9112f430fcb6bcc7b8d7c2cccb992e5f8bf4a6))
+
+
+
+
+
 ## [1.5.46](https://github.com/pharindoko/json-serverless/compare/v1.5.45...v1.5.46) (2020-07-22)
 
 
