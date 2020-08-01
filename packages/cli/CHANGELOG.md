@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.48](https://github.com/pharindoko/json-serverless/compare/v1.5.47...v1.5.48) (2020-08-01)
+
+**Note:** Version bump only for package json-serverless
+
+
+
+
+
 ## [1.5.47](https://github.com/pharindoko/json-serverless/compare/v1.5.46...v1.5.47) (2020-07-27)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.48](https://github.com/pharindoko/json-serverless/compare/v1.5.47...v1.5.48) (2020-08-01)
+
+
+### Bug Fixes
+
+* **template:** restrict lambdas permissions on s3 bucket ([8ad34dc](https://github.com/pharindoko/json-serverless/commit/8ad34dc5ed6300327dcf7c23299e2b033ff165aa))
+
+
+
+
+
 ## [1.5.47](https://github.com/pharindoko/json-serverless/compare/v1.5.46...v1.5.47) (2020-07-27)
 
 
