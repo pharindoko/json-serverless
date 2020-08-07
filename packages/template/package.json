@@ -30,7 +30,7 @@
     "typescript": "3.9.7",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
-    "webpack-node-externals": "2.3.0"
+    "webpack-node-externals": "2.5.1"
   },
   "homepage": "https://github.com/pharindoko/json-serverless",
   "license": "MIT",
