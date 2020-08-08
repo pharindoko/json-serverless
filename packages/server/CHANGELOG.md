@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.50](https://github.com/pharindoko/json-serverless/compare/v1.5.49...v1.5.50) (2020-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency helmet to v4 ([695da9d](https://github.com/pharindoko/json-serverless/commit/695da9d8d62f71f71762798048195a348d48c784))
+
+
+
+
+
 ## [1.5.49](https://github.com/pharindoko/json-serverless/compare/v1.5.48...v1.5.49) (2020-08-03)
 
 **Note:** Version bump only for package json-serverless-lib

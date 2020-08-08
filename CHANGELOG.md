@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.50](https://github.com/pharindoko/json-serverless/compare/v1.5.49...v1.5.50) (2020-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency helmet to v4 ([695da9d](https://github.com/pharindoko/json-serverless/commit/695da9d8d62f71f71762798048195a348d48c784))
+* **deps:** update dependency terser-webpack-plugin to v4 ([c00e191](https://github.com/pharindoko/json-serverless/commit/c00e1913c1df31eefa203e12c599a314e7ab30d9))
+
+
+
+
+
 ## [1.5.49](https://github.com/pharindoko/json-serverless/compare/v1.5.48...v1.5.49) (2020-08-03)
 
 
