@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.51](https://github.com/pharindoko/json-serverless/compare/v1.5.50...v1.5.51) (2020-08-08)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
 ## [1.5.50](https://github.com/pharindoko/json-serverless/compare/v1.5.49...v1.5.50) (2020-08-08)
 
 **Note:** Version bump only for package json-serverless-template
