@@ -36,6 +36,7 @@
     "ts-loader": "^7.0.0",
     "tslib": "^2.0.0",
     "typescript": "^3.8.3",
+    "uuid": "^8.3.0",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "webpack-node-externals": "1.7.2"
@@ -44,6 +45,7 @@
     "@oclif/dev-cli": "1.22.2",
     "@types/listr": "0.14.2",
     "@types/node": "10.17.13",
+    "@types/uuid": "^8.0.1",
     "ts-node": "8.10.2"
   },
   "engines": {

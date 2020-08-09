@@ -9,6 +9,7 @@ import { Helpers } from '../actions/helpers';
 import { AWSActions } from '../actions/aws-actions';
 import { ServerlessConfig } from '../classes/serverlessconfig';
 import chalk from 'chalk';
+import { v4 as uuidv4 } from 'uuid';
 export class CreateStackCommand extends Command {
   static description =
     'create the stackfolder and deploy the stack in the cloud';
@@ -37,6 +38,13 @@ export class CreateStackCommand extends Command {
       hidden: false, // hide from help
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    apikey: flags.string({
+      description:
+        'set a specific api key - if not set a random key will be generated', // help description for flag
+      hidden: false, // hide from help
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      dependsOn: ['apikeyauth'],
     }),
     name: flags.string({
       char: 'n', // shorter flag version
@@ -118,50 +126,15 @@ export class CreateStackCommand extends Command {
 
   async run() {
     const logo = await Helpers.generateLogo('json-serverless');
+    this.log();
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
     const { args, flags } = this.parse(CreateStackCommand);
-    cli.action.start(
-      `${chalk.blueBright('Check AWS Identity')}`,
-      `${chalk.blueBright('initializing')}`,
-      { stdout: true }
-    );
-    try {
-      const identity = await AWSActions.checkValidAWSIdentity();
-      this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
-    } catch (error) {
-      this.error(`${chalk.red(error.message)}`);
-    }
-    cli.action.stop();
-    this.log();
-    let stackName: string | undefined;
+    await this.checkIdentity();
 
-    if (flags.name) {
-      stackName = flags.name;
-    } else {
-      const apiNameAnswer = await inquirer.prompt({
-        name: 'answer',
-        message: `${chalk.magenta('What is the name of the api ?')}`,
-        type: 'input',
-        validate: Helpers.s3BucketValidator,
-      });
-      stackName = apiNameAnswer.answer;
-    }
-    let stackDescription: string | undefined;
-    if (flags.description) {
-      stackDescription = flags.description;
-    } else {
-      const apiDesriptionAnswer = await inquirer.prompt({
-        name: 'answer',
-        message: `${chalk.magenta(
-          'What is this api used for ? (description)'
-        )}`,
-        type: 'input',
-        validate: Helpers.descriptionValidator,
-      });
-      stackDescription = apiDesriptionAnswer.answer;
-    }
-
+    let stackName = await this.getApiName(flags.name);
+    let stackDescription = await this.getDescription(flags.description);
+    let apiKeyValue: string;
     this.log();
     let region: string | undefined;
     if (flags.region) {
@@ -180,6 +153,7 @@ export class CreateStackCommand extends Command {
         `${chalk.blueBright.bold.underline(stackFolder)}`
     );
     this.log();
+
     let confirm = true;
     if (!flags.autoapprove) {
       confirm = await cli.confirm(`${chalk.magenta('Continue ? y/n')}`);
@@ -248,6 +222,16 @@ export class CreateStackCommand extends Command {
           },
         },
         {
+          title: 'Generate Api Key',
+          task: async (ctx, task) => {
+            if (flags.apikeyauth) {
+              const apikey = '/jsonsls/' + stackName + '-' + args.stage;
+              apiKeyValue = flags.apikey ? flags.apikey : uuidv4();
+              await AWSActions.putSSMParameter(apikey!, apiKeyValue, region!);
+            }
+          },
+        },
+        {
           title: 'Install Dependencies',
           task: async (task) => {
             if (process.env.NODE_ENV != 'local') {
@@ -290,7 +274,7 @@ export class CreateStackCommand extends Command {
           title: 'Deploy Stack on AWS',
           task: async () => {
             await Helpers.executeChildProcess(
-              'node_modules/serverless/bin/serverless deploy',
+              'node_modules/serverless/bin/serverless.js deploy',
               {
                 cwd: stackFolder,
               },
@@ -303,7 +287,7 @@ export class CreateStackCommand extends Command {
       try {
         await tasks.run();
         slsinfo = await Helpers.executeChildProcess2(
-          'node_modules/serverless/bin/serverless info',
+          'node_modules/serverless/bin/serverless.js info',
           { cwd: stackFolder }
         );
       } catch (error) {
@@ -317,13 +301,65 @@ export class CreateStackCommand extends Command {
         Helpers.createCLIOutput(
           slsinfo,
           appConfig,
-          'jsonsls-' + appConfig.stackName + '-' + args.stage
+          args.stage,
+          'jsonsls-' + appConfig.stackName + '-' + args.stage,
+          apiKeyValue!
         );
       } catch (error) {
         this.log(`${chalk.red(error.message)}`);
         this.log(slsinfo);
       }
     }
+  }
+
+  private async checkIdentity() {
+    cli.action.start(
+      `${chalk.blueBright('Check AWS Identity')}`,
+      `${chalk.blueBright('initializing')}`,
+      { stdout: true }
+    );
+    try {
+      const identity = await AWSActions.checkValidAWSIdentity();
+      this.log(`${chalk.green('AWS Account: ' + identity.Account)}`);
+    } catch (error) {
+      this.error(`${chalk.red(error.message)}`);
+    }
+    cli.action.stop();
+    this.log();
+  }
+
+  private async getDescription(description: string) {
+    let stackDescription: string | undefined;
+    if (description) {
+      stackDescription = description;
+    } else {
+      const apiDesriptionAnswer = await inquirer.prompt({
+        name: 'answer',
+        message: `${chalk.magenta(
+          'What is this api used for ? (description)'
+        )}`,
+        type: 'input',
+        validate: Helpers.descriptionValidator,
+      });
+      stackDescription = apiDesriptionAnswer.answer;
+    }
+    return stackDescription;
+  }
+
+  private async getApiName(name?: string) {
+    let stackName: string | undefined;
+    if (name) {
+      stackName = name;
+    } else {
+      const apiNameAnswer = await inquirer.prompt({
+        name: 'answer',
+        message: `${chalk.magenta('What is the name of the api ?')}`,
+        type: 'input',
+        validate: Helpers.s3BucketValidator,
+      });
+      stackName = apiNameAnswer.answer;
+    }
+    return stackName;
   }
 
   private async getRegion() {

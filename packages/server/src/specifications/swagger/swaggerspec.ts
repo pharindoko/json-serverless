@@ -420,9 +420,10 @@ export class SwaggerSpec {
     return spec;
   };
 
-  addAuthentication = (specificaton: Spec, auth: ApiKeySecurity) => {
-    specificaton.securityDefinitions = {};
-    const spec = Object.assign(specificaton.securityDefinitions, auth);
-    return spec;
+  addAuthentication = (specification: Spec, auth: ApiKeySecurity) => {
+    specification.securityDefinitions = {};
+    specification.securityDefinitions['ApiKeyAuth'] = auth;
+    specification.security = [{ ApiKeyAuth: [] }];
+    return specification;
   };
 }

@@ -5,13 +5,15 @@ import { StorageAdapter, FileStorageAdapter } from './storage';
 import { ApiSpecification, Swagger, SwaggerConfig } from './specifications';
 import { CoreServer } from './coreserver/server';
 import { Environment } from './environment';
+import { AuthStrategy } from './auth/auth.strategy';
 
 export class ServerFactory {
   static createServer = async (
     type: string,
     server: express.Express,
     appConfig: AppConfig,
-    packageJsonFilePath = './package.json'
+    packageJsonFilePath = './package.json',
+    authStrategy: AuthStrategy
   ): Promise<CoreServer> => {
     let coreserver = {} as CoreServer;
 
@@ -24,7 +26,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          packageJsonFilePath
+          packageJsonFilePath,
+          authStrategy
         );
         break;
       }
@@ -36,7 +39,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          packageJsonFilePath
+          packageJsonFilePath,
+          authStrategy
         );
         break;
       }
@@ -48,7 +52,8 @@ export class ServerFactory {
           new FileStorageAdapter(appConfig.jsonFile),
           appConfig,
           server,
-          packageJsonFilePath
+          packageJsonFilePath,
+          authStrategy
         );
         break;
       }
@@ -61,7 +66,8 @@ export class ServerFactory {
     C extends CoreServer,
     A extends CoreApp,
     E extends Environment,
-    S extends StorageAdapter
+    S extends StorageAdapter,
+    AUTH extends AuthStrategy
   >(
     coreserver: { new (server: express.Express, app: A): C },
     app: {
@@ -70,14 +76,16 @@ export class ServerFactory {
         server: express.Express,
         storage: S,
         specification: ApiSpecification,
-        environment: Environment
+        environment: Environment,
+        authStrategy: AUTH
       ): A;
     },
     environment: { new (): E },
     storage: S,
     appConfig: AppConfig,
     server: express.Express,
-    packageJsonFilePath: string
+    packageJsonFilePath: string,
+    authStrategy: AUTH
   ): C {
     const env = new environment();
     const swagger = new Swagger(
@@ -88,9 +96,10 @@ export class ServerFactory {
       packageJsonFilePath,
       appConfig.routes.swaggerSpecRoutePath
     );
+
     const core = new coreserver(
       server,
-      new app(appConfig, server, storage, swagger, env)
+      new app(appConfig, server, storage, swagger, env, authStrategy)
     );
     return core;
   }

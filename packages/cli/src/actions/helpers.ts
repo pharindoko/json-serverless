@@ -226,51 +226,11 @@ export class Helpers {
   static createCLIOutput(
     slsinfo: string,
     appConfig: AppConfig,
-    s3bucketPath?: string
+    stage: string,
+    s3bucketPath?: string,
+    apiKeyValue?: string
   ) {
-    const rows = JSON.stringify(slsinfo).split('\\n') as any[];
-    const createKeyValues = rows.map((x, i, rows) => {
-      if (x.startsWith('  ANY -')) {
-        x = {
-          name: x.split(' - ')[0],
-          value: x.split(' - ')[1],
-        };
-      } else {
-        x = {
-          name: x.split(':')[0],
-          value: x.split(':')[1],
-        };
-      }
-      return x;
-    });
-
-    const outputJson = createKeyValues
-      .map((x, i, rows) => {
-        if (rows[i + 1] && rows[i + 1].name.startsWith('  ')) {
-          x.value = rows[i + 1].value;
-        }
-        if (x && x.name.startsWith('  ')) {
-          return null;
-        }
-        if (x && x.name) {
-          x.name = x.name.replace(/\s/g, '');
-        }
-        if (x && x.value) {
-          x.value = x.value.replace(/\s/g, '');
-        }
-
-        return x;
-      })
-      .filter(
-        (item) =>
-          item != null &&
-          item.hasOwnProperty('value') &&
-          item.value != undefined
-      )
-      .reduce(
-        (obj, item) => Object.assign(obj, { [item.name]: item.value }),
-        {}
-      );
+    const outputJson = Helpers.parseServerlessInfo(slsinfo);
     console.log();
     console.log(
       'The Api ' + outputJson.service + ' has been successfully deployed'
@@ -310,11 +270,11 @@ export class Helpers {
 
     console.log();
     console.log();
-    if (appConfig.enableApiKeyAuth) {
+    if (apiKeyValue) {
       console.log(
         `${chalk.green(
-          'Please use the following apiKey (x-api-key) to authenticate:'
-        )} ` + outputJson.apikeys
+          'Please use the following Apikey in your header to authenticate: {"authorization":"apiKeyValue"}'
+        )} ` + apiKeyValue
       );
     }
     console.log();
@@ -364,5 +324,52 @@ export class Helpers {
 
     console.log();
     console.log();
+  }
+
+  private static parseServerlessInfo(slsinfo: string) {
+    const rows = JSON.stringify(slsinfo).split('\\n') as any[];
+    const createKeyValues = rows.map((x, i, rows) => {
+      if (x.startsWith('  ANY -')) {
+        x = {
+          name: x.split(' - ')[0],
+          value: x.split(' - ')[1],
+        };
+      } else {
+        x = {
+          name: x.split(':')[0],
+          value: x.split(':')[1],
+        };
+      }
+      return x;
+    });
+
+    const outputJson = createKeyValues
+      .map((x, i, rows) => {
+        if (rows[i + 1] && rows[i + 1].name.startsWith('  ')) {
+          x.value = rows[i + 1].value;
+        }
+        if (x && x.name.startsWith('  ')) {
+          return null;
+        }
+        if (x && x.name) {
+          x.name = x.name.replace(/\s/g, '');
+        }
+        if (x && x.value) {
+          x.value = x.value.replace(/\s/g, '');
+        }
+
+        return x;
+      })
+      .filter(
+        (item) =>
+          item != null &&
+          item.hasOwnProperty('value') &&
+          item.value != undefined
+      )
+      .reduce(
+        (obj, item) => Object.assign(obj, { [item.name]: item.value }),
+        {}
+      );
+    return outputJson;
   }
 }

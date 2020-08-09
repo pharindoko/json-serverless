@@ -25,23 +25,25 @@ custom:
   webpack:
     includeModules: true
     packager: 'npm'
+  region: ${self:custom.file.awsRegion, 'eu-central-1'}
 provider:
   stage: ${self:custom.file.stage, 'dev'}
   name: aws
   runtime: nodejs12.x
-  region: ${self:custom.file.awsRegion, 'eu-central-1'}
+  region: ${self:custom.region}
   stackTags: # Tags that will be added to each of the deployment resources
     jsonsls: ${self:custom.file.stackName}
   environment:
     s3Bucket: ${self:custom.file.s3Bucket}
     s3File: ${self:custom.file.s3File}
     basePath: ${self:custom.file.basePath}
+    authPath: /jsonsls/${self:service}-${self:provider.stage}
+    region: ${self:custom.region}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
+
   apiGateway: # Optional API Gateway global config
     binaryMediaTypes: # Optional binary media types the API might return
       - '*/*'
-  apiKeys:
-    - ${self:service}.${self:provider.stage}
   iamRoleStatements:
     - Effect: 'Allow'
       Action:
@@ -52,6 +54,10 @@ provider:
         - 's3:*'
       Resource:
         - 'arn:aws:s3:::${self:custom.file.s3Bucket}/*'
+    - Effect: 'Allow'
+      Action:
+        - 'ssm:GetParameter'
+      Resource: '*'
 
 # The `functions` block defines what code to deploy
 functions:
@@ -63,7 +69,6 @@ functions:
       - http:
           path: /
           method: ANY
-          private: ${self:custom.appconfig.enableApiKeyAuth}
           cors:
             origin: '*' # <-- Specify allowed origin
             headers: # <-- Specify allowed headers
@@ -77,7 +82,6 @@ functions:
       - http:
           path: '{proxy+}'
           method: ANY
-          private: ${self:custom.appconfig.enableApiKeyAuth}
           cors:
             origin: '*' # <-- Specify allowed origin
             headers: # <-- Specify allowed headers
