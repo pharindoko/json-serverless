@@ -3,6 +3,88 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.52](https://github.com/pharindoko/json-serverless/compare/v1.5.51...v1.5.52) (2020-08-10)
+
+
+### Bug Fixes
+
+* **deps:** update dependency terser-webpack-plugin to v4.1.0 ([57abe5b](https://github.com/pharindoko/json-serverless/commit/57abe5b4b4254c876b245ece230637cde39235eb))
+
+
+
+
+
+## [1.5.51](https://github.com/pharindoko/json-serverless/compare/v1.5.50...v1.5.51) (2020-08-08)
+
+**Note:** Version bump only for package json-serverless
+
+
+
+
+
+## [1.5.50](https://github.com/pharindoko/json-serverless/compare/v1.5.49...v1.5.50) (2020-08-08)
+
+
+### Bug Fixes
+
+* **deps:** update dependency terser-webpack-plugin to v4 ([c00e191](https://github.com/pharindoko/json-serverless/commit/c00e1913c1df31eefa203e12c599a314e7ab30d9))
+
+
+
+
+
+## [1.5.49](https://github.com/pharindoko/json-serverless/compare/v1.5.48...v1.5.49) (2020-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency terser-webpack-plugin to v3.1.0 ([65776b6](https://github.com/pharindoko/json-serverless/commit/65776b6738ca1afe71e0c1b6f72e7c755adbb7c2))
+
+
+
+
+
+## [1.5.48](https://github.com/pharindoko/json-serverless/compare/v1.5.47...v1.5.48) (2020-08-01)
+
+**Note:** Version bump only for package json-serverless
+
+
+
+
+
+## [1.5.47](https://github.com/pharindoko/json-serverless/compare/v1.5.46...v1.5.47) (2020-07-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency terser-webpack-plugin to v3.0.8 ([ec9112f](https://github.com/pharindoko/json-serverless/commit/ec9112f430fcb6bcc7b8d7c2cccb992e5f8bf4a6))
+
+
+
+
+
+## [1.5.46](https://github.com/pharindoko/json-serverless/compare/v1.5.45...v1.5.46) (2020-07-22)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @types/inquirer to v7 ([bd577e4](https://github.com/pharindoko/json-serverless/commit/bd577e4b1c63407e43a0084a69947400d05afcff))
+
+
+
+
+
+## [1.5.45](https://github.com/pharindoko/json-serverless/compare/v1.5.44...v1.5.45) (2020-07-20)
+
+
+### Bug Fixes
+
+* **cli:** output urls are truncated when terminal size is too small ([e651ffd](https://github.com/pharindoko/json-serverless/commit/e651ffd832d37eb289c87871857bbcf0263015c3))
+
+
+
+
+
 ## [1.5.44](https://github.com/pharindoko/json-serverless/compare/v1.5.43...v1.5.44) (2020-06-23)
 
 

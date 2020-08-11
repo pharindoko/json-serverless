@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.52](https://github.com/pharindoko/json-serverless/compare/v1.5.51...v1.5.52) (2020-08-10)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.51](https://github.com/pharindoko/json-serverless/compare/v1.5.50...v1.5.51) (2020-08-08)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.50](https://github.com/pharindoko/json-serverless/compare/v1.5.49...v1.5.50) (2020-08-08)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.49](https://github.com/pharindoko/json-serverless/compare/v1.5.48...v1.5.49) (2020-08-03)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.48](https://github.com/pharindoko/json-serverless/compare/v1.5.47...v1.5.48) (2020-08-01)
+
+
+### Bug Fixes
+
+* **template:** restrict lambdas permissions on s3 bucket ([8ad34dc](https://github.com/pharindoko/json-serverless/commit/8ad34dc5ed6300327dcf7c23299e2b033ff165aa))
+
+
+
+
+
+## [1.5.47](https://github.com/pharindoko/json-serverless/compare/v1.5.46...v1.5.47) (2020-07-27)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.46](https://github.com/pharindoko/json-serverless/compare/v1.5.45...v1.5.46) (2020-07-22)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
+## [1.5.45](https://github.com/pharindoko/json-serverless/compare/v1.5.44...v1.5.45) (2020-07-20)
+
+**Note:** Version bump only for package json-serverless-template
+
+
+
+
+
 ## [1.5.44](https://github.com/pharindoko/json-serverless/compare/v1.5.43...v1.5.44) (2020-06-23)
 
 
