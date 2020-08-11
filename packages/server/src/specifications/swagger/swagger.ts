@@ -43,15 +43,15 @@ export class Swagger implements ApiSpecification {
       this.apiRoutePath,
       this.specPath
     );
-    const auth: ApiKeySecurity = {
-      type: 'apiKey',
-      in: 'header',
-      name: 'x-api-key',
-      description:
-        'All requests must include the `x-api-key` header containing your account ID.',
-    };
 
     if (this.config.enableApiKeyAuth) {
+      const auth: ApiKeySecurity = {
+        type: 'apiKey',
+        in: 'header',
+        name: 'authorization',
+        description:
+          'All requests must include the `authorization` header containing your apikey.',
+      };
       this.swaggerSpec.addAuthentication(spec, auth);
     }
     this.swaggerSpec.addSchemaDefitions(spec, swaggerSchemaDefinitions);

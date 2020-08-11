@@ -9,10 +9,16 @@ export class GraphQLMethods {
     headers: { [key: string]: string } | undefined
   ) {
     if (!body) {
-      return headers;
+      delete headers['content-length'];
+      return {
+        headers: {
+          ...headers,
+        },
+      };
     }
 
     if (bodyType === 'json') {
+      delete headers['content-length'];
       return {
         headers: {
           'Content-Type': 'application/json',
