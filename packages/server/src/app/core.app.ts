@@ -16,8 +16,6 @@ import { Environment } from '../environment';
 import { Output } from '../utils/output';
 import { ValidationResult } from '../validations/validationresult';
 import helmet from 'helmet';
-import { ApiKeyStrategy } from '../auth/apikey.strategy';
-import passport = require('passport');
 import { AuthStrategy } from '../auth/auth.strategy';
 
 export class CoreApp {

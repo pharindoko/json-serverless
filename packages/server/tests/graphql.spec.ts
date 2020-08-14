@@ -1,4 +1,4 @@
-import request, { Test } from 'supertest';
+import request from 'supertest';
 import { AppConfig } from '../src/app';
 import { initServerComponents } from './handler.spec';
 
