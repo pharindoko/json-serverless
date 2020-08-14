@@ -19,7 +19,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.5.52 linux-x64 node-v10.22.0
+json-serverless/1.6.0 darwin-x64 node-v14.2.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -31,7 +31,7 @@ USAGE
 * [`jsonsls create-stack FILE [STAGE]`](#jsonsls-create-stack-file-stage)
 * [`jsonsls help [COMMAND]`](#jsonsls-help-command)
 * [`jsonsls run FILE`](#jsonsls-run-file)
-* [`jsonsls update-stack`](#jsonsls-update-stack)
+* [`jsonsls update-stack [STAGE]`](#jsonsls-update-stack-stage)
 * [`jsonsls validate FILE`](#jsonsls-validate-file)
 
 ## `jsonsls create-stack FILE [STAGE]`
@@ -57,10 +57,13 @@ OPTIONS
   -s, --[no-]swagger               enable or disable swagger interface support
   -y, --autoapprove                skip interactive approval before deployment
   --apiRoute=apiRoute              [default: /api] path to use for api route
+  --apikey=apikey                  set a specific api key - if not set a random key will be generated
   --apispecRoute=apispecRoute      [default: /api-spec] path for the swagger / open api specification
   --graphqlRoute=graphqlRoute      [default: /graphql] path for the graphql interface
   --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
+
+_See code: [lib/commands/create-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/create-stack.js)_
 
 ## `jsonsls help [COMMAND]`
 
@@ -77,7 +80,7 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
 
 ## `jsonsls run FILE`
 
@@ -91,24 +94,30 @@ ARGUMENTS
   FILE  path of JSON file
 
 OPTIONS
-  -e, --env=development|local      [default: local] environment
+  -a, --apikeyauth                 enable api key authentication to access api
   -h, --help                       show CLI help
   -l, --loglevel=info|debug        [default: info] loglevel of outputs
   -r, --readonly                   set api to readonly (true) or writeable (false)
   -s, --[no-]swagger               enable or disable swagger interface support
   --apiRoute=apiRoute              [default: /api] path to use for api route
+  --apikey=apikey                  set a specific api key - if not set a random key will be generated
   --apispecRoute=apispecRoute      [default: /api-spec] path for the swagger / open api specification
   --graphqlRoute=graphqlRoute      [default: /graphql] path for the graphql interface
   --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
 
-## `jsonsls update-stack`
+_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/run.js)_
+
+## `jsonsls update-stack [STAGE]`
 
 update the stackfolder and update the stack in the cloud
 
 ```
 USAGE
-  $ jsonsls update-stack
+  $ jsonsls update-stack [STAGE]
+
+ARGUMENTS
+  STAGE  [default: dev] stage name
 
 OPTIONS
   -a, --apikeyauth                         require api key authentication to access api
@@ -118,10 +127,13 @@ OPTIONS
   -r, --readonly                           set api to readonly (true) or writeable (false)
   -s, --[no-]swagger                       enable or disable swagger interface support
   --apiRoute=apiRoute                      [default: /api] path to use for api route
+  --apikey=apikey                          set a specific api key - if not set a random key will be generated
   --apispecRoute=apispecRoute              [default: /api-spec] path for the swagger / open api specification
   --graphqlRoute=graphqlRoute              [default: /graphql] path for the graphql interface
   --swaggeruiRoute=swaggeruiRoute          [default: /ui] path for the swagger ui interface
 ```
+
+_See code: [lib/commands/update-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/update-stack.js)_
 
 ## `jsonsls validate FILE`
 
@@ -138,4 +150,6 @@ OPTIONS
   -h, --help          show CLI help
   -s, --[no-]swagger  enable or disable swagger interface support
 ```
+
+_See code: [lib/commands/validate.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/validate.js)_
 <!-- commandsstop -->

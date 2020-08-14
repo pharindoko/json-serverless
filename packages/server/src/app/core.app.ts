@@ -7,7 +7,7 @@ import jsonServer = require('json-server');
 import { StorageAdapter } from '../storage/storage';
 import { ApiSpecification } from '../specifications/apispecification';
 import { JSONValidator } from '../validations/json.validator';
-import graphqlHTTP from 'express-graphql';
+import { graphqlHTTP } from 'express-graphql';
 import { createSchema } from 'swagger-to-graphql';
 import cors from 'cors';
 import { GraphQLMethods } from '../utils/grapqhl_callback';
@@ -16,6 +16,7 @@ import { Environment } from '../environment';
 import { Output } from '../utils/output';
 import { ValidationResult } from '../validations/validationresult';
 import helmet from 'helmet';
+import { AuthStrategy } from '../auth/auth.strategy';
 
 export class CoreApp {
   private storageAdapter: StorageAdapter;
@@ -27,28 +28,34 @@ export class CoreApp {
   private apispec: ApiSpecification;
   private graphqlSchema: GraphQLSchema = null;
   private environment: Environment;
+  private authStrategy: AuthStrategy;
   constructor(
     appConfig: AppConfig,
     server: express.Express,
     storageAdapter: StorageAdapter,
     apispec: ApiSpecification,
-    environment: Environment
+    environment: Environment,
+    authStrategy: AuthStrategy
   ) {
     this.appConfig = appConfig;
     this.server = server;
     this.storageAdapter = storageAdapter;
     this.apispec = apispec;
     this.environment = environment;
+    this.authStrategy = authStrategy;
     Logger.init(appConfig.logLevel);
     Output.setDebugInfo('environment: ' + JSON.stringify(this.environment));
   }
 
   async setup(): Promise<void> {
+    this.setupAuthentication();
     this.setupMiddleware();
+
     this.adapter = await this.setupStorage(this.storageAdapter);
     const json = await this.adapter.getState();
     if (this.validateJSON(json)) {
       const { middlewares, router } = this.initializeLayers();
+
       await this.setupRoutes(json, middlewares, router, this.appConfig);
     } else {
       Output.setError(
@@ -57,6 +64,12 @@ export class CoreApp {
       throw Error(
         'provided json is not valid - please solve the mentioned issues first'
       );
+    }
+  }
+
+  private setupAuthentication() {
+    if (this.appConfig.enableApiKeyAuth) {
+      this.authStrategy.init();
     }
   }
 
@@ -114,7 +127,7 @@ export class CoreApp {
       });
       this.graphqlSchema = await createSchema({
         swaggerSchema: this.swaggerSpec,
-        callBackend: args => {
+        callBackend: async args => {
           const graphqlRequest = args.context['req'];
           const httpProtocol = graphqlRequest
             .get('host')
@@ -148,7 +161,7 @@ export class CoreApp {
       this.server.use(appConfig.routes.graphqlRoutePath, (req, res) => {
         const graphqlFunc = graphqlHTTP({
           schema: this.graphqlSchema,
-          graphiql: true,
+          graphiql: { headerEditorEnabled: true },
           context: {
             req,
           },

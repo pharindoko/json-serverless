@@ -6,10 +6,11 @@ import { SwaggerConfig } from '../src/specifications/swagger/swagger.config';
 import { FileStorageAdapter } from '../src/storage/file.storage';
 import { Environment } from '../src/environment/environment';
 import { CoreApp, AppConfig } from '../src/app';
+import { PublicStrategy, AuthStrategy, ApiKeyStrategy } from '../src/auth';
 
 describe('JSONSLS: Default Settings', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   const localServer = initServerComponents(appConfig);
   let postId: number | undefined;
   beforeAll(async done => {
@@ -67,7 +68,7 @@ describe('JSONSLS: Default Settings', () => {
 
 describe('JSONSLS: Change ApiRoute', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.routes.apiRoutePath = '/api/v1';
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -90,7 +91,7 @@ describe('JSONSLS: Change ApiRoute', () => {
 
 describe('JSONSLS: Change swaggerUIRoute', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.routes.swaggerUIRoutePath = '/swagger';
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -113,7 +114,7 @@ describe('JSONSLS: Change swaggerUIRoute', () => {
 
 describe('JSONSLS: Change apiSpecRoute', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.routes.swaggerSpecRoutePath = '/specification';
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -142,7 +143,7 @@ describe('JSONSLS: Change apiSpecRoute', () => {
 
 describe('JSONSLS: Change graphql', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.routes.graphqlRoutePath = '/graph';
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -184,7 +185,7 @@ describe('JSONSLS: Change graphql', () => {
 
 describe('JSONSLS: Disable Swagger', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.enableSwagger = false;
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -207,7 +208,7 @@ describe('JSONSLS: Disable Swagger', () => {
 
 describe('JSONSLS: ReadOnly', () => {
   const appConfig = new AppConfig();
-  appConfig.jsonFile = './tests/resources/validate.json';
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
   appConfig.readOnly = true;
   const localServer = initServerComponents(appConfig);
   beforeAll(async done => {
@@ -258,7 +259,95 @@ describe('JSONSLS: ReadOnly', () => {
   });
 });
 
-function initServerComponents(appConfig: AppConfig) {
+describe('JSONSLS: EnableApiKeyAuth', () => {
+  const appConfig = new AppConfig();
+  appConfig.jsonFile = './tests/resources/validate.handler.json';
+  appConfig.enableApiKeyAuth = true;
+  const localServer = initServerComponents(appConfig);
+  beforeAll(async done => {
+    await localServer.init();
+    done();
+  });
+
+  test('It should return the swagger ui', async done => {
+    const response = await request(localServer.server).get('/ui');
+    expect(response.status).toBe(200);
+    done();
+  });
+
+  test('It should return a default object', async done => {
+    const response = await request(localServer.server)
+      .get('/api/posts')
+      .set('authorization', 'apikey');
+    expect(response.status).toBe(200);
+    expect(response.body[0].title).toBe('json-server');
+    done();
+  });
+
+  test('It should add a new object', async done => {
+    const response = await request(localServer.server)
+      .post('/api/posts')
+      .send({
+        title: 'json-server',
+        author: 'typicode',
+      });
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  test('It should update an object', async done => {
+    const response = await request(localServer.server)
+      .put('/api/posts')
+      .send({
+        id: 1,
+        title: 'bad-json-server',
+        author: 'typcode',
+      });
+
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  test('It should delete an object', async done => {
+    const response = await request(localServer.server).delete('/api/posts/1');
+
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  test('It should fail to add a new object', async done => {
+    const response = await request(localServer.server)
+      .post('/api/posts')
+      .send({
+        title: 'json-server',
+        author: 'typicode',
+      });
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  test('It should fail to update an object', async done => {
+    const response = await request(localServer.server)
+      .put('/api/posts')
+      .send({
+        id: 1,
+        title: 'bad-json-server',
+        author: 'typcode',
+      });
+
+    expect(response.status).toBe(401);
+    done();
+  });
+
+  test('It should fail to delete an object', async done => {
+    const response = await request(localServer.server).delete('/api/posts/1');
+
+    expect(response.status).toBe(401);
+    done();
+  });
+});
+
+export function initServerComponents(appConfig: AppConfig) {
   const server = express();
   const environment = new Environment();
   const swagger = new Swagger(
@@ -269,6 +358,11 @@ function initServerComponents(appConfig: AppConfig) {
     'package.json',
     appConfig.routes.swaggerSpecRoutePath
   );
+
+  const authStrategy: AuthStrategy = appConfig.enableApiKeyAuth
+    ? new ApiKeyStrategy(server, 'apikey')
+    : new PublicStrategy();
+
   const localServer = new TestServer(
     server,
     new CoreApp(
@@ -276,7 +370,8 @@ function initServerComponents(appConfig: AppConfig) {
       server,
       new FileStorageAdapter(appConfig.jsonFile),
       swagger,
-      environment
+      environment,
+      authStrategy
     )
   );
   return localServer;

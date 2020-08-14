@@ -1,4 +1,5 @@
 {
   "jsonFile": "db.json",
-  "stackName": "test"
+  "stackName": "test",
+  "enableApiKeyAuth": true
 }

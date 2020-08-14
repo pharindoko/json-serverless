@@ -7,7 +7,8 @@ import { AWSActions } from '../actions/aws-actions';
 import chalk from 'chalk';
 import cli from 'cli-ux';
 import { AppConfig, LogLevel } from 'json-serverless-lib';
-
+import { v4 as uuidv4 } from 'uuid';
+import { ServerlessConfig } from '../classes/serverlessconfig';
 export class UpdateStackCommand extends Command {
   static description =
     'update the stackfolder and update the stack in the cloud';
@@ -36,6 +37,13 @@ export class UpdateStackCommand extends Command {
       hidden: false, // hide from help
       default: false, // default value if flag not passed (can be a function that returns a string or undefined)
       required: false, // make flag required (this is not common and you should probably use an argument instead)
+    }),
+    apikey: flags.string({
+      description:
+        'set a specific api key - if not set a random key will be generated', // help description for flag
+      hidden: false, // hide from help
+      required: false, // make flag required (this is not common and you should probably use an argument instead)
+      dependsOn: ['apikeyauth'],
     }),
     currentdirectory: flags.string({
       char: 'p', // shorter flag version
@@ -78,12 +86,22 @@ export class UpdateStackCommand extends Command {
     }),
   };
 
+  static args = [
+    {
+      name: 'stage', // name of arg to show in help and reference with args[name]
+      required: false, // make the arg required with `required: true`
+      description: 'stage name', // help description
+      default: 'dev',
+      hidden: false, // hide this arg from help
+    },
+  ];
+
   async run() {
     const logo = await Helpers.generateLogo('json-serverless');
     this.log();
     this.log(`${chalk.blueBright(logo)}`);
     this.log();
-    const { flags } = this.parse(UpdateStackCommand);
+    const { args, flags } = this.parse(UpdateStackCommand);
 
     if (flags.currentdirectory) {
       Helpers.changeDirectory(flags.currentdirectory);
@@ -107,6 +125,34 @@ export class UpdateStackCommand extends Command {
       this.config.root + '/node_modules/json-serverless-template/'
     );
     const stackFolder = process.cwd();
+    const appConfig: AppConfig = JSON.parse(
+      fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
+    );
+    const serverlessConfig = JSON.parse(
+      fs.readFileSync(stackFolder + '/config/serverlessconfig.json', 'UTF-8')
+    ) as ServerlessConfig;
+    const apikey = '/jsonsls/' + appConfig.stackName + '-' + args.stage;
+    let apiKeyValue: string | undefined;
+    let existingAuthKey: string | undefined;
+    try {
+      existingAuthKey = await AWSActions.getSSMParameter(
+        apikey!,
+        serverlessConfig.awsRegion!
+      );
+    } catch (error) {}
+
+    if (
+      (appConfig.enableApiKeyAuth !== flags.apikeyauth ||
+        (existingAuthKey &&
+          flags.apikey &&
+          existingAuthKey !== flags.apikey)) &&
+      flags.apikeyauth
+    ) {
+      apiKeyValue = flags.apikey ? flags.apikey : uuidv4();
+    } else if (existingAuthKey) {
+      apiKeyValue = existingAuthKey;
+    }
+
     const tasks = new Listr([
       {
         title: 'Validate JSON Serverless Directory',
@@ -118,9 +164,11 @@ export class UpdateStackCommand extends Command {
         title: 'Copy Template Files',
         task: async (task) => {
           if (process.env.NODE_ENV === 'local') {
+            Helpers.removeDir(stackFolder + '/node_modules');
             await fs.copy(
               templateFolder + '/node_modules',
-              stackFolder + '/node_modules'
+              stackFolder + '/node_modules',
+              { dereference: true }
             );
           }
           await fs.copy(templateFolder + '/src', stackFolder + '/src');
@@ -147,11 +195,44 @@ export class UpdateStackCommand extends Command {
         },
       },
       {
+        title: 'Update AuthSettings',
+        task: async (ctx, task) => {
+          if (
+            apiKeyValue &&
+            appConfig.enableApiKeyAuth !== flags.apikeyauth &&
+            flags.apikeyauth
+          ) {
+            await AWSActions.putSSMParameter(
+              apikey!,
+              apiKeyValue!,
+              serverlessConfig.awsRegion!
+            );
+          } else if (
+            apiKeyValue &&
+            existingAuthKey &&
+            flags.apikeyauth &&
+            existingAuthKey !== apiKeyValue
+          ) {
+            await AWSActions.putSSMParameter(
+              apikey!,
+              apiKeyValue!,
+              serverlessConfig.awsRegion!
+            );
+          } else if (
+            appConfig.enableApiKeyAuth !== flags.apikeyauth &&
+            !flags.apikeyauth
+          ) {
+            await AWSActions.deleteSSMParameter(
+              apikey,
+              serverlessConfig.awsRegion!
+            );
+            apiKeyValue = undefined;
+          }
+        },
+      },
+      {
         title: 'Update Appconfig',
         task: (ctx, task) => {
-          const appConfig: AppConfig = JSON.parse(
-            fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
-          );
           appConfig.enableApiKeyAuth = flags.apikeyauth;
           appConfig.readOnly = flags.readonly;
           appConfig.enableSwagger = flags.swagger;
@@ -200,7 +281,7 @@ export class UpdateStackCommand extends Command {
         title: 'Deploy Stack on AWS',
         task: async () => {
           await Helpers.executeChildProcess(
-            'node_modules/serverless/bin/serverless deploy',
+            'node_modules/serverless/bin/serverless.js deploy',
             {
               cwd: stackFolder,
             },
@@ -213,7 +294,7 @@ export class UpdateStackCommand extends Command {
     try {
       await tasks.run();
       slsinfo = await Helpers.executeChildProcess2(
-        'node_modules/serverless/bin/serverless info',
+        'node_modules/serverless/bin/serverless.js info',
         { cwd: stackFolder }
       );
     } catch (error) {
@@ -224,7 +305,13 @@ export class UpdateStackCommand extends Command {
         fs.readFileSync(stackFolder + '/config/appconfig.json', 'UTF-8')
       ) as AppConfig;
 
-      Helpers.createCLIOutput(slsinfo, appConfig);
+      Helpers.createCLIOutput(
+        slsinfo,
+        appConfig,
+        args.stage,
+        undefined,
+        apiKeyValue
+      );
     } catch (error) {
       this.log(`${chalk.red(error.message)}`);
       this.log(slsinfo);
