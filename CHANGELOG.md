@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/pharindoko/json-serverless/compare/v1.5.52...v1.6.0) (2020-08-14)
+
+
+### Bug Fixes
+
+* **server:** delete statement in body of graphql mutation does not delete the item ([43008f3](https://github.com/pharindoko/json-serverless/commit/43008f3e8f18cdc482932887141ffa4dfdae1551))
+
+
+### Features
+
+* redesign and integrate authentication via apikey into the json-serverless-lib ([d6e3b43](https://github.com/pharindoko/json-serverless/commit/d6e3b433a5209526615897fd406165166a924e83))
+
+
+
+
+
 ## [1.5.52](https://github.com/pharindoko/json-serverless/compare/v1.5.51...v1.5.52) (2020-08-10)
 
 
