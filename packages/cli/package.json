@@ -40,7 +40,7 @@
     "uuid": "^8.3.0",
     "webpack": "4.44.1",
     "webpack-cli": "3.3.12",
-    "webpack-node-externals": "2.3.0"
+    "webpack-node-externals": "2.5.2"
   },
   "devDependencies": {
     "@oclif/dev-cli": "1.22.2",
