@@ -19,7 +19,7 @@
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "devDependencies": {
     "@types/jest": "26.0.10",
-    "cz-conventional-changelog": "3.2.1",
+    "cz-conventional-changelog": "3.3.0",
     "typescript": "4.0.2"
   },
   "config": {
