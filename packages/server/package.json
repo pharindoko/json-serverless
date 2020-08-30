@@ -57,7 +57,7 @@
     "swagger-to-graphql": "^4.0.2",
     "swagger-ui-dist": "^3.30.2",
     "swagger-ui-express": "^4.1.4",
-    "table": "^5.4.6"
+    "table": "^6.0.0"
   },
   "devDependencies": {
     "@types/aws-lambda": "8.10.61",
