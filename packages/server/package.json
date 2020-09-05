@@ -60,7 +60,7 @@
     "table": "^6.0.0"
   },
   "devDependencies": {
-    "@types/aws-lambda": "8.10.61",
+    "@types/aws-lambda": "8.10.62",
     "@types/body-parser": "1.19.0",
     "@types/cors": "2.8.7",
     "@types/dotenv": "6.1.1",
