@@ -22,6 +22,7 @@ custom:
   custom:
   serverless-offline:
     resourceRoutes: true
+    useChildProcesses: true
   webpack:
     includeModules: true
     packager: 'npm'
@@ -60,7 +61,6 @@ provider:
       Action:
         - 'ssm:GetParameter'
       Resource: '*'
-
 
 # The `functions` block defines what code to deploy
 functions:
