@@ -10,8 +10,9 @@
   },
   "scripts": {
     "test": "npx jest",
-    "debug": "nodemon --watch 'src/**/*.ts' --watch 'example/index.ts' --ignore 'src/**/*.spec.ts' --exec node --inspect-brk -r ts-node/register example/index.ts",
-    "start": "nodemon --watch 'src/**/*.ts' --watch 'example/index.ts' --ignore 'src/**/*.spec.ts' --exec 'ts-node' example/index.ts",
+    "debug": "tsc-watch --onSuccess \"node --inspect-brk ./lib/example/simple.js\"",
+    "start": "tsc-watch --onSuccess \"node ./lib/example/simple.js\"",
+    "start:advanced": "tsc-watch --onSuccess \"node ./lib/example/advanced.js\"",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
@@ -84,10 +85,10 @@
     "express-swagger-generator": "1.1.17",
     "gts": "1.1.0",
     "jest": "26.4.2",
-    "nodemon": "2.0.4",
     "ts-jest": "26.3.0",
     "ts-loader": "8.0.3",
     "ts-node": "9.0.0",
+    "tsc-watch": "^4.2.9",
     "typescript": "4.0.2"
   },
   "config": {
