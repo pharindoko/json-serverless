@@ -29,7 +29,7 @@ module.exports = {
   target: 'node',
   externals: [
     nodeExternals({
-      whitelist: ['swagger-ui-express', 'json-server'],
+      allowlist: ['swagger-ui-express', 'json-server'],
     }),
   ],
   module: {
