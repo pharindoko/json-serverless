@@ -15,7 +15,6 @@ before_install:
   - git log $(git describe --tags --abbrev=0)..HEAD --oneline
   - echo $COMMITCOUNT
 install:
-  - npm config set package-lock false
   - make install
 
 jobs:
