@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "declarationMap": true,
     "outDir": "lib",
-    "rootDir": "./",
+    "rootDir": "./src",
     "composite": false,
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
@@ -15,6 +15,6 @@
     "sourceMap": false,
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "example/**/*.ts"],
+  "include": ["src/**/*.ts"],
   "exclude": ["tests"]
 }
