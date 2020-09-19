@@ -8,38 +8,35 @@ cli for json-serverless project
 [![License](https://img.shields.io/npm/l/json-serverless.svg)](https://github.com/pharindoko/json-serverless/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
+* [json-serverless](#json-serverless)
+* [Usage](#usage)
+* [Commands](#commands)
 <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.6.0 darwin-x64 node-v14.2.0
+json-serverless/1.6.1 linux-x64 node-v10.22.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`jsonsls create-stack FILE [STAGE]`](#jsonsls-create-stack-file-stage)
-- [`jsonsls help [COMMAND]`](#jsonsls-help-command)
-- [`jsonsls run FILE`](#jsonsls-run-file)
-- [`jsonsls update-stack [STAGE]`](#jsonsls-update-stack-stage)
-- [`jsonsls validate FILE`](#jsonsls-validate-file)
+* [`jsonsls create-stack FILE [STAGE]`](#jsonsls-create-stack-file-stage)
+* [`jsonsls help [COMMAND]`](#jsonsls-help-command)
+* [`jsonsls run FILE`](#jsonsls-run-file)
+* [`jsonsls update-stack [STAGE]`](#jsonsls-update-stack-stage)
+* [`jsonsls validate FILE`](#jsonsls-validate-file)
 
 ## `jsonsls create-stack FILE [STAGE]`
 
@@ -70,8 +67,6 @@ OPTIONS
   --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
 
-_See code: [lib/commands/create-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/create-stack.js)_
-
 ## `jsonsls help [COMMAND]`
 
 display help for jsonsls
@@ -87,11 +82,11 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.1.0/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
 ## `jsonsls run FILE`
 
-run and develop with the api locally
+run and test the api locally
 
 ```
 USAGE
@@ -112,8 +107,6 @@ OPTIONS
   --graphqlRoute=graphqlRoute      [default: /graphql] path for the graphql interface
   --swaggeruiRoute=swaggeruiRoute  [default: /ui] path for the swagger ui interface
 ```
-
-_See code: [lib/commands/run.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/run.js)_
 
 ## `jsonsls update-stack [STAGE]`
 
@@ -140,11 +133,9 @@ OPTIONS
   --swaggeruiRoute=swaggeruiRoute          [default: /ui] path for the swagger ui interface
 ```
 
-_See code: [lib/commands/update-stack.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/update-stack.js)_
-
 ## `jsonsls validate FILE`
 
-validate the json file to see if it works with json-serverless
+describe the command here
 
 ```
 USAGE
@@ -157,7 +148,4 @@ OPTIONS
   -h, --help          show CLI help
   -s, --[no-]swagger  enable or disable swagger interface support
 ```
-
-_See code: [lib/commands/validate.js](https://github.com/pharindoko/json-serverless/blob/v1.6.0/lib/commands/validate.js)_
-
 <!-- commandsstop -->

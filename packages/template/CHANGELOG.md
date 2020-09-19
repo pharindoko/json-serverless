@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/pharindoko/json-serverless/compare/v1.6.0...v1.6.1) (2020-09-19)
+
+
+### Bug Fixes
+
+* update package dependencies ([7770493](https://github.com/pharindoko/json-serverless/commit/7770493a9cbf846cda2c58dce0da7f71aa4bc1aa))
+* **template:** add property to fix non-working serverless offline for local testing ([5324852](https://github.com/pharindoko/json-serverless/commit/5324852bb96cab39138532ec6237bb7005c08e3a))
+
+
+
+
+
 # [1.6.0](https://github.com/pharindoko/json-serverless/compare/v1.5.52...v1.6.0) (2020-08-14)
 
 

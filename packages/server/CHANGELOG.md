@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.1](https://github.com/pharindoko/json-serverless/compare/v1.6.0...v1.6.1) (2020-09-19)
+
+
+### Bug Fixes
+
+* **deps:** update dependency node-fetch to v2.6.1 [security] ([b1ca1b0](https://github.com/pharindoko/json-serverless/commit/b1ca1b075fa5210c0abba179fc7c1d899db5d1c8))
+* **deps:** update dependency table to v6 ([968b3ab](https://github.com/pharindoko/json-serverless/commit/968b3ab500e1ba58251417832710b25b8b83a2be))
+* update package dependencies ([7770493](https://github.com/pharindoko/json-serverless/commit/7770493a9cbf846cda2c58dce0da7f71aa4bc1aa))
+
+
+
+
+
 # [1.6.0](https://github.com/pharindoko/json-serverless/compare/v1.5.52...v1.6.0) (2020-08-14)
 
 
