@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.3](https://github.com/pharindoko/json-serverless/compare/v1.6.2...v1.6.3) (2020-09-25)
+
+
+### Bug Fixes
+
+* **server:** repair non working graphiql page by modifying blocking csp rules ([11b1cb4](https://github.com/pharindoko/json-serverless/commit/11b1cb40b22380e94d816d4eaf5e15f39b4695fd))
+
+
+### Performance Improvements
+
+* **server:** remove unneeded packages and dependencies ([09e791c](https://github.com/pharindoko/json-serverless/commit/09e791c2d6c36ca6a14aa3f96bc6cd31eb9852f5))
+
+
+
+
+
 ## [1.6.2](https://github.com/pharindoko/json-serverless/compare/v1.6.1...v1.6.2) (2020-09-20)
 
 
