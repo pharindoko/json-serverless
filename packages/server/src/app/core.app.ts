@@ -74,7 +74,17 @@ export class CoreApp {
   }
 
   private setupMiddleware() {
-    this.server.use(helmet());
+    this.server.use(
+      helmet({
+        contentSecurityPolicy: {
+          directives: {
+            defaultSrc: ["'self'", "'unsafe-inline'", 'data'],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+            imgSrc: ["'self'", 'data:'],
+          },
+        },
+      })
+    );
     this.server.use(cors());
     this.server.use(express.json());
     this.server.use(express.urlencoded({ extended: true }));
