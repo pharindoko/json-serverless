@@ -6,10 +6,10 @@ import {
   CoreApp,
   FileStorageAdapter,
   Environment,
-} from '../src/index';
-import { AuthStrategy } from '../src/auth/auth.strategy';
-import { ApiKeyStrategy } from '../src/auth/apikey.strategy';
-import { PublicStrategy } from '../src/auth/public.strategy';
+} from '../index';
+import { AuthStrategy } from '../auth/auth.strategy';
+import { ApiKeyStrategy } from '../auth/apikey.strategy';
+import { PublicStrategy } from '../auth/public.strategy';
 
 const server = express();
 const appConfig = new AppConfig();

@@ -7,8 +7,7 @@ import {
   PublicStrategy,
   Swagger,
   SwaggerConfig,
-} from '../src/index';
-
+} from '../index';
 const server = express();
 const appConfig = new AppConfig();
 const environment = new Environment();
@@ -22,7 +21,7 @@ const swagger = new Swagger(
   appConfig.routes.swaggerSpecRoutePath
 );
 
-let core = new CoreApp(
+const core = new CoreApp(
   appConfig,
   server,
   new FileStorageAdapter('db.json'),
@@ -36,6 +35,7 @@ const init = async () => {
   console.log(
     'JSON Server is running under port 3000. Use http://localhost:3000/ to access it'
   );
+
   server.listen(3000);
 };
 init();
