@@ -18,7 +18,7 @@
     "@types/express": "4.17.8",
     "@types/express-serve-static-core": "4.17.13",
     "@types/node": "10.17.13",
-    "aws-sdk": "2.766.0",
+    "aws-sdk": "2.767.0",
     "copy-webpack-plugin": "5.1.1",
     "lerna": "3.22.1",
     "node-env-webpack-plugin": "1.1.0",
