@@ -21,7 +21,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.6.5 linux-x64 node-v10.22.1
+json-serverless/1.6.6 linux-x64 node-v10.22.1
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
