@@ -78,7 +78,7 @@
     "jest": "26.6.1",
     "source-map-support": "0.5.19",
     "supertest": "5.0.0",
-    "ts-jest": "26.4.1",
+    "ts-jest": "26.4.2",
     "ts-loader": "8.0.6",
     "ts-node": "9.0.0",
     "tsc-watch": "4.2.9",
