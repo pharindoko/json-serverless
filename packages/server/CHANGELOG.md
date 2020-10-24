@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.7](https://github.com/pharindoko/json-serverless/compare/v1.6.6...v1.6.7) (2020-10-24)
+
+
+### Bug Fixes
+
+* **server:** add missing package ajv for validation ([f023464](https://github.com/pharindoko/json-serverless/commit/f023464c4037ced25414cf9a1d8dcfd202e2c4cb))
+
+
+
+
+
 ## [1.6.6](https://github.com/pharindoko/json-serverless/compare/v1.6.5...v1.6.6) (2020-10-24)
 
 **Note:** Version bump only for package json-serverless-lib

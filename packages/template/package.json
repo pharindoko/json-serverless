@@ -1,6 +1,6 @@
 {
   "name": "json-serverless-template",
-  "version": "1.6.6",
+  "version": "1.6.7",
   "description": "template for json-serverless project",
   "author": "pharindoko",
   "bugs": "https://github.com/pharindoko/json-serverless/issues",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "express": "4.17.1",
-    "json-serverless-lib": "^1.6.6",
+    "json-serverless-lib": "^1.6.7",
     "serverless-http": "^2.3.2"
   },
   "devDependencies": {
