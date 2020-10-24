@@ -12,19 +12,16 @@ describe('end2end test with cypress', () => {
     done();
   });
 
-
   test('all pages should be available', async done => {
-
     const cypress = require('cypress');
     await cypress.run({
-    reporter: 'junit',
-    browser: 'chrome',
-    config: {
+      reporter: 'junit',
+      browser: 'chrome',
+      config: {
         baseUrl: 'http://localhost:3000',
         video: false,
-    },
+      },
     });
     done();
-  }, 30000);
-
-})
+  }, 60000);
+});
