@@ -2,9 +2,15 @@
   "extends": ["config:base"],
   "baseBranches": ["master"],
   "automerge": true,
-  "packageRules": [{
-	"depTypeList": ["dependencies"],
-	"updateTypes": ["major"],
-    "automerge": false
-  }]
+  "separateMinorPatch": true,
+  "patch": {
+    "enabled": false
+  },
+  "packageRules": [
+    {
+      "depTypeList": ["dependencies"],
+      "updateTypes": ["major"],
+      "automerge": false
+    }
+  ]
 }
