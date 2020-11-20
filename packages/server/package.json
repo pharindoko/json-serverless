@@ -1,6 +1,6 @@
 {
   "name": "json-serverless-lib",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "Transform a json file into an api",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
