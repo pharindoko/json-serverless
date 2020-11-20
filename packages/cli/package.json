@@ -43,7 +43,7 @@
     "webpack-node-externals": "2.5.2"
   },
   "devDependencies": {
-    "@oclif/dev-cli": "1.23.0",
+    "@oclif/dev-cli": "1.24.1",
     "@types/listr": "0.14.2",
     "@types/node": "10.17.13",
     "@types/uuid": "8.3.0",
