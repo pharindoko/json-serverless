@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.9](https://github.com/pharindoko/json-serverless/compare/v1.6.8...v1.6.9) (2020-11-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency express-graphql to ^0.12.0 ([0fa680c](https://github.com/pharindoko/json-serverless/commit/0fa680c53f81d462c0e1ca8886cdca73a1a16cb3))
+
+
+
+
+
 ## [1.6.8](https://github.com/pharindoko/json-serverless/compare/v1.6.7...v1.6.8) (2020-10-27)
 
 
