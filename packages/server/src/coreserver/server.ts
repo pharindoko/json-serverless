@@ -9,7 +9,7 @@ export abstract class CoreServer {
     this.server = server;
     this.core = core;
   }
-  abstract async init(): Promise<void>;
+  abstract init(): Promise<void>;
   protected start(server: express.Express, port: number) {
     // start the web server
     server.listen(port);
