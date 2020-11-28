@@ -55,33 +55,30 @@ const getParameter = async (key: string): Promise<string> => {
 
 let core: CoreApp | undefined;
 const init = async () => {
-  return new Promise(async (resolve, reject) => {
-    const authStrategy: AuthStrategy = appConfig.enableApiKeyAuth
-      ? new ApiKeyStrategy(server, await getParameter(process.env.authPath!))
-      : new PublicStrategy();
-    if (process.env.IS_OFFLINE) {
-      core = new CoreApp(
-        appConfig,
-        server,
-        new FileStorageAdapter('db.json'),
-        swagger,
-        environment,
-        authStrategy
-      );
-    } else {
-      core = new CoreApp(
-        appConfig,
-        server,
-        new S3StorageAdapter(environment.s3Bucket, environment.s3File),
-        swagger,
-        environment,
-        authStrategy
-      );
-    }
+  const authStrategy: AuthStrategy = appConfig.enableApiKeyAuth
+    ? new ApiKeyStrategy(server, await getParameter(process.env.authPath!))
+    : new PublicStrategy();
+  if (process.env.IS_OFFLINE) {
+    core = new CoreApp(
+      appConfig,
+      server,
+      new FileStorageAdapter('db.json'),
+      swagger,
+      environment,
+      authStrategy
+    );
+  } else {
+    core = new CoreApp(
+      appConfig,
+      server,
+      new S3StorageAdapter(environment.s3Bucket, environment.s3File),
+      swagger,
+      environment,
+      authStrategy
+    );
+  }
 
-    await core!.setup();
-    resolve();
-  });
+  await core!.setup();
 };
 const initPromise = init();
 
