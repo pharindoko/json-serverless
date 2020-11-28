@@ -13,3 +13,4 @@ jspm_packages
 .env
 .webpack
 lib
+sls-deployment-test/
