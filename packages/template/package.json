@@ -24,7 +24,7 @@
     "node-env-webpack-plugin": "1.1.0",
     "nodemon": "2.0.6",
     "nodemon-webpack-plugin": "4.3.2",
-    "serverless": "2.13.0",
+    "serverless": "2.14.0",
     "serverless-offline": "6.8.0",
     "ts-loader": "8.0.7",
     "ts-node": "9.0.0",
