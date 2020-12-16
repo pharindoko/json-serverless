@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.12](https://github.com/pharindoko/json-serverless/compare/v1.6.11...v1.6.12) (2020-12-16)
+
+
+### Bug Fixes
+
+* **deps:** update dependency ajv to v7 ([ccef389](https://github.com/pharindoko/json-serverless/commit/ccef389d9378a646842eb92570e715353da559e1))
+
+
+
+
+
 ## [1.6.11](https://github.com/pharindoko/json-serverless/compare/v1.6.10...v1.6.11) (2020-11-28)
 
 

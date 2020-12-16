@@ -21,7 +21,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.6.11 linux-x64 node-v10.23.0
+json-serverless/1.6.12 linux-x64 node-v10.23.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -39,6 +39,8 @@ USAGE
 * [`jsonsls validate FILE`](#jsonsls-validate-file)
 
 ## `jsonsls create-stack FILE [STAGE]`
+
+create the stackfolder and deploy the stack in the cloud
 
 ```
 USAGE
@@ -67,6 +69,8 @@ OPTIONS
 
 ## `jsonsls help [COMMAND]`
 
+display help for jsonsls
+
 ```
 USAGE
   $ jsonsls help [COMMAND]
@@ -81,6 +85,8 @@ OPTIONS
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v3.2.0/src/commands/help.ts)_
 
 ## `jsonsls run FILE`
+
+run and test the api locally
 
 ```
 USAGE
@@ -104,6 +110,8 @@ OPTIONS
 
 ## `jsonsls update-stack [STAGE]`
 
+update the stackfolder and update the stack in the cloud
+
 ```
 USAGE
   $ jsonsls update-stack [STAGE]
@@ -126,6 +134,8 @@ OPTIONS
 ```
 
 ## `jsonsls validate FILE`
+
+describe the command here
 
 ```
 USAGE
