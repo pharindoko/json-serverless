@@ -6,6 +6,9 @@
   "patch": {
     "enabled": false
   },
+   "minor": {
+    "enabled": false
+  },
   "packageRules": [
     {
       "depTypeList": ["dependencies"],
