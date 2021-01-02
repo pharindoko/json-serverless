@@ -5,8 +5,7 @@
 # uses to deploy your code to your provider of choice
 
 # The `service` block is the name of the service
-service:
-  name: ${self:custom.appconfig.stackName}
+service: ${self:custom.appconfig.stackName}
 plugins:
   - serverless-offline
 package:
@@ -32,6 +31,7 @@ provider:
   name: aws
   runtime: nodejs12.x
   region: ${self:custom.region}
+  stackName: ${self:custom.appconfig.stackName}
   stackTags: # Tags that will be added to each of the deployment resources
     jsonsls: ${self:custom.file.stackName}
   environment:
@@ -43,6 +43,7 @@ provider:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1
 
   apiGateway: # Optional API Gateway global config
+    shouldStartNameWithService: true
     binaryMediaTypes: # Optional binary media types the API might return
       - '*/*'
   iamRoleStatements:
