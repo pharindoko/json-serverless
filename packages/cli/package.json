@@ -63,7 +63,16 @@
   ],
   "homepage": "https://github.com/pharindoko/json-serverless",
   "keywords": [
-    "oclif"
+    "api",
+    "graphql",
+    "aws",
+    "json",
+    "rest",
+    "serverless",
+    "rest-api",
+    "serverless-framework",
+    "swagger-ui",
+    "json-server"
   ],
   "license": "MIT",
   "main": "lib/index.js",
