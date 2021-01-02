@@ -1,22 +1,11 @@
-process.env.AWS_SDK_LOAD_CONFIG = 'true';
 import AWS = require('aws-sdk');
 
-const ec2: AWS.EC2 = new AWS.EC2();
+const ec2: AWS.EC2 = new AWS.EC2({ region: 'us-east-1' });
 const cloudformation: AWS.CloudFormation = new AWS.CloudFormation();
 const sts: AWS.STS = new AWS.STS();
-/* if (!AWS.config.region) {
-    AWS.config.update({ region: 'us-east-1' });
-}
- */
 
 export class AWSActions {
   constructor() {}
-  static getCurrentRegion(): string {
-    if (!AWS.config.region) {
-      AWS.config.update({ region: 'us-east-1' });
-    }
-    return AWS.config.region!;
-  }
 
   static async checkValidAWSIdentity(): Promise<
     AWS.STS.GetCallerIdentityResponse
@@ -32,15 +21,13 @@ export class AWSActions {
 
   static async getAllRegionsByName(): Promise<Array<Object>> {
     try {
-      let regions: Object[];
+      let regions: string[] = [];
       const result = await ec2.describeRegions({ AllRegions: true }).promise();
 
       regions = result
         .Regions!.sort((a, b) => a.RegionName!.localeCompare(b.RegionName!))
         .map((x) => {
-          return new Object({
-            name: x.RegionName,
-          });
+          return x.RegionName!;
         });
       return regions;
     } catch (error) {
