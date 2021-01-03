@@ -15,6 +15,8 @@ package:
     - config/
     - dist/
     - node_modules/
+  exclude:
+    - node_modules/aws-sdk/**
 custom:
   file: ${file(./config/serverlessconfig.json)}
   appconfig: ${file(./config/appconfig.json)}
