@@ -21,7 +21,7 @@ $ npm install -g json-serverless
 $ jsonsls COMMAND
 running command...
 $ jsonsls (-v|--version|version)
-json-serverless/1.6.12 linux-x64 node-v10.23.0
+json-serverless/1.6.13 linux-x64 node-v10.23.0
 $ jsonsls --help [COMMAND]
 USAGE
   $ jsonsls COMMAND
@@ -135,7 +135,7 @@ OPTIONS
 
 ## `jsonsls validate FILE`
 
-describe the command here
+validate the json file against specific rules
 
 ```
 USAGE
