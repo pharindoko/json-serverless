@@ -82,3 +82,10 @@ endif
 	make install
 	npx lerna version --include-merged-tags --force-publish --conventional-commits --create-release github
 	npx lerna publish from-git --yes
+
+.PHONY: cleanup
+cleanup:
+	rm -rf node_modules
+	cd packages/cli && rm -rf node_modules
+	cd packages/template && rm -rf node_modules
+	cd packages/server && rm -rf node_modules
