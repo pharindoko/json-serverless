@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.14](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.14) (2021-01-03)
+
+
+### Bug Fixes
+
+* **cli:** remove loading of local aws config / credentials to avoid runtime issues ([858b4d2](https://github.com/pharindoko/json-serverless/commit/858b4d291b323b0c753521ee4e46e416f56dab55))
+
+
+
+
+
 ## [1.6.13](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.13) (2021-01-03)
 
 

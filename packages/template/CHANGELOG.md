@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.14](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.14) (2021-01-03)
+
+
+### Features
+
+* **template:** prepare serverless.yml for changes introduced in sls version 3.0 ([b430e2d](https://github.com/pharindoko/json-serverless/commit/b430e2d2d15f9598ec50657acae57602b56b7ae4))
+
+
+### Performance Improvements
+
+* **template:** exclude aws-sdk from deployment files to reduce the package size ([8254b5e](https://github.com/pharindoko/json-serverless/commit/8254b5e589bab3513f11a391375e2bd0d54b7561))
+* **template:** set webpack mode to production ([7d6d222](https://github.com/pharindoko/json-serverless/commit/7d6d222df31b9fe60e17f4a67351cfe32e3ec4cc))
+
+
+
+
+
 ## [1.6.13](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.13) (2021-01-03)
 
 

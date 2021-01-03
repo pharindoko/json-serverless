@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.14](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.14) (2021-01-03)
+
+
+### Features
+
+* **server:** add storage adapter for aws dynamodb ([7ecb26f](https://github.com/pharindoko/json-serverless/commit/7ecb26f8ba60fff4f265ac37756d5abc27a7fbad))
+
+
+
+
+
 ## [1.6.13](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.13) (2021-01-03)
 
 
