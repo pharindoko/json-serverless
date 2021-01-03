@@ -139,6 +139,7 @@ export class CreateStackCommand extends Command {
     let region: string | undefined;
     if (flags.region) {
       region = flags.region;
+      await this.verifyRegion(region);
     } else {
       region = await this.getRegion();
     }
@@ -312,6 +313,17 @@ export class CreateStackCommand extends Command {
     }
   }
 
+  private async verifyRegion(region: string | undefined) {
+    let regions = await AWSActions.getAllRegionsByName();
+    if (!regions.find((x) => x === region)) {
+      this.error(
+        'Please check the value for the region parameter - the region ' +
+          region +
+          ' cannot be found in aws and is not valid'
+      );
+    }
+  }
+
   private async checkIdentity() {
     cli.action.start(
       `${chalk.blueBright('Check AWS Identity')}`,
@@ -364,8 +376,7 @@ export class CreateStackCommand extends Command {
 
   private async getRegion() {
     let regions = await AWSActions.getAllRegionsByName();
-    regions.unshift({ name: AWSActions.getCurrentRegion() });
-    let region = '';
+    let region = null;
 
     let responses: any = await inquirer.prompt([
       {

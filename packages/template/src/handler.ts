@@ -1,4 +1,4 @@
-import { APIGatewayProxyHandler } from 'aws-lambda';
+import { APIGatewayProxyHandlerV2, APIGatewayProxyEventV2 } from 'aws-lambda';
 import express from 'express';
 import serverlessHttp from 'serverless-http';
 import {
@@ -82,7 +82,10 @@ const init = async () => {
 };
 const initPromise = init();
 
-export const handler: APIGatewayProxyHandler = async (event, context) => {
+export const handler: APIGatewayProxyHandlerV2 = async (
+  event: APIGatewayProxyEventV2,
+  context
+) => {
   await initPromise;
   const result = await sls(event, context);
   return result;
