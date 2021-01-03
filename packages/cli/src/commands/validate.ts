@@ -3,7 +3,7 @@ import { JSONValidator, Output } from 'json-serverless-lib';
 import { Helpers } from '../actions/helpers';
 import chalk from 'chalk';
 export class Validate extends Command {
-  static description = 'describe the command here';
+  static description = 'validate the json file against specific rules';
 
   static flags = {
     help: flags.help({ char: 'h' }),
