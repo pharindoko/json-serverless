@@ -10,8 +10,9 @@
   },
   "scripts": {
     "test": "npx jest",
-    "debug": "tsc-watch --onSuccess \"node --inspect-brk ./lib/example/simple.js\"",
-    "start": "tsc-watch --onSuccess \"node ./lib/example/simple.js\"",
+    "debug": "tsc-watch --onSuccess \"node --inspect-brk ./lib/example/simple.s3.js\"",
+    "start": "tsc-watch --onSuccess \"node ./lib/example/simple.s3.js\"",
+    "start:dynamodb": "tsc-watch --onSuccess \"node ./lib/example/simple.dynamodb.js\"",
     "start:advanced": "tsc-watch --onSuccess \"node ./lib/example/advanced.js\"",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
