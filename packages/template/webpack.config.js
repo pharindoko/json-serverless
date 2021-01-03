@@ -12,10 +12,12 @@ module.exports = {
       NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : 'dev', // use 'dev' unless process.env.NODE_ENV is defined
       DEBUG: false,
     }),
-    new CopyPlugin([
-      { from: appConfig.jsonFile, to: '../db.json' },
-      { from: './config/appconfig.json', to: './config/appconfig.json' },
-    ]),
+    new CopyPlugin({
+      patterns: [
+        { from: appConfig.jsonFile, to: '../db.json' },
+        { from: './config/appconfig.json', to: './config/appconfig.json' },
+      ],
+    }),
   ],
   entry: { './src/handler': './src/handler.ts' },
   resolve: {
