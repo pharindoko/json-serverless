@@ -50,7 +50,6 @@ export class GraphQLMethods {
     );
 
     const response = await fetch(url, {
-      query,
       method,
       ...bodyAndHeaders,
     });
