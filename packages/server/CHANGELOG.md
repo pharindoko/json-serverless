@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.15](https://github.com/pharindoko/json-serverless/compare/v1.6.14...v1.6.15) (2021-01-17)
+
+
+### Features
+
+* **server:** add azure storage fileshare as new storage adapter ([037c65b](https://github.com/pharindoko/json-serverless/commit/037c65bca314896e5fb24ddd2d6f7fdffcdf13f4))
+
+
+
+
+
 ## [1.6.14](https://github.com/pharindoko/json-serverless/compare/v1.6.12...v1.6.14) (2021-01-03)
 
 
