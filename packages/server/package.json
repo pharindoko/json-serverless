@@ -14,6 +14,7 @@
     "start": "tsc-watch --onSuccess \"node ./lib/example/simple.s3.js\"",
     "start:dynamodb": "tsc-watch --onSuccess \"node ./lib/example/simple.dynamodb.js\"",
     "start:advanced": "tsc-watch --onSuccess \"node ./lib/example/advanced.js\"",
+    "start:azure": "tsc-watch --onSuccess \"node ./lib/example/simple.azure.fileshare.js\"",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "tsc -b",
@@ -32,6 +33,8 @@
   },
   "homepage": "https://github.com/pharindoko/json-serverless.git#readme",
   "dependencies": {
+    "@azure/storage-blob": "^12.3.0",
+    "@azure/storage-file-share": "^12.3.0",
     "@types/lowdb": "1.0.9",
     "@types/pino": "6.3.3",
     "ajv": "^7.0.3",
