@@ -11,7 +11,8 @@ import { graphqlHTTP } from 'express-graphql';
 import { createSchema } from 'swagger-to-graphql';
 import cors from 'cors';
 import { GraphQLMethods } from '../utils/grapqhl_callback';
-import { GraphQLSchema } from 'graphql';
+import { GraphQLSchema, SchemaMetaFieldDef } from 'graphql';
+import { createGraphQLSchema } from 'openapi-to-graphql';
 import { Environment } from '../environment';
 import { Output } from '../utils/output';
 import { ValidationResult } from '../validations/validationresult';
@@ -135,39 +136,10 @@ export class CoreApp {
       swaggerSetupMiddleware(req, res, () => (err: object): void => {
         console.log(err);
       });
-      this.graphqlSchema = await createSchema({
-        swaggerSchema: this.swaggerSpec,
-        callBackend: async args => {
-          const graphqlRequest = args.context['req'];
-          const httpProtocol = graphqlRequest
-            .get('host')
-            .startsWith('localhost')
-            ? 'http'
-            : graphqlRequest.protocol;
-          return GraphQLMethods.callRestBackend({
-            requestOptions: {
-              bodyType: args.requestOptions.bodyType,
-              method: args.requestOptions.method,
-              path: args.requestOptions.path,
-              baseUrl:
-                this.environment.basePath === '/'
-                  ? httpProtocol + '://' + graphqlRequest.get('host')
-                  : httpProtocol +
-                    '://' +
-                    graphqlRequest.get('host') +
-                    this.environment.basePath,
-              body:
-                args.requestOptions.method === 'get'
-                  ? ''
-                  : args.requestOptions.body,
-              headers: graphqlRequest.headers,
-              query: graphqlRequest.query,
-            },
-            context: graphqlRequest,
-          });
-        },
-      });
+      console.log(JSON.stringify(this.swaggerSpec));
+      const { schema, report } = await createGraphQLSchema(this.swaggerSpec);
 
+      this.graphqlSchema = schema;
       this.server.use(appConfig.routes.graphqlRoutePath, (req, res) => {
         const graphqlFunc = graphqlHTTP({
           schema: this.graphqlSchema,
