@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.6.16](https://github.com/pharindoko/json-serverless/compare/v1.6.15...v1.6.16) (2021-02-27)
+
+
+### Bug Fixes
+
+* **deps:** update dependency inquirer to v8 ([be6ebdf](https://github.com/pharindoko/json-serverless/commit/be6ebdfa9ea88b6039e814c9acedaa60fa239d6b))
+
+
+
+
+
 ## [1.6.15](https://github.com/pharindoko/json-serverless/compare/v1.6.14...v1.6.15) (2021-01-17)
 
 
