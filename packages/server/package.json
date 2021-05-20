@@ -45,7 +45,7 @@
     "graphql": "^15.4.0",
     "helmet": "^4.3.1",
     "json-server": "^0.16.3",
-    "lowdb": "^1.0.0",
+    "lowdb": "^2.0.0",
     "lowdb-adapter-aws-s3": "^1.1.2",
     "node-fetch": "^2.6.0",
     "passport": "^0.4.1",
