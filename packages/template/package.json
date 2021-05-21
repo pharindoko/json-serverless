@@ -19,7 +19,7 @@
     "@types/express-serve-static-core": "4.17.13",
     "@types/node": "14.17.0",
     "aws-sdk": "2.814.0",
-    "copy-webpack-plugin": "8.0.0",
+    "copy-webpack-plugin": "9.0.0",
     "lerna": "4.0.0",
     "serverless": "2.16.0",
     "serverless-offline": "7.0.0",
