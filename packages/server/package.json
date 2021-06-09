@@ -76,7 +76,7 @@
     "eslint": "7.16.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-plugin-import": "2.22.1",
-    "gts": "1.1.0",
+    "gts": "2.0.0",
     "jest": "27.0.1",
     "source-map-support": "0.5.19",
     "supertest": "6.0.0",
