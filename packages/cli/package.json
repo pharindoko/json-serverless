@@ -45,7 +45,7 @@
   "devDependencies": {
     "@oclif/dev-cli": "1.26.0",
     "@types/listr": "0.14.2",
-    "@types/node": "14.17.0",
+    "@types/node": "16.11.6",
     "@types/uuid": "8.3.0",
     "ts-node": "10.0.0"
   },
