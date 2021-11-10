@@ -71,7 +71,7 @@
     "@types/swagger-schema-official": "2.0.21",
     "@types/swagger-ui-express": "4.1.2",
     "@types/table": "6.0.0",
-    "cypress": "8.0.0",
+    "cypress": "9.0.0",
     "dotenv": "10.0.0",
     "eslint": "8.0.0",
     "eslint-config-airbnb-base": "15.0.0",
