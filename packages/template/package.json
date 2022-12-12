@@ -10,7 +10,7 @@
     "deploy": "npm run build && sls deploy"
   },
   "dependencies": {
-    "express": "4.17.1",
+    "express": "4.17.3",
     "json-serverless-lib": "^1.6.16",
     "serverless-http": "^2.6.0"
   },
