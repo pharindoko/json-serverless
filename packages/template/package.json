@@ -21,7 +21,7 @@
     "aws-sdk": "2.814.0",
     "copy-webpack-plugin": "9.0.0",
     "lerna": "4.0.0",
-    "serverless": "2.16.0",
+    "serverless": "2.72.3",
     "serverless-offline": "8.0.0",
     "ts-loader": "9.1.2",
     "typescript": "4.1.2",
