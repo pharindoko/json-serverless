@@ -17,7 +17,7 @@ export class DynamoDBStorageAdapter implements StorageAdapter {
 
   init(): import('lowdb').AdapterAsync {
     console.log('initController');
-    const db = JSON.parse(fs.readFileSync(this.jsonFilePath, 'UTF-8'));
+    const db = JSON.parse(fs.readFileSync(this.jsonFilePath, 'utf8'));
     const storageAdapter = new DynamoDBLowDBAdapter(
       db,
       this.table,

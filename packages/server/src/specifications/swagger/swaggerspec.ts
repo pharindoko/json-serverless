@@ -42,7 +42,7 @@ export class SwaggerSpec {
       title: '',
     };
     this.packageInfo = JSON.parse(
-      fs.readFileSync(this.packageJsonPath, 'UTF-8')
+      fs.readFileSync(this.packageJsonPath, 'utf8')
     ) as PackageInfo;
     if (this.packageInfo.name) {
       newInfo.title = this.packageInfo.name;

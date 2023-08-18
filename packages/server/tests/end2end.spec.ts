@@ -7,12 +7,11 @@ describe('end2end test with cypress', () => {
   appConfig.jsonFile = './tests/resources/validate.handler.json';
 
   const localServer = initServerComponents(appConfig);
-  beforeAll(async done => {
+  beforeAll(async () => {
     await localServer.init();
-    done();
   });
 
-  test('all pages should be available', async done => {
+  test('all pages should be available', async () => {
     const cypress = require('cypress');
     await cypress.run({
       reporter: 'junit',
@@ -22,6 +21,5 @@ describe('end2end test with cypress', () => {
         video: false,
       },
     });
-    done();
   }, 60000);
 });

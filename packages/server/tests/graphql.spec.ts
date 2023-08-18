@@ -7,12 +7,11 @@ describe('public graphql calls', () => {
   appConfig.jsonFile = './tests/resources/validate.graphql.json';
 
   const localServer = initServerComponents(appConfig);
-  beforeAll(async done => {
+  beforeAll(async () => {
     await localServer.init();
-    done();
   });
 
-  test('Graphql: It should return a response from posts endpoint', async done => {
+  test('Graphql: It should return a response from posts endpoint', async () => {
     try {
       const response = await request(localServer.server)
         .post(
@@ -24,11 +23,9 @@ describe('public graphql calls', () => {
     } catch (error) {
       console.log(error);
     }
-
-    done();
   });
 
-  test('Graphql: It should create, update and delete a new post item using querystring', async done => {
+  test('Graphql: It should create, update and delete a new post item using querystring', async () => {
     try {
       const createReponse = await request(localServer.server)
         .post(
@@ -71,11 +68,9 @@ describe('public graphql calls', () => {
     } catch (error) {
       console.log(error);
     }
-
-    done();
   });
 
-  test('Graphql: It should create, update and delete a new post item using body', async done => {
+  test('Graphql: It should create, update and delete a new post item using body', async () => {
     try {
       const createReponse = await request(localServer.server)
         .post('/graphql')
@@ -113,8 +108,6 @@ describe('public graphql calls', () => {
     } catch (error) {
       console.log(error);
     }
-
-    done();
   });
 });
 
@@ -124,12 +117,11 @@ describe('apikey secured graphql calls', () => {
   appConfig.jsonFile = './tests/resources/validate.graphql.apikey.json';
   appConfig.enableApiKeyAuth = false;
   const localServer = initServerComponents(appConfig);
-  beforeAll(async done => {
+  beforeAll(async () => {
     await localServer.init();
-    done();
   });
 
-  test('Graphql: It should return a response from posts endpoint', async done => {
+  test('Graphql: It should return a response from posts endpoint', async () => {
     try {
       const response = await request(localServer.server)
         .post(
@@ -142,11 +134,9 @@ describe('apikey secured graphql calls', () => {
     } catch (error) {
       console.log(error);
     }
-
-    done();
   });
 
-  test('Graphql: It should create, update and delete a new post item using querystring', async done => {
+  test('Graphql: It should create, update and delete a new post item using querystring', async () => {
     try {
       const createReponse = await request(localServer.server)
         .post(
@@ -192,11 +182,9 @@ describe('apikey secured graphql calls', () => {
     } catch (error) {
       console.log(error);
     }
-
-    done();
   });
 
-  test('Graphql: It should create, update and delete a new post item using body', async done => {
+  test('Graphql: It should create, update and delete a new post item using body', async () => {
     try {
       const createReponse = await request(localServer.server)
         .post('/graphql')
@@ -238,7 +226,5 @@ describe('apikey secured graphql calls', () => {
       console.log(error);
       throw error;
     }
-
-    done();
   });
 });

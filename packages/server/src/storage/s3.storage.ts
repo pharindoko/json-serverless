@@ -11,7 +11,7 @@ export class S3StorageAdapter implements StorageAdapter {
   }
 
   init(): import('lowdb').AdapterAsync {
-    const db = JSON.parse(fs.readFileSync(this.s3file, 'UTF-8'));
+    const db = JSON.parse(fs.readFileSync(this.s3file, 'utf8'));
     const storageAdapter = new awsAdapter(this.s3file, {
       defaultValue: db,
       aws: { bucketName: this.s3bucket },

@@ -22,7 +22,7 @@ export class AzureFileShareStorageAdapter implements StorageAdapter {
 
   init(): AdapterAsync {
     console.log('initController');
-    const db = JSON.parse(fs.readFileSync(this.jsonFilePath, 'UTF-8'));
+    const db = JSON.parse(fs.readFileSync(this.jsonFilePath, 'utf8'));
     const storageAdapter = new AzureFileShareLowDBAdapter(
       db,
       this.azureStorageConnectionString,

@@ -105,7 +105,7 @@ export class EmptyArrayRule extends ValidationRule {
               const ruleSeverityError = RuleResultSeverity.ALERT;
               const messageError =
                 'empty array found at path: ' +
-                error.dataPath +
+                error.instancePath +
                 ' - please deactivate Swagger/GraphQL interface (--no-swagger) or add at least one item in the array';
               this.ruleEvents.push(
                 new RuleEvent(ruleSeverityError, messageError)

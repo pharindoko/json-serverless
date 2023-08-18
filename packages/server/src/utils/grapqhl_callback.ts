@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+import * as fetch from 'node-fetch';
 import { URLSearchParams } from 'url';
 import { CallBackendArguments } from 'swagger-to-graphql';
 
@@ -49,7 +49,7 @@ export class GraphQLMethods {
       headers
     );
 
-    const response = await fetch(url, {
+    const response = await fetch.default(url, {
       method,
       ...bodyAndHeaders,
     });

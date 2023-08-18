@@ -3,7 +3,7 @@ import { ValidationResult } from '../validations/validationresult';
 import { table } from 'table';
 export class Output {
   static setWarning(message: string) {
-    Logger.getInstance().warning(message);
+    Logger.getInstance().warn(message);
   }
   static setError(message: string) {
     Logger.getInstance().error(message);
