@@ -8,7 +8,7 @@ on:
       - master
 
 jobs:
-  test:
+  test-server:
     defaults:
       run:
         working-directory: packages/server
@@ -20,8 +20,8 @@ jobs:
         with:
           node-version: '18.x'
       - name: Install Dependencies
-        run: npm i
+        run: npm i --force
       - name: Build
         run: npm run build
       - name: Test
-        run: npm test
+        run: npm run test
