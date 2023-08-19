@@ -1,5 +1,5 @@
 {
   "s3File": "db.json",
   "s3Bucket": "jsonsls-${self:service}-${self:provider.stage}",
-  "basePath": "/dev"
+  "stage": "local"
 }

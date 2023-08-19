@@ -1,10 +1,3 @@
-# Welcome to serverless. Read the docs
-# https://serverless.com/framework/docs/
-
-# Serverless.yml is the configuration the CLI
-# uses to deploy your code to your provider of choice
-
-# The `service` block is the name of the service
 service: ${self:custom.appconfig.stackName}
 plugins:
   - serverless-offline
@@ -24,9 +17,6 @@ custom:
   serverless-offline:
     resourceRoutes: true
     useChildProcesses: true
-  webpack:
-    includeModules: true
-    packager: 'npm'
   region: ${self:custom.file.awsRegion, 'eu-central-1'}
 provider:
   stage: ${self:custom.file.stage, 'dev'}
@@ -39,7 +29,7 @@ provider:
   environment:
     s3Bucket: ${self:custom.file.s3Bucket}
     s3File: ${self:custom.file.s3File}
-    basePath: ${self:custom.file.basePath}
+    basePath: /${self:custom.file.stage}
     authPath: /jsonsls/${self:service}-${self:provider.stage}
     region: ${self:custom.region}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1

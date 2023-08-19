@@ -20,13 +20,13 @@ AWS.config.update({ region: process.env.region });
 const server = express();
 const sls = serverlessHttp(server);
 const defaultConfig = new AppConfig();
-const config = JSON.parse(fs.readFileSync('./config/appconfig.json', 'UTF-8'));
+const config = JSON.parse(fs.readFileSync('./config/appconfig.json', 'utf8'));
 const appConfig = AppConfig.merge(defaultConfig, config);
 const environment = new CloudEnvironment();
 const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-  environment.basePath,
+  `/${config.stage}`,
   appConfig.routes.apiRoutePath,
   './package.json',
   appConfig.routes.swaggerSpecRoutePath

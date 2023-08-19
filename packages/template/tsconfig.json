@@ -1,13 +1,19 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "declaration": false,
-    "importHelpers": true,
+    "incremental": false,
     "moduleResolution": "node",
-    "rootDir": "src",
-    "strict": true,
-    "target": "es2017",
-    "lib": ["es2017"]
+    "target": "es5",
+    "declaration": true,
+    "esModuleInterop": true,
+    "declarationMap": true,
+    "outDir": "dist",
+    "rootDir": "./src",
+    "composite": false,
+    "strictPropertyInitialization": false,
+    "noImplicitAny": false,
+    "lib": ["es2015"],
+    "sourceMap": false,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"]
 }
