@@ -12,8 +12,9 @@
     "strictPropertyInitialization": false,
     "noImplicitAny": false,
     "lib": ["es2015"],
-    "sourceMap": false,
-    "resolveJsonModule": true
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types"]
   },
   "include": ["src/**/*"]
 }

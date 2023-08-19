@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "express": "4.17",
-    "json-serverless-lib": "^1.6.16",
+    "json-serverless-lib": "file:../server",
     "serverless-http": "^2.6.0"
   },
   "devDependencies": {

@@ -21,7 +21,7 @@ custom:
 provider:
   stage: ${self:custom.file.stage, 'dev'}
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs16.x
   region: ${self:custom.region}
   stackName: ${self:custom.appconfig.stackName}
   stackTags: # Tags that will be added to each of the deployment resources
@@ -29,7 +29,7 @@ provider:
   environment:
     s3Bucket: ${self:custom.file.s3Bucket}
     s3File: ${self:custom.file.s3File}
-    basePath: /${self:custom.file.stage}
+    basePath: ${self:custom.file.stage}
     authPath: /jsonsls/${self:service}-${self:provider.stage}
     region: ${self:custom.region}
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: 1

@@ -26,7 +26,7 @@ const environment = new CloudEnvironment();
 const swagger = new Swagger(
   server,
   new SwaggerConfig(appConfig.readOnly, appConfig.enableApiKeyAuth),
-  `/${config.stage}`,
+  `/${environment.basePath}`,
   appConfig.routes.apiRoutePath,
   './package.json',
   appConfig.routes.swaggerSpecRoutePath
