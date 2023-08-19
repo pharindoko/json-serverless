@@ -28,8 +28,6 @@
   "dependencies": {
     "@azure/storage-blob": "^12.15.0",
     "@azure/storage-file-share": "^12.15.0",
-    "@types/lowdb": "1.0.11",
-    "@types/pino": "7.0.4",
     "ajv": "^8.12.0",
     "cors": "^2.8.5",
     "express": "^4.18.2",
@@ -50,6 +48,8 @@
     "table": "^6.8.1"
   },
   "devDependencies": {
+    "@types/lowdb": "1.0.11",
+    "@types/pino": "7.0.4",
     "@types/aws-lambda": "8.10.119",
     "@types/body-parser": "1.19.2",
     "@types/cors": "2.8.13",
@@ -80,8 +80,5 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  },
-  "files": [
-    "lib/**/*"
-  ]
+  }
 }

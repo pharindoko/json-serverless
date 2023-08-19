@@ -2,7 +2,8 @@
   "compilerOptions": {
     "incremental": false,
     "moduleResolution": "node",
-    "target": "es5",
+    "module": "commonjs",
+    "target": "ES2019",
     "declaration": true,
     "esModuleInterop": true,
     "declarationMap": true,
