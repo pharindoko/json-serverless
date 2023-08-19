@@ -25,7 +25,7 @@ provider:
   region: ${self:custom.region}
   stackName: ${self:custom.appconfig.stackName}
   stackTags: # Tags that will be added to each of the deployment resources
-    jsonsls: ${self:custom.file.stackName}
+    jsonsls: ${self:custom.appconfig.stackName}
   environment:
     s3Bucket: ${self:custom.file.s3Bucket}
     s3File: ${self:custom.file.s3File}
